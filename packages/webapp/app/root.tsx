@@ -1,4 +1,5 @@
-import type { MetaFunction } from '@remix-run/node';
+import { cssBundleHref } from '@remix-run/css-bundle';
+import type { LinksFunction, MetaFunction } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -7,6 +8,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
+import initCss from './index.css';
 
 export const meta: MetaFunction = () => [
   {
@@ -14,7 +16,15 @@ export const meta: MetaFunction = () => [
     title: 'New Remix App',
     viewport: 'width=device-width,initial-scale=1',
   },
+
 ];
+export const links: LinksFunction = ()=>{
+  return [
+    ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
+
+    { rel: 'stylesheet', href: initCss },
+  ];
+}
 
 export default function App() {
   return (

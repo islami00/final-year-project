@@ -3,7 +3,9 @@
   "name": "webapp",
   "description": "",
   "license": "",
-  "scripts": {},
+  "scripts": {
+    "prepare": "panda codegen"
+  },
   "type": "module",
   "dependencies": {
     "@remix-run/node": "^2.3.0",

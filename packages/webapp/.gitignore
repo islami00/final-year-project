@@ -2,3 +2,7 @@
 build
 public/build
 .env
+
+## Panda
+styled-system
+styled-system-studio

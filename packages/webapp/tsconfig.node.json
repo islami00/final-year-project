@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.webapp.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "declaration": true,
+    "types": ["node"],
+    "composite": true,
+    "noEmit": false
+  },
+  "include": ["panda.config.ts"],
+  "exclude": []
+}

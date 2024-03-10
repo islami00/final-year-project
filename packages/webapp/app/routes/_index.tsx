@@ -1,4 +1,4 @@
-import NxWelcome from '../nx-welcome';
+import NxWelcome from '../modules/nx-welcome/nx-welcome';
 
 export default function Index() {
   return (
