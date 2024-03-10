@@ -8,5 +8,10 @@
     "noEmit": false
   },
   "include": ["panda.config.ts"],
-  "exclude": []
+  "exclude": [],
+  "references": [
+    {
+      "path": "../design-system/tsconfig.lib.json"
+    }
+  ]
 }

@@ -8,6 +8,24 @@
     "prepare": "panda codegen"
   },
   "type": "commonjs",
-  "main": "./src/index.js",
-  "typings": "./src/index.d.ts"
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./src/index.d.ts",
+      "import": {
+        "types": "./src/index.d.mts",
+        "default": "./src/index.mts"
+      },
+      "require": "./src/index.ts"
+    },
+    "./preset": {
+      "source": "./src/preset.ts",
+      "types": "./src/preset.d.ts",
+      "import": {
+        "types": "./src/preset.d.mts",
+        "default": "./src/preset.mts"
+      },
+      "require": "./src/preset.ts"
+    }
+  }
 }

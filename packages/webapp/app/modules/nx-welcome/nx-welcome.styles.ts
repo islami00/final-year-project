@@ -37,7 +37,7 @@ export const Btn = css({
 
 export const Bt2 = styled('div', {
   base: {
-    background: "primary",
+    background: "green",
     width:500,
     height:500
   }

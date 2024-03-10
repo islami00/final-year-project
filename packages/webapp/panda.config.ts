@@ -1,15 +1,14 @@
 import { defineConfig } from '@pandacss/dev';
-import { preset } from './src/preset';
 
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
   outExtension: 'js',
-  presets: ['@pandacss/dev/presets', preset],
+
+  presets: ['@pandacss/dev/presets', '@tma/design-system/preset'],
 
   // Where to look for your css declarations
-  include: ['./src/**/*.{js,jsx,ts,tsx}'],
-
+  include: ['./app/**/*.{ts,tsx}'],
   // The output directory for your css system
   outdir: './src/__generated__',
 
@@ -18,4 +17,5 @@ export default defineConfig({
   // The CSS Syntax to use to use
   syntax: 'object-literal',
   clean: true,
+  importMap: '@tma/design-system',
 });
