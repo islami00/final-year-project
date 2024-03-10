@@ -27,9 +27,22 @@ const buttonRecipe = defineRecipe({
   },
 });
 export const preset = definePreset({
+
   theme: {
+  
     recipes: {
+      
       button: buttonRecipe,
     },
+    extend: {
+      tokens: {
+        
+        colors: {
+          primary: {
+            value: "red"
+          }
+        }
+      }
+    }
   },
 });

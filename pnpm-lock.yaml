@@ -117,6 +117,16 @@ importers:
       tslib:
         specifier: ^2.3.0
         version: 2.6.2
+    devDependencies:
+      '@pandacss/preset-panda':
+        specifier: ^0.34.3
+        version: 0.34.3
+
+  packages/design-system-generated:
+    dependencies:
+      tslib:
+        specifier: ^2.3.0
+        version: 2.6.2
 
   packages/webapp:
     dependencies:
@@ -3048,6 +3058,12 @@ packages:
       '@pandacss/types': 0.34.2
     dev: true
 
+  /@pandacss/preset-panda@0.34.3:
+    resolution: {integrity: sha512-70eYX0O06UZi8yVqpjX3vIc27XgD7A8RlvuqPXVN4mOnNRrHi6hCGFGkYeAV/Dip5ZkxLhW5wnKFHTTW98dQHA==}
+    dependencies:
+      '@pandacss/types': 0.34.3
+    dev: true
+
   /@pandacss/shared@0.34.2:
     resolution: {integrity: sha512-dcuBbVrlZ5o8G5Rzc2H3nOzOypjbVMsZY1R+A4qKeA1vSu2q6QpHg4iEVnFakGuLMJPnbgOeghXblMUeQBoCcw==}
     dev: true
@@ -3063,6 +3079,10 @@ packages:
 
   /@pandacss/types@0.34.2:
     resolution: {integrity: sha512-iEMrnI8tQLBT7lknURz0OfOU7VSQ7cB8xOA0kVznkGj7tVtWbY4FW5NS8C/uYUbKW3JVZQspOMwFSMQ/JzfYrg==}
+    dev: true
+
+  /@pandacss/types@0.34.3:
+    resolution: {integrity: sha512-MBwY4DCQfzv3xMqj4y6QSkFUv3wW46ipCHp9hATaeMdyb0aE316xiAgXnxnPZQA+xpjhTpWv7QE7NN3S9g0j/A==}
     dev: true
 
   /@phenomnomnominal/tsquery@5.0.1(typescript@5.3.3):

@@ -1,5 +1,7 @@
 module.exports = {
   plugins: {
-    '@pandacss/dev/postcss': {},
+    '@pandacss/dev/postcss': { 
+      configPath: "../design-system/panda.config.ts"
+    },
   },
-}
+};
