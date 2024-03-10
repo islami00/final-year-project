@@ -1,11 +1,13 @@
 import { defineConfig } from '@pandacss/dev';
+import { preset } from '@tma/design-system/preset';
 
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
   outExtension: 'js',
 
-  presets: ['@pandacss/dev/presets', '@tma/design-system/preset'],
+  // Todo: Use a static import for presets.
+  presets: ['@pandacss/dev/presets', preset],
 
   // Where to look for your css declarations
   include: ['./app/**/*.{ts,tsx}'],

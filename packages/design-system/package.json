@@ -7,25 +7,18 @@
   "scripts": {
     "prepare": "panda codegen"
   },
-  "type": "commonjs",
   "exports": {
     ".": {
       "source": "./src/index.ts",
-      "types": "./src/index.d.ts",
-      "import": {
-        "types": "./src/index.d.mts",
-        "default": "./src/index.mts"
-      },
-      "require": "./src/index.ts"
+      "types": "./dist/src/index.d.ts",
+      "require": "./dist/src/index.js"
     },
     "./preset": {
       "source": "./src/preset.ts",
-      "types": "./src/preset.d.ts",
-      "import": {
-        "types": "./src/preset.d.mts",
-        "default": "./src/preset.mts"
-      },
-      "require": "./src/preset.ts"
-    }
-  }
+      "types": "./dist/src/preset.d.ts",
+      "require": "./dist/src/preset.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./src/index.js"
 }

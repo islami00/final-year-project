@@ -5,6 +5,7 @@ export default defineConfig({
   // Whether to use css reset
   preflight: true,
   outExtension: 'js',
+  forceConsistentTypeExtension: true,
   presets: ['@pandacss/dev/presets', preset],
 
   // Where to look for your css declarations
