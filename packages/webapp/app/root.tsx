@@ -1,3 +1,6 @@
+import '@mantine/core/styles.css';
+import './styles/panda.css';
+
 import { cssBundleHref } from '@remix-run/css-bundle';
 import type { LinksFunction, MetaFunction } from '@remix-run/node';
 import {
@@ -8,7 +11,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import initCss from './index.css';
+import { MantineProvider, ColorSchemeScript } from '@mantine/core';
+import { theme } from './styles/theme';
 
 export const meta: MetaFunction = () => [
   {
@@ -16,15 +20,12 @@ export const meta: MetaFunction = () => [
     title: 'New Remix App',
     viewport: 'width=device-width,initial-scale=1',
   },
-
 ];
-export const links: LinksFunction = ()=>{
+export const links: LinksFunction = () => {
   return [
     ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
-
-    { rel: 'stylesheet', href: initCss },
   ];
-}
+};
 
 export default function App() {
   return (
@@ -32,12 +33,15 @@ export default function App() {
       <head>
         <Meta />
         <Links />
+        <ColorSchemeScript defaultColorScheme='dark' />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <MantineProvider theme={theme} defaultColorScheme='dark'>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </MantineProvider>
       </body>
     </html>
   );

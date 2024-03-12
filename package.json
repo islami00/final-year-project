@@ -29,11 +29,16 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-playwright": "^0.15.3",
     "nx": "18.0.8",
+    "postcss": "^8.4.35",
+    "postcss-preset-mantine": "^1.13.0",
+    "postcss-simple-vars": "^7.0.1",
     "prettier": "^2.6.2",
     "tslib": "2.6.2",
     "typescript": "~5.3.2"
   },
   "dependencies": {
+    "@mantine/core": "^7.6.1",
+    "@mantine/hooks": "^7.6.1",
     "@remix-run/css-bundle": "^2.8.1",
     "@remix-run/node": "^2.3.0",
     "@remix-run/react": "^2.3.0",
