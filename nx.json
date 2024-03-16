@@ -1,7 +1,10 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
@@ -13,15 +16,6 @@
   },
   "nxCloudAccessToken": "MjhkMzNkNzEtY2I0Ny00NTBhLWE3ZTEtZDA4YmYwYjJlYzI2fHJlYWQtd3JpdGU=",
   "plugins": [
-    {
-      "plugin": "@nx/remix/plugin",
-      "options": {
-        "buildTargetName": "build",
-        "serveTargetName": "serve",
-        "startTargetName": "start",
-        "typecheckTargetName": "typecheck"
-      }
-    },
     {
       "plugin": "@nx/eslint/plugin",
       "options": {
@@ -46,15 +40,28 @@
     }
   ],
   "targetDefaults": {
-    "@nx/remix:build": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
-    },
     "@nx/rollup:rollup": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
+    },
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "default"
+      ],
+      "outputs": [
+        "{projectRoot}/build",
+        "{projectRoot}/dist"
+      ],
+      "cache": true
     }
   }
 }

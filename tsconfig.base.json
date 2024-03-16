@@ -19,7 +19,7 @@
       "@tma/design-system/*": ["packages/design-system/src/*"],
       "@tma/webapp": ["packages/webapp/app/index.ts"],
       "@tma/webapp/*": ["packages/webapp/app/*"]
-    }
+    },
   },
   "exclude": ["node_modules", "tmp"]
 }

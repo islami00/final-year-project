@@ -9,6 +9,7 @@
       "outputs": [
         "{options.outputPath}"
       ],
+      "dependsOn": ["prebuild"],
       "defaultConfiguration": "production",
       "options": {
         "main": "packages/design-system/src/index.ts",

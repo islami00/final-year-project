@@ -7,8 +7,9 @@
     "react-dom": "18.3.0-canary-a870b2d54-20240314"
   },
   "scripts": {
-    "prepare": "panda codegen"
+    "prebuild": "panda codegen"
   },
+  "type": "module",
   "exports": {
     ".": "./dist/index.esm.js",
     "./preset": "./dist/preset.esm.js",
