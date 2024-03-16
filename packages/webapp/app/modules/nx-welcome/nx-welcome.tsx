@@ -50,7 +50,7 @@
 // export default NxWelcome;
 import { css, cx } from '@tma/design-system/css'
 import { Bt2, Btn } from './nx-welcome.styles';
-
+// import classes from './root.module.css';
 /*import './App.css'
 
 function App() {
@@ -82,11 +82,18 @@ css`font-size: 2xl; margin-top: 4; color: yellow.400;`
 css`background-color: teal.400; color: rgba(0, 0, 0, 0.8); font-weight: bold;`
 */
 export function NxWelcome({ title }: { title: string }) {
-
+// console.log(classes);
   return (
     <>
-      <h1 className={css({ fontSize: '4xl', lineHeight: '1.1' })}>
-        Hello from Panda 🐼
+      <h1
+        className={cx(
+          css({
+            fontSize: '4xl',
+            lineHeight: '1.1',
+          })
+        )}
+      >
+        Hello from Panda
       </h1>
       <h2 className={css({ fontSize: '2xl', my: 4, color: 'yellow.400' })}>
         module-resolution/with-outdir

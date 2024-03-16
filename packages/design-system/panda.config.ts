@@ -18,5 +18,5 @@ export default defineConfig({
   jsxFramework: 'react',
   // The CSS Syntax to use to use
   syntax: 'object-literal',
-  clean: true,
+  clean: true
 });

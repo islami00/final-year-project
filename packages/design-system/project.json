@@ -5,17 +5,46 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/rollup:rollup",
       "outputs": [
         "{options.outputPath}"
       ],
+      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "{projectRoot}/dist",
         "main": "packages/design-system/src/index.ts",
+        "outputPath": "packages/design-system/dist",
         "tsConfig": "packages/design-system/tsconfig.lib.json",
+        "compiler": "babel",
+        "project": "packages/design-system/package.json",
+        "format": [
+          "esm"
+        ],
+        "generateExportsField": true,
+        "additionalEntryPoints": [
+          "packages/design-system/src/css.ts",
+          "packages/design-system/src/preset.ts",
+          "packages/design-system/src/tokens.ts",
+          "packages/design-system/src/recipes.ts",
+          "packages/design-system/src/jsx.ts"
+        ],
+        "clean": true,
         "assets": [
-          "packages/design-system/*.md"
-        ]
+          {
+            "glob": "packages/design-system/*.md",
+            "input": ".",
+            "output": "."
+          }
+        ],
+        "external": ["react", "react-dom"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
       }
     }
   },

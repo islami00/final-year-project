@@ -2,23 +2,25 @@
   "name": "@tma/design-system",
   "version": "0.0.1",
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "react": "18.3.0-canary-a870b2d54-20240314",
+    "react-dom": "18.3.0-canary-a870b2d54-20240314"
   },
   "scripts": {
     "prepare": "panda codegen"
   },
   "exports": {
-    ".": {
-      "source": "./src/index.ts",
-      "types": "./dist/src/index.d.ts",
-      "require": "./dist/src/index.js"
-    },
-    "./preset": {
-      "source": "./src/preset.ts",
-      "types": "./dist/src/preset.d.ts",
-      "require": "./dist/src/preset.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.esm.js",
+    "./preset": "./dist/preset.esm.js",
+    "./jsx": "./dist/jsx.esm.js",
+    "./css": "./dist/css.esm.js",
+    "./tokens": "./dist/tokens.esm.js",
+    "./package.json": "./dist/package.json",
+    "./recipes": "./dist/recipes.esm.js"
   },
-  "main": "./src/index.js"
+  "main": "./src/index.js",
+  "overrides": {
+    "react": "18.3.0-canary-a870b2d54-20240314",
+    "react-dom": "18.3.0-canary-a870b2d54-20240314"
+  }
 }

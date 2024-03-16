@@ -29,17 +29,17 @@ import { css } from '@tma/design-system/css';
 import { styled } from '@tma/design-system/jsx';
 
 export const Btn = css({
-  backgroundColor: 'pink',
+  backgroundColor: 'primary',
   width: 100,
   height: 250,
-  color: "blue"
+  
 });
 
 export const Bt2 = styled('div', {
   base: {
-    background: "orange.500",
-    width:500,
-    height:500
-  }
+    width: 500,
+    height: 500,
+    background:"orange.200"
+  },
 });
 

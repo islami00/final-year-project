@@ -3,20 +3,24 @@
   "name": "webapp",
   "description": "",
   "license": "",
-  "scripts": {},
+  "scripts": {
+    "dev": "remix vite:dev",
+    "build": "remix vite:build",
+    "start": "remix-serve ./build/server/index.js"
+  },
   "type": "module",
   "dependencies": {
-    "@remix-run/node": "^2.3.0",
-    "@remix-run/react": "^2.3.0",
-    "@remix-run/serve": "^2.3.0",
+    "@remix-run/node": "^2.8.1",
+    "@remix-run/react": "^2.8.1",
+    "@remix-run/serve": "^2.8.1",
+    "@tma/design-system": "workspace:^",
     "isbot": "^3.6.8",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@tma/design-system": "workspace:^"
+    "react": "18.3.0-canary-a870b2d54-20240314",
+    "react-dom": "18.3.0-canary-a870b2d54-20240314"
   },
   "devDependencies": {
-    "@remix-run/dev": "^2.3.0",
-    "@remix-run/eslint-config": "^2.3.0",
+    "@remix-run/dev": "^2.8.1",
+    "@remix-run/eslint-config": "^2.8.1",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "eslint": "^8.38.0",
@@ -25,5 +29,9 @@
   "engines": {
     "node": ">=14"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "overrides": {
+    "react": "18.3.0-canary-a870b2d54-20240314",
+    "react-dom": "18.3.0-canary-a870b2d54-20240314"
+  }
 }
