@@ -26,12 +26,10 @@ const buttonRecipe = defineRecipe({
     shape: 'circle',
   },
 });
-export const preset = definePreset({
+export default definePreset({
 
   theme: {
-  
     recipes: {
-      
       button: buttonRecipe,
     },
     extend: {

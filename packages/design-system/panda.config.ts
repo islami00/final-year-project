@@ -1,5 +1,5 @@
 import { defineConfig } from '@pandacss/dev';
-import { preset } from './src/preset';
+import preset from './src/preset';
 
 export default defineConfig({
   // Whether to use css reset
