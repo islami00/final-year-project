@@ -43,14 +43,3 @@ export const Bt2 = styled('div', {
   }
 });
 
-// export const Btn = css`
-
-//   background-color: {primary};
-//   width: 100px;
-//   height: 250px;
-
-// `;
-
-// export const Bt2 = styled.div`
-// background-color: red;
-// `;

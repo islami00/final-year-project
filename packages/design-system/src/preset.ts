@@ -27,20 +27,19 @@ const buttonRecipe = defineRecipe({
   },
 });
 export default definePreset({
-
   theme: {
     recipes: {
-      button: buttonRecipe,
+      // recipes break the template-literal so no-go fn: https://github.com/chakra-ui/panda/issues/2388
+      // button: buttonRecipe,
     },
     extend: {
       tokens: {
-        
         colors: {
           primary: {
-            value: "red"
-          }
-        }
-      }
-    }
+            value: 'red',
+          },
+        },
+      },
+    },
   },
 });
