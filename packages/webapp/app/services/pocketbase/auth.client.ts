@@ -10,3 +10,8 @@ export function requireUser() {
 
   return pb.authStore.model;
 }
+export function requireAnonymous() {
+  if (pb.authStore.isValid) {
+    throw redirect(`/`);
+  }
+}

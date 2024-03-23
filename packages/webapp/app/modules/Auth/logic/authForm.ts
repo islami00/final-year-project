@@ -1,8 +1,11 @@
 import * as yup from 'yup';
-export interface AuthFormData {
-  email: string;
-  password: string;
+export interface AuthFormData extends LoginFormData {
   name: string;
+}
+export interface LoginFormData {
+  email: string;
+  name?: string;
+  password: string;
 }
 
 export function defaultData(): AuthFormData {
@@ -12,10 +15,10 @@ export function defaultData(): AuthFormData {
     name: '',
   };
 }
-export const loginSchema: yup.ObjectSchema<AuthFormData> = yup.object({
+export const loginSchema: yup.ObjectSchema<LoginFormData> = yup.object({
   email: yup.string().required(),
   password: yup.string().required().min(8).max(72),
-  name: yup.string().defined(),
+  name: yup.string(),
 });
 export const signupSchema: yup.ObjectSchema<AuthFormData> = loginSchema.shape({
   name: yup.string().required(),

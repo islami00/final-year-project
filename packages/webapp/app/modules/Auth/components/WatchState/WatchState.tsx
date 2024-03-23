@@ -8,7 +8,9 @@ export function WatchState() {
     const unsub = pb.authStore.onChange(() => {
       revalidate.revalidate();
     });
-    return unsub;
+    return () => {
+      unsub();
+    };
   }, []);
   return null;
 }

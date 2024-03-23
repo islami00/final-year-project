@@ -22,7 +22,7 @@ export function Auth(props: AuthProps) {
   const { mode } = props;
 
   const lastResult = useActionData<SubmissionResult>();
-  const [form, fields] = useForm({
+  const [form, fields] = useForm<authForm.LoginFormData>({
     lastResult,
     defaultValue: authForm.defaultData(),
     // Required to avoid api flooding: https://github.com/edmundhung/conform/issues/125
@@ -34,7 +34,7 @@ export function Auth(props: AuthProps) {
     },
     shouldRevalidate: 'onInput',
   });
-
+  console.log(form.allErrors, form.value);
   return (
     <Root>
       <Paper className={content} radius="md" p="xl" withBorder {...props}>
