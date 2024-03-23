@@ -1,5 +1,7 @@
 import { UserModel } from '../../../models/User.model';
 import { pb } from '../../pocketbase/pocketbase.client';
+import { passThrough } from 'promise-passthrough';
+import { parseClientResponseError } from '../../../utils/parseClientResponseError';
 
 interface ILoginBody {
   email: string;
@@ -8,6 +10,7 @@ interface ILoginBody {
 export async function login(body: ILoginBody) {
   const data = await pb
     .collection<UserModel>('users')
-    .authWithPassword(body.email, body.password);
+    .authWithPassword(body.email, body.password)
+    .catch(passThrough(parseClientResponseError));
   return data;
 }
