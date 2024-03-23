@@ -1,5 +1,5 @@
 import { useRevalidator } from '@remix-run/react';
-import { pb } from '../../../../services/pocketbase/pocketbase.client';
+import { pb } from '../../../../services/pocketbase/setup';
 import * as React from 'react';
 
 export function WatchState() {

@@ -1,6 +1,6 @@
 import { redirect } from '@remix-run/react';
 import { AuthModes } from '../../modules/Auth/Auth.types';
-import { pb } from './pocketbase.client';
+import { pb } from './setup';
 
 export function requireUser() {
   if (!pb.authStore.isValid) {

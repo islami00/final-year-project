@@ -3,7 +3,7 @@ import { json, type ClientActionFunctionArgs } from '@remix-run/react';
 import { toast } from 'react-hot-toast';
 import { Auth } from '../modules/Auth/Auth';
 import * as authForm from '../modules/Auth/logic/authForm';
-import { requireAnonymous } from '../services/pocketbase/auth.client';
+import { requireAnonymous } from '../services/pocketbase/auth';
 import { login } from '../services/queries/auth/login';
 import { castError } from '../utils/parseClientResponseError';
 

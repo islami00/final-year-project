@@ -1,4 +1,4 @@
-import { pb } from '../../pocketbase/pocketbase.client';
+import { pb } from '../../pocketbase/setup';
 import { UserModel } from '../../../models/User.model';
 import { passThrough } from 'promise-passthrough';
 import { parseClientResponseError } from '../../../utils/parseClientResponseError';

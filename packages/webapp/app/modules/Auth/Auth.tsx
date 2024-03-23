@@ -32,9 +32,9 @@ export function Auth(props: AuthProps) {
           mode === 'register' ? authForm.signupSchema : authForm.loginSchema,
       });
     },
-    shouldRevalidate: 'onInput',
+    shouldRevalidate: 'onBlur',
   });
-  console.log(form.allErrors, form.value);
+
   return (
     <Root>
       <Paper className={content} radius="md" p="xl" withBorder {...props}>

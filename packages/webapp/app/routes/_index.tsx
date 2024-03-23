@@ -1,6 +1,6 @@
 import { Button } from '@mantine/core';
 import { defer } from '@remix-run/react';
-import { requireUser } from '../services/pocketbase/auth.client';
+import { requireUser } from '../services/pocketbase/auth';
 import { logout } from '../services/queries/auth/logout';
 
 // loaders can only be called in routes.

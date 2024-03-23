@@ -1,5 +1,5 @@
 import { UserModel } from '../../../models/User.model';
-import { pb } from '../../pocketbase/pocketbase.client';
+import { pb } from '../../pocketbase/setup';
 import { passThrough } from 'promise-passthrough';
 import { parseClientResponseError } from '../../../utils/parseClientResponseError';
 

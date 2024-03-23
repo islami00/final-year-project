@@ -17,9 +17,10 @@ export function defaultData(): AuthFormData {
 }
 export const loginSchema: yup.ObjectSchema<LoginFormData> = yup.object({
   email: yup.string().required(),
-  password: yup.string().required().min(8).max(72),
+  password: yup.string().required(),
   name: yup.string(),
 });
 export const signupSchema: yup.ObjectSchema<AuthFormData> = loginSchema.shape({
   name: yup.string().required(),
+  password: yup.string().required().min(8).max(72),
 });

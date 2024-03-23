@@ -1,5 +1,5 @@
-import '@mantine/core/styles.css';
-import './styles/panda.css';
+import mantineCssUrl from '@mantine/core/styles.css?url';
+import pandaCssUrl from './styles/panda.css?url';
 import { Toaster } from 'react-hot-toast';
 import { cssBundleHref } from '@remix-run/css-bundle';
 import type { LinksFunction, MetaFunction } from '@remix-run/node';
@@ -24,6 +24,8 @@ export const meta: MetaFunction = () => [
 export const links: LinksFunction = () => {
   return [
     ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
+    { rel: 'stylesheet', href: mantineCssUrl },
+    { rel: 'stylesheet', href: pandaCssUrl },
   ];
 };
 
