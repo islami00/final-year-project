@@ -23,6 +23,7 @@ export default defineConfig({
     nxViteTsPaths(),
     remix({
       ignoredRouteFiles: ['**/.*'],
+      ssr: false
     }),
   ],
 

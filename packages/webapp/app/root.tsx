@@ -10,8 +10,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import { MantineProvider, ColorSchemeScript } from '@mantine/core';
+import { MantineProvider, ColorSchemeScript, Paper } from '@mantine/core';
 import { theme } from './styles/theme';
+import { WatchState } from './modules/Auth/components/WatchState/WatchState';
 
 export const meta: MetaFunction = () => [
   {
@@ -32,13 +33,16 @@ export default function App() {
       <head>
         <Meta />
         <Links />
-        <ColorSchemeScript defaultColorScheme='dark' />
+        <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body>
-        <MantineProvider theme={theme} defaultColorScheme='dark'>
-          <Outlet />
+        <MantineProvider theme={theme} defaultColorScheme="dark">
+          <Paper w="100dvw" h="100dvh" bg="dark">
+            <Outlet />
+          </Paper>
           <ScrollRestoration />
           <Scripts />
+          <WatchState />
         </MantineProvider>
       </body>
     </html>
