@@ -12,6 +12,7 @@ import { Form, Link, useActionData } from '@remix-run/react';
 import { Root, content } from './Auth.styles';
 import { AuthModes } from './Auth.types';
 import { useForm, getInputProps, SubmissionResult } from '@conform-to/react';
+import { parseWithYup } from '@conform-to/yup';
 import * as authForm from './logic/authForm';
 
 interface AuthProps {
@@ -24,6 +25,13 @@ export function Auth(props: AuthProps) {
   const [form, fields] = useForm({
     lastResult,
     defaultValue: authForm.defaultData(),
+    // Required to avoid api flooding: https://github.com/edmundhung/conform/issues/125
+    onValidate({ formData }) {
+      return parseWithYup(formData, {
+        schema:
+          mode === 'register' ? authForm.signupSchema : authForm.loginSchema,
+      });
+    },
     shouldRevalidate: 'onInput',
   });
 

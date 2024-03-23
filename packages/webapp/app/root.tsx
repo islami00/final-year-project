@@ -1,6 +1,6 @@
 import '@mantine/core/styles.css';
 import './styles/panda.css';
-
+import { Toaster } from 'react-hot-toast';
 import { cssBundleHref } from '@remix-run/css-bundle';
 import type { LinksFunction, MetaFunction } from '@remix-run/node';
 import {
@@ -43,6 +43,7 @@ export default function App() {
           <ScrollRestoration />
           <Scripts />
           <WatchState />
+          <Toaster />
         </MantineProvider>
       </body>
     </html>

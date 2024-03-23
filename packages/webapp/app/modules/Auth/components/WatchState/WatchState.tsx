@@ -5,9 +5,10 @@ import * as React from 'react';
 export function WatchState() {
   const revalidate = useRevalidator();
   React.useEffect(() => {
-    pb.authStore.onChange(() => {
+    const unsub = pb.authStore.onChange(() => {
       revalidate.revalidate();
     });
+    return unsub;
   }, []);
   return null;
 }
