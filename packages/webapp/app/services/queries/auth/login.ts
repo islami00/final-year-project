@@ -1,5 +1,5 @@
 import type { RecordAuthResponse } from 'pocketbase';
-import { UserModel } from '../../../models/User.model';
+import { User } from '../../../models/User.model';
 import { forwardError } from '../../../utils/forwardError';
 import { parseClientResponseError } from '../../../utils/parseClientResponseError';
 import { pb } from '../../pocketbase/setup';
@@ -10,9 +10,9 @@ interface ILoginBody {
 }
 export async function login(
   body: ILoginBody
-): Promise<RecordAuthResponse<UserModel>> {
+): Promise<RecordAuthResponse<User>> {
   const data = await pb
-    .collection<UserModel>('users')
+    .collection<User>('users')
     .authWithPassword(body.email, body.password)
     .catch(forwardError(parseClientResponseError));
   return data;

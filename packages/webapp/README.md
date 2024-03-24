@@ -52,3 +52,7 @@ rm -rf app
 # copy your app over
 cp -R ../my-old-remix-app/app app
 ```
+
+### SVGs
+
+- I use https://github.com/alexanderson1993/svg-icons-cli to bundle custom svgs together in a sprite

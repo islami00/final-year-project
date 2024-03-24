@@ -6,5 +6,15 @@
   "tags": [
     "scope:client"
   ],
-  "targets": {}
+  "targets": {
+    "build-icons": {
+      "inputs": [
+        "{projectRoot}/app/assets/svg/*"
+      ],
+      "outputs": [
+        "{projectRoot}/app/components/Icon/icons/*"
+      ],
+      "cache": true
+    }
+  }
 }

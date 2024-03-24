@@ -1,4 +1,4 @@
-import { UserModel } from '../../../models/User.model';
+import { User } from '../../../models/User.model';
 import { forwardError } from '../../../utils/forwardError';
 import { parseClientResponseError } from '../../../utils/parseClientResponseError';
 import { pb } from '../../pocketbase/setup';
@@ -8,16 +8,17 @@ interface ISignUpBody {
   password: string;
   name: string;
 }
-export async function signUp(args: ISignUpBody): Promise<UserModel> {
+export async function signUp(args: ISignUpBody): Promise<User> {
   const { password, name, email } = args;
   const data = {
     password,
     passwordConfirm: password,
     name,
+    // Can include more custom data.
     email,
   };
   const authData = await pb
-    .collection<UserModel>('users')
+    .collection<User>('users')
     .create(data)
     .catch(forwardError(parseClientResponseError));
   return authData;

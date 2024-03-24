@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "remix vite:dev",
     "build": "remix vite:build",
-    "start": "remix-serve ./build/server/index.js"
+    "start": "remix-serve ./build/server/index.js",
+    "build-icons": "icons build --optimize -i app/assets/svg -o app/components/Icon/icons"
   },
   "type": "module",
   "dependencies": {
