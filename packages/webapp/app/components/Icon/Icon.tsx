@@ -1,9 +1,10 @@
+/**
+ * @file If the import of `icons/name` has an error, Run the build-icons script.
+ * */
 import { type SVGProps } from 'react';
-// @ts-expect-error The icon may not exist, but it's fine as it's the type
+import { cva, cx, type RecipeVariant } from '@tma/design-system';
 import { type IconName } from './icons/name';
 import href from './icons/sprite.svg';
-import { cva, cx, type RecipeVariant } from '@tma/design-system';
-import { rem } from '@mantine/core';
 
 export { href };
 
@@ -13,8 +14,8 @@ const sizeRecipe = cva({
   base: { display: 'inline', alignSelf: 'center' },
   variants: {
     size: {
-      s16: { width: rem(16), height: rem(16) },
-      s24: { width: rem(24), height: rem(24) },
+      s16: { width: 16, height: 16 },
+      s24: { width: 24, height: 24 },
     },
   },
 });
