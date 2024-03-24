@@ -6,7 +6,6 @@ import { cx } from '@tma/design-system';
 import { type IconName } from './icons/name';
 import href from './icons/sprite.svg';
 import { IconSize, gapRecipe, sizeRecipe } from './Icon.styles';
-
 export { href };
 
 export { IconName };

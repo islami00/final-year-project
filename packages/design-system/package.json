@@ -11,13 +11,13 @@
   },
   "type": "module",
   "exports": {
-    ".": "./dist/index.esm.js",
-    "./preset": "./dist/preset.esm.js",
-    "./jsx": "./dist/jsx.esm.js",
-    "./css": "./dist/css.esm.js",
-    "./tokens": "./dist/tokens.esm.js",
-    "./package.json": "./dist/package.json",
-    "./recipes": "./dist/recipes.esm.js"
+    ".": "./src/index.ts",
+    "./preset": "./src/preset.ts",
+    "./jsx": "./src/jsx.ts",
+    "./css": "./src/css.ts",
+    "./tokens": "./src/tokens.ts",
+    "./package.json": "./package.json",
+    "./recipes": "./src/recipes.ts"
   },
   "main": "./src/index.js",
   "overrides": {

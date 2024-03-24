@@ -11,8 +11,8 @@ import {
   ScrollRestoration,
 } from '@remix-run/react';
 import { MantineProvider, ColorSchemeScript, Paper } from '@mantine/core';
-import { theme } from './styles/theme';
 import { WatchState } from './modules/Auth/components/WatchState/WatchState';
+import { mantineThemeOverride } from '@tma/design-system';
 
 export const meta: MetaFunction = () => [
   {
@@ -38,7 +38,7 @@ export default function App() {
         <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body>
-        <MantineProvider theme={theme} defaultColorScheme="dark">
+        <MantineProvider theme={mantineThemeOverride} defaultColorScheme="dark">
           <Paper w="100dvw" h="100dvh" bg="dark">
             <Outlet />
           </Paper>

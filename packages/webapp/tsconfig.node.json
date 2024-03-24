@@ -7,6 +7,6 @@
     "composite": true,
     "noEmit": false
   },
-  "include": ["panda.config.ts"],
+  "include": ["panda.config.ts", "scripts/transform-icon.ts"],
   "exclude": []
 }

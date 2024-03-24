@@ -11,7 +11,6 @@ export async function clientLoader() {
 
 export default function Index() {
   const { user } = useLoaderData<typeof clientLoader>();
-  console.log(user);
   return (
     <AppShell
       header={{ offset: true, height: 59 }}

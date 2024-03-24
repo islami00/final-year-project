@@ -7,13 +7,11 @@ import {
 } from '@mantine/core';
 import { type Tokens } from '@pandacss/dev';
 
-const mantineThemeOverride: MantineThemeOverride = createTheme({
+export const mantineThemeOverride: MantineThemeOverride = createTheme({
   spacing: {},
 });
-export const mantineTheme = mergeMantineTheme(
-  DEFAULT_THEME,
-  mantineThemeOverride
-);
+
+const mergedTheme = mergeMantineTheme(DEFAULT_THEME, mantineThemeOverride);
 
 const DEFAULT_KEYWORD = 'DEFAULT';
 type RequiredTokens = Required<Tokens>;
@@ -22,19 +20,19 @@ type SpacingTokens = RequiredTokens['spacing'];
 type RadiiTokens = RequiredTokens['radii'];
 
 function parsePrimaryShade(): MantinePrimaryShade {
-  if (typeof mantineTheme.primaryShade === 'object') {
-    return mantineTheme.primaryShade;
+  if (typeof mergedTheme.primaryShade === 'object') {
+    return mergedTheme.primaryShade;
   }
   return {
-    light: mantineTheme.primaryShade,
-    dark: mantineTheme.primaryShade,
+    light: mergedTheme.primaryShade,
+    dark: mergedTheme.primaryShade,
   };
 }
 const primaryShade = parsePrimaryShade();
 // Map each color to a nested token
 // See also https://panda-css.com/docs/theming/tokens#colors
 export const mantineColorsAsTokens: ColorTokens = Object.entries(
-  mantineTheme.colors
+  mergedTheme.colors
 ).reduce((acc, curr) => {
   const [key, values] = curr;
   const valueResult = values.map((each, idx) => {
@@ -43,7 +41,7 @@ export const mantineColorsAsTokens: ColorTokens = Object.entries(
   const merged: ColorTokens = Object.fromEntries(valueResult);
   const defaultToken = {
     // Tokens throw errors with conditions, so I opt for the app's only color scheme for now.
-    value: mantineTheme.colors[key][primaryShade.dark],
+    value: mergedTheme.colors[key][primaryShade.dark],
   };
 
   merged[DEFAULT_KEYWORD] = defaultToken;
@@ -67,8 +65,8 @@ function mapObjectToTokens<T extends RequiredTokens[keyof RequiredTokens]>(
 }
 
 export const mantineSpacingAsTokens: SpacingTokens = mapObjectToTokens(
-  mantineTheme.spacing
+  mergedTheme.spacing
 );
 export const mantineRadiiAsTokens: RadiiTokens = mapObjectToTokens(
-  mantineTheme.radius
+  mergedTheme.radius
 );
