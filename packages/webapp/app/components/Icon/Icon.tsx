@@ -29,7 +29,7 @@ type IconComponent = React.ForwardRefExoticComponent<TableIconProps>;
 export const Icon = forwardRef<
   SVGSVGElement,
   SVGProps<SVGSVGElement> & IconProps
->(({ name, size = 's16', className, ...props }, ref) => {
+>(({ name, size = 'font', className, ...props }, ref) => {
   const parsedSize = size || undefined;
 
   const IconComp = name ? icons[name as TablerIcons] : null;
