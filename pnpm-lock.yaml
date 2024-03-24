@@ -20,6 +20,9 @@ importers:
       '@mantine/hooks':
         specifier: ^7.6.1
         version: 7.6.1(react@18.3.0-canary-a870b2d54-20240314)
+      '@mantine/utils':
+        specifier: ^6.0.21
+        version: 6.0.21(react@18.3.0-canary-a870b2d54-20240314)
       '@remix-run/css-bundle':
         specifier: ^2.8.1
         version: 2.8.1
@@ -32,9 +35,15 @@ importers:
       '@remix-run/serve':
         specifier: ^2.8.1
         version: 2.8.1(typescript@5.3.3)
+      '@types/lodash':
+        specifier: ^4.17.0
+        version: 4.17.0
       isbot:
         specifier: ^3.6.8
         version: 3.6.8
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       pocketbase:
         specifier: ^0.21.1
         version: 0.21.1
@@ -2429,6 +2438,14 @@ packages:
       react: 18.3.0-canary-a870b2d54-20240314
     dev: false
 
+  /@mantine/utils@6.0.21(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-33RVDRop5jiWFao3HKd3Yp7A9mEq4HAJxJPTuYm1NkdqX6aTKOQK7wT8v8itVodBp+sb4cJK6ZVdD1UurK/txQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.3.0-canary-a870b2d54-20240314
+    dev: false
+
   /@mdx-js/mdx@2.3.0:
     resolution: {integrity: sha512-jLuwRlz8DQfQNiUCJR50Y09CGPq3fLtmtUQfVrj79E0JWu3dvsVcxVIcfhR5h0iXu+/z++zDrYeiJqifRynJkA==}
     dependencies:
@@ -3960,6 +3977,10 @@ packages:
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
+
+  /@types/lodash@4.17.0:
+    resolution: {integrity: sha512-t7dhREVv6dbNj0q17X12j7yDG4bD/DHYX7o5/DbDxobP0HnGPgpRz2Ej77aL7TZT3DSw13fqUTj8J4mMnqa7WA==}
+    dev: false
 
   /@types/mdast@3.0.15:
     resolution: {integrity: sha512-LnwD+mUEfxWMa1QpDraczIn6k0Ee3SMicuYSSzS6ZYl2gKS09EClnJYGd8Du6rfc5r/GZEk5o1mRb8TaTj03sQ==}
@@ -8033,7 +8054,6 @@ packages:
 
   /lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /log-symbols@4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}

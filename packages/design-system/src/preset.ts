@@ -1,45 +1,54 @@
-import { definePreset, defineRecipe } from '@pandacss/dev';
+import { rem } from '@mantine/core';
+import { definePreset, defineTokens } from '@pandacss/dev';
+import {
+  mantineColorsAsTokens,
+  mantineRadiiAsTokens,
+  mantineSpacingAsTokens,
+} from './mantineTheme';
 
-const buttonRecipe = defineRecipe({
-  className: 'button',
-  description: 'The styles for the Button component',
-  base: {
-    display: 'flex',
-  },
-  variants: {
-    visual: {
-      funky: { bg: 'red.200', color: 'white' },
-      edgy: { border: '3px solid token(colors.purple.500)' },
-    },
-    size: {
-      sm: { padding: '4', fontSize: '12px' },
-      lg: { padding: '8', fontSize: '40px' },
-    },
-    shape: {
-      square: { borderRadius: '0' },
-      circle: { borderRadius: 'full' },
+const tokens = defineTokens({
+  colors: {
+    ...mantineColorsAsTokens,
+    primary: {
+      value: 'red',
     },
   },
-  defaultVariants: {
-    visual: 'funky',
-    size: 'sm',
-    shape: 'circle',
+  spacing: {
+    ...mantineSpacingAsTokens,
+    '2xs': {
+      value: rem(8),
+    },
+    '3xs': {
+      value: rem(6),
+    },
+    '4xs': {
+      value: rem(4),
+    },
+  },
+  radii: {
+    ...mantineRadiiAsTokens,
   },
 });
+
+const semanticTokens = defineTokens({
+  sizes: {
+    inputSizeMd: {
+      value: rem(32),
+    },
+  },
+  radii: {
+    default: {
+      value: '{radii.sm}',
+    },
+  },
+});
+
 export default definePreset({
   theme: {
     recipes: {
       // recipes break the template-literal so no-go fn: https://github.com/chakra-ui/panda/issues/2388
-      // button: buttonRecipe,
     },
-    extend: {
-      tokens: {
-        colors: {
-          primary: {
-            value: 'red',
-          },
-        },
-      },
-    },
+    tokens,
+    semanticTokens,
   },
 });

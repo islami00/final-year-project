@@ -5,14 +5,13 @@ export const Root = styled('div', {
   base: {
     width: '100%',
     height: '100%',
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
-
 export const content = css({
   maxWidth: 400,
-  width: "100%"
-})
+  width: '100%',
+});

@@ -6,4 +6,7 @@ This library was generated with [Nx](https://nx.dev).
 
 Run `nx build design-system` to build the library.
 
-Todo: This project defines exports in ts files. Use js 
+### Errors
+
+#### `Module level directives cause errors when bundled, 'use client' was ignored.` 
+See: https://github.com/TanStack/query/pull/5161#issuecomment-1475871864
