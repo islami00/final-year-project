@@ -3,6 +3,7 @@ import {
   createTheme,
   type MantineThemeOverride,
   mergeMantineTheme,
+  type MantinePrimaryShade,
 } from '@mantine/core';
 import { type Tokens } from '@pandacss/dev';
 
@@ -14,10 +15,22 @@ export const mantineTheme = mergeMantineTheme(
   mantineThemeOverride
 );
 
+const DEFAULT_KEYWORD = 'DEFAULT';
 type RequiredTokens = Required<Tokens>;
 type ColorTokens = RequiredTokens['colors'];
 type SpacingTokens = RequiredTokens['spacing'];
 type RadiiTokens = RequiredTokens['radii'];
+
+function parsePrimaryShade(): MantinePrimaryShade {
+  if (typeof mantineTheme.primaryShade === 'object') {
+    return mantineTheme.primaryShade;
+  }
+  return {
+    light: mantineTheme.primaryShade,
+    dark: mantineTheme.primaryShade,
+  };
+}
+const primaryShade = parsePrimaryShade();
 // Map each color to a nested token
 // See also https://panda-css.com/docs/theming/tokens#colors
 export const mantineColorsAsTokens: ColorTokens = Object.entries(
@@ -27,8 +40,13 @@ export const mantineColorsAsTokens: ColorTokens = Object.entries(
   const valueResult = values.map((each, idx) => {
     return [idx, { value: each, description: "From mantine's theme" }] as const;
   });
-  const merged = Object.fromEntries(valueResult);
+  const merged: ColorTokens = Object.fromEntries(valueResult);
+  const defaultToken = {
+    // Tokens throw errors with conditions, so I opt for the app's only color scheme for now.
+    value: mantineTheme.colors[key][primaryShade.dark],
+  };
 
+  merged[DEFAULT_KEYWORD] = defaultToken;
   acc[key] = merged;
   return acc;
 }, {} as ColorTokens);

@@ -2,33 +2,19 @@
  * @file If the import of `icons/name` has an error, Run the build-icons script.
  * */
 import { type SVGProps } from 'react';
-import { cva, cx, type RecipeVariant } from '@tma/design-system';
+import { cx } from '@tma/design-system';
 import { type IconName } from './icons/name';
 import href from './icons/sprite.svg';
+import { IconSize, gapRecipe, sizeRecipe } from './Icon.styles';
 
 export { href };
 
 export { IconName };
 
-const sizeRecipe = cva({
-  base: { display: 'inline', alignSelf: 'center' },
-  variants: {
-    size: {
-      s16: { width: 16, height: 16 },
-      s24: { width: 24, height: 24 },
-    },
-  },
-});
-const gapRecipe = cva({
-  base: { gap: '3xs', display: 'inline-flex', alignItems: 'center' },
-});
-
-type Size = RecipeVariant<typeof sizeRecipe>['size'] | null;
-
 interface IconProps {
   name: IconName;
   /** Default size is s16, set to null to remove size styling */
-  size?: Size;
+  size?: IconSize;
 }
 
 /**
