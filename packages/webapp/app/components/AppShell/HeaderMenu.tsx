@@ -15,10 +15,7 @@ export function HeaderMenu(props: HeaderMenuProps) {
         <Avatar className={menuTarget} src={user.avatar} alt={user.name} />
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item
-          leftSection={<Icon name="logout-outline" />}
-          onClick={logout}
-        >
+        <Menu.Item leftSection={<Icon name="IconLogout" />} onClick={logout}>
           Logout
         </Menu.Item>
       </Menu.Dropdown>

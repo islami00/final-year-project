@@ -4,8 +4,8 @@ export const sizeRecipe = cva({
   base: { display: 'inline', alignSelf: 'center' },
   variants: {
     size: {
-      s16: { width: 16, height: 16 },
-      s24: { width: 24, height: 24 },
+      s16: { width: 16, height: 16, strokeWidth: 1 },
+      s24: { width: 24, height: 24, strokeWidth: 1.5 },
     },
   },
 });

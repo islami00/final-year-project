@@ -7,15 +7,13 @@
     "dev": "remix vite:dev",
     "build": "remix vite:build",
     "start": "remix-serve ./build/server/index.js",
-    "build-icons": "icons build --optimize -i app/assets/svg -o app/components/Icon/icons",
-    "sly-add": "sly add -o tabler-icons --yes"
+    "build-icons": "svgr --out-dir app/components/Icon/icons -- app/assets/svg"
   },
   "type": "module",
   "dependencies": {
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
     "@remix-run/serve": "^2.8.1",
-    "@sly-cli/sly": "^1.10.0",
     "@tma/design-system": "workspace:^",
     "isbot": "^3.6.8",
     "react": "18.3.0-canary-a870b2d54-20240314",
