@@ -4,6 +4,10 @@
   "projectType": "application",
   "sourceRoot": "packages/webapp-e2e/src",
   "targets": {},
-  "tags": [],
-  "implicitDependencies": ["webapp"]
+  "tags": [
+    "scope:client"
+  ],
+  "implicitDependencies": [
+    "webapp"
+  ]
 }

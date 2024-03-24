@@ -1,16 +1,19 @@
+import type { RecordAuthResponse } from 'pocketbase';
 import { UserModel } from '../../../models/User.model';
-import { pb } from '../../pocketbase/setup';
-import { passThrough } from 'promise-passthrough';
+import { forwardError } from '../../../utils/forwardError';
 import { parseClientResponseError } from '../../../utils/parseClientResponseError';
+import { pb } from '../../pocketbase/setup';
 
 interface ILoginBody {
   email: string;
   password: string;
 }
-export async function login(body: ILoginBody) {
+export async function login(
+  body: ILoginBody
+): Promise<RecordAuthResponse<UserModel>> {
   const data = await pb
     .collection<UserModel>('users')
     .authWithPassword(body.email, body.password)
-    .catch(passThrough(parseClientResponseError));
+    .catch(forwardError(parseClientResponseError));
   return data;
 }

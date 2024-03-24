@@ -9,7 +9,9 @@
       "outputs": [
         "{options.outputPath}"
       ],
-      "dependsOn": ["prebuild"],
+      "dependsOn": [
+        "prebuild"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "main": "packages/design-system/src/index.ts",
@@ -36,7 +38,10 @@
             "output": "."
           }
         ],
-        "external": ["react", "react-dom"]
+        "external": [
+          "react",
+          "react-dom"
+        ]
       },
       "configurations": {
         "production": {
@@ -49,5 +54,7 @@
       }
     }
   },
-  "tags": []
+  "tags": [
+    "scope:shared"
+  ]
 }
