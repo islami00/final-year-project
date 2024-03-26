@@ -1,5 +1,5 @@
 /**
- * @file If the import of `icons/name` has an error, Run the build-icons script.
+ * @file If the import of `icons` has an error, restart the dev server, or re-run build-icons
  * */
 import { cx } from '@tma/design-system';
 import { forwardRef, type SVGProps } from 'react';
