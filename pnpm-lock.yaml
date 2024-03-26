@@ -108,6 +108,9 @@ importers:
       '@svgr/cli':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.3.3)
+      '@svgr/core':
+        specifier: ^8.1.0
+        version: 8.1.0(typescript@5.3.3)
       '@svgr/plugin-jsx':
         specifier: ^8.1.0
         version: 8.1.0(@svgr/core@8.1.0)
@@ -165,9 +168,6 @@ importers:
       prettier:
         specifier: ^2.6.2
         version: 2.8.8
-      svg-icons-cli:
-        specifier: ^0.0.8
-        version: 0.0.8
       tslib:
         specifier: 2.6.2
         version: 2.6.2
@@ -3384,7 +3384,7 @@ packages:
       eslint: 8.48.0
       eslint-import-resolver-node: 0.3.7
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1)(eslint@8.48.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.48.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.13.2)(eslint@8.48.0)
       eslint-plugin-jest: 26.9.0(@typescript-eslint/eslint-plugin@5.62.0)(eslint@8.48.0)(typescript@5.3.3)
       eslint-plugin-jest-dom: 4.0.3(eslint@8.48.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.48.0)
@@ -5454,6 +5454,7 @@ packages:
   /clsx@2.1.0:
     resolution: {integrity: sha512-m3iNNWpd9rl3jvvcBnu70ylMdrXt8Vlq4HYadnU5fwcOtvkSQWPmj7amUcDT2qYI7risszBjI5AUIUox9D16pg==}
     engines: {node: '>=6'}
+    dev: false
 
   /code-block-writer@12.0.0:
     resolution: {integrity: sha512-q4dMFMlXtKR3XNBHyMHt/3pwYNA69EDk00lloMOaaUMKPUXBw6lpXtbu3MMVG6/uOihGnRDOlkyqsONEUj60+w==}
@@ -6442,7 +6443,7 @@ packages:
       enhanced-resolve: 5.15.1
       eslint: 8.48.0
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.6.1)(eslint@8.48.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.48.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.13.2)(eslint@8.48.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.3
       is-core-module: 2.13.1
@@ -6484,7 +6485,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-module-utils@2.8.1(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.48.0):
+  /eslint-module-utils@2.8.1(@typescript-eslint/parser@6.13.2)(eslint-import-resolver-node@0.3.9)(eslint@8.48.0):
     resolution: {integrity: sha512-rXDXR3h7cs7dy9RNpUlQf80nX31XWJEyGq1tRMo+6GsO5VmTe4UTwtmonAD4ZkAsrfMVDA2wlGJ3790Ys+D49Q==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -6505,11 +6506,10 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.62.0(eslint@8.48.0)(typescript@5.3.3)
+      '@typescript-eslint/parser': 6.13.2(eslint@8.48.0)(typescript@5.3.3)
       debug: 3.2.7
       eslint: 8.48.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.29.1)(eslint@8.48.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6525,7 +6525,7 @@ packages:
       regexpp: 3.2.0
     dev: true
 
-  /eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.48.0):
+  /eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.13.2)(eslint@8.48.0):
     resolution: {integrity: sha512-BbPC0cuExzhiMo4Ff1BTVwHpjjv28C5R+btTOGaCRC7UEz801up0JadwkeSk5Ued6TG34uaczuVuH6qyy5YUxw==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -6535,7 +6535,7 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.62.0(eslint@8.48.0)(typescript@5.3.3)
+      '@typescript-eslint/parser': 6.13.2(eslint@8.48.0)(typescript@5.3.3)
       array-includes: 3.1.7
       array.prototype.findlastindex: 1.2.4
       array.prototype.flat: 1.3.2
@@ -6544,7 +6544,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.48.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.48.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.13.2)(eslint-import-resolver-node@0.3.9)(eslint@8.48.0)
       hasown: 2.0.1
       is-core-module: 2.13.1
       is-glob: 4.0.3
@@ -9109,13 +9109,6 @@ packages:
       path-is-absolute: 1.0.1
     dev: true
 
-  /node-html-parser@6.1.12:
-    resolution: {integrity: sha512-/bT/Ncmv+fbMGX96XG9g05vFt43m/+SYKIs9oAemQVYyVcZmDAI2Xq/SbNcpOA35eF0Zk2av3Ksf+Xk8Vt8abA==}
-    dependencies:
-      css-select: 5.1.0
-      he: 1.2.0
-    dev: true
-
   /node-machine-id@1.1.12:
     resolution: {integrity: sha512-QNABxbrPa3qEIfrE6GOJ7BYIuignnJw7iQ2YPbc3Nla1HzRJjXzZOiikfF8m7eAMfichLt3M4VgLOetqgDmgGQ==}
     dev: true
@@ -11306,20 +11299,6 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /svg-icons-cli@0.0.8:
-    resolution: {integrity: sha512-YTAqjPnSf7kMCbjgEavX83fKN0gCW1wVQGmot9cMxJ3HK6koKkcpCGiv1hTSvrcLE+JXdCffn/YqJ6Q0aD9ORA==}
-    hasBin: true
-    dependencies:
-      '@clack/prompts': 0.7.0
-      clsx: 2.1.0
-      glob: 10.3.10
-      node-html-parser: 6.1.12
-      svgo: 3.2.0
-      tailwind-merge: 2.2.2
-      tiny-parse-argv: 2.4.0
-      typescript: 5.3.3
-    dev: true
-
   /svg-parser@2.0.4:
     resolution: {integrity: sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==}
     dev: true
@@ -11355,12 +11334,6 @@ packages:
   /tabbable@6.2.0:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
     dev: false
-
-  /tailwind-merge@2.2.2:
-    resolution: {integrity: sha512-tWANXsnmJzgw6mQ07nE3aCDkCK4QdT3ThPMCzawoYA2Pws7vSTCvz3Vrjg61jVUGfFZPJzxEP+NimbcW+EdaDw==}
-    dependencies:
-      '@babel/runtime': 7.24.0
-    dev: true
 
   /tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
@@ -11417,10 +11390,6 @@ packages:
   /tiny-case@1.0.3:
     resolution: {integrity: sha512-Eet/eeMhkO6TX8mnUteS9zgPbUMQa4I6Kkp5ORiBD5476/m+PIRiumP5tmh5ioJpH7k51Kehawy2UDfsnxxY8Q==}
     dev: false
-
-  /tiny-parse-argv@2.4.0:
-    resolution: {integrity: sha512-WTEsnmeHNr99hLQIDA+gnsS+fDsCDITlqgI+zEhx9M6ErPt0heoNZ1PGvql6wcf95sIx40J0MLYXaPveGwtpoA==}
-    dev: true
 
   /tinybench@2.6.0:
     resolution: {integrity: sha512-N8hW3PG/3aOoZAN5V/NSAEDz0ZixDSSt5b/a05iqtpgfLWMSVuCo7w0k2vVvEjdrIoeGqZzweX2WlyioNIHchA==}

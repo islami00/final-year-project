@@ -20,6 +20,7 @@
     "@remix-run/dev": "^2.8.1",
     "@remix-run/eslint-config": "^2.8.1",
     "@svgr/cli": "^8.1.0",
+    "@svgr/core": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",
     "@svgr/plugin-prettier": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
@@ -39,7 +40,6 @@
     "postcss-preset-mantine": "^1.13.0",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "^2.6.2",
-    "svg-icons-cli": "^0.0.8",
     "tslib": "2.6.2",
     "typescript": "~5.3.2",
     "vite": "^5.1.6"

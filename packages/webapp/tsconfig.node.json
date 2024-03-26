@@ -1,3 +1,4 @@
+// Possible reasons for ts errors: https://github.com/microsoft/TypeScript/issues/46432#issuecomment-1419568874
 {
   "extends": "./tsconfig.webapp.json",
   "compilerOptions": {
@@ -7,6 +8,6 @@
     "composite": true,
     "noEmit": false
   },
-  "include": ["panda.config.ts", "scripts/transform-icon.ts"],
+  "include": ["panda.config.ts"],
   "exclude": []
 }

@@ -7,19 +7,20 @@ import * as LocalIcons from './icons';
 
 import { IconSize, sizeRecipe } from './Icon.styles';
 
-import { IconProps as TableIconProps, icons } from '@tabler/icons-react';
+import type { IconProps as TableIconProps } from '@tabler/icons-react';
+import * as TablerIcons from './TablerIcons';
 
-type TablerIcons = keyof typeof icons;
+type TablerIconNames = keyof typeof TablerIcons;
 type LocalIconOptions = keyof typeof LocalIcons;
 
-export type IconName = LocalIconOptions | TablerIcons;
+export type IconName = LocalIconOptions | TablerIconNames;
+type IconComponent = React.ForwardRefExoticComponent<TableIconProps>;
 
 export interface IconProps {
   name?: IconName;
   /** Default size is s16, set to null to remove size styling */
   size?: IconSize;
 }
-type IconComponent = React.ForwardRefExoticComponent<TableIconProps>;
 /**
  * Renders an SVG icon. The icon defaults to the size of the font.
  * Alternatively, if you're not ok with the icon being to the left of the text,
@@ -32,7 +33,7 @@ export const Icon = forwardRef<
 >(({ name, size = 'font', className, ...props }, ref) => {
   const parsedSize = size || undefined;
 
-  const IconComp = name ? icons[name as TablerIcons] : null;
+  const IconComp = name ? TablerIcons[name as TablerIconNames] : null;
   const CustomIcon = name ? LocalIcons[name as LocalIconOptions] : null;
   const Comp = (IconComp || CustomIcon || 'svg') as IconComponent | 'svg';
 

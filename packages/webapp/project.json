@@ -7,9 +7,21 @@
     "scope:client"
   ],
   "targets": {
+    "build": {
+      "dependsOn": [
+        "build-icons"
+      ]
+    },
+    "dev": {
+      "dependsOn": [
+        "build-icons"
+      ]
+    },
     "build-icons": {
       "inputs": [
-        "{projectRoot}/app/assets/svg/*"
+        "{projectRoot}/app/assets/svg/*",
+        "{projectRoot}/scripts/*",
+        "{projectRoot}/svgr.config.ts"
       ],
       "outputs": [
         "{projectRoot}/app/components/Icon/icons/*"
