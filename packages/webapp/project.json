@@ -9,6 +9,7 @@
   "targets": {
     "build": {
       "dependsOn": [
+        "^build",
         "build-icons"
       ]
     },

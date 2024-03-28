@@ -1,12 +1,13 @@
 import { AppShell } from '@mantine/core';
 import { Outlet, json, useLoaderData } from '@remix-run/react';
-import { requireUser } from '../services/pocketbase/auth';
+import { requireOrganizations, requireUser } from '../services/pocketbase/auth';
 import { AppShellHeader } from '../components/AppShell/AppShellHeader';
 
 // loaders can only be called in routes.
 export async function clientLoader() {
-  const user = requireUser();
-  return json({ user });
+  const user = await requireUser();
+  const organizations = await requireOrganizations(user.id);
+  return json({ user, organizations });
 }
 
 export default function Index() {
