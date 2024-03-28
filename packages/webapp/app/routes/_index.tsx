@@ -2,6 +2,7 @@ import { AppShell } from '@mantine/core';
 import { Outlet, json, useLoaderData } from '@remix-run/react';
 import { requireOrganizations, requireUser } from '../services/pocketbase/auth';
 import { AppShellHeader } from '../components/AppShell/AppShellHeader';
+import { AppShellMain } from '../components/AppShell/AppShell.styles';
 
 // loaders can only be called in routes.
 export async function clientLoader() {
@@ -21,9 +22,9 @@ export default function Index() {
       <>
         {/* Only show navigation if onboarded */}
         <AppShell.Navbar>Nav</AppShell.Navbar>
-        <AppShell.Main>
+        <AppShellMain>
           <Outlet />
-        </AppShell.Main>
+        </AppShellMain>
       </>
     </AppShell>
   );

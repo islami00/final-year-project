@@ -39,7 +39,7 @@ export default function App() {
       </head>
       <body>
         <MantineProvider theme={mantineThemeOverride} defaultColorScheme="dark">
-          <Paper w="100dvw" h="100dvh" bg="dark">
+          <Paper w="100dvw" h="100dvh" bg="dark.8">
             <Outlet />
           </Paper>
           <ScrollRestoration />

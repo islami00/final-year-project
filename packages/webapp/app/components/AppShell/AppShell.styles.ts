@@ -1,4 +1,5 @@
-import { css } from '@tma/design-system';
+import { AppShell } from '@mantine/core';
+import { css, styled } from '@tma/design-system';
 
 export const header = css({
   px: 'lg',
@@ -9,4 +10,10 @@ export const header = css({
 
 export const menuTarget = css({
   cursor: 'pointer',
+});
+
+export const AppShellMain = styled(AppShell.Main, {
+  base: {
+    display: 'flex',
+  },
 });
