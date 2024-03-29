@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@tma/design-system": ["packages/design-system/src/index.ts"],
-      "@tma/design-system/*": ["packages/design-system/src/*"]
+      "@tma/design-system/*": ["packages/design-system/src/*"],
+      "@tma/webapp/*": ["packages/webapp/app/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

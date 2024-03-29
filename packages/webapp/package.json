@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "webapp",
+  "name": "@tma/webapp",
   "description": "",
   "license": "",
   "scripts": {
