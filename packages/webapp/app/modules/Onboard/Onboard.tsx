@@ -29,7 +29,7 @@ export function Onboard() {
       <Paper bg="dark.7">
         <div className={styles.header}>
           <Text size="lg" fw="bold" c="white" ff="text">
-            Organisation Setup
+            Create Organisation
           </Text>
         </div>
         <Form

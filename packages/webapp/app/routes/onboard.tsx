@@ -3,10 +3,11 @@ import {
   json,
   useLoaderData,
   type ClientActionFunctionArgs,
+  redirect,
 } from '@remix-run/react';
 import { AppShellHeader } from '../components/AppShell/AppShellHeader';
 import { Onboard } from '../modules/Onboard/Onboard';
-import { requireUser } from '../services/pocketbase/auth';
+import { requireNewbie, requireUser } from '../services/pocketbase/auth';
 import { AppShellMain } from '../components/AppShell/AppShell.styles';
 import * as onboardForm from '../modules/Onboard/logic/onboardForm';
 import { parseWithYup } from '@conform-to/yup';
@@ -19,6 +20,7 @@ import toast from 'react-hot-toast';
 // loaders can only be called in routes.
 export async function clientLoader() {
   const user = await requireUser();
+  await requireNewbie(user.id);
   return json<OnboardLoaderData>({ user });
 }
 
@@ -46,7 +48,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
       organisationId: org.id,
     });
 
-    return json({ org });
+    return redirect('/');
   } catch (error) {
     const appError = castError(error);
     toast.error(appError.message);

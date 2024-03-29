@@ -31,3 +31,9 @@ export function requireAnonymous() {
     throw redirect(`/`);
   }
 }
+export async function requireNewbie(userId: string) {
+  const orgs = await getOrganizationsByUser({ userId });
+  if (orgs.length > 0) {
+    throw redirect('/');
+  }
+}
