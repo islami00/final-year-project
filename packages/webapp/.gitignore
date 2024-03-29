@@ -3,6 +3,7 @@ build
 public/build
 .env
 
-## Panda
-styled-system
-styled-system-studio
+
+pocketbase_bin
+pb_data
+icons

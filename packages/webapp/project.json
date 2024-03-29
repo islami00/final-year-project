@@ -3,6 +3,31 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/webapp",
   "projectType": "application",
-  "tags": [],
-  "targets": {}
+  "tags": [
+    "scope:client"
+  ],
+  "targets": {
+    "build": {
+      "dependsOn": [
+        "^build",
+        "build-icons"
+      ]
+    },
+    "dev": {
+      "dependsOn": [
+        "build-icons"
+      ]
+    },
+    "build-icons": {
+      "inputs": [
+        "{projectRoot}/app/assets/svg/*",
+        "{projectRoot}/scripts/*",
+        "{projectRoot}/svgr.config.ts"
+      ],
+      "outputs": [
+        "{projectRoot}/app/components/Icon/icons/*"
+      ],
+      "cache": true
+    }
+  }
 }

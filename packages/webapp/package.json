@@ -1,12 +1,13 @@
 {
   "private": true,
-  "name": "webapp",
+  "name": "@tma/webapp",
   "description": "",
   "license": "",
   "scripts": {
     "dev": "remix vite:dev",
     "build": "remix vite:build",
-    "start": "remix-serve ./build/server/index.js"
+    "start": "remix-serve ./build/server/index.js",
+    "build-icons": "svgr  --index-template ./scripts/default-template.cjs --out-dir app/components/Icon/icons -- app/assets/svg"
   },
   "type": "module",
   "dependencies": {

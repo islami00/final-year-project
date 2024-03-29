@@ -9,34 +9,39 @@
       "outputs": [
         "{options.outputPath}"
       ],
-      "dependsOn": ["prebuild"],
+      "dependsOn": [
+        "prebuild"
+      ],
       "defaultConfiguration": "production",
       "options": {
-        "main": "packages/design-system/src/index.ts",
-        "outputPath": "packages/design-system/dist",
-        "tsConfig": "packages/design-system/tsconfig.lib.json",
+        "main": "{projectRoot}/src/index.ts",
+        "outputPath": "{projectRoot}/dist",
+        "tsConfig": "{projectRoot}/tsconfig.lib.json",
         "compiler": "babel",
-        "project": "packages/design-system/package.json",
+        "project": "{projectRoot}/package.json",
         "format": [
           "esm"
         ],
         "generateExportsField": true,
         "additionalEntryPoints": [
-          "packages/design-system/src/css.ts",
-          "packages/design-system/src/preset.ts",
-          "packages/design-system/src/tokens.ts",
-          "packages/design-system/src/recipes.ts",
-          "packages/design-system/src/jsx.ts"
+          "{projectRoot}/src/css.ts",
+          "{projectRoot}/src/preset.ts",
+          "{projectRoot}/src/tokens.ts",
+          "{projectRoot}/src/recipes.ts",
+          "{projectRoot}/src/jsx.ts"
         ],
         "clean": true,
         "assets": [
           {
-            "glob": "packages/design-system/*.md",
+            "glob": "{projectRoot}/*.md",
             "input": ".",
             "output": "."
           }
         ],
-        "external": ["react", "react-dom"]
+        "external": [
+          "react",
+          "react-dom"
+        ]
       },
       "configurations": {
         "production": {
@@ -49,5 +54,7 @@
       }
     }
   },
-  "tags": []
+  "tags": [
+    "scope:shared"
+  ]
 }

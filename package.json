@@ -19,6 +19,11 @@
     "@playwright/test": "^1.36.0",
     "@remix-run/dev": "^2.8.1",
     "@remix-run/eslint-config": "^2.8.1",
+    "@svgr/cli": "^8.1.0",
+    "@svgr/core": "^8.1.0",
+    "@svgr/plugin-jsx": "^8.1.0",
+    "@svgr/plugin-prettier": "^8.1.0",
+    "@svgr/plugin-svgo": "^8.1.0",
     "@swc-node/register": "~1.8.0",
     "@swc/core": "~1.3.85",
     "@swc/helpers": "~0.5.2",
@@ -40,15 +45,25 @@
     "vite": "^5.1.6"
   },
   "dependencies": {
+    "@conform-to/react": "^1.0.5",
+    "@conform-to/yup": "^1.0.5",
     "@mantine/core": "^7.6.1",
     "@mantine/hooks": "^7.6.1",
+    "@mantine/utils": "^6.0.21",
     "@remix-run/css-bundle": "^2.8.1",
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
     "@remix-run/serve": "^2.8.1",
+    "@tabler/icons-react": "^3.1.0",
+    "@types/lodash": "^4.17.0",
     "isbot": "^3.6.8",
+    "lodash": "^4.17.21",
+    "pocketbase": "^0.21.1",
+    "promise-passthrough": "^1.0.5",
     "react": "18.3.0-canary-a870b2d54-20240314",
-    "react-dom": "18.3.0-canary-a870b2d54-20240314"
+    "react-dom": "18.3.0-canary-a870b2d54-20240314",
+    "react-hot-toast": "^2.4.1",
+    "yup": "^1.4.0"
   },
   "overrides": {
     "react": "18.3.0-canary-a870b2d54-20240314",

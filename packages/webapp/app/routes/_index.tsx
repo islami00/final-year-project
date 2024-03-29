@@ -1,11 +1,31 @@
-import { Paper } from '@mantine/core';
-import NxWelcome from '../modules/nx-welcome/nx-welcome';
+import { AppShell } from '@mantine/core';
+import { Outlet, json, useLoaderData } from '@remix-run/react';
+import { requireOrganizations, requireUser } from '../services/pocketbase/auth';
+import { AppShellHeader } from '../components/AppShell/AppShellHeader';
+import { AppShellMain } from '../components/AppShell/AppShell.styles';
+
+// loaders can only be called in routes.
+export async function clientLoader() {
+  const user = await requireUser();
+  const organizations = await requireOrganizations(user.id);
+  return json({ user, organizations });
+}
 
 export default function Index() {
+  const { user } = useLoaderData<typeof clientLoader>();
   return (
-    <Paper w="100dvw" h="100dvh" bg="dark">
-      
-      <NxWelcome title={'webapp'} />
-    </Paper>
+    <AppShell
+      header={{ offset: true, height: 59 }}
+      navbar={{ width: 301, breakpoint: 'lg' }}
+    >
+      <AppShellHeader user={user} />
+      <>
+        {/* Only show navigation if onboarded */}
+        <AppShell.Navbar>Nav</AppShell.Navbar>
+        <AppShellMain>
+          <Outlet />
+        </AppShellMain>
+      </>
+    </AppShell>
   );
 }
