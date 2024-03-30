@@ -1,18 +1,11 @@
-import type { ModalStylesNames } from '@mantine/core';
 import { css } from '@tma/design-system';
+import { submitBtn as sBtn } from '../../Onboard/Onboard.styles';
 
-export const modalHeader = css({
-  height: 100,
-  pt: 'md',
-  px: 'md',
-  pb: 0,
+export const formRoot = css({
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: 'inherit',
+  flexGrow: 1,
 });
 
-export const modalTitle = css({
-  textStyle: 'lgBold',
-});
-
-export const modalClasses: Partial<Record<ModalStylesNames, string>> = {
-  header: modalHeader,
-  title: modalTitle,
-};
+export const submitBtn = sBtn;

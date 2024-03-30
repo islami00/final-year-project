@@ -1,6 +1,7 @@
-import { Modal } from '@mantine/core';
-import { Icon } from '../../../components/Icon';
-import { modalClasses } from './CreateTask.styles';
+import { Button, Modal, ScrollArea, TextInput } from '@mantine/core';
+import { formRoot, submitBtn } from './CreateTask.styles';
+import { Form } from '@remix-run/react';
+import { TMAModal } from '../../../components/TMAModal/TMAModal';
 
 interface CreateTaskProps {
   onClose: VoidFunction;
@@ -9,18 +10,24 @@ interface CreateTaskProps {
 export function CreateTask(props: CreateTaskProps) {
   const { onClose } = props;
   return (
-    <Modal
+    <TMAModal
       opened
       onClose={onClose}
-      title="Create Task"
       closeOnClickOutside={false}
       closeOnEscape={false}
-      classNames={modalClasses}
-      closeButtonProps={{
-        icon: <Icon name="IconX" size="s16" strokeSize="s24" color="#fff" />,
-      }}
+      title="Create Task"
+      centered
     >
-      Create Task Route
-    </Modal>
+      <ScrollArea.Autosize>
+        <Modal.Body>
+          <Form className={formRoot}>
+            <TextInput label="Name" />
+            <Button size="xs" type="submit" className={submitBtn}>
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </ScrollArea.Autosize>
+    </TMAModal>
   );
 }
