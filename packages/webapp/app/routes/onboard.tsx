@@ -1,21 +1,20 @@
-import { AppShell } from '@mantine/core';
+import { AppShellRoot } from '../components/AppShell/AppShellRoot';
+
+import { parseWithYup } from '@conform-to/yup';
 import {
   json,
+  redirect,
   useLoaderData,
   type ClientActionFunctionArgs,
-  redirect,
 } from '@remix-run/react';
-import { AppShellHeader } from '../components/AppShell/AppShellHeader';
+import toast from 'react-hot-toast';
 import { Onboard } from '../modules/Onboard/Onboard';
-import { requireNewbie, requireUser } from '../services/pocketbase/auth';
-import { AppShellMain } from '../components/AppShell/AppShell.styles';
-import * as onboardForm from '../modules/Onboard/logic/onboardForm';
-import { parseWithYup } from '@conform-to/yup';
 import type { OnboardLoaderData } from '../modules/Onboard/Onboard.types';
+import * as onboardForm from '../modules/Onboard/logic/onboardForm';
+import { requireNewbie, requireUser } from '../services/pocketbase/auth';
 import { postCreateOrganisationForUser } from '../services/queries/organization/postCreateOrganisationForUser';
 import { postLinkOrganisationToUser } from '../services/queries/organization/postLinkOrganisationUser';
 import { castError } from '../utils/parseClientResponseError';
-import toast from 'react-hot-toast';
 
 // loaders can only be called in routes.
 export async function clientLoader() {
@@ -58,12 +57,8 @@ export async function clientAction(args: ClientActionFunctionArgs) {
 export default function OnboardRoute() {
   const { user } = useLoaderData<typeof clientLoader>();
   return (
-    <AppShell header={{ offset: true, height: 59 }}>
-      <AppShellHeader user={user} />
-
-      <AppShellMain>
-        <Onboard />
-      </AppShellMain>
-    </AppShell>
+    <AppShellRoot user={user}>
+      <Onboard />
+    </AppShellRoot>
   );
 }

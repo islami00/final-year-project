@@ -1,31 +1,19 @@
-import { AppShell } from '@mantine/core';
 import { Outlet, json, useLoaderData } from '@remix-run/react';
+import { AppShellRoot } from '../components/AppShell/AppShellRoot';
 import { requireOrganizations, requireUser } from '../services/pocketbase/auth';
-import { AppShellHeader } from '../components/AppShell/AppShellHeader';
-import { AppShellMain } from '../components/AppShell/AppShell.styles';
 
 // loaders can only be called in routes.
 export async function clientLoader() {
   const user = await requireUser();
-  const organizations = await requireOrganizations(user.id);
-  return json({ user, organizations });
+  const organisations = await requireOrganizations(user.id);
+  return json({ user, organisations: organisations });
 }
 
 export default function Index() {
-  const { user } = useLoaderData<typeof clientLoader>();
+  const { user, organisations } = useLoaderData<typeof clientLoader>();
   return (
-    <AppShell
-      header={{ offset: true, height: 59 }}
-      navbar={{ width: 301, breakpoint: 'lg' }}
-    >
-      <AppShellHeader user={user} />
-      <>
-        {/* Only show navigation if onboarded */}
-        <AppShell.Navbar>Nav</AppShell.Navbar>
-        <AppShellMain>
-          <Outlet />
-        </AppShellMain>
-      </>
-    </AppShell>
+    <AppShellRoot navbar user={user} organisations={organisations}>
+      <Outlet />
+    </AppShellRoot>
   );
 }
