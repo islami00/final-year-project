@@ -12,7 +12,7 @@ import {
 } from '@remix-run/react';
 import { MantineProvider, ColorSchemeScript, Paper } from '@mantine/core';
 import { WatchState } from './modules/Auth/components/WatchState/WatchState';
-import { mantineThemeOverride } from '@tma/design-system';
+import { appThemeOverride } from './styles/mantine/appThemeOverride';
 import fontStyleSheetUrl from '@fontsource-variable/open-sans/index.css?url';
 
 export const meta: MetaFunction = () => [
@@ -41,7 +41,7 @@ export default function App() {
         <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body>
-        <MantineProvider theme={mantineThemeOverride} defaultColorScheme="dark">
+        <MantineProvider theme={appThemeOverride} defaultColorScheme="dark">
           <Paper w="100dvw" h="100dvh" bg="dark.8">
             <Outlet />
           </Paper>

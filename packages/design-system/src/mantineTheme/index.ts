@@ -1,20 +1,13 @@
 import {
   DEFAULT_THEME,
-  type MantineThemeOverride,
   mergeMantineTheme,
-  createTheme,
   type MantinePrimaryShade,
   type MantineTheme,
 } from '@mantine/core';
 import { type Tokens } from '@pandacss/dev';
-import { mantineComponents } from './mantineComponents';
+import { baseMantineThemeOverride } from './baseMantineThemeOverride';
 
-export const mantineThemeOverride: MantineThemeOverride = createTheme({
-  fontFamily: `Open Sans Variable, ${DEFAULT_THEME.fontFamily}`,
-  components: mantineComponents,
-});
-
-const mergedTheme = mergeMantineTheme(DEFAULT_THEME, mantineThemeOverride);
+const mergedTheme = mergeMantineTheme(DEFAULT_THEME, baseMantineThemeOverride);
 
 const DEFAULT_KEYWORD = 'DEFAULT';
 type RequiredTokens = Required<Tokens>;
