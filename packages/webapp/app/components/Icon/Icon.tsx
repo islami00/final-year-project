@@ -20,6 +20,7 @@ export interface IconProps {
   name?: IconName;
   /** Default size is s16, set to null to remove size styling */
   size?: IconSize;
+  strokeSize?: IconSize;
 }
 /**
  * Renders an SVG icon. The icon defaults to the size of the font.
@@ -30,8 +31,9 @@ export interface IconProps {
 export const Icon = forwardRef<
   SVGSVGElement,
   SVGProps<SVGSVGElement> & IconProps
->(({ name, size = 'font', className, ...props }, ref) => {
+>(({ name, size = 'font', strokeSize = size, className, ...props }, ref) => {
   const parsedSize = size || undefined;
+  const parsedStrSize = strokeSize || undefined;
 
   const IconComp = name ? TablerIcons[name as TablerIconNames] : null;
   const CustomIcon = name ? LocalIcons[name as LocalIconOptions] : null;
@@ -41,7 +43,10 @@ export const Icon = forwardRef<
     <Comp
       {...props}
       ref={ref}
-      className={cx(sizeRecipe({ size: parsedSize }), className)}
+      className={cx(
+        sizeRecipe({ size: parsedSize, strokeWidth: parsedStrSize }),
+        className
+      )}
     />
   );
 });

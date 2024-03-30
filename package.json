@@ -47,6 +47,7 @@
   "dependencies": {
     "@conform-to/react": "^1.0.5",
     "@conform-to/yup": "^1.0.5",
+    "@fontsource-variable/open-sans": "^5.0.28",
     "@mantine/core": "^7.6.1",
     "@mantine/hooks": "^7.6.1",
     "@mantine/utils": "^6.0.21",

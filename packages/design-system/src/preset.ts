@@ -1,34 +1,7 @@
 import { rem } from '@mantine/core';
 import { definePreset, defineTokens } from '@pandacss/dev';
-import {
-  mantineColorsAsTokens,
-  mantineRadiiAsTokens,
-  mantineSpacingAsTokens,
-} from './mantineTheme';
-
-const tokens = defineTokens({
-  colors: {
-    ...mantineColorsAsTokens,
-    primary: {
-      value: 'red',
-    },
-  },
-  spacing: {
-    ...mantineSpacingAsTokens,
-    '2xs': {
-      value: rem(8),
-    },
-    '3xs': {
-      value: rem(6),
-    },
-    '4xs': {
-      value: rem(4),
-    },
-  },
-  radii: {
-    ...mantineRadiiAsTokens,
-  },
-});
+import { textStyles } from './preset/textStyles';
+import { presetTokens } from './preset/presetTokens';
 
 const semanticTokens = defineTokens({
   sizes: {
@@ -48,7 +21,8 @@ export default definePreset({
     recipes: {
       // recipes break the template-literal so no-go fn: https://github.com/chakra-ui/panda/issues/2388
     },
-    tokens,
+    tokens: presetTokens,
     semanticTokens,
+    textStyles,
   },
 });

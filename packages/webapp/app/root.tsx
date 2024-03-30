@@ -13,6 +13,7 @@ import {
 import { MantineProvider, ColorSchemeScript, Paper } from '@mantine/core';
 import { WatchState } from './modules/Auth/components/WatchState/WatchState';
 import { mantineThemeOverride } from '@tma/design-system';
+import fontStyleSheetUrl from '@fontsource-variable/open-sans/index.css?url';
 
 export const meta: MetaFunction = () => [
   {
@@ -26,6 +27,8 @@ export const links: LinksFunction = () => {
     ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
     { rel: 'stylesheet', href: mantineCssUrl },
     { rel: 'stylesheet', href: pandaCssUrl },
+    { rel: 'preload', href: fontStyleSheetUrl, as: 'style' },
+    { rel: 'stylesheet', href: fontStyleSheetUrl },
   ];
 };
 

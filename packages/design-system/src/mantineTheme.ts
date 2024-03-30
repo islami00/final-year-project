@@ -8,7 +8,7 @@ import {
 import { type Tokens } from '@pandacss/dev';
 
 export const mantineThemeOverride: MantineThemeOverride = createTheme({
-  spacing: {},
+  fontFamily: `Open Sans Variable, ${DEFAULT_THEME.fontFamily}`,
 });
 
 const mergedTheme = mergeMantineTheme(DEFAULT_THEME, mantineThemeOverride);
