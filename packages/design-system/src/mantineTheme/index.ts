@@ -1,14 +1,17 @@
 import {
   DEFAULT_THEME,
-  createTheme,
   type MantineThemeOverride,
   mergeMantineTheme,
+  createTheme,
   type MantinePrimaryShade,
+  type MantineTheme,
 } from '@mantine/core';
 import { type Tokens } from '@pandacss/dev';
+import { mantineComponents } from './mantineComponents';
 
 export const mantineThemeOverride: MantineThemeOverride = createTheme({
   fontFamily: `Open Sans Variable, ${DEFAULT_THEME.fontFamily}`,
+  components: mantineComponents,
 });
 
 const mergedTheme = mergeMantineTheme(DEFAULT_THEME, mantineThemeOverride);
@@ -19,16 +22,32 @@ type ColorTokens = RequiredTokens['colors'];
 type SpacingTokens = RequiredTokens['spacing'];
 type RadiiTokens = RequiredTokens['radii'];
 
-function parsePrimaryShade(): MantinePrimaryShade {
-  if (typeof mergedTheme.primaryShade === 'object') {
-    return mergedTheme.primaryShade;
+function parsePrimaryShade(theme: MantineTheme): MantinePrimaryShade {
+  if (typeof theme.primaryShade === 'object') {
+    return theme.primaryShade;
   }
   return {
-    light: mergedTheme.primaryShade,
-    dark: mergedTheme.primaryShade,
+    light: theme.primaryShade,
+    dark: theme.primaryShade,
   };
 }
-const primaryShade = parsePrimaryShade();
+function mapObjectToTokens<T extends RequiredTokens[keyof RequiredTokens]>(
+  record: Record<string, string | number>
+): T {
+  const recordWithTokens = Object.entries(record).reduce((acc, curr) => {
+    const [key, value] = curr;
+    acc[key] = {
+      value: value,
+      description: "From mantine's theme",
+    };
+    return acc;
+  }, {} as T);
+
+  return recordWithTokens;
+}
+
+const primaryShade = parsePrimaryShade(mergedTheme);
+
 // Map each color to a nested token
 // See also https://panda-css.com/docs/theming/tokens#colors
 export const mantineColorsAsTokens: ColorTokens = Object.entries(
@@ -48,21 +67,6 @@ export const mantineColorsAsTokens: ColorTokens = Object.entries(
   acc[key] = merged;
   return acc;
 }, {} as ColorTokens);
-
-function mapObjectToTokens<T extends RequiredTokens[keyof RequiredTokens]>(
-  record: Record<string, string | number>
-): T {
-  const recordWithTokens = Object.entries(record).reduce((acc, curr) => {
-    const [key, value] = curr;
-    acc[key] = {
-      value: value,
-      description: "From mantine's theme",
-    };
-    return acc;
-  }, {} as T);
-
-  return recordWithTokens;
-}
 
 export const mantineSpacingAsTokens: SpacingTokens = mapObjectToTokens(
   mergedTheme.spacing
