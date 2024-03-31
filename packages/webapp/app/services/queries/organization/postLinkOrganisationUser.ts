@@ -1,6 +1,6 @@
 import { forwardError } from '../../../utils/forwardError';
 import { pb } from '../../pocketbase/setup';
-import { collections } from '../utils';
+import { collections } from '../../pocketbase/collections';
 import { parseClientResponseError } from '../../../utils/parseClientResponseError';
 
 interface PostLinkOrganisationToUserArgs {
@@ -18,7 +18,7 @@ export async function postLinkOrganisationToUser({
   };
 
   await pb
-    .collection(collections.organisations_users)
+    .collection(collections.organisation_users)
     .create(orgUserData)
     .catch(forwardError(parseClientResponseError));
 }

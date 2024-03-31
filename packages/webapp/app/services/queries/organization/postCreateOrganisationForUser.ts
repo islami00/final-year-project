@@ -5,7 +5,7 @@ import OrganizationModel, {
   type Organization,
 } from '../../../models/Organization.model';
 import { pb } from '../../pocketbase/setup';
-import { collections } from '../utils';
+import { collections } from '../../pocketbase/collections';
 
 export interface PostCreateOrganisationForUserArgs {
   userId: string;
@@ -23,7 +23,7 @@ export async function postCreateOrganisationForUser(
 
   // Create org and link it to the user
   const org = await pb
-    .collection(collections.organisations)
+    .collection(collections.organisation)
     .create<OrganizationApi>(orgData)
     .catch(forwardError(parseClientResponseError));
   return OrganizationModel.fromApi(org);
