@@ -2,6 +2,7 @@
 // @ts-check
 
 // Mock module
+// Todo: Clean this up, likely by moving to GO
 (function () {
   // Run
   /** @type {import("./utils.cjs")} */

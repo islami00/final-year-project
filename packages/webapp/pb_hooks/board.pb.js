@@ -2,6 +2,7 @@
 // @ts-check
 
 // Mock Module
+// Todo: Clean this up, likely by moving to GO
 (function () {
   /** @type {import("./utils.cjs")} */
   const utils = require(`${__hooks}/utils.cjs`);
