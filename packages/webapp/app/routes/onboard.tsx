@@ -13,7 +13,6 @@ import type { OnboardLoaderData } from '../modules/Onboard/Onboard.types';
 import * as onboardForm from '../modules/Onboard/logic/onboardForm';
 import { requireNewbie, requireUser } from '../services/pocketbase/auth';
 import { postCreateOrganisationForUser } from '../services/queries/organization/postCreateOrganisationForUser';
-import { postLinkOrganisationToUser } from '../services/queries/organization/postLinkOrganisationUser';
 import { castError } from '../utils/parseClientResponseError';
 
 // loaders can only be called in routes.
@@ -37,14 +36,9 @@ export async function clientAction(args: ClientActionFunctionArgs) {
   const { value } = submission;
 
   try {
-    const org = await postCreateOrganisationForUser({
+    await postCreateOrganisationForUser({
       userId: value.userId,
       organisationName: value.name,
-    });
-
-    await postLinkOrganisationToUser({
-      userId: value.userId,
-      organisationId: org.id,
     });
 
     return redirect('/');

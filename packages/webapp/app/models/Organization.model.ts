@@ -7,7 +7,10 @@ export interface Organization {
   name: string;
   ownerId: string;
 }
-
+export interface OrganizationCreate {
+  name: string;
+  ownerId: string;
+}
 const organizationSchema: yup.ObjectSchema<Organization> = yup.object({
   id: yup.string().required(),
   name: yup.string().required(),
