@@ -55,4 +55,4 @@ cp -R ../my-old-remix-app/app app
 
 ### SVGs
 
-- I use https://github.com/alexanderson1993/svg-icons-cli to bundle custom svgs together in a sprite
+- I use [svgr](https://react-svgr.com/docs/remix/) to generate jsx from svgs, and a custom svg component to access them via text.
