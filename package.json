@@ -42,7 +42,7 @@
     "prettier": "^2.6.2",
     "tslib": "2.6.2",
     "typescript": "~5.3.2",
-    "vite": "^5.1.6"
+    "vite": "^5.1.7"
   },
   "dependencies": {
     "@conform-to/react": "^1.0.5",
