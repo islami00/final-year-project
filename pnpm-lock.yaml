@@ -14,6 +14,9 @@ importers:
       '@conform-to/yup':
         specifier: ^1.0.5
         version: 1.0.5(@conform-to/dom@1.0.5)(yup@1.4.0)
+      '@conform-to/zod':
+        specifier: ^1.0.6
+        version: 1.0.6(zod@3.22.4)
       '@fontsource-variable/open-sans':
         specifier: ^5.0.28
         version: 5.0.28
@@ -68,6 +71,9 @@ importers:
       yup:
         specifier: ^1.4.0
         version: 1.4.0
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
       '@nx/devkit':
         specifier: 18.0.8
@@ -1611,6 +1617,10 @@ packages:
     resolution: {integrity: sha512-d+85Z8w5z8gO5mtHGKP5JORHLmcgo2bTmdzRk8lhqUkye9hyM2nt801wE6C6U9zq/s7rnlX7kN5x0A6QBhvk3A==}
     dev: false
 
+  /@conform-to/dom@1.0.6:
+    resolution: {integrity: sha512-24teTftuAfcjv+SiaFYb9msjdQA7Kq8Yk9QkMPrkF8LETl80+i5fpCaIG8V91KyTitBeBcc80gg9HuPuuq3dqQ==}
+    dev: false
+
   /@conform-to/react@1.0.5(react@18.3.0-canary-a870b2d54-20240314):
     resolution: {integrity: sha512-LyhbN0oVoL7xQg8NXoeG7jqH9JCLsI10clQ0iwwdQDMA+W7OFAL70FFYjq7yjHJBrkj7QqcmO5xMV4jfWTvJJw==}
     peerDependencies:
@@ -1628,6 +1638,15 @@ packages:
     dependencies:
       '@conform-to/dom': 1.0.5
       yup: 1.4.0
+    dev: false
+
+  /@conform-to/zod@1.0.6(zod@3.22.4):
+    resolution: {integrity: sha512-l+fMqEymGG7wrCIdp7Lyt1UPKdlvHbM5KDHeGQkuIEgqISpDVwOH/xt3xb/THzW1unk6beYWh99xMuEmV/ATYw==}
+    peerDependencies:
+      zod: ^3.21.0
+    dependencies:
+      '@conform-to/dom': 1.0.6
+      zod: 3.22.4
     dev: false
 
   /@cspotcode/source-map-support@0.8.1:
@@ -12255,6 +12274,10 @@ packages:
       tiny-case: 1.0.3
       toposort: 2.0.2
       type-fest: 2.19.0
+    dev: false
+
+  /zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: false
 
   /zwitch@2.0.4:

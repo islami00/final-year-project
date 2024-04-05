@@ -3,6 +3,7 @@ import { parseClientResponseError } from '../../../utils/parseClientResponseErro
 import OrganizationModel, {
   OrganizationApi,
   type Organization,
+  type OrganizationCreate,
 } from '../../../models/Organization.model';
 import { pb } from '../../pocketbase/setup';
 import { collections } from '../../pocketbase/collections';
@@ -16,12 +17,11 @@ export async function postCreateOrganisationForUser(
 ): Promise<Organization> {
   const { userId, organisationName } = args;
 
-  const orgData: Omit<OrganizationApi, 'id'> = {
+  const orgData: OrganizationCreate = {
     name: organisationName,
     ownerId: userId,
   };
 
-  // Create org and link it to the user
   const org = await pb
     .collection(collections.organisation)
     .create<OrganizationApi>(orgData)
