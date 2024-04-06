@@ -44,7 +44,7 @@ export function CreateTask(props: CreateTaskProps) {
             onSubmit={form.onSubmit}
           >
             <TextInput
-              label="Name"
+              label="Title"
               {...getInputProps(fields.title, { type: 'text' })}
             />
             <input

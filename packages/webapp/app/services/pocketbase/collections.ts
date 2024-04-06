@@ -7,4 +7,4 @@ export const collections = {
   task: 'task',
   task_assignee: 'task_assignee',
   users: 'users',
-};
+} as const;

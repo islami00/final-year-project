@@ -5,8 +5,9 @@ import { AppError } from '../../utils/AppError';
 import UserModel, { User, type UserApi } from '../../models/User.model';
 import type { Organization } from '../../models/Organization.model';
 import { getOrganizationsByUser } from '../queries/organization/getOrganizationsByUser';
+import { logout } from '../queries/auth/logout';
 
-export function requireUser(): Promise<User> {
+export async function requireUser(): Promise<User> {
   if (!pb.authStore.isValid) {
     const defaultMode: AuthModes = 'login';
     throw redirect(`/auth/${defaultMode}`);
@@ -15,7 +16,13 @@ export function requireUser(): Promise<User> {
     // Todo: Use error codes to match these
     throw new AppError('User not found');
   }
-  return UserModel.fromApi(pb.authStore.model as UserApi);
+  try {
+    return UserModel.fromApi(pb.authStore.model as UserApi);
+  } catch (error) {
+    // If this fails, it's likely the cached model is wrong.
+    await logout();
+    throw error;
+  }
 }
 export async function requireOrganizations(
   userId: string
