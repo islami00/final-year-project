@@ -1,18 +1,21 @@
+import { parseWithYup } from '@conform-to/yup';
 import {
+  generatePath,
+  json,
+  redirect,
   useNavigate,
   useParams,
   type ClientActionFunctionArgs,
-  json,
 } from '@remix-run/react';
-import { CreateTask } from '../modules/Boards/components/CreateTask';
 import { useMemo } from 'react';
-import { boardIdSchema } from './utils';
-import { parseWithYup } from '@conform-to/yup';
-import * as createTaskForm from '../modules/Boards/logic/createTaskForm';
-import { postCreateTask } from '../services/queries/task/postCreateTask';
-import { useBoardIdLoaderData } from '../modules/Boards/logic/useBoardIdLoaderData';
 import toast from 'react-hot-toast';
+import { CreateTask } from '../modules/Boards/components/CreateTask';
+import * as createTaskForm from '../modules/Boards/logic/createTaskForm';
+import { useBoardIdLoaderData } from '../modules/Boards/logic/useBoardIdLoaderData';
+import { getNextTaskColumnOrder } from '../services/queries/task/getNextTaskColumnOrder';
+import { postCreateTask } from '../services/queries/task/postCreateTask';
 import { castError } from '../utils/parseClientResponseError';
+import { boardIdSchema, routeConfig } from './utils';
 
 export async function clientAction(args: ClientActionFunctionArgs) {
   const { request } = args;
@@ -28,14 +31,23 @@ export async function clientAction(args: ClientActionFunctionArgs) {
   const { value } = submission;
 
   try {
+    const nextColumnOrder = await getNextTaskColumnOrder({
+      boardId: value.boardId as string,
+    });
     const task = await postCreateTask({
       body: {
         boardId: value.boardId,
         statusId: value.statusId,
         title: value.title,
+        columnOrder: nextColumnOrder,
       },
     });
-    return json({ task });
+    return redirect(
+      generatePath(routeConfig.boardTasks, {
+        boardId: task.boardId,
+        taskId: task.id,
+      })
+    );
   } catch (error) {
     const appError = castError(error);
     toast.error(appError.message);

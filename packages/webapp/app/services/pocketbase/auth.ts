@@ -1,7 +1,7 @@
 import { redirect } from '@remix-run/react';
 import { AuthModes } from '../../modules/Auth/Auth.types';
 import { pb } from './setup';
-import { AppError } from '../../utils/AppError';
+import { AppError, appErrorCodes } from '../../utils/AppError';
 import UserModel, { User, type UserApi } from '../../models/User.model';
 import type { Organization } from '../../models/Organization.model';
 import { getOrganizationsByUser } from '../queries/organization/getOrganizationsByUser';
@@ -14,7 +14,7 @@ export async function requireUser(): Promise<User> {
   }
   if (!pb.authStore.model) {
     // Todo: Use error codes to match these
-    throw new AppError('User not found');
+    throw new AppError(appErrorCodes.NOT_FOUND, 'User not found');
   }
   try {
     return UserModel.fromApi(pb.authStore.model as UserApi);

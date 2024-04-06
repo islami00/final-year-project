@@ -1,6 +1,6 @@
 import { token, type ColorToken } from '@tma/design-system';
 import { z } from 'zod';
-import { AppError } from '../utils/AppError';
+import { AppValidationError } from '../utils/AppValidationError';
 import Converter from './Converter.model';
 import { ZodOf } from './types';
 
@@ -63,7 +63,7 @@ class StatusConverter extends Converter<StatusApi, Status> {
     const allStatuses = await $self.fromArrayApi(from);
     const first = allStatuses.find((each) => each.order === 0);
     if (!first) {
-      throw new AppError('Missing default status');
+      throw new AppValidationError('Missing default status');
     }
 
     return {

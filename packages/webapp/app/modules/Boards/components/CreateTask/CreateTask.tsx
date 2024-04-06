@@ -61,6 +61,7 @@ export function CreateTask(props: CreateTaskProps) {
               })}
               value={defaultStatusId}
             />
+
             <Button size="xs" type="submit" className={submitBtn}>
               Submit
             </Button>

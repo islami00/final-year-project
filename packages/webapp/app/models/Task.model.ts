@@ -6,6 +6,7 @@ export interface TaskCreate {
   title: string;
   boardId: string;
   statusId: string;
+  columnOrder: number;
 }
 
 enum Priority {
@@ -15,6 +16,7 @@ enum Priority {
   P3 = 'p3',
 }
 export interface TaskApi {
+  id: string;
   title: string;
   dueDate: string;
   isDueDateCompleted: boolean;
@@ -28,18 +30,20 @@ export interface TaskApi {
 }
 
 export interface Task {
-  title: string;
+  id: TaskApi['id'];
+  title: TaskApi['title'];
   dueDate: Date | null;
-  isDueDateCompleted: boolean;
-  statusId: string;
+  isDueDateCompleted: TaskApi['isDueDateCompleted'];
+  statusId: TaskApi['statusId'];
   priority: Priority | null;
-  sprintPoints: number;
-  columnOrder: number;
+  sprintPoints: TaskApi['sprintPoints'];
+  columnOrder: TaskApi['columnOrder'];
   description: TaskApi['description'];
-  boardId: string;
+  boardId: TaskApi['boardId'];
 }
 
 const taskSchema = z.object({
+  id: z.string().min(1),
   title: z.string().min(1),
   dueDate: z.preprocess((v) => v || null, z.coerce.date().nullable()),
 
