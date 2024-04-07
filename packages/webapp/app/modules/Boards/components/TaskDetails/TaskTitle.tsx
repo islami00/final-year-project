@@ -50,10 +50,13 @@ export function TaskTitle(props: TaskTitleProps) {
         placeholder="Title"
         {...getInputProps(fields.title, { type: 'text' })}
         error={fields.title.errors?.at(0)}
+        // See: https://github.com/edmundhung/conform/discussions/545
+        key={fields.title.key}
       />
       <input
         {...getInputProps(fields.intent, { type: 'hidden', value: false })}
         value={TaskDetailsIntent.TITLE}
+        key={fields.intent.key}
       />
     </fetcher.Form>
   );

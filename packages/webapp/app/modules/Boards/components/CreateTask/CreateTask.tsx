@@ -46,6 +46,7 @@ export function CreateTask(props: CreateTaskProps) {
             <TextInput
               label="Title"
               {...getInputProps(fields.title, { type: 'text' })}
+              key={fields.title.key}
             />
             <input
               {...getInputProps(fields.boardId, {
@@ -53,6 +54,7 @@ export function CreateTask(props: CreateTaskProps) {
                 value: false,
               })}
               value={boardId}
+              key={fields.boardId.key}
             />
             <input
               {...getInputProps(fields.statusId, {
@@ -60,6 +62,7 @@ export function CreateTask(props: CreateTaskProps) {
                 value: false,
               })}
               value={defaultStatusId}
+              key={fields.statusId.key}
             />
 
             <Button size="xs" type="submit" className={submitBtn}>
