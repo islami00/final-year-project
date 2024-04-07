@@ -27,6 +27,10 @@ export function TaskTitle(props: TaskTitleProps) {
   const [form, fields] = useForm<TitleFormData>({
     lastResult: lastResult,
     defaultValue: createTitleDefault(defaultValue),
+    onSubmit(event) {
+      // Prevent a lot of saves
+      if (!form.dirty) event.preventDefault();
+    },
   });
 
   const submitRef = React.useRef<HTMLFormElement | null>(null);
