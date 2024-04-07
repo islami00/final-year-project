@@ -18,7 +18,7 @@ export async function getOrganizationsByUser(
     .collection<OrganizationApi>(collections.organisation)
     .getFullList(undefined, {
       filter: pb.filter(
-        `${collections.organisation_users}_via_organisationId.userId={:userId}`,
+        `${collections.organisation_users}_via_organisationId.userId ?= {:userId}`,
         { userId }
       ),
     });

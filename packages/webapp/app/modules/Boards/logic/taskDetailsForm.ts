@@ -10,7 +10,8 @@ export interface TitleFormData {
 }
 export interface AssigneesFormData {
   intent: TaskDetailsIntent.ASSIGNEES;
-  assignees: string[];
+  assignee: string;
+  remove: boolean;
 }
 export const titleSchema = z.object({
   intent: z.literal(TaskDetailsIntent.TITLE),
@@ -18,7 +19,8 @@ export const titleSchema = z.object({
 }) satisfies ZodOf<TitleFormData>;
 export const assigneesSchema = z.object({
   intent: z.literal(TaskDetailsIntent.ASSIGNEES),
-  assignees: z.array(z.string().min(1)),
+  assignee: z.string().min(1),
+  remove: z.boolean(),
 }) satisfies ZodOf<AssigneesFormData>;
 
 export type TaskDetailsFormData = TitleFormData | AssigneesFormData;
@@ -29,7 +31,7 @@ export const createTitleDefault = (title: string): TaskDetailsFormData => {
   };
 };
 
-export const taskDetailsForm = z.union([
+export const taskDetailsSchema = z.union([
   titleSchema,
   assigneesSchema,
 ]) satisfies ZodOf<TaskDetailsFormData>;

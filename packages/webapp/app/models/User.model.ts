@@ -1,6 +1,14 @@
 import Converter from './Converter.model';
 import * as yup from 'yup';
 
+export interface UserCreate {
+  password: string;
+  passwordConfirm: string;
+  name: string;
+
+  emailVisibility: boolean;
+  email: string;
+}
 export type UserApi = User;
 export interface User {
   username: string;

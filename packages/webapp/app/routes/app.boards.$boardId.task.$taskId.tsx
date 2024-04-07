@@ -12,22 +12,34 @@ import { TaskDetails } from '../modules/Boards/components/TaskDetails/TaskDetail
 import { TaskDetailsLoading } from '../modules/Boards/components/TaskDetails/TaskDetails.loading';
 import {
   TaskDetailsIntent,
-  taskDetailsForm,
+  taskDetailsSchema,
 } from '../modules/Boards/logic/taskDetailsForm';
 import { getTaskById } from '../services/queries/task/getTaskById';
+import { getTaskAssignees } from '../services/queries/task/getTaskAssignees';
+import { patchTaskById } from '../services/queries/task/patchTaskById';
+import { patchAssignTaskToUser } from '../services/queries/task/patchAssignTaskToUser';
+import { getTaskAssigneeById } from '../services/queries/task/getTaskAssigneeById';
+import { deleteUnAssignTaskFromUser } from '../services/queries/task/deleteUnAssignTaskFromUser';
+import toast from 'react-hot-toast';
+import { castError } from '../utils/parseClientResponseError';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;
+  const taskId = params.taskId as string;
 
-  const task = getTaskById({ taskId: params.taskId as string });
-  return defer({ task });
+  const taskDetails = Promise.all([
+    getTaskById({ taskId: taskId }),
+    getTaskAssignees({ taskId: taskId }),
+  ]);
+  return defer({ taskDetails });
 }
 export async function clientAction(args: ClientLoaderFunctionArgs) {
-  const { request } = args;
+  const { request, params } = args;
   const formData = await request.formData();
 
+  const taskId = params.taskId as string;
   const submission = parseWithZod(formData, {
-    schema: taskDetailsForm,
+    schema: taskDetailsSchema,
   });
 
   if (submission.status !== 'success') {
@@ -35,15 +47,45 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
   }
   const { value } = submission;
 
-  switch (value.intent) {
-    case TaskDetailsIntent.TITLE:
-      value;
-      break;
+  try {
+    switch (value.intent) {
+      case TaskDetailsIntent.TITLE: {
+        await patchTaskById({
+          body: {
+            title: value.title,
+          },
+          taskId,
+        });
+        return json(submission.reply({ resetForm: true }));
+      }
+      case TaskDetailsIntent.ASSIGNEES:
+        {
+          if (!value.remove) {
+            await patchAssignTaskToUser({
+              taskId,
+              userId: value.assignee,
+            });
+          } else {
+            const taskAssignee = await getTaskAssigneeById({
+              taskId,
+              assigneeId: value.assignee,
+            });
+            await deleteUnAssignTaskFromUser({
+              taskAssigneeId: taskAssignee.id,
+            });
+          }
+        }
+        return json(submission.reply({ resetForm: true }));
 
-    default:
-      break;
+      default:
+        return json(submission.reply({ resetForm: true }));
+    }
+  } catch (error) {
+    const appError = castError(error);
+    toast.error(appError.message);
+    // Revert
+    return json(submission.reply({ resetForm: true }));
   }
-  return json({});
 }
 export default function BoardTaskDetailsRoute() {
   const loaderData = useLoaderData<typeof clientLoader>();
@@ -51,8 +93,12 @@ export default function BoardTaskDetailsRoute() {
   const onClose = () => navigate('../');
   return (
     <React.Suspense fallback={<TaskDetailsLoading onClose={onClose} />}>
-      <Await resolve={loaderData.task}>
-        {(task) => <TaskDetails task={task} onClose={onClose} />}
+      <Await resolve={loaderData.taskDetails}>
+        {(res) => {
+          const [task, assignees] = res;
+
+          return <TaskDetails task={task} onClose={onClose} />;
+        }}
       </Await>
     </React.Suspense>
   );

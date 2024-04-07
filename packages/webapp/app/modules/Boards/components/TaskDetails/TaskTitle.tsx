@@ -10,7 +10,7 @@ import * as React from 'react';
 import {
   TaskDetailsIntent,
   createTitleDefault,
-  type TaskDetailsFormData,
+  type TitleFormData,
 } from '../../logic/taskDetailsForm';
 import { titleInput } from './TaskDetails.styles';
 
@@ -21,10 +21,14 @@ export function TaskTitle(props: TaskTitleProps) {
   const { defaultValue } = props;
   const fetcher = useFetcher<SubmissionResult>();
 
-  const [form, fields] = useForm<TaskDetailsFormData>({
-    lastResult: fetcher.data,
+  // Ensure we only reset when not loading or submitting (navigating)
+  const lastResult = fetcher.state === 'idle' ? fetcher.data : null;
+
+  const [form, fields] = useForm<TitleFormData>({
+    lastResult: lastResult,
     defaultValue: createTitleDefault(defaultValue),
   });
+
   const submitRef = React.useRef<HTMLFormElement | null>(null);
   const ref = useEventListener('change', () => {
     fetcher.submit(submitRef.current);
