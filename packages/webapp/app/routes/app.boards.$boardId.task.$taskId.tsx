@@ -10,10 +10,7 @@ import {
 import * as React from 'react';
 import { TaskDetails } from '../modules/Boards/components/TaskDetails/TaskDetails';
 import { TaskDetailsLoading } from '../modules/Boards/components/TaskDetails/TaskDetails.loading';
-import {
-  TaskDetailsIntent,
-  taskDetailsSchema,
-} from '../modules/Boards/logic/taskDetailsForm';
+import * as taskDetailsForm from '../modules/Boards/logic/taskDetailsForm';
 import { getTaskById } from '../services/queries/task/getTaskById';
 import { getTaskAssignees } from '../services/queries/task/getTaskAssignees';
 import { patchTaskById } from '../services/queries/task/patchTaskById';
@@ -39,7 +36,7 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
 
   const taskId = params.taskId as string;
   const submission = parseWithZod(formData, {
-    schema: taskDetailsSchema,
+    schema: taskDetailsForm.schema,
   });
 
   if (submission.status !== 'success') {
@@ -49,7 +46,7 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
 
   try {
     switch (value.intent) {
-      case TaskDetailsIntent.TITLE: {
+      case taskDetailsForm.TaskDetailsIntent.TITLE: {
         await patchTaskById({
           body: {
             title: value.title,
@@ -58,7 +55,7 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
         });
         return json(submission.reply({ resetForm: true }));
       }
-      case TaskDetailsIntent.ASSIGNEES:
+      case taskDetailsForm.TaskDetailsIntent.ASSIGNEES:
         {
           if (!value.remove) {
             await patchAssignTaskToUser({

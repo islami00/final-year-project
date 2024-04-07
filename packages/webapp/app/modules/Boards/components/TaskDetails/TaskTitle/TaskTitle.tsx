@@ -7,12 +7,8 @@ import { TextInput } from '@mantine/core';
 import { useEventListener } from '@mantine/hooks';
 import { useFetcher } from '@remix-run/react';
 import * as React from 'react';
-import {
-  TaskDetailsIntent,
-  createTitleDefault,
-  type TitleFormData,
-} from '../../logic/taskDetailsForm';
-import { titleInput } from './TaskDetails.styles';
+import * as taskDetailsForm from '../../../logic/taskDetailsForm';
+import { titleInputClassNames } from '../TaskDetails.styles';
 
 interface TaskTitleProps {
   defaultValue: string;
@@ -24,9 +20,9 @@ export function TaskTitle(props: TaskTitleProps) {
   // Ensure we only reset when not loading or submitting (navigating)
   const lastResult = fetcher.state === 'idle' ? fetcher.data : null;
 
-  const [form, fields] = useForm<TitleFormData>({
+  const [form, fields] = useForm<taskDetailsForm.TitleFormData>({
     lastResult: lastResult,
-    defaultValue: createTitleDefault(defaultValue),
+    defaultValue: taskDetailsForm.titleDefaultData(defaultValue),
     onSubmit(event) {
       // Prevent a lot of saves
       if (!form.dirty) event.preventDefault();
@@ -46,9 +42,7 @@ export function TaskTitle(props: TaskTitleProps) {
       ref={submitRef}
     >
       <TextInput
-        classNames={{
-          input: titleInput,
-        }}
+        classNames={titleInputClassNames}
         ref={ref}
         variant="transparent"
         placeholder="Title"
@@ -59,7 +53,7 @@ export function TaskTitle(props: TaskTitleProps) {
       />
       <input
         {...getInputProps(fields.intent, { type: 'hidden', value: false })}
-        value={TaskDetailsIntent.TITLE}
+        value={taskDetailsForm.TaskDetailsIntent.TITLE}
         key={fields.intent.key}
       />
     </fetcher.Form>

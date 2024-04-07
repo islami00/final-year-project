@@ -4,7 +4,7 @@ import { modalClassNames } from './TaskDetails.styles';
 import { TMAModal } from '../../../../components/TMAModal/TMAModal';
 import { Modal } from '@mantine/core';
 import { css } from '@tma/design-system';
-import { TaskTitle } from './TaskTitle';
+import { TaskTitle } from './TaskTitle/TaskTitle';
 
 export interface TaskDetailsProps {
   task: Task;

@@ -1,5 +1,6 @@
 import { ZodOf } from '../../../models/types';
 import { z } from 'zod';
+
 export enum TaskDetailsIntent {
   TITLE = 'title',
   ASSIGNEES = 'assignees',
@@ -24,14 +25,14 @@ export const assigneesSchema = z.object({
 }) satisfies ZodOf<AssigneesFormData>;
 
 export type TaskDetailsFormData = TitleFormData | AssigneesFormData;
-export const createTitleDefault = (title: string): TaskDetailsFormData => {
+export const titleDefaultData = (title: string): TaskDetailsFormData => {
   return {
     intent: TaskDetailsIntent.TITLE,
     title,
   };
 };
 
-export const taskDetailsSchema = z.union([
+export const schema = z.union([
   titleSchema,
   assigneesSchema,
 ]) satisfies ZodOf<TaskDetailsFormData>;

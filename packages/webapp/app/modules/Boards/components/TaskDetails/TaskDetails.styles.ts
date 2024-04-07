@@ -1,4 +1,4 @@
-import type { ModalBaseStylesNames } from '@mantine/core';
+import type { InputStylesNames, ModalBaseStylesNames } from '@mantine/core';
 import { css } from '@tma/design-system';
 
 export const content = css({
@@ -20,3 +20,7 @@ export const titleInput = css({
   padding: 0,
   minHeight: 0,
 });
+
+export const titleInputClassNames: Partial<Record<InputStylesNames, string>> = {
+  input: titleInput,
+};
