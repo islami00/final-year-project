@@ -1,10 +1,11 @@
-import { Modal } from '@mantine/core';
-import { css } from '@tma/design-system';
+import { Modal, ScrollArea } from '@mantine/core';
+import { P } from '../../../../components/P';
 import { TMAModal } from '../../../../components/TMAModal/TMAModal';
 import { Task } from '../../../../models/Task.model';
+import { DescriptionSection } from './DescriptionSection/DescriptionSection';
 import * as classes from './TaskDetails.styles';
-import { TaskTitle } from './TaskTitle/TaskTitle';
 import { TaskDetailsRightSection } from './TaskDetailsRightSection/TaskDetailsRightSection';
+import { TaskTitle } from './TaskTitle/TaskTitle';
 
 export interface TaskDetailsProps {
   task: Task;
@@ -13,6 +14,7 @@ export interface TaskDetailsProps {
 
 export function TaskDetails(props: TaskDetailsProps) {
   const { task, onClose } = props;
+
   return (
     <TMAModal
       classNames={classes.modalClassNames}
@@ -21,10 +23,20 @@ export function TaskDetails(props: TaskDetailsProps) {
       title={<TaskTitle defaultValue={task.title} />}
       size="786px"
     >
-      <Modal.Body>
-        <div className={css({ textStyle: 'lgBold' })}>Left</div>
-        <TaskDetailsRightSection />
-      </Modal.Body>
+      <ScrollArea>
+        <Modal.Body>
+          <div className={classes.leftSection}>
+            <div className={classes.actions}>
+              <P textStyle="2xs">Example action</P>
+            </div>
+            <div className={classes.descriptionSection}>
+              <P textStyle="mdBold">Description</P>
+              <DescriptionSection defaultValue={task.description} />
+            </div>
+          </div>
+          <TaskDetailsRightSection />
+        </Modal.Body>
+      </ScrollArea>
     </TMAModal>
   );
 }

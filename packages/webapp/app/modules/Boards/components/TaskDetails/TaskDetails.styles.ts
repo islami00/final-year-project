@@ -14,6 +14,22 @@ export const rightSection = css({
   flexDirection: 'column',
   rowGap: 'md',
 });
+export const leftSection = css({
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: 'xl',
+});
+
+export const descriptionSection = css({
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: 'md',
+});
+export const actions = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: 'lg',
+});
 
 export const modalClassNames: Partial<Record<ModalBaseStylesNames, string>> = {
   content,
