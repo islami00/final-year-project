@@ -11,6 +11,12 @@ export interface TMAModalProps extends ModalRootProps {
   title: React.ReactNode;
 }
 
+/**
+ *
+ * @description Modal
+ * Usage:
+ *   - You cannot have both scroll on the body and dynamic (100%) height.
+ */
 export function TMAModal(props: TMAModalProps) {
   const { children, title, classNames, ...rest } = props;
 

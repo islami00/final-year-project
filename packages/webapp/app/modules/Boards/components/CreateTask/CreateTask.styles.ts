@@ -5,7 +5,6 @@ export const formRoot = css({
   display: 'flex',
   flexDirection: 'column',
   rowGap: 'inherit',
-  flexGrow: 1,
 });
 
 export const submitBtn = sBtn;

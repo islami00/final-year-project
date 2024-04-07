@@ -9,23 +9,24 @@ const modalHeader = css({
   alignItems: 'start',
   position: 'static',
   flexShrink: 0,
+  display: 'grid',
+  gridTemplateColumns: '1fr max-content',
 });
 const modalBody = css({
-  display: 'flex',
   pb: 'md',
   px: 'md',
   gap: 'lg',
-  // Mantine reset
+  // Mantine reset start
   pt: 0,
-  // Reset end.
+  // Mantine reset end
   minHeight: 0,
 });
 const modalTitle = css({
   textStyle: 'lgBold',
 });
 const modalContent = css({
-  display: 'flex',
-  flexDirection: 'column',
+  display: 'grid',
+  gridTemplateRows: 'max-content 1fr',
 });
 
 export const modalClasses: Partial<Record<ModalStylesNames, string>> = {
