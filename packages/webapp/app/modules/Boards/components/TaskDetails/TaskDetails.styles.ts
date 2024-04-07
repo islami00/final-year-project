@@ -1,4 +1,4 @@
-import type { InputStylesNames, ModalBaseStylesNames } from '@mantine/core';
+import type { ModalBaseStylesNames } from '@mantine/core';
 import { css } from '@tma/design-system';
 
 export const content = css({
@@ -9,18 +9,13 @@ export const body = css({
   gridTemplateColumns: '550fr 184fr',
 });
 
+export const rightSection = css({
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: 'md',
+});
+
 export const modalClassNames: Partial<Record<ModalBaseStylesNames, string>> = {
   content,
   body,
-};
-
-export const titleInput = css({
-  flexGrow: 1,
-  textStyle: 'lgBold',
-  padding: 0,
-  minHeight: 0,
-});
-
-export const titleInputClassNames: Partial<Record<InputStylesNames, string>> = {
-  input: titleInput,
 };

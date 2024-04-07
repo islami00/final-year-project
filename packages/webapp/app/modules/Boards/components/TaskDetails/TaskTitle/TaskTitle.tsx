@@ -8,7 +8,7 @@ import { useEventListener } from '@mantine/hooks';
 import { useFetcher } from '@remix-run/react';
 import * as React from 'react';
 import * as taskDetailsForm from '../../../logic/taskDetailsForm';
-import { titleInputClassNames } from '../TaskDetails.styles';
+import { titleInputClassNames } from './TaskTitle.styles';
 
 interface TaskTitleProps {
   defaultValue: string;
