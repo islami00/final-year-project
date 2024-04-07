@@ -1,6 +1,6 @@
 import { Button } from '@mantine/core';
 import * as classes from '../TaskDetails.styles';
-import * as deleteBtnColor from '../deleteBtnColor';
+import * as deleteBtnColor from './TaskDetailsRightSection.styles';
 import { SectionGroup } from '../SectionGroup/SectionGroup';
 import { Icon } from '../../../../../components/Icon/Icon';
 
