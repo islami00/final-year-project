@@ -1,39 +1,36 @@
+import { ActionIcon } from '@mantine/core';
 import { Flex } from '@tma/design-system';
-import keyBy from 'lodash/fp/keyBy';
-import { mapToAssigneeData } from '../../../../../components/AssigneeSelect/AssigneeSelect.utils';
+import { Icon } from '../../../../../components/Icon';
 import { UserAvatar } from '../../../../../components/UserAvatar/UserAvatar';
 import { User } from '../../../../../models/User.model';
+import { type ApplyOptimisticAssigneeResult } from '../../../logic/useOptimisticAssignees';
 import { TaskAssignee } from './TaskAssignee';
-import {
-  applyOptimisticAssignee,
-  useOptimisticAssigneeFetchers,
-} from '../../../logic/optimisticAssignee';
 
-export interface AssigneeSectionProps {
+export interface AssigneeSectionProps extends ApplyOptimisticAssigneeResult {
   allUsers: User[];
-  assignees: User[];
 }
 export function AssigneeSection(props: AssigneeSectionProps) {
-  const { allUsers, assignees } = props;
-
-  const { addedAssignees, removedAssignees } = useOptimisticAssigneeFetchers();
-
-  const selectData = allUsers.map(mapToAssigneeData);
-  const dataMap = keyBy((v) => v.id, allUsers);
-
-  const { selected, newAssignees } = applyOptimisticAssignee({
-    assignees,
-    added: addedAssignees,
-    removed: removedAssignees,
-    allData: dataMap,
-  });
+  const { allUsers, optimisticAssignees: newAssignees, selected } = props;
 
   return (
     <Flex columnGap="3xs" alignItems="center">
       {newAssignees.map((each) => (
         <UserAvatar key={each.id} name={each.name} src={each.avatar} />
       ))}
-      <TaskAssignee data={selectData} values={selected} />
+      <TaskAssignee
+        data={allUsers}
+        values={selected}
+        target={(_, combobox) => (
+          <ActionIcon
+            onClick={() => combobox.toggleDropdown()}
+            size="lg"
+            radius="lg"
+            color="dark"
+          >
+            <Icon name="IconPlus" strokeSize="s24" />
+          </ActionIcon>
+        )}
+      />
     </Flex>
   );
 }

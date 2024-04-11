@@ -9,11 +9,7 @@ export const body = css({
   gridTemplateColumns: '550fr 184fr',
 });
 
-export const rightSection = css({
-  display: 'flex',
-  flexDirection: 'column',
-  rowGap: 'md',
-});
+
 export const leftSection = css({
   display: 'flex',
   flexDirection: 'column',

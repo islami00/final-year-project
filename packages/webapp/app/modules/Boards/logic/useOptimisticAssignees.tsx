@@ -5,6 +5,7 @@ import { useFetchers, type Fetcher } from '@remix-run/react';
 import * as taskDetailsForm from './taskDetailsForm';
 import { mapDefined } from '../../../utils/mapDefined';
 import groupBy from 'lodash/fp/groupBy';
+import keyBy from 'lodash/fp/keyBy';
 
 interface UseOptimisticAssigneeFetchers {
   addedAssignees: string[];
@@ -42,20 +43,55 @@ interface ApplyOptimisticAssigneeArgs {
   assignees: User[];
   added: string[];
   removed: string[];
-  allData: Dictionary<User>;
+  allData: User[];
 }
-export function applyOptimisticAssignee(args: ApplyOptimisticAssigneeArgs) {
-  const { assignees, added, removed, allData } = args;
-  const selectedMap = new Map(assignees.map((each) => [each.id, each]));
-  added.forEach((value) => {
-    selectedMap.set(value, allData[value]);
-  });
-  removed.forEach((value) => {
-    selectedMap.delete(value);
-  });
+export interface ApplyOptimisticAssigneeResult {
+  selected: Set<string>;
+  optimisticAssignees: User[];
+}
 
+export function applyOptimisticAssignee(
+  args: ApplyOptimisticAssigneeArgs
+): ApplyOptimisticAssigneeResult {
+  const { assignees, added, removed, allData } = args;
+  if (assignees.length === 0) {
+    return {
+      selected: new Set(),
+      optimisticAssignees: assignees,
+    };
+  }
+
+  const dataMap = keyBy((v) => v.id, allData);
+
+  const selectedMap = new Map<string, User>();
+  // Place added in front
+  added.forEach((value) => selectedMap.set(value, dataMap[value]));
+  assignees.forEach((each) => {
+    // Don't override optimistic ones
+    if (selectedMap.has(each.id)) return;
+    selectedMap.set(each.id, each);
+  });
+  removed.forEach((value) => selectedMap.delete(value));
   return {
     selected: new Set(selectedMap.keys()),
-    newAssignees: Array.from(selectedMap.values()),
+    optimisticAssignees: Array.from(selectedMap.values()),
   };
+}
+
+export interface UseOptimisticAssigneesArgs {
+  allUsers: User[];
+  assignees: User[];
+}
+export function useOptimisticAssignees(
+  args: UseOptimisticAssigneesArgs
+): ApplyOptimisticAssigneeResult {
+  const { allUsers, assignees } = args;
+  const { addedAssignees, removedAssignees } = useOptimisticAssigneeFetchers();
+
+  return applyOptimisticAssignee({
+    assignees,
+    added: addedAssignees,
+    removed: removedAssignees,
+    allData: allUsers,
+  });
 }

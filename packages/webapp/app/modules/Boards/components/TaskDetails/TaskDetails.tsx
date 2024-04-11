@@ -8,6 +8,7 @@ import { TaskDetailsRightSection } from './TaskDetailsRightSection/TaskDetailsRi
 import { TaskTitle } from './TaskTitle/TaskTitle';
 import { User } from '../../../../models/User.model';
 import { ActionSection } from './ActionSection/ActionSection';
+import { useOptimisticAssignees } from '../../logic/useOptimisticAssignees';
 
 export interface TaskDetailsProps {
   task: Task;
@@ -19,6 +20,11 @@ export interface TaskDetailsProps {
 export function TaskDetails(props: TaskDetailsProps) {
   const { task, onClose, assignees, allUsers } = props;
 
+  const { selected, optimisticAssignees: optimisticAssignees } =
+    useOptimisticAssignees({
+      allUsers,
+      assignees,
+    });
   return (
     <TMAModal
       classNames={classes.modalClassNames}
@@ -30,13 +36,17 @@ export function TaskDetails(props: TaskDetailsProps) {
       <ScrollArea>
         <Modal.Body>
           <div className={classes.leftSection}>
-            <ActionSection allUsers={allUsers} assignees={assignees} />
+            <ActionSection
+              allUsers={allUsers}
+              optimisticAssignees={optimisticAssignees}
+              selected={selected}
+            />
             <div className={classes.descriptionSection}>
               <P textStyle="mdBold">Description</P>
               <DescriptionSection defaultValue={task.description} />
             </div>
           </div>
-          <TaskDetailsRightSection />
+          <TaskDetailsRightSection selected={selected} allUsers={allUsers} />
         </Modal.Body>
       </ScrollArea>
     </TMAModal>

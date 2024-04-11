@@ -1,10 +1,20 @@
 import { Button } from '@mantine/core';
-import * as classes from '../TaskDetails.styles';
-import * as deleteBtnColor from './TaskDetailsRightSection.styles';
-import { SectionGroup } from '../SectionGroup/SectionGroup';
 import { Icon } from '../../../../../components/Icon/Icon';
+import {
+  type ApplyOptimisticAssigneeResult,
+  type UseOptimisticAssigneesArgs,
+} from '../../../logic/useOptimisticAssignees';
+import { TaskAssignee } from '../AssigneeSection/TaskAssignee';
+import { SectionGroup } from '../SectionGroup/SectionGroup';
+import * as classes from './TaskDetailsRightSection.styles';
 
-export function TaskDetailsRightSection() {
+interface TaskDetailsRightSectionProps {
+  selected: ApplyOptimisticAssigneeResult['selected'];
+  allUsers: UseOptimisticAssigneesArgs['allUsers'];
+}
+export function TaskDetailsRightSection(props: TaskDetailsRightSectionProps) {
+  const { allUsers, selected } = props;
+
   return (
     <div className={classes.rightSection}>
       <SectionGroup title="Add to task">
@@ -16,14 +26,23 @@ export function TaskDetailsRightSection() {
         >
           Sprint Points
         </Button>
-        <Button
-          color="dark"
-          variant="filled"
-          size="compact-md"
-          leftSection={<Icon size="s16" strokeSize="s24" name="IconUser" />}
-        >
-          Assignee
-        </Button>
+        <TaskAssignee
+          data={allUsers}
+          values={selected}
+          target={(_, combobox) => (
+            <Button
+              color="dark"
+              variant="filled"
+              size="compact-md"
+              className={classes.assigneeButton}
+              onClick={() => combobox.toggleDropdown()}
+              leftSection={<Icon size="s16" strokeSize="s24" name="IconUser" />}
+            >
+              Assignee
+            </Button>
+          )}
+        />
+
         <Button
           color="dark"
           variant="filled"
@@ -38,7 +57,7 @@ export function TaskDetailsRightSection() {
           color="dark"
           variant="filled"
           size="compact-md"
-          className={deleteBtnColor.deleteBtnColor}
+          className={classes.deleteBtnColor}
           leftSection={<Icon size="s16" strokeSize="s24" name="IconTrash" />}
         >
           Delete

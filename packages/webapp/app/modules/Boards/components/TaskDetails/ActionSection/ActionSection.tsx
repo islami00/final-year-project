@@ -5,17 +5,22 @@ import {
   AssigneeSection,
 } from '../AssigneeSection/AssigneeSection';
 
-interface ActionSectionProps {
-  allUsers: AssigneeSectionProps['allUsers'];
-  assignees: AssigneeSectionProps['assignees'];
-}
+type FromAssignee = Pick<
+  AssigneeSectionProps,
+  'allUsers' | 'optimisticAssignees' | 'selected'
+>;
+export type ActionSectionProps = FromAssignee;
 export function ActionSection(props: ActionSectionProps) {
-  const { allUsers, assignees } = props;
+  const { allUsers, optimisticAssignees: newAssignees, selected } = props;
 
   return (
     <div className={classes.actions}>
       <ActionItem title="Assignees">
-        <AssigneeSection allUsers={allUsers} assignees={assignees} />
+        <AssigneeSection
+          allUsers={allUsers}
+          optimisticAssignees={newAssignees}
+          selected={selected}
+        />
       </ActionItem>
     </div>
   );

@@ -1,19 +1,20 @@
-import { ActionIcon } from '@mantine/core';
+import { getFormProps, useForm, useInputControl } from '@conform-to/react';
+import { Form, useSubmit } from '@remix-run/react';
+import { useRef } from 'react';
+import { flushSync } from 'react-dom';
 import {
   AssigneeSelect,
   type AssigneeSelectProps,
 } from '../../../../../components/AssigneeSelect/AssigneeSelect';
-import { Icon } from '../../../../../components/Icon/Icon';
-import { Form, useSubmit } from '@remix-run/react';
-import { getFormProps, useForm, useInputControl } from '@conform-to/react';
-import * as taskDetailsForm from '../../../logic/taskDetailsForm';
 import { taskFetcherKeys } from '../../../../../services/queries/task/taskFetcherKeys';
-import { flushSync } from 'react-dom';
-import { useRef } from 'react';
+import * as taskDetailsForm from '../../../logic/taskDetailsForm';
 
-type TaskAssigneeProps = AssigneeSelectProps;
+interface TaskAssigneeProps extends AssigneeSelectProps {
+  classNameForm?: string;
+}
 export function TaskAssignee(props: TaskAssigneeProps) {
   const submit = useSubmit();
+  const { classNameForm } = props;
 
   const [form, fields] = useForm({
     defaultValue: taskDetailsForm.assigneeDefaultData(),
@@ -27,19 +28,14 @@ export function TaskAssignee(props: TaskAssigneeProps) {
 
   const formRef = useRef<HTMLFormElement | null>(null);
   return (
-    <Form method="POST" {...getFormProps(form)} ref={formRef}>
+    <Form
+      method="POST"
+      {...getFormProps(form)}
+      ref={formRef}
+      className={classNameForm}
+    >
       <AssigneeSelect
         {...props}
-        target={(_, combobox) => (
-          <ActionIcon
-            onClick={() => combobox.toggleDropdown()}
-            size="lg"
-            radius="lg"
-            color="dark"
-          >
-            <Icon name="IconPlus" strokeSize="s24" />
-          </ActionIcon>
-        )}
         onChange={(value) => {
           flushSync(() => {
             switch (value.type) {
