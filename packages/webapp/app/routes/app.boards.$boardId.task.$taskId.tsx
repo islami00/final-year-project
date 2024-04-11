@@ -17,7 +17,7 @@ import { deleteUnAssignTaskFromUser } from '../services/queries/task/deleteUnAss
 import { getTaskAssigneeById } from '../services/queries/task/getTaskAssigneeById';
 import { getTaskAssignees } from '../services/queries/task/getTaskAssignees';
 import { getTaskWithOrganisation } from '../services/queries/task/getTaskOrganisation';
-import { patchAssignTaskToUser } from '../services/queries/task/patchAssignTaskToUser';
+import { postAssignTaskToUser } from '../services/queries/task/postAssignTaskToUser';
 import { patchTaskById } from '../services/queries/task/patchTaskById';
 import { castError } from '../utils/parseClientResponseError';
 
@@ -64,7 +64,7 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
         return json(submission.reply({ resetForm: true }));
       }
       case taskDetailsForm.TaskDetailsIntent.ADD_ASSIGNEE:
-        await patchAssignTaskToUser({
+        await postAssignTaskToUser({
           taskId,
           userId: value.assignee,
         });

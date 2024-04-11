@@ -4,7 +4,7 @@ import { pb } from '../../pocketbase/setup';
 import { forwardError } from '../../../utils/forwardError';
 import { parseClientResponseError } from '../../../utils/parseClientResponseError';
 
-interface PatchAssignTaskToUserArgs {
+interface PostAssignTaskToUserArgs {
   userId: string;
   taskId: string;
 }
@@ -13,8 +13,8 @@ interface TaskAssigneeCreate {
   taskId: string;
   assigneeId: string;
 }
-export async function patchAssignTaskToUser(
-  args: PatchAssignTaskToUserArgs
+export async function postAssignTaskToUser(
+  args: PostAssignTaskToUserArgs
 ): Promise<RecordModel> {
   const { taskId, userId } = args;
   const createData: TaskAssigneeCreate = {

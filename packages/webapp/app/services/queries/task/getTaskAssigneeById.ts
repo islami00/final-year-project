@@ -18,8 +18,8 @@ export async function getTaskAssigneeById(
     .getFirstListItem(
       pb.filter(
         `
-    taskId = {:taskId}
-    assigneeId = {:assigneeId}
+      (taskId = {:taskId}) &&
+      (assigneeId = {:assigneeId})
     `,
         { taskId, assigneeId }
       )
