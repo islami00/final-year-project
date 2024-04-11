@@ -1,6 +1,8 @@
 import type { RecordModel } from 'pocketbase';
 import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
+import { forwardError } from '../../../utils/forwardError';
+import { parseClientResponseError } from '../../../utils/parseClientResponseError';
 
 interface PatchAssignTaskToUserArgs {
   userId: string;
@@ -19,5 +21,8 @@ export async function patchAssignTaskToUser(
     taskId,
     assigneeId: userId,
   };
-  return pb.collection(collections.task_assignee).create(createData);
+  return pb
+    .collection(collections.task_assignee)
+    .create(createData)
+    .catch(forwardError(parseClientResponseError));
 }

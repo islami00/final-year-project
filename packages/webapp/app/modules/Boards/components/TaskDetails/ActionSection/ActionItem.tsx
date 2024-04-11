@@ -11,7 +11,9 @@ export function ActionItem(props: ActionItemProps) {
   const { children, title } = props;
   return (
     <div className={classes.actionItem}>
-      <P textStyle="2xsSemiBold">{title}</P>
+      <P textStyle="2xsSemiBold" color="white">
+        {title}
+      </P>
       {children}
     </div>
   );

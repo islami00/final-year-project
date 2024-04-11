@@ -1,4 +1,9 @@
-import { Combobox, useCombobox, type ComboboxStore } from '@mantine/core';
+import {
+  Combobox,
+  useCombobox,
+  type ComboboxStore,
+  Button,
+} from '@mantine/core';
 import { AppError, appErrorCodes } from '../../utils/AppError';
 import { AssigneeData } from './AssigneeSelect.types';
 import { AssigneeDropdown } from './AssigneeDropdown';
@@ -15,13 +20,18 @@ type SelectAction =
       type: 'remove';
       value: string;
     };
+type AssigneeSelectTarget = (
+  users: AssigneeData[],
+  combobox: ComboboxStore
+) => React.ReactNode;
+
 export interface AssigneeSelectProps {
   /**
    * All available users, assume they aren't a lot
    * */
   data: AssigneeData[];
   /** Something. Remove it or add it. Only one can be queued up at a time. Remix handles it! */
-  onChange: (value: SelectAction) => void;
+  onChange?: (value: SelectAction) => void;
   /**
    * Currently selected assignees
    * For optimistic: Add to this list, and Remove from this list
@@ -29,9 +39,11 @@ export interface AssigneeSelectProps {
   values: AssigneeValue;
   /** Renders a target like the list of users, or the button! */
 
-  target: (users: AssigneeData[], combobox: ComboboxStore) => React.ReactNode;
+  target?: AssigneeSelectTarget;
 }
-
+const defaultTarget: AssigneeSelectTarget = (_, cb) => (
+  <Button onClick={() => cb.toggleDropdown()}>Select</Button>
+);
 /**
  * How do you sync the remaining fetches remix?
  *  Use fetcher keys and intent.
@@ -43,7 +55,7 @@ export interface AssigneeSelectProps {
  */
 
 export function AssigneeSelect(props: AssigneeSelectProps) {
-  const { values, onChange, data, target } = props;
+  const { values, onChange, data, target = defaultTarget } = props;
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
     onDropdownOpen: () => {
@@ -68,7 +80,7 @@ export function AssigneeSelect(props: AssigneeSelectProps) {
         value: foundItem,
       };
     }
-    onChange(stateToSet);
+    onChange?.(stateToSet);
   }
 
   const selectedUsers = data.filter((each) => values.has(each.id));

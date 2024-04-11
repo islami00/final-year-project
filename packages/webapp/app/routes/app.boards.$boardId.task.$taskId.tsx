@@ -1,25 +1,25 @@
 import { parseWithZod } from '@conform-to/zod';
 import {
+  Await,
+  defer,
   json,
   useLoaderData,
   useNavigate,
   type ClientLoaderFunctionArgs,
-  defer,
-  Await,
 } from '@remix-run/react';
 import * as React from 'react';
+import toast from 'react-hot-toast';
 import { TaskDetails } from '../modules/Boards/components/TaskDetails/TaskDetails';
 import { TaskDetailsLoading } from '../modules/Boards/components/TaskDetails/TaskDetails.loading';
 import * as taskDetailsForm from '../modules/Boards/logic/taskDetailsForm';
-import { getTaskAssignees } from '../services/queries/task/getTaskAssignees';
-import { patchTaskById } from '../services/queries/task/patchTaskById';
-import { patchAssignTaskToUser } from '../services/queries/task/patchAssignTaskToUser';
-import { getTaskAssigneeById } from '../services/queries/task/getTaskAssigneeById';
-import { deleteUnAssignTaskFromUser } from '../services/queries/task/deleteUnAssignTaskFromUser';
-import toast from 'react-hot-toast';
-import { castError } from '../utils/parseClientResponseError';
 import { getOrganisationUsers } from '../services/queries/organization/getOrganizationUsers';
+import { deleteUnAssignTaskFromUser } from '../services/queries/task/deleteUnAssignTaskFromUser';
+import { getTaskAssigneeById } from '../services/queries/task/getTaskAssigneeById';
+import { getTaskAssignees } from '../services/queries/task/getTaskAssignees';
 import { getTaskWithOrganisation } from '../services/queries/task/getTaskOrganisation';
+import { patchAssignTaskToUser } from '../services/queries/task/patchAssignTaskToUser';
+import { patchTaskById } from '../services/queries/task/patchTaskById';
+import { castError } from '../utils/parseClientResponseError';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;
@@ -29,7 +29,7 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
 
   const taskOrg = await getTaskWithOrganisation({ taskId });
   const allUsersPromise = getOrganisationUsers({
-    organisationId: taskOrg.id,
+    organisationId: taskOrg.organisation.id,
   });
   const taskDetails = Promise.all([
     taskOrg,
@@ -63,24 +63,23 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
         });
         return json(submission.reply({ resetForm: true }));
       }
-      case taskDetailsForm.TaskDetailsIntent.ASSIGNEES:
-        {
-          if (!value.remove) {
-            await patchAssignTaskToUser({
-              taskId,
-              userId: value.assignee,
-            });
-          } else {
-            const taskAssignee = await getTaskAssigneeById({
-              taskId,
-              assigneeId: value.assignee,
-            });
-            await deleteUnAssignTaskFromUser({
-              taskAssigneeId: taskAssignee.id,
-            });
-          }
-        }
+      case taskDetailsForm.TaskDetailsIntent.ADD_ASSIGNEE:
+        await patchAssignTaskToUser({
+          taskId,
+          userId: value.assignee,
+        });
         return json(submission.reply({ resetForm: true }));
+
+      case taskDetailsForm.TaskDetailsIntent.REMOVE_ASSIGNEE: {
+        const taskAssignee = await getTaskAssigneeById({
+          taskId,
+          assigneeId: value.assignee,
+        });
+        await deleteUnAssignTaskFromUser({
+          taskAssigneeId: taskAssignee.id,
+        });
+        return json(submission.reply({ resetForm: true }));
+      }
 
       default:
         return json(submission.reply({ resetForm: true }));
@@ -100,14 +99,14 @@ export default function BoardTaskDetailsRoute() {
     <React.Suspense fallback={<TaskDetailsLoading onClose={onClose} />}>
       <Await resolve={loaderData.taskDetails}>
         {(res) => {
-          const [task, assignees] = res;
+          const [task, assignees, allUsers] = res;
 
           return (
             <TaskDetails
               task={task}
               onClose={onClose}
               assignees={assignees}
-              allUsers={assignees}
+              allUsers={allUsers}
             />
           );
         }}

@@ -14,6 +14,6 @@ export const avatarClasses: Partial<Record<AvatarStylesNames, string>> = {
 
 const option = flex({ columnGap: '3xs', alignItems: 'center' });
 
-export const selectClasses: Partial<Record<ComboboxStylesNames,string>> = {
-  option
-}
+export const selectClasses: Partial<Record<ComboboxStylesNames, string>> = {
+  option,
+};
