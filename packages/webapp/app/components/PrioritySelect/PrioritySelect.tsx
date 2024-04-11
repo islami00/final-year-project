@@ -20,8 +20,8 @@ export function PrioritySelect(props: PrioritySelectProps) {
   const priorityOptions = priorityList;
   const hasData = priorityOptions.length > 0;
 
-  function onOptionSubmit(value: string) {
-    onChange(value as Priority);
+  function onOptionSubmit(currentValue: string) {
+    onChange(currentValue as Priority);
     combobox.closeDropdown();
   }
   return (
