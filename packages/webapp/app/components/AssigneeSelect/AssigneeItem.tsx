@@ -1,8 +1,8 @@
+import { Combobox } from '@mantine/core';
 import { P } from '../P';
-import { AssigneeData } from './AssigneeSelect.types';
-import { Flex } from '@tma/design-system';
 import { UserAvatar } from '../UserAvatar/UserAvatar';
 import * as classes from './AssigneeSelect.styles';
+import { AssigneeData } from './AssigneeSelect.types';
 
 interface AssigneeItemProps {
   each: AssigneeData;
@@ -11,7 +11,7 @@ interface AssigneeItemProps {
 export function AssigneeItem(props: AssigneeItemProps) {
   const { each, selected } = props;
   return (
-    <Flex columnGap="3xs">
+    <Combobox.Option value={each.id}>
       <UserAvatar
         src={each.avatar}
         name={each.name}
@@ -19,6 +19,6 @@ export function AssigneeItem(props: AssigneeItemProps) {
         data-selected={selected || undefined}
       />
       <P textStyle="smSemiBold">{each.name}</P>
-    </Flex>
+    </Combobox.Option>
   );
 }

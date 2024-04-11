@@ -8,3 +8,7 @@ export function mapToAssigneeData(value: User): AssigneeData {
     name: value.name,
   };
 }
+export function filterData(data: AssigneeData[], search: string) {
+  if (!search) return data;
+  return data.filter((each) => each.name.includes(search.toLowerCase()));
+}

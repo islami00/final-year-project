@@ -1,5 +1,5 @@
-import type { AvatarStylesNames } from '@mantine/core';
-import { css } from '@tma/design-system';
+import type { AvatarStylesNames, ComboboxStylesNames } from '@mantine/core';
+import { css, flex } from '@tma/design-system';
 
 const placeholder = css({
   '[data-selected] &': {
@@ -11,3 +11,9 @@ const placeholder = css({
 export const avatarClasses: Partial<Record<AvatarStylesNames, string>> = {
   placeholder: placeholder,
 };
+
+const option = flex({ columnGap: '3xs', alignItems: 'center' });
+
+export const selectClasses: Partial<Record<ComboboxStylesNames,string>> = {
+  option
+}

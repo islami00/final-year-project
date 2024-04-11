@@ -1,7 +1,8 @@
 import { Combobox, useCombobox, type ComboboxStore } from '@mantine/core';
 import { AppError, appErrorCodes } from '../../utils/AppError';
-import { AssigneeItem } from './AssigneeItem';
 import { AssigneeData } from './AssigneeSelect.types';
+import { AssigneeDropdown } from './AssigneeDropdown';
+import * as classes from './AssigneeSelect.styles';
 
 type AssigneeValue = Set<string>;
 
@@ -45,7 +46,9 @@ export function AssigneeSelect(props: AssigneeSelectProps) {
   const { values, onChange, data, target } = props;
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
-    onDropdownOpen: () => combobox.updateSelectedOptionIndex('active'),
+    onDropdownOpen: () => {
+      combobox.focusSearchInput();
+    },
   });
 
   function toggleItem(value: string) {
@@ -70,28 +73,19 @@ export function AssigneeSelect(props: AssigneeSelectProps) {
 
   const selectedUsers = data.filter((each) => values.has(each.id));
 
-  const hasData = data.length > 0;
   return (
-    <Combobox store={combobox} onOptionSubmit={toggleItem}>
+    <Combobox
+      store={combobox}
+      onOptionSubmit={toggleItem}
+      classNames={classes.selectClasses}
+      width={250}
+      position="bottom-start"
+    >
       <Combobox.DropdownTarget>
         {target(selectedUsers, combobox)}
       </Combobox.DropdownTarget>
 
-      <Combobox.Dropdown>
-        <Combobox.Options>
-          {hasData ? (
-            data.map((each) => (
-              <AssigneeItem
-                key={each.id}
-                each={each}
-                selected={values.has(each.id)}
-              />
-            ))
-          ) : (
-            <Combobox.Empty>Nothing Found...</Combobox.Empty>
-          )}
-        </Combobox.Options>
-      </Combobox.Dropdown>
+      <AssigneeDropdown data={data} values={values} />
     </Combobox>
   );
 }
