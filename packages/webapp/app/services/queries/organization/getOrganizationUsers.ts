@@ -10,7 +10,7 @@ export async function getOrganisationUsers(args: GetOrganisationUsersArgs) {
   const { organisationId } = args;
   const record = await pb.collection<UserApi>(collections.users).getFullList({
     filter: pb.filter(
-      `${collections.organisation_users}_via_userId.organisationId = {:organisationId}`,
+      `${collections.organisation_users}_via_userId.organisationId ?= {:organisationId}`,
       { organisationId }
     ),
   });
