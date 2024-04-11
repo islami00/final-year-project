@@ -20,13 +20,8 @@ export function AssigneeSection(props: AssigneeSectionProps) {
       <TaskAssignee
         data={allUsers}
         values={selected}
-        target={(_, combobox) => (
-          <ActionIcon
-            onClick={() => combobox.toggleDropdown()}
-            size="lg"
-            radius="lg"
-            color="dark"
-          >
+        target={(_, ctx) => (
+          <ActionIcon onClick={ctx.onClick} size="lg" radius="lg" color="dark">
             <Icon name="IconPlus" strokeSize="s24" />
           </ActionIcon>
         )}

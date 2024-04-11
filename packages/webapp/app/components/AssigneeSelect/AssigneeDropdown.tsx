@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { AssigneeItem } from './AssigneeItem';
 import { AssigneeData } from './AssigneeSelect.types';
 import { filterData } from './AssigneeSelect.utils';
+import { ComboboxEmptyText } from '../Combobox/ComboboxEmptyText';
 
 interface AssigneeDropdownProps {
   data: AssigneeData[];
@@ -32,7 +33,7 @@ export function AssigneeDropdown(props: AssigneeDropdownProps) {
             />
           ))
         ) : (
-          <Combobox.Empty>Nothing Found...</Combobox.Empty>
+          <ComboboxEmptyText />
         )}
       </Combobox.Options>
     </Combobox.Dropdown>

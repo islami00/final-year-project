@@ -1,67 +1,65 @@
-import { Button } from '@mantine/core';
 import { Icon } from '../../../../../components/Icon/Icon';
+import { Task } from '../../../../../models/Task.model';
+
 import {
   type ApplyOptimisticAssigneeResult,
   type UseOptimisticAssigneesArgs,
 } from '../../../logic/useOptimisticAssignees';
 import { TaskAssignee } from '../AssigneeSection/TaskAssignee';
+import { TaskPriority } from '../PrioritySection/TaskPriority';
 import { SectionGroup } from '../SectionGroup/SectionGroup';
+import { RightSectionButton } from './RightSectionButton';
 import * as classes from './TaskDetailsRightSection.styles';
 
 interface TaskDetailsRightSectionProps {
   selected: ApplyOptimisticAssigneeResult['selected'];
   allUsers: UseOptimisticAssigneesArgs['allUsers'];
+  task: Task;
 }
 export function TaskDetailsRightSection(props: TaskDetailsRightSectionProps) {
-  const { allUsers, selected } = props;
+  const { allUsers, selected, task } = props;
 
   return (
     <div className={classes.rightSection}>
       <SectionGroup title="Add to task">
-        <Button
-          color="dark"
-          variant="filled"
-          size="compact-md"
+        <RightSectionButton
           leftSection={<Icon size="s16" strokeSize="s24" name="IconStar" />}
         >
           Sprint Points
-        </Button>
+        </RightSectionButton>
         <TaskAssignee
           data={allUsers}
           values={selected}
-          target={(_, combobox) => (
-            <Button
-              color="dark"
-              variant="filled"
-              size="compact-md"
-              className={classes.assigneeButton}
-              onClick={() => combobox.toggleDropdown()}
+          target={(_, ctx) => (
+            <RightSectionButton
+              onClick={ctx.onClick}
               leftSection={<Icon size="s16" strokeSize="s24" name="IconUser" />}
             >
               Assignee
-            </Button>
+            </RightSectionButton>
           )}
         />
 
-        <Button
-          color="dark"
-          variant="filled"
-          size="compact-md"
-          leftSection={<Icon size="s16" strokeSize="s24" name="IconFlag" />}
-        >
-          Priority
-        </Button>
+        <TaskPriority
+          defaultValue={task.priority}
+          taskId={task.id}
+          target={(ctx) => (
+            <RightSectionButton
+              onClick={ctx.onClick}
+              leftSection={<Icon size="s16" strokeSize="s24" name="IconFlag" />}
+            >
+              Priority
+            </RightSectionButton>
+          )}
+        />
       </SectionGroup>
       <SectionGroup title="Actions">
-        <Button
-          color="dark"
-          variant="filled"
-          size="compact-md"
+        <RightSectionButton
           className={classes.deleteBtnColor}
           leftSection={<Icon size="s16" strokeSize="s24" name="IconTrash" />}
         >
           Delete
-        </Button>
+        </RightSectionButton>
       </SectionGroup>
     </div>
   );

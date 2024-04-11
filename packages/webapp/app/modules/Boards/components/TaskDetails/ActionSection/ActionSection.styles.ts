@@ -6,7 +6,7 @@ export const actions = css({
   gap: 'lg',
 });
 export const actionItem = css({
-  display: 'flex',
-  flexDirection: 'column',
+  display: 'grid',
+  gridTemplateRows: 'auto 32px',
   rowGap: 6,
 });

@@ -1,13 +1,9 @@
-import {
-  Combobox,
-  useCombobox,
-  type ComboboxStore,
-  Button,
-} from '@mantine/core';
+import { Button, Combobox, useCombobox } from '@mantine/core';
 import { AppError, appErrorCodes } from '../../utils/AppError';
-import { AssigneeData } from './AssigneeSelect.types';
+import { getTargetCtx, type TargetCtx } from '../Combobox/Combobox.utils';
 import { AssigneeDropdown } from './AssigneeDropdown';
 import * as classes from './AssigneeSelect.styles';
+import { AssigneeData } from './AssigneeSelect.types';
 
 type AssigneeValue = Set<string>;
 
@@ -20,9 +16,10 @@ type SelectAction =
       type: 'remove';
       value: string;
     };
+
 type AssigneeSelectTarget = (
   users: AssigneeData[],
-  combobox: ComboboxStore
+  ctx: TargetCtx
 ) => React.ReactNode;
 
 export interface AssigneeSelectProps {
@@ -41,8 +38,8 @@ export interface AssigneeSelectProps {
 
   target?: AssigneeSelectTarget;
 }
-const defaultTarget: AssigneeSelectTarget = (_, cb) => (
-  <Button onClick={() => cb.toggleDropdown()}>Select</Button>
+const defaultTarget: AssigneeSelectTarget = (_, ctx) => (
+  <Button onClick={ctx.onClick}>Select</Button>
 );
 /**
  * How do you sync the remaining fetches remix?
@@ -94,7 +91,7 @@ export function AssigneeSelect(props: AssigneeSelectProps) {
       position="bottom-start"
     >
       <Combobox.DropdownTarget>
-        {target(selectedUsers, combobox)}
+        {target(selectedUsers, getTargetCtx(combobox))}
       </Combobox.DropdownTarget>
 
       <AssigneeDropdown data={data} values={values} />

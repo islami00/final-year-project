@@ -40,13 +40,18 @@ export function TaskDetails(props: TaskDetailsProps) {
               allUsers={allUsers}
               optimisticAssignees={optimisticAssignees}
               selected={selected}
+              task={task}
             />
             <div className={classes.descriptionSection}>
               <P textStyle="mdBold">Description</P>
               <DescriptionSection defaultValue={task.description} />
             </div>
           </div>
-          <TaskDetailsRightSection selected={selected} allUsers={allUsers} />
+          <TaskDetailsRightSection
+            selected={selected}
+            allUsers={allUsers}
+            task={task}
+          />
         </Modal.Body>
       </ScrollArea>
     </TMAModal>
