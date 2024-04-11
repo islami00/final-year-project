@@ -6,14 +6,18 @@ import { DescriptionSection } from './DescriptionSection/DescriptionSection';
 import * as classes from './TaskDetails.styles';
 import { TaskDetailsRightSection } from './TaskDetailsRightSection/TaskDetailsRightSection';
 import { TaskTitle } from './TaskTitle/TaskTitle';
+import { User } from '../../../../models/User.model';
+import { ActionSection } from './ActionSection/ActionSection';
 
 export interface TaskDetailsProps {
   task: Task;
   onClose: VoidFunction;
+  assignees: User[];
+  allUsers: User[];
 }
 
 export function TaskDetails(props: TaskDetailsProps) {
-  const { task, onClose } = props;
+  const { task, onClose, assignees, allUsers } = props;
 
   return (
     <TMAModal
@@ -26,9 +30,7 @@ export function TaskDetails(props: TaskDetailsProps) {
       <ScrollArea>
         <Modal.Body>
           <div className={classes.leftSection}>
-            <div className={classes.actions}>
-              <P textStyle="2xs">Example action</P>
-            </div>
+            <ActionSection allUsers={allUsers} assignees={assignees} />
             <div className={classes.descriptionSection}>
               <P textStyle="mdBold">Description</P>
               <DescriptionSection defaultValue={task.description} />

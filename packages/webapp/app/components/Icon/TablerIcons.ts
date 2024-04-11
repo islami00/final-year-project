@@ -5,3 +5,4 @@ export { IconStar } from '@tabler/icons-react';
 export { IconUser } from '@tabler/icons-react';
 export { IconFlag } from '@tabler/icons-react';
 export { IconTrash } from '@tabler/icons-react';
+export { IconPlus } from '@tabler/icons-react';

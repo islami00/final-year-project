@@ -1,6 +1,12 @@
 import {
+  ActionIcon,
+  Avatar,
   Button,
   rem,
+  type ActionIconCssVariables,
+  type ActionIconProps,
+  type AvatarCssVariables,
+  type AvatarProps,
   type ButtonCssVariables,
   type ButtonProps,
   type MantineThemeComponents,
@@ -58,6 +64,48 @@ const ButtonDefaultProps = Button.extend({
     }
   },
 });
+
+function getActionIconSizeStyles(
+  size: ActionIconProps['size']
+): PartialTransformVars<ActionIconCssVariables> {
+  switch (size) {
+    case 'lg':
+      return {
+        root: {
+          '--ai-size': rem(32),
+        },
+      };
+      break;
+
+    default:
+      return { root: {} };
+      break;
+  }
+}
+const actionIconDefaultProps = ActionIcon.extend({
+  vars: (_, props) => getActionIconSizeStyles(props.size),
+});
+function getAvatarSizeStyles(
+  size: AvatarProps['size']
+): PartialTransformVars<AvatarCssVariables> {
+  switch (size) {
+    case 'md':
+      return {
+        root: {
+          '--avatar-size': rem(32),
+        },
+      };
+
+    default:
+      return { root: {} };
+      break;
+  }
+}
+const avatarDefaultProps = Avatar.extend({
+  vars: (_, props) => getAvatarSizeStyles(props.size),
+});
 export const mantineComponents: MantineThemeComponents = {
   Button: ButtonDefaultProps,
+  ActionIcon: actionIconDefaultProps,
+  Avatar: avatarDefaultProps,
 };

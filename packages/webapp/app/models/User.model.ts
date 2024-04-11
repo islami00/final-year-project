@@ -1,5 +1,6 @@
+import { z } from 'zod';
 import Converter from './Converter.model';
-import * as yup from 'yup';
+import type { ZodOf } from './types';
 
 export interface UserCreate {
   password: string;
@@ -18,17 +19,17 @@ export interface User {
   avatar: string | null;
 }
 
-const userSchema: yup.ObjectSchema<User> = yup.object({
-  username: yup.string().required(),
-  email: yup.string().required(),
-  id: yup.string().required(),
-  name: yup.string().required(),
-  avatar: yup.string().nullable().defined(),
-});
+const userSchema = z.object({
+  username: z.string(),
+  email: z.string(),
+  id: z.string(),
+  name: z.string(),
+  avatar: z.string().nullable(),
+}) satisfies ZodOf<User>;
 
 class UserConverter extends Converter<UserApi, User> {
   fromApi(from: UserApi): Promise<User> {
-    return userSchema.validate(from, { stripUnknown: true });
+    return userSchema.parseAsync(from);
   }
 }
 

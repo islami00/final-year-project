@@ -11,6 +11,7 @@ export const themeVariantColorResolver: VariantColorsResolver = (input) => {
     color: input.color || input.theme.primaryColor,
     theme: input.theme,
   });
+
   // Override some properties for variant
   switch (input.variant) {
     case 'filled':

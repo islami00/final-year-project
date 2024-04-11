@@ -25,12 +25,6 @@ export const descriptionSection = css({
   flexDirection: 'column',
   rowGap: 'md',
 });
-export const actions = css({
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: 'lg',
-});
-
 export const modalClassNames: Partial<Record<ModalBaseStylesNames, string>> = {
   content,
   body,

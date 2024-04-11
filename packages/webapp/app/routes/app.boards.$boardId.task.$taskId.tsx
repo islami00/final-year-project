@@ -11,7 +11,6 @@ import * as React from 'react';
 import { TaskDetails } from '../modules/Boards/components/TaskDetails/TaskDetails';
 import { TaskDetailsLoading } from '../modules/Boards/components/TaskDetails/TaskDetails.loading';
 import * as taskDetailsForm from '../modules/Boards/logic/taskDetailsForm';
-import { getTaskById } from '../services/queries/task/getTaskById';
 import { getTaskAssignees } from '../services/queries/task/getTaskAssignees';
 import { patchTaskById } from '../services/queries/task/patchTaskById';
 import { patchAssignTaskToUser } from '../services/queries/task/patchAssignTaskToUser';
@@ -19,14 +18,23 @@ import { getTaskAssigneeById } from '../services/queries/task/getTaskAssigneeByI
 import { deleteUnAssignTaskFromUser } from '../services/queries/task/deleteUnAssignTaskFromUser';
 import toast from 'react-hot-toast';
 import { castError } from '../utils/parseClientResponseError';
+import { getOrganisationUsers } from '../services/queries/organization/getOrganizationUsers';
+import { getTaskWithOrganisation } from '../services/queries/task/getTaskOrganisation';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;
   const taskId = params.taskId as string;
 
+  const taskAssigneesPromise = getTaskAssignees({ taskId: taskId });
+
+  const taskOrg = await getTaskWithOrganisation({ taskId });
+  const allUsersPromise = getOrganisationUsers({
+    organisationId: taskOrg.id,
+  });
   const taskDetails = Promise.all([
-    getTaskById({ taskId: taskId }),
-    getTaskAssignees({ taskId: taskId }),
+    taskOrg,
+    taskAssigneesPromise,
+    allUsersPromise,
   ]);
   return defer({ taskDetails });
 }
@@ -94,7 +102,14 @@ export default function BoardTaskDetailsRoute() {
         {(res) => {
           const [task, assignees] = res;
 
-          return <TaskDetails task={task} onClose={onClose} />;
+          return (
+            <TaskDetails
+              task={task}
+              onClose={onClose}
+              assignees={assignees}
+              allUsers={assignees}
+            />
+          );
         }}
       </Await>
     </React.Suspense>
