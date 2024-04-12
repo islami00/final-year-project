@@ -1,4 +1,4 @@
 build
 public/build
-pb_migrations
-pb_hooks
+node_modules
+pb_*

@@ -8,6 +8,7 @@ export interface AppShellNavbar {
   orgs: Organization[];
 }
 export function AppShellNavbar(props: AppShellNavbar) {
+  // TOdo: Navbar.
   const { user } = props;
   return <AppShell.Navbar>Nav</AppShell.Navbar>;
 }

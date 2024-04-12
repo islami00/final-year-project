@@ -11,7 +11,7 @@ import { parseClientResponseError } from '../../../utils/parseClientResponseErro
 interface PatchTaskByIdBody {
   statusId?: string;
   title?: string;
-  priority?: Priority;
+  priority?: Priority | '';
   columnOrder?: number;
   sprintPoints?: number;
   description?: TaskApi['description'];
@@ -23,6 +23,7 @@ interface PatchTaskByIdArgs {
 
 export async function patchTaskById(args: PatchTaskByIdArgs): Promise<Task> {
   const { body, taskId } = args;
+
   const record = await pb
     .collection<TaskApi>(collections.task)
     .update(taskId, body)

@@ -23,16 +23,14 @@ export const meta: MetaFunction = () => [
     viewport: 'width=device-width,initial-scale=1',
   },
 ];
-export const links: LinksFunction = () => {
-  return [
-    ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
-    { rel: 'stylesheet', href: pandaCssUrl },
-    { rel: 'stylesheet', href: mantineCssUrl },
-    { rel: 'stylesheet', href: mantineTiptapCssUrl },
-    { rel: 'preload', href: fontStyleSheetUrl, as: 'style' },
-    { rel: 'stylesheet', href: fontStyleSheetUrl },
-  ];
-};
+export const links: LinksFunction = () => [
+  ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
+  { rel: 'stylesheet', href: pandaCssUrl },
+  { rel: 'stylesheet', href: mantineCssUrl },
+  { rel: 'stylesheet', href: mantineTiptapCssUrl },
+  { rel: 'preload', href: fontStyleSheetUrl, as: 'style' },
+  { rel: 'stylesheet', href: fontStyleSheetUrl },
+];
 
 export default function App() {
   return (

@@ -22,7 +22,7 @@ function parseValidationError(error: ClientResponseError) {
   try {
     const responseTyped = validationError.cast(Object.values(data).at(0));
     return responseTyped;
-  } catch (error) {
+  } catch (caughtError) {
     return null;
   }
 }
@@ -30,8 +30,8 @@ export function parseClientResponseError(error: unknown): null {
   if (!(error instanceof ClientResponseError)) {
     return null;
   }
-  const validationError = parseValidationError(error);
-  if (validationError) throw new AppValidationError(validationError.message);
+  const parsedError = parseValidationError(error);
+  if (parsedError) throw new AppValidationError(parsedError.message);
 
   throw new AppValidationError(error.message);
 }

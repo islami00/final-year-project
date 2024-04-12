@@ -8,15 +8,18 @@ importers:
 
   .:
     dependencies:
+      '@conform-to/dom':
+        specifier: ^1.1.0
+        version: 1.1.0
       '@conform-to/react':
-        specifier: ^1.0.5
-        version: 1.0.5(react@18.3.0-canary-a870b2d54-20240314)
+        specifier: ^1.1.0
+        version: 1.1.0(react@18.3.0-canary-a870b2d54-20240314)
       '@conform-to/yup':
-        specifier: ^1.0.5
-        version: 1.0.5(@conform-to/dom@1.0.5)(yup@1.4.0)
+        specifier: ^1.1.0
+        version: 1.1.0(@conform-to/dom@1.1.0)(yup@1.4.0)
       '@conform-to/zod':
-        specifier: ^1.0.6
-        version: 1.0.6(zod@3.22.4)
+        specifier: ^1.1.0
+        version: 1.1.0(zod@3.22.4)
       '@fontsource-variable/open-sans':
         specifier: ^5.0.28
         version: 5.0.28
@@ -1646,39 +1649,35 @@ packages:
     bundledDependencies:
       - is-unicode-supported
 
-  /@conform-to/dom@1.0.5:
-    resolution: {integrity: sha512-d+85Z8w5z8gO5mtHGKP5JORHLmcgo2bTmdzRk8lhqUkye9hyM2nt801wE6C6U9zq/s7rnlX7kN5x0A6QBhvk3A==}
+  /@conform-to/dom@1.1.0:
+    resolution: {integrity: sha512-KtiGwke6qeh8xDMwebbT/EanxhVX40uZtyHr8VH2V8jBHwavy94V673F4YdlhHpXoqRcZcewie/GQ7tIi2mC/A==}
     dev: false
 
-  /@conform-to/dom@1.0.6:
-    resolution: {integrity: sha512-24teTftuAfcjv+SiaFYb9msjdQA7Kq8Yk9QkMPrkF8LETl80+i5fpCaIG8V91KyTitBeBcc80gg9HuPuuq3dqQ==}
-    dev: false
-
-  /@conform-to/react@1.0.5(react@18.3.0-canary-a870b2d54-20240314):
-    resolution: {integrity: sha512-LyhbN0oVoL7xQg8NXoeG7jqH9JCLsI10clQ0iwwdQDMA+W7OFAL70FFYjq7yjHJBrkj7QqcmO5xMV4jfWTvJJw==}
+  /@conform-to/react@1.1.0(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-zEgesgfllN29SdVZhlm3CGIufQm/gkFia7QMrKX/fH4L+iYgQ7n1LVgu+3Jxr4jXE8wW5YDbemwo1cqhE++xZg==}
     peerDependencies:
       react: '>=18'
     dependencies:
-      '@conform-to/dom': 1.0.5
+      '@conform-to/dom': 1.1.0
       react: 18.3.0-canary-a870b2d54-20240314
     dev: false
 
-  /@conform-to/yup@1.0.5(@conform-to/dom@1.0.5)(yup@1.4.0):
-    resolution: {integrity: sha512-QcuTlriIgNf8BYKEVfXk9sV8tzY2Nqv29EckxE30L4BvWTwjCrURnhVymtMsi6WlRR87pA6x6rlxy3/WHq4cTA==}
+  /@conform-to/yup@1.1.0(@conform-to/dom@1.1.0)(yup@1.4.0):
+    resolution: {integrity: sha512-8WfHCcKd9k7solRQFTI12UWNI1CdmHowv+tdMWBUMdIREWS5NfJMGJ1bUA2GqUXICM4KK+Xh4xNhkURiso/FCw==}
     peerDependencies:
-      '@conform-to/dom': 1.0.5
+      '@conform-to/dom': 1.1.0
       yup: '>=0.32.0'
     dependencies:
-      '@conform-to/dom': 1.0.5
+      '@conform-to/dom': 1.1.0
       yup: 1.4.0
     dev: false
 
-  /@conform-to/zod@1.0.6(zod@3.22.4):
-    resolution: {integrity: sha512-l+fMqEymGG7wrCIdp7Lyt1UPKdlvHbM5KDHeGQkuIEgqISpDVwOH/xt3xb/THzW1unk6beYWh99xMuEmV/ATYw==}
+  /@conform-to/zod@1.1.0(zod@3.22.4):
+    resolution: {integrity: sha512-0ukglFJ1gknFf81j9zB/mZq68fhhSu0s2bxZIkBqPocdGBA6LvHnV7ORyE+27WUNyJ36L2sjksNXVm9SDSUexw==}
     peerDependencies:
       zod: ^3.21.0
     dependencies:
-      '@conform-to/dom': 1.0.6
+      '@conform-to/dom': 1.1.0
       zod: 3.22.4
     dev: false
 

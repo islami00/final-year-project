@@ -45,9 +45,10 @@
     "vite": "^5.1.6"
   },
   "dependencies": {
-    "@conform-to/react": "^1.0.5",
-    "@conform-to/yup": "^1.0.5",
-    "@conform-to/zod": "^1.0.6",
+    "@conform-to/dom": "^1.1.0",
+    "@conform-to/react": "^1.1.0",
+    "@conform-to/yup": "^1.1.0",
+    "@conform-to/zod": "^1.1.0",
     "@fontsource-variable/open-sans": "^5.0.28",
     "@mantine/core": "^7.7.1",
     "@mantine/hooks": "^7.7.1",

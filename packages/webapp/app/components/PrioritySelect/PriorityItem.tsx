@@ -13,7 +13,7 @@ export function PriorityItem(props: PriorityItemProps) {
   const { color, label } = PriorityDictionary[priority];
 
   return (
-    <Combobox.Option key={priority} value={priority}>
+    <Combobox.Option value={priority}>
       <PriorityFlag color={color} />
       <P textStyle="smSemiBold">{label}</P>
     </Combobox.Option>

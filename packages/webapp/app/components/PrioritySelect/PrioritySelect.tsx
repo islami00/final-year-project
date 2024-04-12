@@ -39,7 +39,7 @@ export function PrioritySelect(props: PrioritySelectProps) {
         <Combobox.Options>
           {hasData ? (
             priorityOptions.map((priority) => (
-              <PriorityItem priority={priority} />
+              <PriorityItem key={priority} priority={priority} />
             ))
           ) : (
             <ComboboxEmptyText />

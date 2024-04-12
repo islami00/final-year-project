@@ -54,10 +54,20 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
 
   try {
     switch (value.intent) {
+      case taskDetailsForm.TaskDetailsIntent.PRIORITY:
+      case taskDetailsForm.TaskDetailsIntent.SPRINT_POINTS:
       case taskDetailsForm.TaskDetailsIntent.TITLE: {
+        const combinedBody: Partial<
+          Omit<taskDetailsForm.PriorityFormData, 'intent'> &
+            Omit<taskDetailsForm.SprintPointsFormData, 'intent'> &
+            Omit<taskDetailsForm.TitleFormData, 'intent'>
+        > = value;
+
         await patchTaskById({
           body: {
-            title: value.title,
+            title: combinedBody.title,
+            priority: combinedBody.priority,
+            sprintPoints: combinedBody.sprintPoints,
           },
           taskId,
         });

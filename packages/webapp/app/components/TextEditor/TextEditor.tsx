@@ -40,8 +40,8 @@ export function TextEditor(props: TextEditorProps) {
       Placeholder.configure({ placeholder }),
     ],
     content,
-    onUpdate(props) {
-      onChange(props.editor.getJSON());
+    onUpdate(updateEvent) {
+      onChange(updateEvent.editor.getJSON());
     },
   });
   return (
