@@ -19,7 +19,7 @@ export interface ActionSectionProps extends FromAssignee {
 export function ActionSection(props: ActionSectionProps) {
   const { allUsers, optimisticAssignees: newAssignees, selected, task } = props;
 
-  const{currentPriority }  = useCurrentPriorityValue(task.id, task.priority);
+  const { currentPriority } = useCurrentPriorityValue(task.id, task.priority);
   return (
     <div className={classes.actions}>
       {newAssignees.length > 0 ? (

@@ -9,7 +9,6 @@ export const body = css({
   gridTemplateColumns: '550fr 184fr',
 });
 
-
 export const leftSection = css({
   display: 'flex',
   flexDirection: 'column',

@@ -4,3 +4,4 @@
 /.nx/cache
 
 /packages/webapp/pb_*/**
+pnpm-lock.yaml
