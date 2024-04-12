@@ -5,9 +5,9 @@ import { AssigneeDropdown } from './AssigneeDropdown';
 import * as classes from './AssigneeSelect.styles';
 import { AssigneeData } from './AssigneeSelect.types';
 
-type AssigneeValue = Set<string>;
+export type AssigneeValue = Set<string>;
 
-type SelectAction =
+export type SelectAssigneeAction =
   | {
       type: 'add';
       value: AssigneeData;
@@ -28,7 +28,7 @@ export interface AssigneeSelectProps {
    * */
   data: AssigneeData[];
   /** Something. Remove it or add it. Only one can be queued up at a time. Remix handles it! */
-  onChange?: (value: SelectAction) => void;
+  onChange?: (value: SelectAssigneeAction) => void;
   /**
    * Currently selected assignees
    * For optimistic: Add to this list, and Remove from this list
@@ -61,7 +61,7 @@ export function AssigneeSelect(props: AssigneeSelectProps) {
   });
 
   function toggleItem(value: string) {
-    let stateToSet: SelectAction;
+    let stateToSet: SelectAssigneeAction;
     if (values.has(value)) {
       stateToSet = {
         type: 'remove',

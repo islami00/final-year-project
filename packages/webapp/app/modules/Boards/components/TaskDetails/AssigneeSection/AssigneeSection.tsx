@@ -4,7 +4,7 @@ import { Icon } from '../../../../../components/Icon';
 import { UserAvatar } from '../../../../../components/UserAvatar/UserAvatar';
 import { User } from '../../../../../models/User.model';
 import { type ApplyOptimisticAssigneeResult } from '../../../logic/useOptimisticAssignees';
-import { TaskAssignee } from './TaskAssignee';
+import { TaskAssignee } from '../TaskAssignee';
 
 export interface AssigneeSectionProps extends ApplyOptimisticAssigneeResult {
   allUsers: User[];

@@ -5,7 +5,7 @@ import {
   type ApplyOptimisticAssigneeResult,
   type UseOptimisticAssigneesArgs,
 } from '../../../logic/useOptimisticAssignees';
-import { TaskAssignee } from '../AssigneeSection/TaskAssignee';
+import { TaskAssignee } from '../TaskAssignee';
 import { TaskPriority } from '../PrioritySection/TaskPriority';
 import { SectionGroup } from '../SectionGroup/SectionGroup';
 import { RightSectionButton } from './RightSectionButton';

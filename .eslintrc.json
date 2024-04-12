@@ -28,7 +28,8 @@
           }
         ],
         "arrow-body-style": ["warn", "as-needed"],
-        "@typescript-eslint/no-shadow": "warn"
+        "@typescript-eslint/no-shadow": "warn",
+        "default-case": "warn"
       }
     },
     {
