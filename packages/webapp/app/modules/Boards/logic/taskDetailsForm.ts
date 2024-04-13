@@ -1,4 +1,5 @@
-import { Priority } from '../../../models/Task.model';
+import type { JSONContent } from '@tiptap/react';
+import { Priority, type Task } from '../../../models/Task.model';
 import { ZodOf } from '../../../models/types';
 import { z } from 'zod';
 
@@ -8,6 +9,7 @@ export enum TaskDetailsIntent {
   ADD_ASSIGNEE = 'taskDetails/add_assignee',
   PRIORITY = 'taskDetails/priority',
   SPRINT_POINTS = 'taskDetails/sprint_points',
+  DESCRIPTION = 'taskDetails/description',
 }
 export interface TitleFormData {
   intent: TaskDetailsIntent.TITLE;
@@ -20,6 +22,10 @@ export interface AssigneesFormData {
 export interface PriorityFormData {
   intent: TaskDetailsIntent.PRIORITY;
   priority: Priority;
+}
+export interface DescriptionFormData {
+  intent: TaskDetailsIntent.DESCRIPTION;
+  description: JSONContent | null;
 }
 
 export interface SprintPointsFormData {
@@ -48,13 +54,19 @@ export const sprintPointsSchema = z.object({
   sprintPoints: z.number(),
 }) satisfies ZodOf<SprintPointsFormData>;
 
+export const descriptionSchema = z.object({
+  intent: z.literal(TaskDetailsIntent.DESCRIPTION),
+  description: z.record(z.any()).nullable(),
+}) satisfies ZodOf<DescriptionFormData>;
+
 export type TaskDetailsFormData =
   | TitleFormData
   | AssigneesFormData
   | PriorityFormData
-  | SprintPointsFormData;
+  | SprintPointsFormData
+  | DescriptionFormData;
 
-export const titleDefaultData = (title: string): TaskDetailsFormData => ({
+export const titleDefaultData = (title: string): TitleFormData => ({
   intent: TaskDetailsIntent.TITLE,
   title,
 });
@@ -62,17 +74,16 @@ export const assigneeDefaultData = (): AssigneesFormData => ({
   intent: TaskDetailsIntent.ADD_ASSIGNEE,
   assignee: '',
 });
-
-export const sprintPointsDefaultData = (
-  sprintPoints: number
-): SprintPointsFormData => ({
-  intent: TaskDetailsIntent.SPRINT_POINTS,
-  sprintPoints,
+export const descriptionDefaultData = (
+  description: Task['description']
+): DescriptionFormData => ({
+  intent: TaskDetailsIntent.DESCRIPTION,
+  description,
 });
-
 export const schema = z.union([
   titleSchema,
   assigneesSchema,
   prioritySchema,
   sprintPointsSchema,
+  descriptionSchema,
 ]) satisfies ZodOf<TaskDetailsFormData>;

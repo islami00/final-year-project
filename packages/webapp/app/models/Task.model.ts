@@ -1,6 +1,7 @@
 import * as z from 'zod';
 import Converter from './Converter.model';
 import type { ZodOf } from './types';
+import type { JSONContent } from '@tiptap/react';
 
 export interface TaskCreate {
   title: string;
@@ -25,7 +26,7 @@ export interface TaskApi {
   sprintPoints: number;
   columnOrder: number;
 
-  description: NonNullable<unknown> | null;
+  description: JSONContent | null;
   boardId: string;
 }
 

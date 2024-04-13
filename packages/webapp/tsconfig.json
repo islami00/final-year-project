@@ -1,27 +1,26 @@
 {
-  "extends": "./tsconfig.webapp.json",
-  "include": [
-    "env.d.ts",
-    "./app/**/*.ts",
-    "./app/**/*.tsx",
-    "./app/**/*.js",
-    "./app/**/*.jsx"
-  ],
-  "exclude": [
-    "tests/**/*.spec.ts",
-    "tests/**/*.test.ts",
-    "tests/**/*.spec.tsx",
-    "tests/**/*.test.tsx",
-    "tests/**/*.spec.js",
-    "tests/**/*.test.js",
-    "tests/**/*.spec.jsx",
-    "tests/**/*.test.jsx"
-  ],
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "target": "ES2019",
+    "strict": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    // Remix takes care of building everything in `remix build`.
+    "noEmit": true
+  },
+  "include": [],
+  "files": [],
   // Ignore any reference errors here. It works just fine.
   // Adding composite: true leads to: https://github.com/microsoft/TypeScript/issues/49844
   "references": [
     {
-      "path": "./tsconfig.node.json"
+      "path": "./tsconfig.app.json"
     }
   ]
 }

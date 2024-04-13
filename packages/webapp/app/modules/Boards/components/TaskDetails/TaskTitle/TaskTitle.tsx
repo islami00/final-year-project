@@ -7,6 +7,7 @@ import { TextInput } from '@mantine/core';
 import { useEventListener } from '@mantine/hooks';
 import { useFetcher } from '@remix-run/react';
 import * as React from 'react';
+import { getLastResultToReset } from '../../../logic/getLastResultToReset';
 import * as taskDetailsForm from '../../../logic/taskDetailsForm';
 import { titleInputClassNames } from './TaskTitle.styles';
 
@@ -17,11 +18,8 @@ export function TaskTitle(props: TaskTitleProps) {
   const { defaultValue } = props;
   const fetcher = useFetcher<SubmissionResult>();
 
-  // Ensure we only reset when not loading or submitting (navigating)
-  const lastResult = fetcher.state === 'idle' ? fetcher.data : null;
-
   const [form, fields] = useForm<taskDetailsForm.TitleFormData>({
-    lastResult: lastResult,
+    lastResult: getLastResultToReset(fetcher),
     defaultValue: taskDetailsForm.titleDefaultData(defaultValue),
     onSubmit(event) {
       // Prevent a lot of saves
