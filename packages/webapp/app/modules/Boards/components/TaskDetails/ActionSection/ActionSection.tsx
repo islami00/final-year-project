@@ -33,7 +33,7 @@ export function ActionSection(props: ActionSectionProps) {
       ) : null}
       {currentPriority ? (
         <ActionItem title="Priority">
-          <PrioritySection priority={task.priority} taskId={task.id} />
+          <PrioritySection priority={currentPriority} taskId={task.id} />
         </ActionItem>
       ) : null}
     </div>

@@ -4,20 +4,17 @@ import {
 } from '../../../../../components/PrioritySelect/PrioritySelect';
 import { Priority } from '../../../../../models/Task.model';
 import * as taskDetailsForm from '../../../logic/taskDetailsForm';
-import { useCurrentPriorityValue } from '../../../logic/useCurrentPriorityValue';
 import { serialiseFormData } from '../../../../../utils/Form/serialiseFormData';
+import { useSubmit } from '@remix-run/react';
+import { taskFetcherKeys } from '../../../../../services/queries/task/taskFetcherKeys';
 export interface TaskPriorityProps
   extends Omit<PrioritySelectProps, 'onChange' | 'value'> {
   taskId: string;
-  defaultValue: Priority | null;
 }
 
 export function TaskPriority(props: TaskPriorityProps) {
-  const { taskId, defaultValue } = props;
-  const { fetcher, currentPriority } = useCurrentPriorityValue(
-    taskId,
-    defaultValue
-  );
+  const { taskId } = props;
+  const submit = useSubmit();
 
   function submitValue(value: Priority) {
     const formData: taskDetailsForm.PriorityFormData = {
@@ -25,15 +22,11 @@ export function TaskPriority(props: TaskPriorityProps) {
       priority: value,
     };
 
-    fetcher.submit(serialiseFormData(formData), { method: 'post' });
+    submit(serialiseFormData(formData), {
+      method: 'post',
+      fetcherKey: taskFetcherKeys.priorityFilter(taskId),
+      navigate: false,
+    });
   }
-  return (
-    <>
-      <PrioritySelect
-        value={currentPriority}
-        onChange={submitValue}
-        {...props}
-      />
-    </>
-  );
+  return <PrioritySelect onChange={submitValue} {...props} />;
 }

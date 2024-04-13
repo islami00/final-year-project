@@ -3,7 +3,7 @@ import { TaskPriority } from './TaskPriority';
 import { PriorityButton } from './PriorityButton';
 
 export interface PrioritySectionProps {
-  /** Api priority value */
+  /** Optimistic priority value */
   priority: Priority | null;
   taskId: string;
 }
@@ -13,9 +13,8 @@ export function PrioritySection(props: PrioritySectionProps) {
   return (
     <TaskPriority
       taskId={taskId}
-      defaultValue={priority}
-      target={(ctx, currentValue) => (
-        <PriorityButton onClick={ctx.onClick} currentValue={currentValue} />
+      target={(ctx) => (
+        <PriorityButton onClick={ctx.onClick} currentValue={priority} />
       )}
     />
   );

@@ -10,10 +10,10 @@ export interface TaskCreate {
 }
 
 export enum Priority {
-  P0 = 'p0',
-  P1 = 'p1',
-  P2 = 'p2',
-  P3 = 'p3',
+  P0 = 'P0',
+  P1 = 'P1',
+  P2 = 'P2',
+  P3 = 'P3',
 }
 export interface TaskApi {
   id: string;
