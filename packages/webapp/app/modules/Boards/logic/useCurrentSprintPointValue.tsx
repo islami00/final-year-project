@@ -1,33 +1,31 @@
 import { SubmissionResult } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import { useFetcher } from '@remix-run/react';
-import { Priority } from '../../../models/Task.model';
 import { taskFetcherKeys } from '../../../services/queries/task/taskFetcherKeys';
+import * as taskDetailsForm from '../logic/taskDetailsForm';
 import { getOptimisticValue } from './getOptimisticValue';
-import * as taskDetailsForm from './taskDetailsForm';
 
-interface UseCurrentPriorityValueArgs {
+interface UseCurrentSprintPointValueArgs {
+  apiValue: number;
   taskId: string;
-  apiValue: Priority | null;
 }
-
-export function useCurrentPriorityValue(
-  args: UseCurrentPriorityValueArgs
-): Priority | null {
-  const { taskId, apiValue } = args;
+export function useCurrentSprintPointValue(
+  args: UseCurrentSprintPointValueArgs
+): number {
+  const { apiValue, taskId } = args;
   const fetcher = useFetcher<SubmissionResult>({
-    key: taskFetcherKeys.priorityFilter(taskId),
+    key: taskFetcherKeys.sprintPointsFilter(taskId),
   });
 
   const optimisticValue = getOptimisticValue({
-    apiValue: apiValue,
     fetcher,
+    apiValue: apiValue,
     parser(formData) {
       return parseWithZod(formData, {
-        schema: taskDetailsForm.prioritySchema,
+        schema: taskDetailsForm.sprintPointsSchema,
       });
     },
-    getValue: (value) => value.priority,
+    getValue: (value) => value.sprintPoints,
   });
   return optimisticValue;
 }

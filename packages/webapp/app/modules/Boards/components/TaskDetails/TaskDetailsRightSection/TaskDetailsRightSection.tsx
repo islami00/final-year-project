@@ -10,6 +10,7 @@ import { TaskPriority } from '../PrioritySection/TaskPriority';
 import { SectionGroup } from '../SectionGroup/SectionGroup';
 import { RightSectionButton } from './RightSectionButton';
 import * as classes from './TaskDetailsRightSection.styles';
+import { TaskSprintPoint } from '../SprintPointSection/TaskSprintPoint';
 
 interface TaskDetailsRightSectionProps {
   selected: ApplyOptimisticAssigneeResult['selected'];
@@ -22,11 +23,17 @@ export function TaskDetailsRightSection(props: TaskDetailsRightSectionProps) {
   return (
     <div className={classes.rightSection}>
       <SectionGroup title="Add to task">
-        <RightSectionButton
-          leftSection={<Icon size="s16" strokeSize="s24" name="IconStar" />}
-        >
-          Sprint Points
-        </RightSectionButton>
+        <TaskSprintPoint
+          taskId={task.id}
+          target={(ctx) => (
+            <RightSectionButton
+              onClick={ctx.onClick}
+              leftSection={<Icon size="s16" strokeSize="s24" name="IconStar" />}
+            >
+              Sprint Points
+            </RightSectionButton>
+          )}
+        />
         <TaskAssignee
           data={allUsers}
           values={selected}
@@ -41,7 +48,6 @@ export function TaskDetailsRightSection(props: TaskDetailsRightSectionProps) {
         />
 
         <TaskPriority
-          defaultValue={task.priority}
           taskId={task.id}
           target={(ctx) => (
             <RightSectionButton
