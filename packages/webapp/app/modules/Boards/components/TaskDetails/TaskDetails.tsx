@@ -25,6 +25,7 @@ export function TaskDetails(props: TaskDetailsProps) {
       allUsers,
       assignees,
     });
+
   return (
     <TMAModal
       classNames={classes.modalClassNames}
@@ -44,7 +45,10 @@ export function TaskDetails(props: TaskDetailsProps) {
             />
             <div className={classes.descriptionSection}>
               <P textStyle="mdBold">Description</P>
-              <DescriptionSection defaultValue={task.description} />
+              <DescriptionSection
+                taskId={task.id}
+                defaultValue={task.description}
+              />
             </div>
           </div>
           <TaskDetailsRightSection
