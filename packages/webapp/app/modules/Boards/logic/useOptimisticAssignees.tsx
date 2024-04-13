@@ -11,7 +11,7 @@ interface UseOptimisticAssigneeFetchers {
   addedAssignees: string[];
   removedAssignees: string[];
 }
-export function useOptimisticAssigneeFetchers(): UseOptimisticAssigneeFetchers {
+function useOptimisticAssigneeFetchers(): UseOptimisticAssigneeFetchers {
   const fetchers = useFetchers();
 
   const grouped: Dictionary<Fetcher[] | undefined> = groupBy(
@@ -50,7 +50,7 @@ export interface ApplyOptimisticAssigneeResult {
   optimisticAssignees: User[];
 }
 
-export function applyOptimisticAssignee(
+function applyOptimisticAssignee(
   args: ApplyOptimisticAssigneeArgs
 ): ApplyOptimisticAssigneeResult {
   const { assignees, added, removed, allData } = args;

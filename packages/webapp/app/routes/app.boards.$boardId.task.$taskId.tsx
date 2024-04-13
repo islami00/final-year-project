@@ -18,8 +18,40 @@ import { getTaskAssigneeById } from '../services/queries/task/getTaskAssigneeByI
 import { getTaskAssignees } from '../services/queries/task/getTaskAssignees';
 import { getTaskWithOrganisation } from '../services/queries/task/getTaskOrganisation';
 import { postAssignTaskToUser } from '../services/queries/task/postAssignTaskToUser';
-import { patchTaskById } from '../services/queries/task/patchTaskById';
+import {
+  patchTaskById,
+  type PatchTaskByIdBody,
+} from '../services/queries/task/patchTaskById';
 import { castError } from '../utils/parseClientResponseError';
+function parseTaskPropertySubmission(
+  possible:
+    | taskDetailsForm.PriorityFormData
+    | taskDetailsForm.SprintPointsFormData
+    | taskDetailsForm.TitleFormData
+    | taskDetailsForm.DescriptionFormData
+): PatchTaskByIdBody {
+  switch (possible.intent) {
+    case taskDetailsForm.TaskDetailsIntent.PRIORITY:
+      return {
+        priority: possible.priority,
+      };
+    case taskDetailsForm.TaskDetailsIntent.DESCRIPTION:
+      return {
+        description: possible.description,
+      };
+    case taskDetailsForm.TaskDetailsIntent.SPRINT_POINTS:
+      return {
+        sprintPoints: possible.sprintPoints,
+      };
+    case taskDetailsForm.TaskDetailsIntent.TITLE:
+      return {
+        title: possible.title,
+      };
+
+    default:
+      return possible;
+  }
+}
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;
@@ -55,20 +87,11 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
   try {
     switch (value.intent) {
       case taskDetailsForm.TaskDetailsIntent.PRIORITY:
+      case taskDetailsForm.TaskDetailsIntent.DESCRIPTION:
       case taskDetailsForm.TaskDetailsIntent.SPRINT_POINTS:
       case taskDetailsForm.TaskDetailsIntent.TITLE: {
-        const combinedBody: Partial<
-          Omit<taskDetailsForm.PriorityFormData, 'intent'> &
-            Omit<taskDetailsForm.SprintPointsFormData, 'intent'> &
-            Omit<taskDetailsForm.TitleFormData, 'intent'>
-        > = value;
-
         await patchTaskById({
-          body: {
-            title: combinedBody.title,
-            priority: combinedBody.priority,
-            sprintPoints: combinedBody.sprintPoints,
-          },
+          body: parseTaskPropertySubmission(value),
           taskId,
         });
         return json(submission.reply({ resetForm: true }));

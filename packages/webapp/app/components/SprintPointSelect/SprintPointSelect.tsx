@@ -28,7 +28,7 @@ export function SprintPointSelect(props: SprintPointSelectProps) {
       {sprintPointOptions.map((point) => {
         const stringPt = String(point);
         return (
-          <Combobox.Option value={stringPt}>
+          <Combobox.Option key={stringPt} value={stringPt}>
             <P textStyle="smSemiBold">{stringPt}</P>
           </Combobox.Option>
         );

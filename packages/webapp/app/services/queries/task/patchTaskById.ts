@@ -8,13 +8,13 @@ import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
 import { parseClientResponseError } from '../../../utils/parseClientResponseError';
 
-interface PatchTaskByIdBody {
+export interface PatchTaskByIdBody {
   statusId?: string;
   title?: string;
   priority?: Priority | '';
   columnOrder?: number;
   sprintPoints?: number;
-  description?: TaskApi['description'];
+  description?: Task['description'];
 }
 interface PatchTaskByIdArgs {
   body: PatchTaskByIdBody;

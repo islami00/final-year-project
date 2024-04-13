@@ -1,6 +1,6 @@
 import * as z from 'zod';
 import Converter from './Converter.model';
-import type { ZodOf } from './types';
+import type { WrappedPBJSONField, ZodOf } from './types';
 import type { JSONContent } from '@tiptap/react';
 
 export interface TaskCreate {
@@ -26,7 +26,7 @@ export interface TaskApi {
   sprintPoints: number;
   columnOrder: number;
 
-  description: JSONContent | null;
+  description: WrappedPBJSONField<JSONContent | null> | null;
   boardId: string;
 }
 
@@ -39,10 +39,22 @@ export interface Task {
   priority: Priority | null;
   sprintPoints: TaskApi['sprintPoints'];
   columnOrder: TaskApi['columnOrder'];
-  description: TaskApi['description'];
+  description: WrappedPBJSONField<JSONContent | null>;
   boardId: TaskApi['boardId'];
 }
 
+function normaliseDescription(
+  v: unknown
+): WrappedPBJSONField<JSONContent | null> {
+  const val = v as TaskApi['description'];
+  if (!val) {
+    return { data: val };
+  }
+  return val;
+}
+export const taskDescriptionSchema = z.object({
+  data: z.record(z.any()).nullable(),
+});
 const taskSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1),
@@ -53,7 +65,7 @@ const taskSchema = z.object({
   priority: z.preprocess((v) => v || null, z.nativeEnum(Priority).nullable()),
   sprintPoints: z.number(),
   columnOrder: z.number(),
-  description: z.record(z.any()).nullable(),
+  description: z.preprocess(normaliseDescription, taskDescriptionSchema),
   boardId: z.string(),
 }) satisfies ZodOf<Task>;
 

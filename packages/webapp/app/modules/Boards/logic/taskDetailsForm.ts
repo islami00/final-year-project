@@ -1,6 +1,10 @@
 import type { JSONContent } from '@tiptap/react';
-import { Priority, type Task } from '../../../models/Task.model';
-import { ZodOf } from '../../../models/types';
+import {
+  Priority,
+  taskDescriptionSchema,
+  type Task,
+} from '../../../models/Task.model';
+import { ZodOf, type WrappedPBJSONField } from '../../../models/types';
 import { z } from 'zod';
 
 export enum TaskDetailsIntent {
@@ -11,24 +15,34 @@ export enum TaskDetailsIntent {
   SPRINT_POINTS = 'taskDetails/sprint_points',
   DESCRIPTION = 'taskDetails/description',
 }
-export interface TitleFormData {
+
+type JSONPrimitive = string | number | boolean;
+interface BaseForm {
+  // Index for Remix to be happy
+  [key: string]: JSONPrimitive;
+}
+export interface TitleFormData extends BaseForm {
   intent: TaskDetailsIntent.TITLE;
   title: string;
 }
-export interface AssigneesFormData {
+export interface AssigneesFormData extends BaseForm {
   intent: TaskDetailsIntent.ADD_ASSIGNEE | TaskDetailsIntent.REMOVE_ASSIGNEE;
   assignee: string;
 }
-export interface PriorityFormData {
+export interface PriorityFormData extends BaseForm {
   intent: TaskDetailsIntent.PRIORITY;
   priority: Priority;
 }
 export interface DescriptionFormData {
   intent: TaskDetailsIntent.DESCRIPTION;
-  description: JSONContent | null;
+  description: WrappedPBJSONField<JSONContent | null>;
+}
+export interface DescriptionFormDataSent extends BaseForm {
+  intent: TaskDetailsIntent.DESCRIPTION;
+  description: string;
 }
 
-export interface SprintPointsFormData {
+export interface SprintPointsFormData extends BaseForm {
   intent: TaskDetailsIntent.SPRINT_POINTS;
   sprintPoints: number;
 }
@@ -54,9 +68,13 @@ export const sprintPointsSchema = z.object({
   sprintPoints: z.number(),
 }) satisfies ZodOf<SprintPointsFormData>;
 
+function safeJSONParse(v: unknown) {
+  if (typeof v !== 'string') return v;
+  return JSON.parse(v);
+}
 export const descriptionSchema = z.object({
   intent: z.literal(TaskDetailsIntent.DESCRIPTION),
-  description: z.record(z.any()).nullable(),
+  description: z.preprocess(safeJSONParse, taskDescriptionSchema),
 }) satisfies ZodOf<DescriptionFormData>;
 
 export type TaskDetailsFormData =
