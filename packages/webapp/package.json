@@ -16,6 +16,9 @@
     "@remix-run/serve": "^2.8.1",
     "@tma/design-system": "workspace:^"
   },
+  "peerDependencies": {
+    "@mantine/core": "^7.8.0"
+  },
   "engines": {
     "node": ">=14"
   },
