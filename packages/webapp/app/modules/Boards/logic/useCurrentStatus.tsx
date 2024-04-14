@@ -4,6 +4,7 @@ import { Status } from '../../../models/Status.model';
 import { taskFetcherKeys } from '../../../services/queries/task/taskFetcherKeys';
 import { getOptimisticValue } from './getOptimisticValue';
 import * as taskDetailsForm from './taskDetailsForm';
+import { invariant } from '@epic-web/invariant';
 
 interface UseCurrentStatusArgs {
   statuses: Status[];
@@ -27,8 +28,10 @@ export function useCurrentStatus(args: UseCurrentStatusArgs) {
     getValue: (value) => value.statusId,
   });
 
-  const statusObject = statuses.find(
-    (each) => each.id === currentStatus
-  ) as Status;
+  const statusObject = statuses.find((each) => each.id === currentStatus);
+  invariant(
+    !!statusObject,
+    'statusId being set for task must exist in the board'
+  );
   return { statusObject, fetcher };
 }
