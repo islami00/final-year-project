@@ -70,3 +70,8 @@ File '{workspaceRoot}/packages/design-system/src/*' not found.
 ```
 
 Possible reasons for this error: [Typescript#46432](https://github.com/microsoft/TypeScript/issues/46432#issuecomment-1419568874). Tldr; It happens whenever you rename something.
+
+
+### Auto complete of @mantine/core doesn't work
+
+- It's a dependency of tma/design-system, so vscode won't include it

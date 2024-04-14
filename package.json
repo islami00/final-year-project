@@ -50,9 +50,9 @@
     "@conform-to/yup": "^1.1.0",
     "@conform-to/zod": "^1.1.0",
     "@fontsource-variable/open-sans": "^5.0.28",
-    "@mantine/core": "^7.7.1",
-    "@mantine/hooks": "^7.7.1",
-    "@mantine/tiptap": "^7.7.1",
+    "@mantine/core": "^7.8.0",
+    "@mantine/hooks": "^7.8.0",
+    "@mantine/tiptap": "^7.8.0",
     "@mantine/utils": "^6.0.21",
     "@remix-run/css-bundle": "^2.8.1",
     "@remix-run/node": "^2.8.1",
@@ -81,7 +81,8 @@
     "zod": "^3.22.4"
   },
   "overrides": {
-    "react": "18.3.0-canary-a870b2d54-20240314",
-    "react-dom": "18.3.0-canary-a870b2d54-20240314"
+    "react": "$react",
+    "react-dom": "$react-dom",
+    "@mantine/core": "$@mantine/core"
   }
 }
