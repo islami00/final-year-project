@@ -5,7 +5,8 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
     "resolveJsonModule": true,
     // Consistent with vite https://vitejs.dev/guide/features#target
     "target": "ESNext",
