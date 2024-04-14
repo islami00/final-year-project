@@ -7,9 +7,7 @@ export const schema: yup.ObjectSchema<OnboardFormData> = yup.object({
   name: yup.string().required(),
   userId: yup.string().required(),
 });
-export const defaultData = (userId: string): OnboardFormData => {
-  return {
-    name: '',
-    userId,
-  };
-};
+export const defaultData = (userId: string): OnboardFormData => ({
+  name: '',
+  userId,
+});

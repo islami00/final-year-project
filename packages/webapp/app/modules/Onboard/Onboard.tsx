@@ -46,8 +46,13 @@ export function Onboard() {
             label="Name"
             {...getInputProps(fields.name, { type: 'text' })}
             error={fields.name.errors?.at(0)}
+            key={fields.name.key}
           />
-          <input {...getInputProps(fields.userId, { type: 'hidden' })} />
+          <input
+            {...getInputProps(fields.userId, { type: 'hidden', value: false })}
+            value={loaderData.user.id}
+            key={fields.userId.key}
+          />
 
           <Button type="submit" className={styles.submitBtn}>
             Submit

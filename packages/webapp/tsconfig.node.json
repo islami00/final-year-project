@@ -1,6 +1,5 @@
-// Possible reasons for ts errors: https://github.com/microsoft/TypeScript/issues/46432#issuecomment-1419568874
 {
-  "extends": "./tsconfig.webapp.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "declaration": true,
@@ -8,6 +7,5 @@
     "composite": true,
     "noEmit": false
   },
-  "include": ["panda.config.ts"],
-  "exclude": []
+  "include": ["panda.config.ts"]
 }

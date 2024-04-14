@@ -2,9 +2,10 @@
   "name": "@tma/design-system",
   "version": "0.0.1",
   "dependencies": {
-    "tslib": "^2.3.0",
-    "react": "18.3.0-canary-a870b2d54-20240314",
-    "react-dom": "18.3.0-canary-a870b2d54-20240314"
+    "@pandacss/dev": "~0.35.0"
+  },
+  "peerDependencies": {
+    "@mantine/core": "^7.8.0"
   },
   "scripts": {
     "prebuild": "panda codegen"
@@ -19,9 +20,5 @@
     "./package.json": "./package.json",
     "./recipes": "./src/recipes.ts"
   },
-  "main": "./src/index.js",
-  "overrides": {
-    "react": "18.3.0-canary-a870b2d54-20240314",
-    "react-dom": "18.3.0-canary-a870b2d54-20240314"
-  }
+  "main": "./src/index.js"
 }

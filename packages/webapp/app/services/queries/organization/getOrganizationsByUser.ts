@@ -3,7 +3,7 @@ import OrganizationModel, {
   type Organization,
 } from '../../../models/Organization.model';
 import { pb } from '../../pocketbase/setup';
-import { collections } from '../utils';
+import { collections } from '../../pocketbase/collections';
 
 interface IGetOrganizationsByUserArgs {
   userId: string;
@@ -15,10 +15,10 @@ export async function getOrganizationsByUser(
   // Get
 
   const record = await pb
-    .collection<OrganizationApi>(collections.organisations)
+    .collection<OrganizationApi>(collections.organisation)
     .getFullList(undefined, {
       filter: pb.filter(
-        `organisations_users_via_organisationId.userId={:userId}`,
+        `${collections.organisation_users}_via_organisationId.userId ?= {:userId}`,
         { userId }
       ),
     });

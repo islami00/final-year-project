@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import { ClientResponseError } from 'pocketbase';
 import { AppError } from './AppError';
+import { AppValidationError } from './AppValidationError';
 
 interface ValidationErrorObject {
   code: string;
@@ -21,22 +22,22 @@ function parseValidationError(error: ClientResponseError) {
   try {
     const responseTyped = validationError.cast(Object.values(data).at(0));
     return responseTyped;
-  } catch (error) {
+  } catch (caughtError) {
     return null;
   }
 }
-export function parseClientResponseError(error: unknown): never {
+export function parseClientResponseError(error: unknown): null {
   if (!(error instanceof ClientResponseError)) {
-    throw new AppError('Unknown error');
+    return null;
   }
-  const validationError = parseValidationError(error);
-  if (validationError) throw new AppError(validationError.message);
+  const parsedError = parseValidationError(error);
+  if (parsedError) throw new AppValidationError(parsedError.message);
 
-  throw new AppError(error.message);
+  throw new AppValidationError(error.message);
 }
 
 export function castError(error: unknown): AppError {
   if (error instanceof AppError) return error;
 
-  return new AppError('Unknown error');
+  return new AppError();
 }

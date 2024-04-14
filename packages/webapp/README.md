@@ -55,4 +55,22 @@ cp -R ../my-old-remix-app/app app
 
 ### SVGs
 
-- I use https://github.com/alexanderson1993/svg-icons-cli to bundle custom svgs together in a sprite
+- I use [svgr](https://react-svgr.com/docs/remix/) to generate jsx from svgs, and a custom svg component to access them via text.
+
+### Possible errors
+
+#### `File '{workspaceRoot}/packages/design-system/src/*' not found.`
+
+Full error:
+
+```console
+File '{workspaceRoot}/packages/design-system/src/*' not found.
+  The file is in the program because:
+    Root file specified for compilation
+```
+
+Possible reasons for this error: [Typescript#46432](https://github.com/microsoft/TypeScript/issues/46432#issuecomment-1419568874). Tldr; It happens whenever you rename something.
+
+### Auto complete of @mantine/core doesn't work
+
+- It's a dependency of tma/design-system, so vscode won't include it

@@ -50,6 +50,7 @@ export function Auth(props: AuthProps) {
                 placeholder="Your name"
                 radius="md"
                 {...getInputProps(fields.name, { type: 'text' })}
+                key={fields.name.key}
               />
             ) : null}
 
@@ -59,6 +60,7 @@ export function Auth(props: AuthProps) {
               placeholder="hello@mantine.dev"
               radius="md"
               {...getInputProps(fields.email, { type: 'email' })}
+              key={fields.email.key}
             />
             <PasswordInput
               required
@@ -67,6 +69,7 @@ export function Auth(props: AuthProps) {
               radius="md"
               error={fields?.password?.errors?.at(0)}
               {...getInputProps(fields.password, { type: 'password' })}
+              key={fields.password.key}
             />
           </Stack>
 

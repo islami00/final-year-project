@@ -1,0 +1,1 @@
+export { TMAModal } from './TMAModal';

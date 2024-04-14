@@ -7,32 +7,20 @@
     "dev": "remix vite:dev",
     "build": "remix vite:build",
     "start": "remix-serve ./build/server/index.js",
+    "typecheck": "tsc -p ./tsconfig.app.json",
     "build-icons": "svgr  --index-template ./scripts/default-template.cjs --out-dir app/components/Icon/icons -- app/assets/svg"
   },
   "type": "module",
   "dependencies": {
     "@remix-run/node": "^2.8.1",
-    "@remix-run/react": "^2.8.1",
     "@remix-run/serve": "^2.8.1",
-    "@tma/design-system": "workspace:^",
-    "isbot": "^3.6.8",
-    "react": "18.3.0-canary-a870b2d54-20240314",
-    "react-dom": "18.3.0-canary-a870b2d54-20240314"
+    "@tma/design-system": "workspace:^"
   },
-  "devDependencies": {
-    "@remix-run/dev": "^2.8.1",
-    "@remix-run/eslint-config": "^2.8.1",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "eslint": "^8.38.0",
-    "typescript": "^5.1.6"
+  "peerDependencies": {
+    "@mantine/core": "^7.8.0"
   },
   "engines": {
     "node": ">=14"
   },
-  "sideEffects": false,
-  "overrides": {
-    "react": "18.3.0-canary-a870b2d54-20240314",
-    "react-dom": "18.3.0-canary-a870b2d54-20240314"
-  }
+  "sideEffects": false
 }
