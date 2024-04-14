@@ -23,34 +23,27 @@ import {
   type PatchTaskByIdBody,
 } from '../services/queries/task/patchTaskById';
 import { castError } from '../utils/parseClientResponseError';
-function parseTaskPropertySubmission(
-  possible:
-    | taskDetailsForm.PriorityFormData
-    | taskDetailsForm.SprintPointsFormData
-    | taskDetailsForm.TitleFormData
-    | taskDetailsForm.DescriptionFormData
-): PatchTaskByIdBody {
-  switch (possible.intent) {
-    case taskDetailsForm.TaskDetailsIntent.PRIORITY:
-      return {
-        priority: possible.priority,
-      };
-    case taskDetailsForm.TaskDetailsIntent.DESCRIPTION:
-      return {
-        description: possible.description,
-      };
-    case taskDetailsForm.TaskDetailsIntent.SPRINT_POINTS:
-      return {
-        sprintPoints: possible.sprintPoints,
-      };
-    case taskDetailsForm.TaskDetailsIntent.TITLE:
-      return {
-        title: possible.title,
-      };
+import omitBy from 'lodash/fp/omitBy';
 
-    default:
-      return possible;
-  }
+interface TaskPropertySubmission {
+  priority?: taskDetailsForm.PriorityFormData['priority'];
+  title?: string;
+  sprintPoints?: number;
+  description?: taskDetailsForm.DescriptionFormData['description'];
+  statusId?: taskDetailsForm.StatusFormData['statusId'];
+}
+function parseTaskPropertySubmission(
+  possible: TaskPropertySubmission
+): PatchTaskByIdBody {
+  const res: PatchTaskByIdBody = {
+    priority: possible.priority,
+    description: possible.description,
+    sprintPoints: possible.sprintPoints,
+    statusId: possible.statusId,
+    title: possible.title,
+  };
+  // Omit empty.
+  return omitBy((v) => v === undefined, res);
 }
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
@@ -87,6 +80,7 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
   try {
     switch (value.intent) {
       case taskDetailsForm.TaskDetailsIntent.PRIORITY:
+      case taskDetailsForm.TaskDetailsIntent.STATUS:
       case taskDetailsForm.TaskDetailsIntent.DESCRIPTION:
       case taskDetailsForm.TaskDetailsIntent.SPRINT_POINTS:
       case taskDetailsForm.TaskDetailsIntent.TITLE: {

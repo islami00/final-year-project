@@ -4,7 +4,7 @@ import { Priority } from '../../models/Task.model';
 import { getTargetCtx, type TargetCtx } from '../Combobox/Combobox.utils';
 import { PriorityItem } from './PriorityItem';
 import { priorityList } from './PrioritySelect.utils';
-import { SelectPrimitive } from './SelectPrimitive';
+import { SelectPrimitive } from '../SelectPrimitive';
 
 export interface PrioritySelectProps {
   onChange: (value: Priority) => void;

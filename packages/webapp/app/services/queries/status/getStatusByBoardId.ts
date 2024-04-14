@@ -15,6 +15,7 @@ export async function getStatusByBoardId(
     .collection<StatusApi>(collections.status)
     .getFullList({
       filter: pb.filter(`boardId = {:boardId}`, { boardId }),
+      sort: 'order',
     });
 
   const result = await StatusModel.fromArrayWithDefault(allStatuses);

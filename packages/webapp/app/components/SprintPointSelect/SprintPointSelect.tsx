@@ -1,7 +1,7 @@
 import { Combobox, useCombobox } from '@mantine/core';
 import * as React from 'react';
 import { getTargetCtx, type TargetCtx } from '../Combobox/Combobox.utils';
-import { SelectPrimitive } from '../PrioritySelect/SelectPrimitive';
+import { SelectPrimitive } from '../SelectPrimitive/SelectPrimitive';
 import { sprintPointOptions } from './SprintPointSelect.utils';
 import { P } from '../P';
 

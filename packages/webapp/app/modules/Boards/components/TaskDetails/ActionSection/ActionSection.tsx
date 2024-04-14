@@ -1,4 +1,5 @@
 import { Task } from '../../../../../models/Task.model';
+import { useBoardIdLoaderData } from '../../../logic/useBoardIdLoaderData';
 import { useCurrentPriorityValue } from '../../../logic/useCurrentPriorityValue';
 import { useCurrentSprintPointValue } from '../../../logic/useCurrentSprintPointValue';
 import {
@@ -7,6 +8,7 @@ import {
 } from '../AssigneeSection/AssigneeSection';
 import { PrioritySection } from '../PrioritySection/PrioritySection';
 import { SprintPointSection } from '../SprintPointSection/SprintPointSection';
+import { StatusSection } from '../StatusSection/StatusSection';
 import { ActionItem } from './ActionItem';
 import * as classes from './ActionSection.styles';
 
@@ -29,8 +31,17 @@ export function ActionSection(props: ActionSectionProps) {
     apiValue: task.sprintPoints,
     taskId: task.id,
   });
+  const boardIdData = useBoardIdLoaderData();
+
   return (
     <div className={classes.actions}>
+      <ActionItem title="Status">
+        <StatusSection
+          taskId={task.id}
+          statuses={boardIdData.statuses.allStatuses}
+          defaultValue={task.statusId}
+        />
+      </ActionItem>
       {optimisticAssignees.length > 0 ? (
         <ActionItem title="Assignees">
           <AssigneeSection

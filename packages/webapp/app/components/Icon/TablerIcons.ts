@@ -7,3 +7,4 @@ export { IconFlag } from '@tabler/icons-react';
 export { IconTrash } from '@tabler/icons-react';
 export { IconPlus } from '@tabler/icons-react';
 export { IconFlagFilled } from '@tabler/icons-react';
+export { IconCircleFilled } from '@tabler/icons-react';

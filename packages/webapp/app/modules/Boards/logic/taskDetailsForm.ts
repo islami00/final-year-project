@@ -14,6 +14,7 @@ export enum TaskDetailsIntent {
   PRIORITY = 'taskDetails/priority',
   SPRINT_POINTS = 'taskDetails/sprint_points',
   DESCRIPTION = 'taskDetails/description',
+  STATUS = 'taskDetails/status',
 }
 
 type JSONPrimitive = string | number | boolean;
@@ -33,6 +34,11 @@ export interface PriorityFormData extends BaseForm {
   intent: TaskDetailsIntent.PRIORITY;
   priority: Priority;
 }
+
+export interface SprintPointsFormData extends BaseForm {
+  intent: TaskDetailsIntent.SPRINT_POINTS;
+  sprintPoints: number;
+}
 export interface DescriptionFormData {
   intent: TaskDetailsIntent.DESCRIPTION;
   description: WrappedPBJSONField<JSONContent | null>;
@@ -41,10 +47,9 @@ export interface DescriptionFormDataSent extends BaseForm {
   intent: TaskDetailsIntent.DESCRIPTION;
   description: string;
 }
-
-export interface SprintPointsFormData extends BaseForm {
-  intent: TaskDetailsIntent.SPRINT_POINTS;
-  sprintPoints: number;
+export interface StatusFormData extends BaseForm {
+  intent: TaskDetailsIntent.STATUS;
+  statusId: string;
 }
 export const titleSchema = z.object({
   intent: z.literal(TaskDetailsIntent.TITLE),
@@ -76,22 +81,24 @@ export const descriptionSchema = z.object({
   intent: z.literal(TaskDetailsIntent.DESCRIPTION),
   description: z.preprocess(safeJSONParse, taskDescriptionSchema),
 }) satisfies ZodOf<DescriptionFormData>;
+export const statusSchema = z.object({
+  intent: z.literal(TaskDetailsIntent.STATUS),
+  statusId: z.string(),
+}) satisfies ZodOf<StatusFormData>;
 
 export type TaskDetailsFormData =
   | TitleFormData
   | AssigneesFormData
   | PriorityFormData
   | SprintPointsFormData
-  | DescriptionFormData;
+  | DescriptionFormData
+  | StatusFormData;
 
 export const titleDefaultData = (title: string): TitleFormData => ({
   intent: TaskDetailsIntent.TITLE,
   title,
 });
-export const assigneeDefaultData = (): AssigneesFormData => ({
-  intent: TaskDetailsIntent.ADD_ASSIGNEE,
-  assignee: '',
-});
+
 export const descriptionDefaultData = (
   description: Task['description']
 ): DescriptionFormData => ({
@@ -104,4 +111,5 @@ export const schema = z.union([
   prioritySchema,
   sprintPointsSchema,
   descriptionSchema,
+  statusSchema,
 ]) satisfies ZodOf<TaskDetailsFormData>;

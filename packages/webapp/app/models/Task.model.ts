@@ -39,20 +39,19 @@ export interface Task {
   priority: Priority | null;
   sprintPoints: TaskApi['sprintPoints'];
   columnOrder: TaskApi['columnOrder'];
-  description: WrappedPBJSONField<JSONContent | null>;
+  description: TaskDescription;
   boardId: TaskApi['boardId'];
 }
 
-function normaliseDescription(
-  v: unknown
-): WrappedPBJSONField<JSONContent | null> {
+export type TaskDescription = WrappedPBJSONField<JSONContent | null>;
+function normaliseDescription(v: unknown): TaskDescription {
   const val = v as TaskApi['description'];
   if (!val) {
     return { data: val };
   }
   return val;
 }
-export const taskDescriptionSchema = z.object({
+export const taskDescriptionSchema: ZodOf<TaskDescription> = z.object({
   data: z.record(z.any()).nullable(),
 });
 const taskSchema = z.object({
