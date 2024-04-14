@@ -47,9 +47,10 @@ export const mantineColorsAsTokens: ColorTokens = Object.entries(
   mergedTheme.colors
 ).reduce((acc, curr) => {
   const [key, values] = curr;
-  const valueResult = values.map((each, idx) => {
-    return [idx, { value: each, description: "From mantine's theme" }] as const;
-  });
+  const valueResult = values.map(
+    (each, idx) =>
+      [idx, { value: each, description: "From mantine's theme" }] as const
+  );
   const merged: ColorTokens = Object.fromEntries(valueResult);
   const defaultToken = {
     // Tokens throw errors with conditions, so I opt for the app's only color scheme for now.
