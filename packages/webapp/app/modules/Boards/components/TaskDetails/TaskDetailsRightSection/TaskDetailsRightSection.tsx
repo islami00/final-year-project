@@ -8,9 +8,10 @@ import {
 import { TaskAssignee } from '../TaskAssignee';
 import { TaskPriority } from '../PrioritySection/TaskPriority';
 import { SectionGroup } from '../SectionGroup/SectionGroup';
-import { RightSectionButton } from './RightSectionButton';
+import { RightSectionButton } from '../RightSectionButton/RightSectionButton';
 import * as classes from './TaskDetailsRightSection.styles';
 import { TaskSprintPoint } from '../SprintPointSection/TaskSprintPoint';
+import { DeleteTask } from '../DeleteTask/DeleteTask';
 
 interface TaskDetailsRightSectionProps {
   selected: ApplyOptimisticAssigneeResult['selected'];
@@ -60,12 +61,19 @@ export function TaskDetailsRightSection(props: TaskDetailsRightSectionProps) {
         />
       </SectionGroup>
       <SectionGroup title="Actions">
-        <RightSectionButton
-          className={classes.deleteBtnColor}
-          leftSection={<Icon size="s16" strokeSize="s24" name="IconTrash" />}
-        >
-          Delete
-        </RightSectionButton>
+        <DeleteTask
+          target={(onClick) => (
+            <RightSectionButton
+              className={classes.deleteBtnColor}
+              onClick={onClick}
+              leftSection={
+                <Icon size="s16" strokeSize="s24" name="IconTrash" />
+              }
+            >
+              Delete
+            </RightSectionButton>
+          )}
+        />
       </SectionGroup>
     </div>
   );

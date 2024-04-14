@@ -5,7 +5,7 @@ import {
 } from '@mantine/core';
 import { cx } from '@tma/design-system';
 import * as React from 'react';
-import * as classes from './TaskDetailsRightSection.styles';
+import * as classes from './RightSectionButton.styles';
 
 export type RightSectionButtonProps = ButtonProps;
 

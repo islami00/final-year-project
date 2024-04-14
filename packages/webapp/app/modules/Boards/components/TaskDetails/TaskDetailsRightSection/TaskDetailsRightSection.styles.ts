@@ -8,4 +8,3 @@ export const rightSection = css({
   flexDirection: 'column',
   rowGap: 'md',
 });
-export const assigneeButton = css({ width: '100%' });
