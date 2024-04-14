@@ -15,6 +15,7 @@ export enum TaskDetailsIntent {
   SPRINT_POINTS = 'taskDetails/sprint_points',
   DESCRIPTION = 'taskDetails/description',
   STATUS = 'taskDetails/status',
+  DELETE_TASK = 'taskDetails/deleteTask',
 }
 
 type JSONPrimitive = string | number | boolean;
@@ -51,6 +52,9 @@ export interface StatusFormData extends BaseForm {
   intent: TaskDetailsIntent.STATUS;
   statusId: string;
 }
+export interface DeleteTaskFormData extends BaseForm {
+  intent: TaskDetailsIntent.DELETE_TASK;
+}
 export const titleSchema = z.object({
   intent: z.literal(TaskDetailsIntent.TITLE),
   title: z.string().min(1),
@@ -85,6 +89,9 @@ export const statusSchema = z.object({
   intent: z.literal(TaskDetailsIntent.STATUS),
   statusId: z.string(),
 }) satisfies ZodOf<StatusFormData>;
+export const deleteSchema = z.object({
+  intent: z.literal(TaskDetailsIntent.DELETE_TASK),
+}) satisfies ZodOf<DeleteTaskFormData>;
 
 export type TaskDetailsFormData =
   | TitleFormData
@@ -92,7 +99,8 @@ export type TaskDetailsFormData =
   | PriorityFormData
   | SprintPointsFormData
   | DescriptionFormData
-  | StatusFormData;
+  | StatusFormData
+  | DeleteTaskFormData;
 
 export const titleDefaultData = (title: string): TitleFormData => ({
   intent: TaskDetailsIntent.TITLE,
@@ -112,4 +120,5 @@ export const schema = z.union([
   sprintPointsSchema,
   descriptionSchema,
   statusSchema,
+  deleteSchema,
 ]) satisfies ZodOf<TaskDetailsFormData>;

@@ -6,6 +6,8 @@ import {
   useLoaderData,
   useNavigate,
   type ClientLoaderFunctionArgs,
+  redirect,
+  generatePath,
 } from '@remix-run/react';
 import * as React from 'react';
 import toast from 'react-hot-toast';
@@ -24,6 +26,8 @@ import {
 } from '../services/queries/task/patchTaskById';
 import { castError } from '../utils/parseClientResponseError';
 import omitBy from 'lodash/fp/omitBy';
+import { deleteTask } from '../services/queries/task/deleteTask';
+import { routeConfig } from './utils';
 
 interface TaskPropertySubmission {
   priority?: taskDetailsForm.PriorityFormData['priority'];
@@ -68,6 +72,7 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
   const formData = await request.formData();
 
   const taskId = params.taskId as string;
+  const boardId = params.boardId as string;
   const submission = parseWithZod(formData, {
     schema: taskDetailsForm.schema,
   });
@@ -108,6 +113,13 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
         return json(submission.reply({ resetForm: true }));
       }
 
+      case taskDetailsForm.TaskDetailsIntent.DELETE_TASK:
+        await deleteTask({ taskId });
+        return redirect(
+          generatePath(routeConfig.board, {
+            boardId,
+          })
+        );
       default:
         return json(submission.reply({ resetForm: true }));
     }

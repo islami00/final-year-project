@@ -62,6 +62,7 @@ export function TaskDetailsRightSection(props: TaskDetailsRightSectionProps) {
       </SectionGroup>
       <SectionGroup title="Actions">
         <DeleteTask
+          taskId={task.id}
           target={(onClick) => (
             <RightSectionButton
               className={classes.deleteBtnColor}
