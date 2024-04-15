@@ -1,4 +1,4 @@
-import { json } from '@remix-run/react';
+import { json, type ClientActionFunctionArgs } from '@remix-run/react';
 import {
   useLoaderData,
   Outlet,
@@ -11,6 +11,10 @@ import {
   requireUser,
 } from '../services/pocketbase/auth';
 import type { AppLoaderData } from '../types/app.types';
+import { parseWithZod } from '@conform-to/zod';
+import * as userSettingsForm from '../components/AppShell/UserSettings/userSettingsForm';
+import { patchUserById } from '../services/queries/users/patchUserById';
+import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;
@@ -21,6 +25,27 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
   return json<AppLoaderData>({ user, organisations, currentOrganisation });
 }
 
+export async function clientAction(args: ClientActionFunctionArgs) {
+  const { request } = args;
+  const formData = await request.formData();
+  const submission = parseWithZod(formData, {
+    schema: userSettingsForm.schema,
+  });
+  if (submission.status !== 'success') {
+    return json(submission.reply());
+  }
+  const { value } = submission;
+
+  try {
+    await patchUserById({
+      body: { dashboardOrganisation: value.dashboardOrganisation },
+      id: value.userId,
+    });
+    return json(submission.reply({ resetForm: true }));
+  } catch (error) {
+    return catchPostSubmissionError(error, submission);
+  }
+}
 export default function AppOrgIdRoute() {
   const loadedData = useLoaderData<typeof clientLoader>();
   const { user, organisations, currentOrganisation } = loadedData;

@@ -10,7 +10,6 @@ import {
   generatePath,
 } from '@remix-run/react';
 import * as React from 'react';
-import toast from 'react-hot-toast';
 import { TaskDetails } from '../modules/Boards/components/TaskDetails/TaskDetails';
 import { TaskDetailsLoading } from '../modules/Boards/components/TaskDetails/TaskDetails.loading';
 import * as taskDetailsForm from '../modules/Boards/logic/taskDetailsForm';
@@ -24,10 +23,10 @@ import {
   patchTaskById,
   type PatchTaskByIdBody,
 } from '../services/queries/task/patchTaskById';
-import { castError } from '../utils/parseClientResponseError';
 import omitBy from 'lodash/fp/omitBy';
 import { deleteTask } from '../services/queries/task/deleteTask';
 import { routeConfig } from './utils';
+import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
 
 interface TaskPropertySubmission {
   priority?: taskDetailsForm.PriorityFormData['priority'];
@@ -126,10 +125,7 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
         return json(submission.reply({ resetForm: true }));
     }
   } catch (error) {
-    const appError = castError(error);
-    toast.error(appError.message);
-    // Revert
-    return json(submission.reply({ resetForm: true }));
+    return catchPostSubmissionError(error, submission);
   }
 }
 export default function BoardTaskDetailsRoute() {

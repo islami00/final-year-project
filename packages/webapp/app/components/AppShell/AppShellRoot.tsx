@@ -38,6 +38,7 @@ export function AppShellRoot(props: AppShellRootProps) {
         openedNav={openedNav}
         user={user}
         toggleNav={toggleNav}
+        organisations={organisations}
       />
       {isNavbarVisible ? (
         <AppShellNavbar
