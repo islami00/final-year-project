@@ -1,7 +1,7 @@
 import { AppShell, Burger } from '@mantine/core';
 import { User } from '../../models/User.model';
 import { AppLogo } from '../AppLogo/AppLogo';
-import { HeaderMenu } from './HeaderMenu';
+import { HeaderMenu } from './HeaderMenu/HeaderMenu';
 import type { ToggleFunctions } from '../types';
 interface AppShellHeaderProps {
   user: User;
