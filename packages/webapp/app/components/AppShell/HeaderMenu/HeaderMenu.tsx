@@ -7,12 +7,15 @@ import { menuTarget } from '../AppShell.styles';
 import { menuClasses } from './HeaderMenu.styles';
 import { P } from '../../P';
 import { Flex } from '@tma/design-system';
+import NiceModal from '@ebay/nice-modal-react';
+import { UserSettings } from '../UserSettings';
 
 interface HeaderMenuProps {
   user: User;
 }
 export function HeaderMenu(props: HeaderMenuProps) {
   const { user } = props;
+
   return (
     <Menu classNames={menuClasses}>
       <Menu.Target>
@@ -26,6 +29,12 @@ export function HeaderMenu(props: HeaderMenuProps) {
             <P textStyle="xsSemiBold">{user.email}</P>
           </div>
         </Flex>
+        <Menu.Item
+          leftSection={<Icon name="IconSettings" strokeSize="s24" />}
+          onClick={() => NiceModal.show(UserSettings)}
+        >
+          Settings
+        </Menu.Item>
         <Menu.Item
           leftSection={<Icon name="IconLogout" strokeSize="s24" />}
           onClick={logout}

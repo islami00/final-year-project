@@ -11,6 +11,7 @@ import {
   type ButtonProps,
   type MantineThemeComponents,
   type PartialTransformVars,
+  Combobox,
 } from '@mantine/core';
 import { css } from '@tma/design-system';
 
@@ -104,8 +105,15 @@ function getAvatarSizeStyles(
 const avatarDefaultProps = Avatar.extend({
   vars: (_, props) => getAvatarSizeStyles(props.size),
 });
+
+const comboboxDefaultProps = Combobox.extend({
+  defaultProps: {
+    keepMounted: false,
+  },
+});
 export const mantineComponents: MantineThemeComponents = {
   Button: ButtonDefaultProps,
   ActionIcon: actionIconDefaultProps,
   Avatar: avatarDefaultProps,
+  Combobox: comboboxDefaultProps,
 };

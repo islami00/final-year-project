@@ -15,6 +15,7 @@ import { MantineProvider, ColorSchemeScript, Paper } from '@mantine/core';
 import { WatchState } from './modules/Auth/components/WatchState/WatchState';
 import { appThemeOverride } from './styles/mantine/appThemeOverride';
 import fontStyleSheetUrl from '@fontsource-variable/open-sans/index.css?url';
+import NiceModal from '@ebay/nice-modal-react';
 
 export const meta: MetaFunction = () => [
   {
@@ -42,13 +43,15 @@ export default function App() {
       </head>
       <body>
         <MantineProvider theme={appThemeOverride} defaultColorScheme="dark">
-          <Paper w="100dvw" h="100dvh" bg="dark.8">
-            <Outlet />
-          </Paper>
-          <ScrollRestoration />
-          <Scripts />
-          <WatchState />
-          <Toaster />
+          <NiceModal.Provider>
+            <Paper w="100dvw" h="100dvh" bg="dark.8">
+              <Outlet />
+            </Paper>
+            <ScrollRestoration />
+            <Scripts />
+            <WatchState />
+            <Toaster />
+          </NiceModal.Provider>
         </MantineProvider>
       </body>
     </html>
