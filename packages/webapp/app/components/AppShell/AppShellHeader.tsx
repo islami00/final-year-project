@@ -1,7 +1,6 @@
 import { AppShell, Burger } from '@mantine/core';
 import { User } from '../../models/User.model';
 import { AppLogo } from '../AppLogo/AppLogo';
-import { header } from './AppShell.styles';
 import { HeaderMenu } from './HeaderMenu';
 import type { ToggleFunctions } from '../types';
 interface AppShellHeaderProps {
@@ -15,7 +14,7 @@ export function AppShellHeader(props: AppShellHeaderProps) {
   const { user, toggleNav, openedNav, isNavbarVisible } = props;
 
   return (
-    <AppShell.Header className={header}>
+    <AppShell.Header>
       {isNavbarVisible ? (
         <Burger
           opened={openedNav}

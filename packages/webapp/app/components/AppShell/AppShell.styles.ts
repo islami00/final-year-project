@@ -1,7 +1,7 @@
-import { AppShell } from '@mantine/core';
-import { css, styled } from '@tma/design-system';
+import { type AppShellStylesNames } from '@mantine/core';
+import { css } from '@tma/design-system';
 
-export const header = css({
+const header = css({
   px: 'lg',
   display: 'flex',
   justifyContent: 'space-between',
@@ -12,8 +12,17 @@ export const menuTarget = css({
   cursor: 'pointer',
 });
 
-export const AppShellMain = styled(AppShell.Main, {
-  base: {
-    display: 'flex',
-  },
+const main = css({
+  display: 'flex',
 });
+const navbar = css({
+  display: 'flex',
+  rowGap: 16,
+  paddingBottom: 10,
+});
+
+export const appShellClasses: Partial<Record<AppShellStylesNames, string>> = {
+  header,
+  main,
+  navbar,
+};

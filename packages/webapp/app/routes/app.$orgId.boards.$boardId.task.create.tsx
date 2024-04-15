@@ -18,7 +18,7 @@ import { castError } from '../utils/parseClientResponseError';
 import { boardIdSchema, routeConfig } from './utils';
 
 export async function clientAction(args: ClientActionFunctionArgs) {
-  const { request } = args;
+  const { request, params } = args;
 
   const formData = await request.formData();
   const submission = parseWithYup(formData, {
@@ -43,9 +43,10 @@ export async function clientAction(args: ClientActionFunctionArgs) {
       },
     });
     return redirect(
-      generatePath(routeConfig.boardTasks, {
+      generatePath(routeConfig.boardTasks.param, {
         boardId: task.boardId,
         taskId: task.id,
+        orgId: params.orgId as string,
       })
     );
   } catch (error) {

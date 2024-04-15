@@ -73,6 +73,7 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
 
   const taskId = params.taskId as string;
   const boardId = params.boardId as string;
+  const orgId = params.orgId as string;
   const submission = parseWithZod(formData, {
     schema: taskDetailsForm.schema,
   });
@@ -116,8 +117,9 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
       case taskDetailsForm.TaskDetailsIntent.DELETE_TASK:
         await deleteTask({ taskId });
         return redirect(
-          generatePath(routeConfig.board, {
+          generatePath(routeConfig.board.param, {
             boardId,
+            orgId,
           })
         );
       default:

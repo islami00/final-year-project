@@ -1,7 +1,8 @@
-import { Avatar, Menu } from '@mantine/core';
-import { logout } from '../../services/queries/auth/logout';
+import { Menu } from '@mantine/core';
 import { User } from '../../models/User.model';
+import { logout } from '../../services/queries/auth/logout';
 import { Icon } from '../Icon/Icon';
+import { UserAvatar } from '../UserAvatar';
 import { menuTarget } from './AppShell.styles';
 
 interface HeaderMenuProps {
@@ -12,7 +13,7 @@ export function HeaderMenu(props: HeaderMenuProps) {
   return (
     <Menu>
       <Menu.Target>
-        <Avatar className={menuTarget} src={user.avatar} alt={user.name} />
+        <UserAvatar className={menuTarget} src={user.avatar} name={user.name} />
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Item leftSection={<Icon name="IconLogout" />} onClick={logout}>
