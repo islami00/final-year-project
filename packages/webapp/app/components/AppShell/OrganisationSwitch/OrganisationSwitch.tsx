@@ -1,10 +1,9 @@
 import { Divider } from '@tma/design-system';
-import * as classes from './OrganisationSwitch.styles';
-import { P } from '../../P';
 import { Organization } from '../../../models/Organization.model';
-import { UnstyledButton } from '@mantine/core';
-import { Icon } from '../../Icon';
-import { UserAvatar } from '../../UserAvatar';
+import { OrganisationSwitchButton } from './OrganisationSwitchButton';
+import { OrganisationSelect } from '../OrganisationSelect/OrganisationSelect';
+import { generatePath, useNavigate } from '@remix-run/react';
+import { routeConfig } from '../../../routes/utils';
 
 export interface OrganisationSwitchProps {
   organisations: Organization[];
@@ -14,21 +13,21 @@ export interface OrganisationSwitchProps {
 export function OrganisationSwitch(props: OrganisationSwitchProps) {
   const { organisations, currentOrganisation } = props;
 
+  const navigate = useNavigate();
   return (
     <div>
-      <UnstyledButton className={classes.content}>
-        <div className={classes.logo}>
-          <UserAvatar
-            size={38}
-            name={currentOrganisation.name}
-            src={currentOrganisation.logo}
+      <OrganisationSelect
+        organisations={organisations}
+        onChange={(orgId) => {
+          navigate(generatePath(routeConfig.org.param, { orgId }));
+        }}
+        target={(ctx) => (
+          <OrganisationSwitchButton
+            onClick={ctx.onClick}
+            current={currentOrganisation}
           />
-          <P textStyle="smSemiBold" color="white" truncate>
-            {currentOrganisation.name}
-          </P>
-        </div>
-        <Icon name="IconChevronRight" size="s24" className={classes.icon} />
-      </UnstyledButton>
+        )}
+      />
       <Divider color="var(--app-shell-border-color)" thickness="1px" />
     </div>
   );
