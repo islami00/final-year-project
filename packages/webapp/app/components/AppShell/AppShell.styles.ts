@@ -20,7 +20,9 @@ const navbar = css({
   rowGap: 16,
   paddingBottom: 10,
 });
-
+export const navbarScrollarea = css({
+  flexGrow: 1,
+});
 export const appShellClasses: Partial<Record<AppShellStylesNames, string>> = {
   header,
   main,
