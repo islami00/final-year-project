@@ -4,7 +4,7 @@ import { Organization } from '../../models/Organization.model';
 import type { User } from '../../models/User.model';
 
 import { useDisclosure } from '@mantine/hooks';
-import { Department } from '../../models/Department.model';
+import { DepartmentWithBoard } from '../../models/DepartmentWithBoards.model';
 import { appShellClasses } from './AppShell.styles';
 import { AppShellHeader } from './AppShellHeader';
 import { AppShellNavbar } from './AppShellNavbar';
@@ -16,7 +16,7 @@ export interface AppShellRootProps {
   user: User;
   organisations?: Organization[];
   currentOrganisation?: Organization;
-  departments?: Department[];
+  departments?: DepartmentWithBoard[];
 }
 
 export function AppShellRoot(props: AppShellRootProps) {

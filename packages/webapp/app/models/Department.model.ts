@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import Converter from './Converter.model';
 import type { ZodOf } from './types';
+import Converter from './Converter.model';
 
 export type DepartmentApi = Department;
 export interface Department {

@@ -6,6 +6,10 @@ export const root = flex({
   ['&:hover, &.active']: { color: 'blue.1', backgroundColor: 'blue.5/45' },
   borderRadius: 4,
 });
+
+export const innerNesting = css({
+  pl: 'var(--navlink-offset)',
+});
 export const inner = css({
   px: 10,
   flexGrow: 1,
@@ -15,7 +19,11 @@ export const linkContent = css({
   display: 'flex',
   columnGap: 5,
 });
-
+export const expandBtn = css({
+  '&[data-invisible]': {
+    visibility: 'hidden',
+  },
+});
 export const linkText = css({
   textStyle: 'xs',
 });

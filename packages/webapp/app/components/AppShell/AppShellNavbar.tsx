@@ -1,6 +1,6 @@
 import { ActionIcon, AppShell, ScrollArea } from '@mantine/core';
 import { generatePath } from '@remix-run/react';
-import { Department } from '../../models/Department.model';
+import { DepartmentWithBoard } from '../../models/DepartmentWithBoards.model';
 import { Organization } from '../../models/Organization.model';
 import { routeConfig } from '../../routes/utils';
 import { Icon } from '../Icon';
@@ -13,7 +13,7 @@ import * as classes from './AppShell.styles';
 export interface AppShellNavbar {
   currentOrganisation: Organization;
   orgs: Organization[];
-  departments: Department[];
+  departments: DepartmentWithBoard[];
 }
 export function AppShellNavbar(props: AppShellNavbar) {
   const { orgs, currentOrganisation, departments } = props;
@@ -36,15 +36,29 @@ export function AppShellNavbar(props: AppShellNavbar) {
             </ActionIcon>
           }
         >
-          {departments.map((each) => (
+          {departments.map((department) => (
             <NavbarLink
-              key={each.id}
+              key={department.id}
               to={generatePath(routeConfig.departmentList.param, {
-                deptId: each.id,
-                orgId: each.organisationId,
+                deptId: department.id,
+                orgId: department.organisationId,
               })}
-              title={each.name}
-            />
+              isEmpty={department.boards.length === 0}
+              title={department.name}
+            >
+              {department.boards.map((board) => (
+                <NavbarLink
+                  key={board.id}
+                  to={generatePath(routeConfig.board.param, {
+                    orgId: department.organisationId,
+                    boardId: board.id,
+                  })}
+                  level={2}
+                  isEmpty
+                  title={board.name}
+                />
+              ))}
+            </NavbarLink>
           ))}
         </NavbarSection>
       </ScrollArea>
