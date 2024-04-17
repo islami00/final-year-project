@@ -1,4 +1,9 @@
-import { json, type ClientActionFunctionArgs } from '@remix-run/react';
+import {
+  json,
+  type ClientActionFunctionArgs,
+  redirect,
+  generatePath,
+} from '@remix-run/react';
 import {
   useLoaderData,
   Outlet,
@@ -16,6 +21,11 @@ import * as appOrgIdForm from '../utils/appOrgIdForm';
 import { patchUserById } from '../services/queries/users/patchUserById';
 import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
 import { getDepartmentsByOrg } from '../services/queries/department/getDepartmentsByOrg';
+import { postCreateDepartment } from '../services/queries/department/postCreateDepartment';
+import omit from 'lodash/fp/omit';
+import { CreateDepartment } from '../modules/Departments/components/CreateDepartment';
+import { modalIds } from '../utils/modalIds';
+import { routeConfig } from './utils';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;
@@ -53,7 +63,16 @@ export async function clientAction(args: ClientActionFunctionArgs) {
           id: value.userId,
         });
         break;
-
+      case appOrgIdForm.AppOrgIdIntent.CREATE_DEPARTMENT: {
+        const body = omit('intent', value);
+        const dept = await postCreateDepartment({ body });
+        return redirect(
+          generatePath(routeConfig.departmentList.param, {
+            orgId: dept.organisationId,
+            deptId: dept.id,
+          })
+        );
+      }
       default:
         break;
     }
@@ -74,6 +93,10 @@ export default function AppOrgIdRoute() {
       departments={departments}
     >
       <Outlet />
+      <CreateDepartment
+        id={modalIds.createDepartment}
+        organisationId={currentOrganisation.id}
+      />
     </AppShellRoot>
   );
 }

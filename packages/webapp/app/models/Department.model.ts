@@ -3,6 +3,10 @@ import type { ZodOf } from './types';
 import Converter from './Converter.model';
 
 export type DepartmentApi = Department;
+export interface DepartmentCreate {
+  name: string;
+  organisationId: string;
+}
 export interface Department {
   id: string;
   name: string;

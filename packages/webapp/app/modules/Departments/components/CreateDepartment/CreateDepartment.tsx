@@ -10,14 +10,16 @@ import { Form, useActionData } from '@remix-run/react';
 import * as appOrgIdForm from '../../../../utils/appOrgIdForm';
 import { formRoot, submitBtn } from './CreateDepartment.styles';
 import { CreateModal } from '../../../../components/modals/CreateModal/CreateModal';
+import NiceModal, { useModal } from '@ebay/nice-modal-react';
 
 interface CreateDepartmentProps {
-  onClose: VoidFunction;
   organisationId: string;
 }
 
-export function CreateDepartment(props: CreateDepartmentProps) {
-  const { onClose, organisationId } = props;
+function CreateDepartmentModal(props: CreateDepartmentProps) {
+  const { organisationId } = props;
+  const modal = useModal();
+
   const lastResult = useActionData<SubmissionResult>();
   const [form, fields] = useForm<appOrgIdForm.CreateDepartmentData>({
     lastResult,
@@ -31,7 +33,7 @@ export function CreateDepartment(props: CreateDepartmentProps) {
   });
 
   return (
-    <CreateModal onClose={onClose} title="Create Department">
+    <CreateModal onClose={modal.remove} title="Create Department">
       <Form method="post" className={formRoot} {...getFormProps(form)}>
         <TextInput
           label="Name"
@@ -60,3 +62,5 @@ export function CreateDepartment(props: CreateDepartmentProps) {
     </CreateModal>
   );
 }
+
+export const CreateDepartment = NiceModal.create(CreateDepartmentModal);

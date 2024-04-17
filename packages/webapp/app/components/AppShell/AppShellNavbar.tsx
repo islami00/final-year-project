@@ -1,14 +1,16 @@
+import NiceModal from '@ebay/nice-modal-react';
 import { ActionIcon, AppShell, ScrollArea } from '@mantine/core';
 import { generatePath } from '@remix-run/react';
 import { DepartmentWithBoard } from '../../models/DepartmentWithBoards.model';
 import { Organization } from '../../models/Organization.model';
 import { routeConfig } from '../../routes/utils';
-import { Icon } from '../Icon';
+import { modalIds } from '../../utils/modalIds';
+import * as classes from './AppShell.styles';
 import { NavbarLink } from './NavbarLink/NavbarLink';
 import * as navbarLinkStyles from './NavbarLink/NavbarLink.styles';
 import { NavbarSection } from './NavbarSection/NavbarSection';
 import { OrganisationSwitch } from './OrganisationSwitch/OrganisationSwitch';
-import * as classes from './AppShell.styles';
+import { Icon } from '../Icon';
 
 export interface AppShellNavbar {
   currentOrganisation: Organization;
@@ -27,7 +29,12 @@ export function AppShellNavbar(props: AppShellNavbar) {
         <NavbarSection
           title="Departments"
           titleRightSection={
-            <ActionIcon size="sm" variant="subtle" color="#fff">
+            <ActionIcon
+              size="sm"
+              variant="subtle"
+              color="#fff"
+              onClick={() => NiceModal.show(modalIds.createDepartment)}
+            >
               <Icon
                 className={navbarLinkStyles.icon}
                 name="IconPlus"
