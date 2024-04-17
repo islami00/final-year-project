@@ -12,7 +12,7 @@ import {
 } from '../services/pocketbase/auth';
 import type { AppLoaderData } from '../types/app.types';
 import { parseWithZod } from '@conform-to/zod';
-import * as userSettingsForm from '../components/AppShell/UserSettings/userSettingsForm';
+import * as appOrgIdForm from '../utils/appOrgIdForm';
 import { patchUserById } from '../services/queries/users/patchUserById';
 import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
 import { getDepartmentsByOrg } from '../services/queries/department/getDepartmentsByOrg';
@@ -38,7 +38,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
   const { request } = args;
   const formData = await request.formData();
   const submission = parseWithZod(formData, {
-    schema: userSettingsForm.schema,
+    schema: appOrgIdForm.schema,
   });
   if (submission.status !== 'success') {
     return json(submission.reply());
@@ -46,10 +46,17 @@ export async function clientAction(args: ClientActionFunctionArgs) {
   const { value } = submission;
 
   try {
-    await patchUserById({
-      body: { dashboardOrganisation: value.dashboardOrganisation },
-      id: value.userId,
-    });
+    switch (value.intent) {
+      case appOrgIdForm.AppOrgIdIntent.USER_SETTINGS:
+        await patchUserById({
+          body: { dashboardOrganisation: value.dashboardOrganisation },
+          id: value.userId,
+        });
+        break;
+
+      default:
+        break;
+    }
     return json(submission.reply({ resetForm: true }));
   } catch (error) {
     return catchPostSubmissionError(error, submission);

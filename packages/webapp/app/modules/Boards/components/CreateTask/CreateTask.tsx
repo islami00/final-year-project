@@ -1,10 +1,15 @@
-import { Button, Modal, ScrollArea, TextInput } from '@mantine/core';
-import { formRoot, submitBtn } from './CreateTask.styles';
-import { Form, useActionData } from '@remix-run/react';
-import { TMAModal } from '../../../../components/TMAModal/TMAModal';
-import { SubmissionResult, getInputProps, useForm } from '@conform-to/react';
-import * as createTaskForm from '../../logic/createTaskForm';
+import {
+  SubmissionResult,
+  getFormProps,
+  getInputProps,
+  useForm,
+} from '@conform-to/react';
 import { parseWithYup } from '@conform-to/yup';
+import { Button, TextInput } from '@mantine/core';
+import { Form, useActionData } from '@remix-run/react';
+import { CreateModal } from '../../../../components/modals/CreateModal/CreateModal';
+import * as createTaskForm from '../../logic/createTaskForm';
+import { formRoot, submitBtn } from './CreateTask.styles';
 
 interface CreateTaskProps {
   onClose: VoidFunction;
@@ -27,50 +32,34 @@ export function CreateTask(props: CreateTaskProps) {
   });
 
   return (
-    <TMAModal
-      opened
-      onClose={onClose}
-      closeOnClickOutside={false}
-      closeOnEscape={false}
-      title="Create Task"
-      centered
-    >
-      <ScrollArea.Autosize>
-        <Modal.Body>
-          <Form
-            method="post"
-            className={formRoot}
-            id={form.id}
-            onSubmit={form.onSubmit}
-          >
-            <TextInput
-              label="Title"
-              {...getInputProps(fields.title, { type: 'text' })}
-              key={fields.title.key}
-            />
-            <input
-              {...getInputProps(fields.boardId, {
-                type: 'hidden',
-                value: false,
-              })}
-              value={boardId}
-              key={fields.boardId.key}
-            />
-            <input
-              {...getInputProps(fields.statusId, {
-                type: 'hidden',
-                value: false,
-              })}
-              value={defaultStatusId}
-              key={fields.statusId.key}
-            />
+    <CreateModal onClose={onClose} title="Create Task">
+      <Form method="post" className={formRoot} {...getFormProps(form)}>
+        <TextInput
+          label="Title"
+          {...getInputProps(fields.title, { type: 'text' })}
+          key={fields.title.key}
+        />
+        <input
+          {...getInputProps(fields.boardId, {
+            type: 'hidden',
+            value: false,
+          })}
+          value={boardId}
+          key={fields.boardId.key}
+        />
+        <input
+          {...getInputProps(fields.statusId, {
+            type: 'hidden',
+            value: false,
+          })}
+          value={defaultStatusId}
+          key={fields.statusId.key}
+        />
 
-            <Button size="xs" type="submit" className={submitBtn}>
-              Submit
-            </Button>
-          </Form>
-        </Modal.Body>
-      </ScrollArea.Autosize>
-    </TMAModal>
+        <Button size="xs" type="submit" className={submitBtn}>
+          Submit
+        </Button>
+      </Form>
+    </CreateModal>
   );
 }

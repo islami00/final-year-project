@@ -8,12 +8,12 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { Button, Modal } from '@mantine/core';
 import { useFetcher } from '@remix-run/react';
 import { Flex, flex } from '@tma/design-system';
+import * as appOrgIdForm from '../../../utils/appOrgIdForm';
 import { Organization } from '../../../models/Organization.model';
 import { User } from '../../../models/User.model';
 import { getLastResultToReset } from '../../../modules/Boards/logic/getLastResultToReset';
 import { TMAModal } from '../../TMAModal';
 import { DashboardOrganisationSelect } from './DashboardOrganisationSelect';
-import * as userSettingsForm from './userSettingsForm';
 
 interface UserSettingsModalProps {
   user: User;
@@ -26,7 +26,7 @@ function UserSettingsModal(props: UserSettingsModalProps) {
   const fetcher = useFetcher<SubmissionResult>();
   const [form, field] = useForm({
     lastResult: getLastResultToReset(fetcher),
-    defaultValue: userSettingsForm.defaultData({ user }),
+    defaultValue: appOrgIdForm.userSettingsDefaultData({ user }),
   });
 
   return (

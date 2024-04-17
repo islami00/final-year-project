@@ -2,11 +2,11 @@ import { useInputControl, type FieldMetadata } from '@conform-to/react';
 import { Select, type SelectProps } from '@mantine/core';
 import { Organization } from '../../../models/Organization.model';
 import { mapOrganisationToSelectData } from './OrganisationSelect.utils';
-import * as userSettingsForm from './userSettingsForm';
+import * as appOrgIdForm from '../../../utils/appOrgIdForm';
 
 export interface DashboardOrganisationSelectProps
   extends Omit<SelectProps, 'data' | 'onChange'> {
-  field: FieldMetadata<string | null, userSettingsForm.UserSettingsFormData>;
+  field: FieldMetadata<string | null, appOrgIdForm.UserSettingsFormData>;
   organisations: Organization[];
 }
 

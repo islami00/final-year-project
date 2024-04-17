@@ -25,7 +25,12 @@ export function TMAModal(props: TMAModalProps) {
     [modalClasses, classNames]
   );
   return (
-    <Modal.Root {...rest} classNames={classes}>
+    <Modal.Root
+      closeOnClickOutside={false}
+      closeOnEscape={false}
+      {...rest}
+      classNames={classes}
+    >
       <Modal.Overlay />
       <Modal.Content>
         <Modal.Header>
