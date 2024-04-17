@@ -29,3 +29,8 @@ export const linkText = css({
 });
 
 export const icon = css({ width: 12, height: 12 });
+
+export const navbarLinkGroup = flex({
+  rowGap: '4xs',
+  flexDirection: 'column',
+});

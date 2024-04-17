@@ -12,7 +12,6 @@ export const root = flex({
   flexDirection: 'column',
 });
 
-export const content = flex({
-  flexDirection: 'column',
+export const content = css({
   px: 6,
 });

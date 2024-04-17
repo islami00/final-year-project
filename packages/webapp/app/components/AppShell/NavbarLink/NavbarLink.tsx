@@ -1,12 +1,12 @@
 import { ActionIcon } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { NavLink } from '@remix-run/react';
+import { cx } from '@tma/design-system';
+import type { CSSProperties } from 'react';
 import { Icon } from '../../Icon';
 import { P } from '../../P';
 import * as classes from './NavbarLink.styles';
 import { defineNavbarLinkVars } from './NavbarLink.utils';
-import type { CSSProperties } from 'react';
-import { cx } from '@tma/design-system';
 import { NavbarLinkEmpty } from './NavbarLinkEmpty';
 export interface NavbarLinkProps {
   to: string;
@@ -31,7 +31,7 @@ export function NavbarLink(props: NavbarLinkProps) {
     return children;
   }
   return (
-    <div>
+    <div className={classes.navbarLinkGroup}>
       <NavLink
         to={to}
         className={cx(classes.root, isNested && classes.innerNesting)}
@@ -59,7 +59,11 @@ export function NavbarLink(props: NavbarLinkProps) {
           </div>
         </div>
       </NavLink>
-      {opened ? <div style={vars}>{getKids()}</div> : null}
+      {opened ? (
+        <div className={classes.navbarLinkGroup} style={vars}>
+          {getKids()}
+        </div>
+      ) : null}
     </div>
   );
 }
