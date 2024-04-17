@@ -1,12 +1,13 @@
 import { AppShell, type AppShellNavbarConfiguration } from '@mantine/core';
-import { Organization } from '../../models/Organization.model';
 import * as React from 'react';
+import { Organization } from '../../models/Organization.model';
 import type { User } from '../../models/User.model';
 
+import { useDisclosure } from '@mantine/hooks';
+import { Department } from '../../models/Department.model';
+import { appShellClasses } from './AppShell.styles';
 import { AppShellHeader } from './AppShellHeader';
 import { AppShellNavbar } from './AppShellNavbar';
-import { useDisclosure } from '@mantine/hooks';
-import { appShellClasses } from './AppShell.styles';
 
 export interface AppShellRootProps {
   /** Ensure `organisations` are also passed to render the navbar */
@@ -15,10 +16,18 @@ export interface AppShellRootProps {
   user: User;
   organisations?: Organization[];
   currentOrganisation?: Organization;
+  departments?: Department[];
 }
 
 export function AppShellRoot(props: AppShellRootProps) {
-  const { children, user, navbar, organisations, currentOrganisation } = props;
+  const {
+    children,
+    user,
+    navbar,
+    organisations,
+    currentOrganisation,
+    departments,
+  } = props;
 
   const [openedNav, toggleNav] = useDisclosure();
   const navbarConfig: AppShellNavbarConfiguration = {
@@ -26,7 +35,8 @@ export function AppShellRoot(props: AppShellRootProps) {
     breakpoint: 'sm',
     collapsed: { mobile: !openedNav },
   };
-  const isNavbarVisible = !!navbar && !!organisations && !!currentOrganisation;
+  const isNavbarVisible =
+    !!navbar && !!organisations && !!currentOrganisation && !!departments;
   return (
     <AppShell
       header={{ offset: true, height: 59 }}
@@ -42,9 +52,9 @@ export function AppShellRoot(props: AppShellRootProps) {
       />
       {isNavbarVisible ? (
         <AppShellNavbar
-          user={user}
           orgs={organisations}
           currentOrganisation={currentOrganisation}
+          departments={departments}
         />
       ) : null}
       <AppShell.Main>{children}</AppShell.Main>

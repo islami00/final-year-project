@@ -76,6 +76,12 @@ function getActionIconSizeStyles(
           '--ai-size': rem(32),
         },
       };
+    case 'sm':
+      return {
+        root: {
+          '--ai-size': rem(20),
+        },
+      };
       break;
 
     default:

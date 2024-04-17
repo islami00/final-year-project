@@ -11,6 +11,10 @@ export const boardIdSchema: yup.ObjectSchema<BoardIdParams> = yup.object({
 export const routeConfig = {
   app: { param: '/app', routeId: 'routes/app' },
   org: { param: '/app/:orgId', routeId: 'routes/app.$orgId' },
+  departmentList: {
+    param: '/app/:orgId/departments/:deptId',
+    routeId: 'routes/app.$orgId.departments.$deptId',
+  },
   boardList: {
     param: '/app/:orgId/boards',
     routeId: 'routes/app.$orgId.boards',

@@ -15,14 +15,23 @@ import { parseWithZod } from '@conform-to/zod';
 import * as userSettingsForm from '../components/AppShell/UserSettings/userSettingsForm';
 import { patchUserById } from '../services/queries/users/patchUserById';
 import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
+import { getDepartmentsByOrg } from '../services/queries/department/getDepartmentsByOrg';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;
   const user = await requireUser();
   const organisations = await requireOrganizations(user.id);
   const currentOrganisation = requireCurrentOrganisation(organisations, params);
+  const departments = await getDepartmentsByOrg({
+    orgId: params.orgId as string,
+  });
 
-  return json<AppLoaderData>({ user, organisations, currentOrganisation });
+  return json<AppLoaderData>({
+    user,
+    organisations,
+    currentOrganisation,
+    departments,
+  });
 }
 
 export async function clientAction(args: ClientActionFunctionArgs) {
@@ -48,13 +57,14 @@ export async function clientAction(args: ClientActionFunctionArgs) {
 }
 export default function AppOrgIdRoute() {
   const loadedData = useLoaderData<typeof clientLoader>();
-  const { user, organisations, currentOrganisation } = loadedData;
+  const { user, organisations, currentOrganisation, departments } = loadedData;
   return (
     <AppShellRoot
       navbar
       user={user}
       organisations={organisations}
       currentOrganisation={currentOrganisation}
+      departments={departments}
     >
       <Outlet />
     </AppShellRoot>
