@@ -17,7 +17,7 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const deptId = params.deptId as string;
   const boards = getBoardsByDepartment({ deptId });
   const department = await getDepartmentById({ deptId });
-  return json({ boards, department });
+  return { boards, department };
 }
 export async function clientAction(args: ClientActionFunctionArgs) {
   const { request, params } = args;

@@ -23,6 +23,15 @@ export const Main = styled(AppShell.Main, {
     display: 'grid',
     gridTemplateRows: 'max-content 1fr',
     rowGap: 'md',
+    height: '100dvh',
+  },
+});
+export const Content = styled('div', {
+  base: {
+    display: 'flex',
+    gap: 'lg',
+    padding: 'md',
+    overflow: 'auto',
   },
 });
 export const getTitleInputVars: PartialVarsResolver<TextInputFactory> = () => ({

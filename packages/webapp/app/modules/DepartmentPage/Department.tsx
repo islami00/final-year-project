@@ -1,15 +1,20 @@
 import { invariant } from '@epic-web/invariant';
-import * as ModuleLayout from '../../layouts/ModuleLayout';
-import { useCurrentDepartments } from './logic/useCurrentDepartments';
-import { AddBoardButton } from './components/buttons/AddBoardButton';
-import { DepartmentInput } from './components/inputs/DepartmentInput';
+import { Await } from '@remix-run/react';
+import { Suspense } from 'react';
 import { Search } from '../../components/Search/Search';
-import { RemoveBoardButton } from './components/buttons/RemoveBoardButton';
+import * as ModuleLayout from '../../layouts/ModuleLayout';
 import type { DepartmentsDepartmentIdLoaderData } from './Department.types';
-import type { SerializeFrom } from '@remix-run/node';
+import { BoardList } from './components/BoardList/BoardList';
+import { BoardListError } from './components/BoardList/BoardList.error';
+import { BoardListLoading } from './components/BoardList/BoardList.loading';
+import { AddBoardButton } from './components/buttons/AddBoardButton';
+import { RemoveBoardButton } from './components/buttons/RemoveBoardButton';
+import { DepartmentInput } from './components/inputs/DepartmentInput';
+import { useCurrentDepartments } from './logic/useCurrentDepartments';
+import { DepartmentContent } from './Department.styles';
 
 export interface DepartmentPageProps {
-  data: SerializeFrom<DepartmentsDepartmentIdLoaderData>;
+  data: DepartmentsDepartmentIdLoaderData;
 }
 
 export function DepartmentPage(props: DepartmentPageProps) {
@@ -37,6 +42,13 @@ export function DepartmentPage(props: DepartmentPageProps) {
           </>
         }
       />
+      <DepartmentContent>
+        <Suspense fallback={<BoardListLoading />}>
+          <Await errorElement={<BoardListError />} resolve={data.boards}>
+            {(rs) => <BoardList boards={rs} />}
+          </Await>
+        </Suspense>
+      </DepartmentContent>
     </ModuleLayout.Main>
   );
 }
