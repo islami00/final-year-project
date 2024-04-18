@@ -1,10 +1,10 @@
 import { TextInput, type TextInputProps } from '@mantine/core';
-import { Icon } from '../../../../components/Icon/Icon';
-import * as navbarLinkClasses from '../../../../components/AppShell/NavbarLink/NavbarLink.styles';
-import { css, cx } from '@tma/design-system';
+import { Icon } from '../Icon/Icon';
+import * as navbarLinkClasses from '../AppShell/NavbarLink/NavbarLink.styles';
+import { cx } from '@tma/design-system';
+import * as classes from './Search.styles';
 
 export type SearchProps = TextInputProps;
-
 export function Search(props: SearchProps) {
   return (
     <TextInput
@@ -13,7 +13,7 @@ export function Search(props: SearchProps) {
         <Icon
           name="IconSearch"
           size="s16"
-          className={cx(navbarLinkClasses.icon, css({ marginRight: -3 }))}
+          className={cx(navbarLinkClasses.icon, classes.icon)}
         />
       }
       leftSectionWidth={34}

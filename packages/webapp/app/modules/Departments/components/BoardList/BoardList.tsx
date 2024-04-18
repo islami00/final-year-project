@@ -4,7 +4,7 @@ import { Department } from '../../../../models/Department.model';
 import { useCurrentDepartments } from '../../logic/useCurrentDepartments';
 import { AddBoardButton } from './AddBoardButton';
 import { DepartmentInput } from './DepartmentInput';
-import { Search } from './Search';
+import { Search } from '../../../../components/Search/Search';
 import { RemoveBoardButton } from './RemoveBoardButton';
 
 export interface BoardListProps {
