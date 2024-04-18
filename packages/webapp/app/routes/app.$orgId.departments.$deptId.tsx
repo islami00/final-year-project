@@ -4,11 +4,11 @@ import {
   type ClientLoaderFunctionArgs,
   type ClientActionFunctionArgs,
 } from '@remix-run/react';
-import { BoardList } from '../modules/Departments/components/BoardList/BoardList';
+import { DepartmentPage } from '../modules/DepartmentPage/Department';
 import { getBoardsByDepartment } from '../services/queries/board/getBoardsByDepartment';
 import { getDepartmentById } from '../services/queries/department/getDepartmentById';
 import { parseWithZod } from '@conform-to/zod';
-import * as departmentIdForm from '../modules/Departments/logic/departmentIdForm';
+import * as departmentIdForm from '../modules/DepartmentPage/logic/departmentIdForm';
 import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
 import { patchDepartmentById } from '../services/queries/department/patchDepartmentById';
 
@@ -54,5 +54,5 @@ export async function clientAction(args: ClientActionFunctionArgs) {
 export default function DepartmentsDeptIdRoute() {
   const data = useLoaderData<typeof clientLoader>();
 
-  return <BoardList department={data.department} />;
+  return <DepartmentPage data={data} />;
 }

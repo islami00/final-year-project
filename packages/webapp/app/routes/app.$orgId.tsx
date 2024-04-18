@@ -23,11 +23,11 @@ import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError
 import { getDepartmentsByOrg } from '../services/queries/department/getDepartmentsByOrg';
 import { postCreateDepartment } from '../services/queries/department/postCreateDepartment';
 import omit from 'lodash/fp/omit';
-import { CreateDepartment } from '../modules/Departments/components/CreateDepartment';
+import { CreateDepartment } from '../modules/DepartmentPage/components/CreateDepartment';
 import { modalIds } from '../utils/modalIds';
 import { routeConfig } from './utils';
 import NiceModal from '@ebay/nice-modal-react';
-import { useCurrentDepartments } from '../modules/Departments/logic/useCurrentDepartments';
+import { useCurrentDepartments } from '../modules/DepartmentPage/logic/useCurrentDepartments';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;
