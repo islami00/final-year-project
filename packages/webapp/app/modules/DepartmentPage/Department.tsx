@@ -8,10 +8,13 @@ import { BoardList } from './components/BoardList/BoardList';
 import { BoardListError } from './components/BoardList/BoardList.error';
 import { BoardListLoading } from './components/BoardList/BoardList.loading';
 import { AddBoardButton } from './components/buttons/AddBoardButton';
-import { RemoveBoardButton } from './components/buttons/RemoveBoardButton';
+import { RemoveButton } from './components/buttons/RemoveButton';
 import { DepartmentInput } from './components/inputs/DepartmentInput';
 import { useCurrentDepartments } from './logic/useCurrentDepartments';
 import { DepartmentContent } from './Department.styles';
+import { DeleteDepartment } from './components/DeleteDepartment/DeleteDepartment';
+import { modalIds } from '../../utils/modalIds';
+import NiceModal from '@ebay/nice-modal-react';
 
 export interface DepartmentPageProps {
   data: DepartmentsDepartmentIdLoaderData;
@@ -38,7 +41,9 @@ export function DepartmentPage(props: DepartmentPageProps) {
           <>
             <AddBoardButton />
             <Search placeholder="Search Boards" />
-            <RemoveBoardButton />
+            <RemoveButton
+              onClick={() => NiceModal.show(modalIds.deleteDepartment)}
+            />
           </>
         }
       />
@@ -51,6 +56,10 @@ export function DepartmentPage(props: DepartmentPageProps) {
           </Await>
         </Suspense>
       </DepartmentContent>
+      <DeleteDepartment
+        deptId={currentDept.id}
+        id={modalIds.deleteDepartment}
+      />
     </ModuleLayout.Main>
   );
 }

@@ -15,7 +15,7 @@ export interface DepartmentInputProps {
 export function DepartmentInput(props: DepartmentInputProps) {
   const { defaultValue, deptId } = props;
   const fetcher = useFetcher<SubmissionResult>({
-    key: departmentFetcherKeys.titleFilter(deptId),
+    key: departmentFetcherKeys.nameFilter(deptId),
   });
 
   const [form, fields] = useForm<departmentIdForm.NameFormData>({

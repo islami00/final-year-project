@@ -3,6 +3,7 @@ import {
   useLoaderData,
   type ClientLoaderFunctionArgs,
   type ClientActionFunctionArgs,
+  redirect,
 } from '@remix-run/react';
 import { DepartmentPage } from '../modules/DepartmentPage/Department';
 import { getBoardsByDepartment } from '../services/queries/board/getBoardsByDepartment';
@@ -11,6 +12,9 @@ import { parseWithZod } from '@conform-to/zod';
 import * as departmentIdForm from '../modules/DepartmentPage/logic/departmentIdForm';
 import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
 import { patchDepartmentById } from '../services/queries/department/patchDepartmentById';
+import { deleteDepartment } from '../services/queries/department/deleteDepartment';
+import NiceModal from '@ebay/nice-modal-react';
+import { modalIds } from '../utils/modalIds';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;
@@ -43,6 +47,10 @@ export async function clientAction(args: ClientActionFunctionArgs) {
         });
         break;
 
+      case departmentIdForm.DepartmentIdFormIntent.DELETE_DEPARTMENT:
+        await deleteDepartment({ deptId });
+        NiceModal.remove(modalIds.deleteDepartment);
+        return redirect('../');
       default:
         break;
     }
