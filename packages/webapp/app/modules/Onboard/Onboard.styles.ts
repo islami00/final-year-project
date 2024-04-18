@@ -1,4 +1,4 @@
-import { Center, css, styled } from '@tma/design-system';
+import { center, css } from '@tma/design-system';
 
 export const header = css({
   height: 100,
@@ -16,12 +16,7 @@ export const body = css({
   borderRadius: 'default',
 });
 
-export const Root = styled(Center, {
-  base: {
-    minHeight: '100%',
-    width: '100%',
-  },
-});
+export const root = center({});
 
 export const submitBtn = css({
   alignSelf: 'end',

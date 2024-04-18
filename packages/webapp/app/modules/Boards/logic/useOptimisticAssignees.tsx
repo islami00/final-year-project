@@ -11,11 +11,14 @@ interface UseOptimisticAssigneeFetchers {
   addedAssignees: string[];
   removedAssignees: string[];
 }
+export const groupFetchersByIntent = groupBy<Fetcher>((v) =>
+  v.formData?.get('intent')
+);
 function useOptimisticAssigneeFetchers(): UseOptimisticAssigneeFetchers {
   const fetchers = useFetchers();
 
   const grouped: Dictionary<Fetcher[] | undefined> = groupBy(
-    (v) => v.formData?.get('intent'),
+    groupFetchersByIntent,
     fetchers
   );
 

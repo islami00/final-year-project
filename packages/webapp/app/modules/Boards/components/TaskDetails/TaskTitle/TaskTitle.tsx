@@ -4,7 +4,6 @@ import {
   type SubmissionResult,
 } from '@conform-to/react';
 import { TextInput } from '@mantine/core';
-import { useEventListener } from '@mantine/hooks';
 import { useFetcher } from '@remix-run/react';
 import * as React from 'react';
 import { getLastResultToReset } from '../../../logic/getLastResultToReset';
@@ -28,9 +27,6 @@ export function TaskTitle(props: TaskTitleProps) {
   });
 
   const submitRef = React.useRef<HTMLFormElement | null>(null);
-  const ref = useEventListener('change', () => {
-    fetcher.submit(submitRef.current);
-  });
 
   return (
     <fetcher.Form
@@ -41,7 +37,7 @@ export function TaskTitle(props: TaskTitleProps) {
     >
       <TextInput
         classNames={titleInputClassNames}
-        ref={ref}
+        onBlur={() => form.reset()}
         variant="transparent"
         placeholder="Title"
         {...getInputProps(fields.title, { type: 'text' })}

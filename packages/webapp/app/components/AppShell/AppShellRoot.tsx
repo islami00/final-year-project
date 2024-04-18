@@ -57,7 +57,7 @@ export function AppShellRoot(props: AppShellRootProps) {
           departments={departments}
         />
       ) : null}
-      <AppShell.Main>{children}</AppShell.Main>
+      {children}
     </AppShell>
   );
 }

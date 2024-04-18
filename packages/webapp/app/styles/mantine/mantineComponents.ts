@@ -2,6 +2,8 @@ import {
   ActionIcon,
   Avatar,
   Button,
+  Combobox,
+  Input,
   rem,
   type ActionIconCssVariables,
   type ActionIconProps,
@@ -9,11 +11,13 @@ import {
   type AvatarProps,
   type ButtonCssVariables,
   type ButtonProps,
+  type InputFactory,
+  type MantineSize,
   type MantineThemeComponents,
   type PartialTransformVars,
-  Combobox,
 } from '@mantine/core';
 import { css } from '@tma/design-system';
+import merge from 'lodash/fp/merge';
 
 function getButtonSizeStyles(
   size: ButtonProps['size']
@@ -117,9 +121,52 @@ const comboboxDefaultProps = Combobox.extend({
     keepMounted: false,
   },
 });
+function sizeVars(
+  size: MantineSize | (string & NonNullable<unknown>) | undefined
+): PartialTransformVars<InputFactory['vars']> {
+  switch (size) {
+    case 'lg':
+      return {
+        wrapper: {
+          '--input-height': rem(30),
+        },
+      };
+
+    default:
+      return {
+        wrapper: {},
+      };
+  }
+}
+
+const inputDefaultProps = Input.extend({
+  vars: (_, props) => {
+    const { size } = props;
+    const colorVars: PartialTransformVars<InputFactory['vars']> = {
+      wrapper: {
+        ['--input-color' as string]: 'white',
+      },
+    };
+    return merge(sizeVars(size), colorVars);
+  },
+  classNames: (_, props) => {
+    const { size } = props;
+
+    switch (size) {
+      case 'lg':
+        return {
+          wrapper: css({ textStyle: 'lgBold' }),
+        };
+
+      default:
+        return {};
+    }
+  },
+});
 export const mantineComponents: MantineThemeComponents = {
   Button: ButtonDefaultProps,
   ActionIcon: actionIconDefaultProps,
   Avatar: avatarDefaultProps,
   Combobox: comboboxDefaultProps,
+  Input: inputDefaultProps,
 };

@@ -26,6 +26,8 @@ import omit from 'lodash/fp/omit';
 import { CreateDepartment } from '../modules/Departments/components/CreateDepartment';
 import { modalIds } from '../utils/modalIds';
 import { routeConfig } from './utils';
+import NiceModal from '@ebay/nice-modal-react';
+import { useCurrentDepartments } from '../modules/Departments/logic/useCurrentDepartments';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;
@@ -66,6 +68,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
       case appOrgIdForm.AppOrgIdIntent.CREATE_DEPARTMENT: {
         const body = omit('intent', value);
         const dept = await postCreateDepartment({ body });
+        NiceModal.remove(modalIds.createDepartment);
         return redirect(
           generatePath(routeConfig.departmentList.param, {
             orgId: dept.organisationId,
@@ -84,13 +87,16 @@ export async function clientAction(args: ClientActionFunctionArgs) {
 export default function AppOrgIdRoute() {
   const loadedData = useLoaderData<typeof clientLoader>();
   const { user, organisations, currentOrganisation, departments } = loadedData;
+  // Todo: Split this in a normalised way from boards to apply optimistic updates to them too.
+  const depts = useCurrentDepartments({ departmentsOrDepartment: departments });
+  const currentDepts = Array.from(depts.values());
   return (
     <AppShellRoot
       navbar
       user={user}
       organisations={organisations}
       currentOrganisation={currentOrganisation}
-      departments={departments}
+      departments={currentDepts}
     >
       <Outlet />
       <CreateDepartment

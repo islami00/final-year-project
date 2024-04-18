@@ -12,9 +12,6 @@ export const menuTarget = css({
   cursor: 'pointer',
 });
 
-const main = css({
-  display: 'flex',
-});
 const navbar = css({
   display: 'flex',
   rowGap: 16,
@@ -25,6 +22,5 @@ export const navbarScrollarea = css({
 });
 export const appShellClasses: Partial<Record<AppShellStylesNames, string>> = {
   header,
-  main,
   navbar,
 };

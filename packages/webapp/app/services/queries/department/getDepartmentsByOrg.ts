@@ -17,7 +17,7 @@ export async function getDepartmentsByOrg(
   const data = await pb
     .collection<DepartmentWithBoardApi>(collections.department)
     .getFullList({
-      sort: 'name',
+      sort: 'created',
       filter: pb.filter(`organisationId = {:orgId}`, { orgId }),
       expand: 'board_via_departmentId',
     })
