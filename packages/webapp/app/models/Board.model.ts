@@ -8,7 +8,10 @@ export interface Board {
   name: string;
   departmentId: string;
 }
-
+export interface BoardCreate {
+  name: string;
+  departmentId: string;
+}
 export const boardSchema = z.object({
   id: z.string().min(1),
   name: z.string(),
