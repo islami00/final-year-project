@@ -1,4 +1,9 @@
-import { AppShell } from '@mantine/core';
+import {
+  AppShell,
+  rem,
+  type PartialVarsResolver,
+  type TextInputFactory,
+} from '@mantine/core';
 import { flex, styled } from '@tma/design-system';
 
 export const toolbar = flex({
@@ -16,5 +21,10 @@ export const Main = styled(AppShell.Main, {
     display: 'grid',
     gridTemplateRows: 'max-content 1fr',
     rowGap: 'md',
+  },
+});
+export const getTitleInputVars: PartialVarsResolver<TextInputFactory> = () => ({
+  wrapper: {
+    '--input-height': rem(32),
   },
 });

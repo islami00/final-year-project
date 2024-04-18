@@ -1,8 +1,11 @@
-import { Department } from '../../../../models/Department.model';
-import * as ModuleLayout from '../../../../layouts/ModuleLayout';
-import { DepartmentInput } from './DepartmentInput';
-import { useCurrentDepartments } from '../../logic/useCurrentDepartments';
 import { invariant } from '@epic-web/invariant';
+import * as ModuleLayout from '../../../../layouts/ModuleLayout';
+import { Department } from '../../../../models/Department.model';
+import { useCurrentDepartments } from '../../logic/useCurrentDepartments';
+import { AddBoardButton } from './AddBoardButton';
+import { DepartmentInput } from './DepartmentInput';
+import { Search } from './Search';
+import { RemoveBoardButton } from './RemoveBoardButton';
 
 export interface BoardListProps {
   department: Department;
@@ -24,7 +27,13 @@ export function BoardList(props: BoardListProps) {
             deptId={currentDept.id}
           />
         }
-        actions={<></>}
+        actions={
+          <>
+            <AddBoardButton />
+            <Search placeholder="Search Boards" />
+            <RemoveBoardButton />
+          </>
+        }
       />
     </ModuleLayout.Main>
   );

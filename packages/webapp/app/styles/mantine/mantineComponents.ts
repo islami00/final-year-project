@@ -17,7 +17,8 @@ import {
   type PartialTransformVars,
 } from '@mantine/core';
 import { css } from '@tma/design-system';
-import merge from 'lodash/fp/merge';
+import { mergeClassObjects } from '../../utils/mergeClassObjects';
+import merge from 'lodash/merge';
 
 function getButtonSizeStyles(
   size: ButtonProps['size']
@@ -51,6 +52,7 @@ const ButtonDefaultProps = Button.extend({
 
   classNames(_, props) {
     switch (props.size) {
+      case 'xs':
       case 'compact-md':
         return {
           root: css({ textStyle: 'smSemiBold' }),
@@ -121,14 +123,19 @@ const comboboxDefaultProps = Combobox.extend({
     keepMounted: false,
   },
 });
-function sizeVars(
-  size: MantineSize | (string & NonNullable<unknown>) | undefined
+type MantineSizeProp =
+  | MantineSize
+  | (string & NonNullable<unknown>)
+  | undefined;
+
+function inputSizeVars(
+  size: MantineSizeProp
 ): PartialTransformVars<InputFactory['vars']> {
   switch (size) {
-    case 'lg':
+    case 'xs':
       return {
         wrapper: {
-          '--input-height': rem(30),
+          '--input-height': rem(32),
         },
       };
 
@@ -138,29 +145,44 @@ function sizeVars(
       };
   }
 }
+function inputClassNames(size: MantineSizeProp) {
+  switch (size) {
+    case 'lg': {
+      return {
+        wrapper: css({ textStyle: 'lgBold' }),
+      };
+    }
+    case 'xs': {
+      return {
+        wrapper: css({ textStyle: 'xsSemiBold' }),
+        section: css({ '&[data-position="left"': {} }),
+      };
+    }
+    default:
+      return {};
+  }
+}
 
 const inputDefaultProps = Input.extend({
-  vars: (_, props) => {
-    const { size } = props;
+  vars: (...args) => {
+    const [, props] = args;
+    const { size, vars } = props;
+    const varsResult = vars?.(...args);
     const colorVars: PartialTransformVars<InputFactory['vars']> = {
       wrapper: {
         ['--input-color' as string]: 'white',
       },
     };
-    return merge(sizeVars(size), colorVars);
+    return merge(inputSizeVars(size), colorVars, varsResult);
   },
-  classNames: (_, props) => {
-    const { size } = props;
+  classNames: (...args) => {
+    const [, props] = args;
+    const { size, classNames } = props;
+    let _classNames;
+    if (typeof classNames === 'function') _classNames = classNames(...args);
+    else _classNames = classNames;
 
-    switch (size) {
-      case 'lg':
-        return {
-          wrapper: css({ textStyle: 'lgBold' }),
-        };
-
-      default:
-        return {};
-    }
+    return mergeClassObjects(_classNames, inputClassNames(size));
   },
 });
 export const mantineComponents: MantineThemeComponents = {
