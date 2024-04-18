@@ -45,7 +45,9 @@ export function DepartmentPage(props: DepartmentPageProps) {
       <DepartmentContent>
         <Suspense fallback={<BoardListLoading />}>
           <Await errorElement={<BoardListError />} resolve={data.boards}>
-            {(rs) => <BoardList boards={rs} />}
+            {(rs) => (
+              <BoardList boards={rs} orgId={data.department.organisationId} />
+            )}
           </Await>
         </Suspense>
       </DepartmentContent>
