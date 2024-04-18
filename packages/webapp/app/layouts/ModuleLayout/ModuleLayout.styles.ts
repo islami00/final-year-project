@@ -7,10 +7,12 @@ import {
 import { flex, styled } from '@tma/design-system';
 
 export const toolbar = flex({
-  height: 65,
-  px: 'md',
+  minHeight: 65,
+  p: 'md',
   alignItems: 'center',
   justifyContent: 'space-between',
+  flexWrap: 'wrap',
+  gap: 'md',
 });
 export const toolbarItems = flex({
   columnGap: '2xs',
