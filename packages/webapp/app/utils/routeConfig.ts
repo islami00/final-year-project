@@ -1,13 +1,3 @@
-import * as yup from 'yup';
-
-export interface BoardIdParams {
-  boardId: string;
-}
-
-export const boardIdSchema: yup.ObjectSchema<BoardIdParams> = yup.object({
-  boardId: yup.string().required(),
-});
-
 export const routeConfig = {
   app: { param: '/app', routeId: 'routes/app' },
   org: { param: '/app/:orgId', routeId: 'routes/app.$orgId' },

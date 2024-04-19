@@ -1,5 +1,7 @@
+import { routeConfig } from '../../../../../utils/routeConfig';
 import { Task } from '../../../../../models/Task.model';
-import { useBoardIdLoaderData } from '../../../logic/useBoardIdLoaderData';
+import { useRouteLoaderDataOrThrow } from '../../../../../hooks/useRouteLoaderDataOrThrow';
+import { BoardIdLoaderData } from '../../../../../routes/app.$orgId.boards.$boardId/types';
 import { useCurrentPriorityValue } from '../../../logic/useCurrentPriorityValue';
 import { useCurrentSprintPointValue } from '../../../logic/useCurrentSprintPointValue';
 import {
@@ -31,7 +33,9 @@ export function ActionSection(props: ActionSectionProps) {
     apiValue: task.sprintPoints,
     taskId: task.id,
   });
-  const boardIdData = useBoardIdLoaderData();
+  const boardIdData = useRouteLoaderDataOrThrow<BoardIdLoaderData>(
+    routeConfig.board.routeId
+  );
 
   return (
     <div className={classes.actions}>

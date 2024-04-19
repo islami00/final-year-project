@@ -1,7 +1,10 @@
 import { Outlet, type ClientLoaderFunctionArgs, json } from '@remix-run/react';
-import { getStatusByBoardId } from '../services/queries/status/getStatusByBoardId';
-import { requireOrganizations, requireUser } from '../services/pocketbase/auth';
-import type { BoardIdLoaderData } from '../modules/Boards/logic/useBoardIdLoaderData';
+import { getStatusByBoardId } from '../../services/queries/status/getStatusByBoardId';
+import {
+  requireOrganizations,
+  requireUser,
+} from '../../services/pocketbase/auth';
+import type { BoardIdLoaderData } from './types';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;

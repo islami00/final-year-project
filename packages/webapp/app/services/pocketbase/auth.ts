@@ -6,7 +6,7 @@ import UserModel, { User, type UserApi } from '../../models/User.model';
 import type { Organization } from '../../models/Organization.model';
 import { getOrganizationsByUser } from '../queries/organization/getOrganizationsByUser';
 import { logout } from '../queries/auth/logout';
-import { routeConfig } from '../../routes/utils';
+import { routeConfig } from '../../utils/routeConfig';
 
 export async function requireUser(): Promise<User> {
   if (!pb.authStore.isValid) {

@@ -3,7 +3,7 @@ import { ActionIcon, AppShell, ScrollArea } from '@mantine/core';
 import { generatePath } from '@remix-run/react';
 import { DepartmentWithBoard } from '../../models/DepartmentWithBoards.model';
 import { Organization } from '../../models/Organization.model';
-import { routeConfig } from '../../routes/utils';
+import { routeConfig } from '../../utils/routeConfig';
 import { modalIds } from '../../utils/modalIds';
 import * as classes from './AppShell.styles';
 import { NavbarLink } from './NavbarLink/NavbarLink';

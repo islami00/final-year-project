@@ -2,7 +2,7 @@ import { Card } from '@mantine/core';
 import { Board } from '../../../../models/Board.model';
 import * as classes from './BoardList.styles';
 import { Link, generatePath } from '@remix-run/react';
-import { routeConfig } from '../../../../routes/utils';
+import { routeConfig } from '../../../../utils/routeConfig';
 
 export interface BoardListProps {
   boards: Board[];

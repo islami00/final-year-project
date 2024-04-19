@@ -11,11 +11,13 @@ import { useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { CreateTask } from '../modules/Boards/components/CreateTask';
 import * as createTaskForm from '../modules/Boards/logic/createTaskForm';
-import { useBoardIdLoaderData } from '../modules/Boards/logic/useBoardIdLoaderData';
+import { useRouteLoaderDataOrThrow } from '../hooks/useRouteLoaderDataOrThrow';
+import { type BoardIdLoaderData } from './app.$orgId.boards.$boardId/types';
 import { getNextTaskColumnOrder } from '../services/queries/task/getNextTaskColumnOrder';
 import { postCreateTask } from '../services/queries/task/postCreateTask';
 import { castError } from '../utils/parseClientResponseError';
-import { boardIdSchema, routeConfig } from './utils';
+import { routeConfig } from '../utils/routeConfig';
+import { boardIdSchema } from './app.$orgId.boards.$boardId/utils';
 
 export async function clientAction(args: ClientActionFunctionArgs) {
   const { request, params } = args;
@@ -65,7 +67,9 @@ export default function BoardTaskCreateRoute() {
   const rawParams = useParams();
   // If this isn't defined, it's likely a dev error.
   const params = useMemo(() => boardIdSchema.cast(rawParams), [rawParams]);
-  const { statuses } = useBoardIdLoaderData();
+  const { statuses } = useRouteLoaderDataOrThrow<BoardIdLoaderData>(
+    routeConfig.board.routeId
+  );
 
   return (
     <CreateTask

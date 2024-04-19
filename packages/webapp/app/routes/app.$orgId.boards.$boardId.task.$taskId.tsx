@@ -25,7 +25,7 @@ import {
 } from '../services/queries/task/patchTaskById';
 import omitBy from 'lodash/fp/omitBy';
 import { deleteTask } from '../services/queries/task/deleteTask';
-import { routeConfig } from './utils';
+import { routeConfig } from '../utils/routeConfig';
 import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
 
 interface TaskPropertySubmission {

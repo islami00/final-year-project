@@ -3,7 +3,7 @@ import { Organization } from '../../../models/Organization.model';
 import { OrganisationSwitchButton } from './OrganisationSwitchButton';
 import { OrganisationSelect } from '../OrganisationSelect/OrganisationSelect';
 import { generatePath, useNavigate } from '@remix-run/react';
-import { routeConfig } from '../../../routes/utils';
+import { routeConfig } from '../../../utils/routeConfig';
 
 export interface OrganisationSwitchProps {
   organisations: Organization[];

@@ -15,7 +15,7 @@ import { deleteDepartment } from '../services/queries/department/deleteDepartmen
 import { getDepartmentById } from '../services/queries/department/getDepartmentById';
 import { patchDepartmentById } from '../services/queries/department/patchDepartmentById';
 import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
-import { routeConfig } from './utils';
+import { routeConfig } from '../utils/routeConfig';
 import { specialFields } from '../utils/Form/specialFields';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
