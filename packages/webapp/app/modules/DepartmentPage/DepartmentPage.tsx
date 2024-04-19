@@ -5,16 +5,16 @@ import { Suspense } from 'react';
 import { Search } from '../../components/Search/Search';
 import * as ModuleLayout from '../../layouts/ModuleLayout';
 import { modalIds } from '../../utils/modalIds';
-import { DepartmentContent } from './Department.styles';
-import type { DepartmentsDepartmentIdLoaderData } from './Department.types';
+import { DepartmentContent } from './DepartmentPage.styles';
+import type { DepartmentsDepartmentIdLoaderData } from './DepartmentPage.types';
 import { BoardList } from './components/BoardList/BoardList';
 import { BoardListError } from './components/BoardList/BoardList.error';
 import { BoardListLoading } from './components/BoardList/BoardList.loading';
 import { CreateBoard } from './components/CreateBoard';
 import { DeleteDepartment } from './components/DeleteDepartment/DeleteDepartment';
-import { AddBoardButton } from './components/buttons/AddBoardButton';
+import { ModuleAddButton } from './components/buttons/ModuleAddButton';
 import { RemoveButton } from './components/buttons/RemoveButton';
-import { DepartmentInput } from './components/inputs/DepartmentInput';
+import { DepartmentTitleInput } from './components/inputs/DepartmentTitleInput';
 import { useCurrentDepartments } from './logic/useCurrentDepartments';
 
 export interface DepartmentPageProps {
@@ -34,16 +34,18 @@ export function DepartmentPage(props: DepartmentPageProps) {
     <ModuleLayout.Main>
       <ModuleLayout.Toolbar
         title={
-          <DepartmentInput
+          <DepartmentTitleInput
             defaultValue={currentDept.name}
-            deptId={currentDept.id}
+            id={currentDept.id}
           />
         }
         actions={
           <>
-            <AddBoardButton
+            <ModuleAddButton
               onClick={() => NiceModal.show(modalIds.createBoard)}
-            />
+            >
+              Add a Board
+            </ModuleAddButton>
             <Search placeholder="Search Boards" />
             <RemoveButton
               onClick={() => NiceModal.show(modalIds.deleteDepartment)}

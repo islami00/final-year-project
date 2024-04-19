@@ -7,7 +7,7 @@ import {
   type ClientActionFunctionArgs,
   type ClientLoaderFunctionArgs,
 } from '@remix-run/react';
-import { DepartmentPage } from '../modules/DepartmentPage/Department';
+import { DepartmentPage } from '../modules/DepartmentPage/DepartmentPage';
 import * as departmentIdForm from '../modules/DepartmentPage/logic/departmentIdForm';
 import { getBoardsByDepartment } from '../services/queries/board/getBoardsByDepartment';
 import { postCreateBoard } from '../services/queries/board/postCreateBoard';

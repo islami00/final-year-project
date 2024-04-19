@@ -21,6 +21,7 @@ export function BoardList(props: BoardListProps) {
             boardId: each.id,
             orgId,
           })}
+          key={each.id}
         >
           {each.name}
         </Card>

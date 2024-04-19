@@ -2,7 +2,7 @@ import { Button, type ElementProps } from '@mantine/core';
 import * as navbarLinkClasses from '../../../../components/AppShell/NavbarLink/NavbarLink.styles';
 import { Icon } from '../../../../components/Icon/Icon';
 
-export function AddBoardButton(props: ElementProps<'button'>) {
+export function ModuleAddButton(props: ElementProps<'button'>) {
   return (
     <Button
       {...props}
@@ -12,8 +12,6 @@ export function AddBoardButton(props: ElementProps<'button'>) {
       }
       color="dark"
       variant="filled"
-    >
-      Add a Board
-    </Button>
+    />
   );
 }

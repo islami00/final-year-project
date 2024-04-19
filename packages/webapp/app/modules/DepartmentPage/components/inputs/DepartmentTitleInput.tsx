@@ -1,21 +1,22 @@
 import type { SubmissionResult } from '@conform-to/dom';
+
 import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { useFetcher } from '@remix-run/react';
-import { useRef } from 'react';
 import { ModuleLayoutTitleInput } from '../../../../layouts/ModuleLayout/ModuleLayoutTitleInput';
 import { departmentFetcherKeys } from '../../../../services/queries/department/departmentFetcherKeys';
 import { getLastResultToReset } from '../../../BoardPage/logic/getLastResultToReset';
 import * as departmentIdForm from '../../logic/departmentIdForm';
+import { hiddenInputs } from '../../../../utils/Form/hiddenInputs';
 
 export interface DepartmentInputProps {
   defaultValue: string;
-  deptId: string;
+  id: string;
 }
 
-export function DepartmentInput(props: DepartmentInputProps) {
-  const { defaultValue, deptId } = props;
+export function DepartmentTitleInput(props: DepartmentInputProps) {
+  const { defaultValue, id } = props;
   const fetcher = useFetcher<SubmissionResult>({
-    key: departmentFetcherKeys.nameFilter(deptId),
+    key: departmentFetcherKeys.nameFilter(id),
   });
 
   const [form, fields] = useForm<departmentIdForm.NameFormData>({
@@ -26,27 +27,20 @@ export function DepartmentInput(props: DepartmentInputProps) {
       if (!form.dirty) event.preventDefault();
     },
   });
-
-  const submitRef = useRef<HTMLFormElement | null>(null);
-
   return (
-    <fetcher.Form ref={submitRef} {...getFormProps(form)} method="post">
+    <fetcher.Form {...getFormProps(form)} method="post">
       <ModuleLayoutTitleInput
-        {...getInputProps(fields.name, { type: 'text' })}
-        defaultValue={defaultValue}
+        {...getInputProps(fields.name, {
+          type: 'text',
+        })}
         error={fields.name.errors?.join()}
         key={fields.name.key}
         onBlur={() => form.reset()}
       />
-      <input
-        {...getInputProps(fields.intent, { type: 'hidden' })}
-        key={fields.intent.key}
-      />
-      <input
-        {...getInputProps(fields.deptId, { type: 'hidden', value: false })}
-        value={deptId}
-        key={fields.deptId.key}
-      />
+      {hiddenInputs([
+        { field: fields.intent },
+        { field: fields.deptId, value: id },
+      ])}
     </fetcher.Form>
   );
 }

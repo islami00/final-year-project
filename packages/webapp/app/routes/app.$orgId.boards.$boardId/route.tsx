@@ -1,9 +1,15 @@
-import { Outlet, type ClientLoaderFunctionArgs, json } from '@remix-run/react';
-import { getStatusByBoardId } from '../../services/queries/status/getStatusByBoardId';
+import {
+  Outlet,
+  defer,
+  useLoaderData,
+  type ClientLoaderFunctionArgs,
+} from '@remix-run/react';
+import { BoardPage } from '../../modules/BoardPage/BoardPage';
 import {
   requireOrganizations,
   requireUser,
 } from '../../services/pocketbase/auth';
+import { getStatusByBoardId } from '../../services/queries/status/getStatusByBoardId';
 import type { BoardIdLoaderData } from './types';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
@@ -14,12 +20,13 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
     boardId: params.boardId as string,
   });
 
-  return json<BoardIdLoaderData>({ statuses });
+  return defer<BoardIdLoaderData>({ statuses });
 }
 export default function BoardRoute() {
+  const data = useLoaderData<typeof clientLoader>();
   return (
     <>
-      Board With outlet below for tasks
+      <BoardPage statuses={data.statuses.allStatuses} />
       <Outlet />
     </>
   );
