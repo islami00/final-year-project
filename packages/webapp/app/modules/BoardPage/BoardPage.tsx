@@ -6,12 +6,14 @@ import { RemoveButton } from '../DepartmentPage/components/buttons/RemoveButton'
 import { generatePath, useNavigate } from '@remix-run/react';
 import { routeConfig } from '../../utils/routeConfig';
 import { Status } from '../../models/Status.model';
+import { StatusColumn } from './components/StatusColumn/StatusColumn';
 
 export interface BoardPageProps {
   statuses: Status[];
 }
 
 export function BoardPage(props: BoardPageProps) {
+  const { statuses } = props;
   const navigate = useNavigate();
   return (
     <ModuleLayout.Main>
@@ -37,7 +39,9 @@ export function BoardPage(props: BoardPageProps) {
         }
       />
       <ModuleLayout.Content>
-        <div />
+        {statuses.map((each) => (
+          <StatusColumn status={each} key={each.id} />
+        ))}
       </ModuleLayout.Content>
     </ModuleLayout.Main>
   );
