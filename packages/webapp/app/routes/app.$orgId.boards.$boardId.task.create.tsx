@@ -9,8 +9,8 @@ import {
 } from '@remix-run/react';
 import { useMemo } from 'react';
 import toast from 'react-hot-toast';
-import { CreateTask } from '../modules/Boards/components/CreateTask';
-import * as createTaskForm from '../modules/Boards/logic/createTaskForm';
+import { CreateTask } from '../modules/BoardPage/components/CreateTask';
+import * as createTaskForm from '../modules/BoardPage/logic/createTaskForm';
 import { useRouteLoaderDataOrThrow } from '../hooks/useRouteLoaderDataOrThrow';
 import { type BoardIdLoaderData } from './app.$orgId.boards.$boardId/types';
 import { getNextTaskColumnOrder } from '../services/queries/task/getNextTaskColumnOrder';

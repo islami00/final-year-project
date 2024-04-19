@@ -2,7 +2,7 @@ import { SubmissionResult } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import { useFetcher } from '@remix-run/react';
 import { taskFetcherKeys } from '../../../services/queries/task/taskFetcherKeys';
-import * as taskDetailsForm from '../logic/taskDetailsForm';
+import * as taskDetailsForm from './taskDetailsForm';
 import { getOptimisticValue } from './getOptimisticValue';
 
 interface UseCurrentSprintPointValueArgs {

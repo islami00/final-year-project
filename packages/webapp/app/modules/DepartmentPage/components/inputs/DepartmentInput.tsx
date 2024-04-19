@@ -4,7 +4,7 @@ import { useFetcher } from '@remix-run/react';
 import { useRef } from 'react';
 import { ModuleLayoutTitleInput } from '../../../../layouts/ModuleLayout/ModuleLayoutTitleInput';
 import { departmentFetcherKeys } from '../../../../services/queries/department/departmentFetcherKeys';
-import { getLastResultToReset } from '../../../Boards/logic/getLastResultToReset';
+import { getLastResultToReset } from '../../../BoardPage/logic/getLastResultToReset';
 import * as departmentIdForm from '../../logic/departmentIdForm';
 
 export interface DepartmentInputProps {

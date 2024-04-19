@@ -10,9 +10,9 @@ import {
   generatePath,
 } from '@remix-run/react';
 import * as React from 'react';
-import { TaskDetails } from '../modules/Boards/components/TaskDetails/TaskDetails';
-import { TaskDetailsLoading } from '../modules/Boards/components/TaskDetails/TaskDetails.loading';
-import * as taskDetailsForm from '../modules/Boards/logic/taskDetailsForm';
+import { TaskDetails } from '../modules/BoardPage/components/TaskDetails/TaskDetails';
+import { TaskDetailsLoading } from '../modules/BoardPage/components/TaskDetails/TaskDetails.loading';
+import * as taskDetailsForm from '../modules/BoardPage/logic/taskDetailsForm';
 import { getOrganisationUsers } from '../services/queries/organization/getOrganizationUsers';
 import { deleteUnAssignTaskFromUser } from '../services/queries/task/deleteUnAssignTaskFromUser';
 import { getTaskAssigneeById } from '../services/queries/task/getTaskAssigneeById';

@@ -11,7 +11,7 @@ import { Flex, flex } from '@tma/design-system';
 import * as appOrgIdForm from '../../../utils/appOrgIdForm';
 import { Organization } from '../../../models/Organization.model';
 import { User } from '../../../models/User.model';
-import { getLastResultToReset } from '../../../modules/Boards/logic/getLastResultToReset';
+import { getLastResultToReset } from '../../../modules/BoardPage/logic/getLastResultToReset';
 import { TMAModal } from '../../TMAModal';
 import { DashboardOrganisationSelect } from './DashboardOrganisationSelect';
 
