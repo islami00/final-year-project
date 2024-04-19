@@ -16,6 +16,7 @@ import { getDepartmentById } from '../services/queries/department/getDepartmentB
 import { patchDepartmentById } from '../services/queries/department/patchDepartmentById';
 import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
 import { routeConfig } from './utils';
+import { specialFields } from '../utils/Form/specialFields';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params, request } = args;
@@ -23,7 +24,7 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const deptId = params.deptId as string;
   const boards = getBoardsByDepartment({
     deptId,
-    q: url.searchParams.get('q'),
+    q: url.searchParams.get(specialFields.q),
   });
   const department = await getDepartmentById({ deptId });
   return { boards, department };

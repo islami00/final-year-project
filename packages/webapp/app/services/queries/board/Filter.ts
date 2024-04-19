@@ -33,6 +33,7 @@ export function parseFilters(
 ): FlatFilter {
   const joinable = mapDefined(filters, (v) => flattenFilter(v, conf));
   const joined = joinFilters(joinable);
+
   return joined;
 }
 
@@ -89,7 +90,7 @@ function filterTemplate(filter: Filter, overrides?: Partial<Filter>) {
 /**
  * @description Combine a ton of filters with &&
  * */
-function joinFilters(parts: FlatFilter[], connective?: Connectives.AND) {
+function joinFilters(parts: FlatFilter[], connective = Connectives.AND) {
   const result = parts.reduce((acc, curr) => {
     acc.template = `${acc.template} ${connective} ${curr.template}`;
     Object.assign(acc.params, curr.params);

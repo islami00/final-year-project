@@ -1,21 +1,21 @@
+import NiceModal from '@ebay/nice-modal-react';
 import { invariant } from '@epic-web/invariant';
 import { Await } from '@remix-run/react';
 import { Suspense } from 'react';
 import { Search } from '../../components/Search/Search';
 import * as ModuleLayout from '../../layouts/ModuleLayout';
+import { modalIds } from '../../utils/modalIds';
+import { DepartmentContent } from './Department.styles';
 import type { DepartmentsDepartmentIdLoaderData } from './Department.types';
 import { BoardList } from './components/BoardList/BoardList';
 import { BoardListError } from './components/BoardList/BoardList.error';
 import { BoardListLoading } from './components/BoardList/BoardList.loading';
+import { CreateBoard } from './components/CreateBoard';
+import { DeleteDepartment } from './components/DeleteDepartment/DeleteDepartment';
 import { AddBoardButton } from './components/buttons/AddBoardButton';
 import { RemoveButton } from './components/buttons/RemoveButton';
 import { DepartmentInput } from './components/inputs/DepartmentInput';
 import { useCurrentDepartments } from './logic/useCurrentDepartments';
-import { DepartmentContent } from './Department.styles';
-import { DeleteDepartment } from './components/DeleteDepartment/DeleteDepartment';
-import { modalIds } from '../../utils/modalIds';
-import NiceModal from '@ebay/nice-modal-react';
-import { CreateBoard } from './components/CreateBoard';
 
 export interface DepartmentPageProps {
   data: DepartmentsDepartmentIdLoaderData;
@@ -29,6 +29,7 @@ export function DepartmentPage(props: DepartmentPageProps) {
   });
   const currentDept = departmentName.get(oldDept.id);
   invariant(currentDept, 'Department must exist in optimistic list');
+
   return (
     <ModuleLayout.Main>
       <ModuleLayout.Toolbar
