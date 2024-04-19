@@ -1,33 +1,30 @@
+import { parseWithZod } from '@conform-to/zod';
 import {
-  json,
-  type ClientActionFunctionArgs,
-  redirect,
-  generatePath,
-} from '@remix-run/react';
-import {
-  useLoaderData,
   Outlet,
+  generatePath,
+  json,
+  redirect,
+  useLoaderData,
+  type ClientActionFunctionArgs,
   type ClientLoaderFunctionArgs,
 } from '@remix-run/react';
+import omit from 'lodash/fp/omit';
 import { AppShellRoot } from '../components/AppShell/AppShellRoot';
+import { CreateDepartment } from '../modules/DepartmentPage/components/CreateDepartment';
+import { useCurrentDepartments } from '../modules/DepartmentPage/logic/useCurrentDepartments';
 import {
   requireCurrentOrganisation,
   requireOrganizations,
   requireUser,
 } from '../services/pocketbase/auth';
-import type { AppLoaderData } from '../types/app.types';
-import { parseWithZod } from '@conform-to/zod';
-import * as appOrgIdForm from '../utils/appOrgIdForm';
-import { patchUserById } from '../services/queries/users/patchUserById';
-import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
 import { getDepartmentsByOrg } from '../services/queries/department/getDepartmentsByOrg';
 import { postCreateDepartment } from '../services/queries/department/postCreateDepartment';
-import omit from 'lodash/fp/omit';
-import { CreateDepartment } from '../modules/DepartmentPage/components/CreateDepartment';
+import { patchUserById } from '../services/queries/users/patchUserById';
+import type { AppLoaderData } from '../types/app.types';
+import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
+import * as appOrgIdForm from '../utils/appOrgIdForm';
 import { modalIds } from '../utils/modalIds';
 import { routeConfig } from './utils';
-import NiceModal from '@ebay/nice-modal-react';
-import { useCurrentDepartments } from '../modules/DepartmentPage/logic/useCurrentDepartments';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params } = args;
@@ -68,7 +65,6 @@ export async function clientAction(args: ClientActionFunctionArgs) {
       case appOrgIdForm.AppOrgIdIntent.CREATE_DEPARTMENT: {
         const body = omit('intent', value);
         const dept = await postCreateDepartment({ body });
-        NiceModal.remove(modalIds.createDepartment);
         return redirect(
           generatePath(routeConfig.departmentList.param, {
             orgId: dept.organisationId,
