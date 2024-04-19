@@ -4,6 +4,7 @@ import {
   type ClientLoaderFunctionArgs,
   type ClientActionFunctionArgs,
   redirect,
+  generatePath,
 } from '@remix-run/react';
 import { DepartmentPage } from '../modules/DepartmentPage/Department';
 import { getBoardsByDepartment } from '../services/queries/board/getBoardsByDepartment';
@@ -15,11 +16,17 @@ import { patchDepartmentById } from '../services/queries/department/patchDepartm
 import { deleteDepartment } from '../services/queries/department/deleteDepartment';
 import NiceModal from '@ebay/nice-modal-react';
 import { modalIds } from '../utils/modalIds';
+import { postCreateBoard } from '../services/queries/board/postCreateBoard';
+import { routeConfig } from './utils';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
-  const { params } = args;
+  const { params, request } = args;
+  const url = new URL(request.url);
   const deptId = params.deptId as string;
-  const boards = getBoardsByDepartment({ deptId });
+  const boards = getBoardsByDepartment({
+    deptId,
+    q: url.searchParams.get('q'),
+  });
   const department = await getDepartmentById({ deptId });
   return { boards, department };
 }
@@ -36,6 +43,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
   }
   const { value } = submission;
   const deptId = params.deptId as string;
+  const orgId = params.orgId as string;
   try {
     switch (value.intent) {
       case departmentIdForm.DepartmentIdFormIntent.NAME:
@@ -51,6 +59,15 @@ export async function clientAction(args: ClientActionFunctionArgs) {
         await deleteDepartment({ deptId });
         NiceModal.remove(modalIds.deleteDepartment);
         return redirect('../');
+      case departmentIdForm.DepartmentIdFormIntent.CREATE_BOARD: {
+        const board = await postCreateBoard({
+          body: { departmentId: deptId, name: value.name },
+        });
+        NiceModal.remove(modalIds.createBoard);
+        return redirect(
+          generatePath(routeConfig.board.param, { boardId: board.id, orgId })
+        );
+      }
       default:
         break;
     }

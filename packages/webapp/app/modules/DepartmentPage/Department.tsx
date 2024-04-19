@@ -15,6 +15,7 @@ import { DepartmentContent } from './Department.styles';
 import { DeleteDepartment } from './components/DeleteDepartment/DeleteDepartment';
 import { modalIds } from '../../utils/modalIds';
 import NiceModal from '@ebay/nice-modal-react';
+import { CreateBoard } from './components/CreateBoard';
 
 export interface DepartmentPageProps {
   data: DepartmentsDepartmentIdLoaderData;
@@ -39,7 +40,9 @@ export function DepartmentPage(props: DepartmentPageProps) {
         }
         actions={
           <>
-            <AddBoardButton />
+            <AddBoardButton
+              onClick={() => NiceModal.show(modalIds.createBoard)}
+            />
             <Search placeholder="Search Boards" />
             <RemoveButton
               onClick={() => NiceModal.show(modalIds.deleteDepartment)}
@@ -60,6 +63,7 @@ export function DepartmentPage(props: DepartmentPageProps) {
         deptId={currentDept.id}
         id={modalIds.deleteDepartment}
       />
+      <CreateBoard deptId={currentDept.id} id={modalIds.createBoard} />
     </ModuleLayout.Main>
   );
 }
