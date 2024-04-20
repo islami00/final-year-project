@@ -1,5 +1,5 @@
 import type { Dictionary, Falsey } from 'lodash';
-import { mapDefined } from '../../../utils/mapDefined';
+import { mapDefined } from './mapDefined';
 
 export enum Operators {
   EQ = '=',

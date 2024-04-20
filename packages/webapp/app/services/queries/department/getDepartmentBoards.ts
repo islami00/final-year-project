@@ -1,15 +1,15 @@
 import BoardModel, { Board, BoardApi } from '../../../models/Board.model';
 import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
-import { Operators, parseFilters } from './Filter';
+import { Operators, parseFilters } from '../../../utils/Filter';
 
-export interface GetBoardsByDepartmentArgs {
+export interface GetDepartmentBoardsArgs {
   deptId: string;
 
   q?: string | null;
 }
-export async function getBoardsByDepartment(
-  args: GetBoardsByDepartmentArgs
+export async function getDepartmentBoards(
+  args: GetDepartmentBoardsArgs
 ): Promise<Board[]> {
   const { deptId, q } = args;
 

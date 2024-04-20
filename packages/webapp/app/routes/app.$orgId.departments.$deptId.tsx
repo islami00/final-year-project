@@ -9,7 +9,7 @@ import {
 } from '@remix-run/react';
 import { DepartmentPage } from '../modules/DepartmentPage/DepartmentPage';
 import * as departmentIdForm from '../modules/DepartmentPage/logic/departmentIdForm';
-import { getBoardsByDepartment } from '../services/queries/board/getBoardsByDepartment';
+import { getDepartmentBoards } from '../services/queries/department/getDepartmentBoards';
 import { postCreateBoard } from '../services/queries/board/postCreateBoard';
 import { deleteDepartment } from '../services/queries/department/deleteDepartment';
 import { getDepartmentById } from '../services/queries/department/getDepartmentById';
@@ -22,7 +22,7 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { params, request } = args;
   const url = new URL(request.url);
   const deptId = params.deptId as string;
-  const boards = getBoardsByDepartment({
+  const boards = getDepartmentBoards({
     deptId,
     q: url.searchParams.get(specialFields.q),
   });
