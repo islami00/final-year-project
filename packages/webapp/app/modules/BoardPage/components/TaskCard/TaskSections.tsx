@@ -1,9 +1,7 @@
-import * as React from 'react';
 import * as classes from './TaskCard.styles';
 import { TaskWithAssignees } from '../../../../models/TaskWithAssignees.model';
 import { isNonNullable } from '../../../../utils/isNonNullable';
-
-type TaskSectionRenderers = (task: TaskWithAssignees) => React.ReactNode;
+import { TaskSectionRenderers } from './TaskCard.types';
 
 export interface TaskSectionsProps {
   task: TaskWithAssignees;

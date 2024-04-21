@@ -4,6 +4,7 @@ import { TaskWithAssignees } from '../../../../models/TaskWithAssignees.model';
 import * as classes from './TaskCard.styles';
 import { TaskSections } from './TaskSections';
 import { sprintPointRenderer } from './TaskSectionRenderers/sprintPoints';
+import { priorityRenderer } from './TaskSectionRenderers/priority';
 export interface TaskCardProps {
   task: TaskWithAssignees;
 }
@@ -13,7 +14,9 @@ export function TaskCard(props: TaskCardProps) {
   return (
     <Card className={classes.root}>
       <P textStyle="lgBold">{task.title}</P>
-      <TaskSections task={task}>{[sprintPointRenderer]}</TaskSections>
+      <TaskSections task={task}>
+        {[sprintPointRenderer, priorityRenderer]}
+      </TaskSections>
     </Card>
   );
 }
