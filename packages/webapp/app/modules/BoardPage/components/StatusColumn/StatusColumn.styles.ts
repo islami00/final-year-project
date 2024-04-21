@@ -16,3 +16,9 @@ export const titleText = css({
   px: 12,
   py: 1,
 });
+
+export const column = css({
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: 'md',
+});

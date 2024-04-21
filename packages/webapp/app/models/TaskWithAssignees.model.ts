@@ -17,7 +17,7 @@ export interface TaskWithAssigneeApi extends TaskApi {
   };
 }
 
-interface TaskWithAssignee extends Task {
+export interface TaskWithAssignees extends Task {
   assignees: User[];
 }
 const taskWithAssigneeSchema = taskSchema
@@ -39,12 +39,12 @@ const taskWithAssigneeSchema = taskSchema
       ...rest,
       assignees: assignees || [],
     };
-  }) satisfies ZodOf<TaskWithAssignee, TaskWithAssigneeApi>;
+  }) satisfies ZodOf<TaskWithAssignees, TaskWithAssigneeApi>;
 class TaskWithAssigneeConverter extends Converter<
   TaskWithAssigneeApi,
-  TaskWithAssignee
+  TaskWithAssignees
 > {
-  async fromApi(from: TaskWithAssigneeApi): Promise<TaskWithAssignee> {
+  async fromApi(from: TaskWithAssigneeApi): Promise<TaskWithAssignees> {
     return taskWithAssigneeSchema.parseAsync(from);
   }
 }

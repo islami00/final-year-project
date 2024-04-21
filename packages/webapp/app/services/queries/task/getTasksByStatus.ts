@@ -1,5 +1,7 @@
+import type { ListResult } from 'pocketbase';
 import TaskWithAssigneesModel, {
   TaskWithAssigneeApi,
+  type TaskWithAssignees,
 } from '../../../models/TaskWithAssignees.model';
 import { Operators, parseFilters } from '../../../utils/Filter';
 import { paginationConsts } from '../../../utils/constants';
@@ -13,7 +15,9 @@ interface GetTasksByStatusArgs {
   page: number;
   q?: string;
 }
-export async function getTasksByStatus(args: GetTasksByStatusArgs) {
+export async function getTasksByStatus(
+  args: GetTasksByStatusArgs
+): Promise<ListResult<TaskWithAssignees>> {
   const { statusId, page, q } = args;
 
   const filters = parseFilters([
