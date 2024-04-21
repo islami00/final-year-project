@@ -13,14 +13,13 @@ export function StatusColumnRaw(props: StatusColumnRawProps) {
   const query = useSuspenseInfiniteQuery(
     taskQueries.listByStatusFilter(statusId)
   );
-  
 
   const container = useRef<HTMLDivElement | null>(null);
   const reducedData = combinePages(query.data);
   return (
     <div ref={container}>
       {reducedData.map((each) => (
-        <div>{each.title}</div>
+        <div key={each.id}>{each.title}</div>
       ))}
       <InfiniteLoader
         containerRef={container}

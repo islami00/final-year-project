@@ -28,18 +28,15 @@ export interface User {
   dashboardOrganisation: string | null;
 }
 
-const coerceStringToNull = (v: unknown) => v || null;
-const userSchema = z.object({
+const coerceStringToNull = (v: string) => v || null;
+export const userSchema = z.object({
   username: z.string(),
   email: z.string(),
   id: z.string(),
   name: z.string(),
-  avatar: z.preprocess(coerceStringToNull, z.string().nullable()),
-  dashboardOrganisation: z.preprocess(
-    coerceStringToNull,
-    z.string().nullable()
-  ),
-}) satisfies ZodOf<User>;
+  avatar: z.string().transform(coerceStringToNull),
+  dashboardOrganisation: z.string().transform(coerceStringToNull),
+}) satisfies ZodOf<User, UserApi>;
 
 class UserConverter extends Converter<UserApi, User> {
   fromApi(from: UserApi): Promise<User> {

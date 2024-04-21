@@ -1,5 +1,9 @@
+import { useAsyncError } from '@remix-run/react';
 import { ErrorLayout } from '../../components/ErrorLayout/ErrorLayout';
+import { getErrorMessage } from '../../utils/ErrorHandling/getErrorMessage';
 
 export function BoardPageError() {
-  return <ErrorLayout>Error loading board page</ErrorLayout>;
+  const err = useAsyncError();
+
+  return <ErrorLayout>Error: {getErrorMessage(err)}</ErrorLayout>;
 }

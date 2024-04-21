@@ -13,6 +13,7 @@ export async function getOrganisationUsers(args: GetOrganisationUsersArgs) {
       `${collections.organisation_users}_via_userId.organisationId ?= {:organisationId}`,
       { organisationId }
     ),
+    expand: `${collections.organisation_users}_via_userId.organisationId`,
   });
 
   return UserModel.fromArrayApi(record);

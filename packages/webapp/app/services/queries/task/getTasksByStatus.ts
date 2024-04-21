@@ -1,10 +1,12 @@
+import TaskWithAssigneesModel, {
+  TaskWithAssigneeApi,
+} from '../../../models/TaskWithAssignees.model';
 import { Operators, parseFilters } from '../../../utils/Filter';
 import { paginationConsts } from '../../../utils/constants';
-import { collections } from '../../pocketbase/collections';
-import { pb } from '../../pocketbase/setup';
-import TaskModel, { TaskApi } from '../../../models/Task.model';
 import { forwardError } from '../../../utils/forwardError';
 import { parseClientResponseError } from '../../../utils/parseClientResponseError';
+import { collections } from '../../pocketbase/collections';
+import { pb } from '../../pocketbase/setup';
 
 interface GetTasksByStatusArgs {
   statusId: string;
@@ -30,11 +32,12 @@ export async function getTasksByStatus(args: GetTasksByStatusArgs) {
   ]);
 
   const tasks = await pb
-    .collection<TaskApi>(collections.task)
+    .collection<TaskWithAssigneeApi>(collections.task)
     .getList(page, paginationConsts.pageSize, {
       filter: pb.filter(filters.template, filters.params),
+      expand: `${collections.task_assignee}_via_taskId.assigneeId`,
     })
     .catch(forwardError(parseClientResponseError));
 
-  return TaskModel.fromListResult(tasks);
+  return TaskWithAssigneesModel.fromListResult(tasks);
 }
