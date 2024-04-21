@@ -16,11 +16,8 @@ export const groupFetchersByIntent = groupBy<Fetcher>((v) =>
 );
 function useOptimisticAssigneeFetchers(): UseOptimisticAssigneeFetchers {
   const fetchers = useFetchers();
-
-  const grouped: Dictionary<Fetcher[] | undefined> = groupBy(
-    groupFetchersByIntent,
-    fetchers
-  );
+  const grouped: Dictionary<Fetcher[] | undefined> =
+    groupFetchersByIntent(fetchers);
 
   const adding = grouped[taskDetailsForm.TaskDetailsIntent.ADD_ASSIGNEE] || [];
   const removing =

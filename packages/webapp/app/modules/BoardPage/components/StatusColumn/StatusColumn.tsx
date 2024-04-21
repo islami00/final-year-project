@@ -9,10 +9,11 @@ import { ReactErrorBoundaryFallback } from '../../../../components/errors/ReactE
 import { StatusColumnRaw } from './StatusColumn.raw';
 export interface StatusColumnProps {
   status: Status;
+  orgId: string;
 }
 
 export function StatusColumn(props: StatusColumnProps) {
-  const { status } = props;
+  const { status, orgId } = props;
   const colorStyle = defineStatusColVars(status.color) as CSSProperties;
 
   return (
@@ -23,7 +24,7 @@ export function StatusColumn(props: StatusColumnProps) {
 
       <ErrorBoundary FallbackComponent={ReactErrorBoundaryFallback}>
         <Suspense fallback={<StatusColumnQueryLoading />}>
-          <StatusColumnRaw statusId={status.id} />
+          <StatusColumnRaw orgId={orgId} statusId={status.id} />
         </Suspense>
       </ErrorBoundary>
     </div>

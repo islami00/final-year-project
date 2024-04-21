@@ -8,10 +8,11 @@ import * as classes from './StatusColumn.styles';
 import { TaskCard } from '../TaskCard/TaskCard';
 export interface StatusColumnRawProps {
   statusId: string;
+  orgId: string;
 }
 
 export function StatusColumnRaw(props: StatusColumnRawProps) {
-  const { statusId } = props;
+  const { statusId, orgId } = props;
   const query = useSuspenseInfiniteQuery(
     taskQueries.listByStatusFilter(statusId)
   );
@@ -22,7 +23,7 @@ export function StatusColumnRaw(props: StatusColumnRawProps) {
     <ScrollArea ref={container}>
       <div className={classes.column}>
         {reducedData.map((each) => (
-          <TaskCard task={each} key={each.id} />
+          <TaskCard task={each} key={each.id} orgId={orgId} />
         ))}
         <InfiniteLoader
           containerRef={container}

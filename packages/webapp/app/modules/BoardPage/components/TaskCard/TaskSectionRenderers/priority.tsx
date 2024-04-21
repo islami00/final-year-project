@@ -1,9 +1,8 @@
 import { PriorityFlag } from '../../../../../components/PrioritySelect/PriorityFlag';
+import { PriorityDictionary } from '../../../../../components/PrioritySelect/PrioritySelect.utils';
 import { Priority } from '../../../../../models/Task.model';
 import type { TaskSectionRenderers } from '../TaskCard.types';
 import * as classes from './TaskSectionRenderers.styles';
-import { rendererKeys } from './TaskSectionRenderers.utils';
-import { PriorityDictionary } from '../../../../../components/PrioritySelect/PrioritySelect.utils';
 
 export interface priorityProps {
   priority: Priority;
@@ -21,5 +20,5 @@ export function PriorityItem(props: priorityProps) {
 
 export const priorityRenderer: TaskSectionRenderers = (task) => {
   if (!task.priority) return null;
-  return <PriorityItem key={rendererKeys.priority} priority={task.priority} />;
+  return <PriorityItem priority={task.priority} />;
 };

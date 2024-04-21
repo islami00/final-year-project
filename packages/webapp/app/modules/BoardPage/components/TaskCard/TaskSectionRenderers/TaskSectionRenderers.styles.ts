@@ -12,3 +12,9 @@ export const sprintPointsRoot = css(singleRoot, {
 });
 
 export const priorityRoot = css(singleRoot, { width: 'inputSizeMd' });
+
+export const assigneeRoot = flex({
+  gap: '2xs',
+  flexWrap: 'wrap',
+  width: '100%',
+});

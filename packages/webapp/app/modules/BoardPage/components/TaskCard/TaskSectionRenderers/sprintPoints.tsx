@@ -2,7 +2,6 @@ import { P } from '../../../../../components/P/P';
 import { TaskWithAssignees } from '../../../../../models/TaskWithAssignees.model';
 import * as classes from './TaskSectionRenderers.styles';
 import { Icon } from '../../../../../components/Icon/Icon';
-import { rendererKeys } from './TaskSectionRenderers.utils';
 
 export interface SprintPointsProps {
   sprintPoints: number;
@@ -20,10 +19,5 @@ function SprintPoints(props: SprintPointsProps) {
 
 export function sprintPointRenderer(task: TaskWithAssignees) {
   if (!task.sprintPoints) return null;
-  return (
-    <SprintPoints
-      key={rendererKeys.sprintPoints}
-      sprintPoints={task.sprintPoints}
-    />
-  );
+  return <SprintPoints sprintPoints={task.sprintPoints} />;
 }

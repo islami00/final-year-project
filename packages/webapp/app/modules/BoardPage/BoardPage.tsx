@@ -55,7 +55,7 @@ export function BoardPage(props: BoardPageProps) {
             errorElement={<DefaultAwaitErrorElement />}
           >
             {statuses.allStatuses.map((each) => (
-              <StatusColumn status={each} key={each.id} />
+              <StatusColumn orgId={params.orgId} status={each} key={each.id} />
             ))}
           </Await>
         </Suspense>
