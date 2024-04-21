@@ -37,6 +37,7 @@ export function TaskTitle(props: TaskTitleProps) {
     >
       <TextInput
         classNames={titleInputClassNames}
+        // FIXME: Avoid calling the api when reset this way
         onBlur={() => form.reset()}
         variant="transparent"
         placeholder="Title"
