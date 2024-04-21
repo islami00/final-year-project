@@ -1,7 +1,7 @@
 import BoardModel, { type Board, type BoardApi } from './Board.model';
 import Converter from './Converter.model';
 import DepartmentModel, { Department, DepartmentApi } from './Department.model';
-
+// Todo: Add validation
 export interface DepartmentWithBoardApi extends DepartmentApi {
   // Undefined if no depts
   expand?: {
