@@ -12,7 +12,7 @@ import { type BoardIdParams } from '../../routes/app.$orgId.boards.$boardId/util
 import { routeConfig } from '../../utils/routeConfig';
 import { ModuleAddButton } from '../DepartmentPage/components/buttons/ModuleAddButton';
 import { RemoveButton } from '../DepartmentPage/components/buttons/RemoveButton';
-import { BoardPageError } from './BoardPage.error';
+import { DefaultAwaitErrorElement } from '../../components/errors/DefaultAwaitErrorElement';
 import { BoardPageLoading } from './BoardPage.loading';
 import { StatusColumn } from './components/StatusColumn/StatusColumn';
 
@@ -50,7 +50,10 @@ export function BoardPage(props: BoardPageProps) {
       />
       <ModuleLayout.Content>
         <Suspense fallback={<BoardPageLoading />}>
-          <Await resolve={statusQueries} errorElement={<BoardPageError />}>
+          <Await
+            resolve={statusQueries}
+            errorElement={<DefaultAwaitErrorElement />}
+          >
             {statuses.allStatuses.map((each) => (
               <StatusColumn status={each} key={each.id} />
             ))}

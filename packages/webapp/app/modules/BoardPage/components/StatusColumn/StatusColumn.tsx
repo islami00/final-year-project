@@ -4,8 +4,8 @@ import { P } from '../../../../components/P/P';
 import { Status } from '../../../../models/Status.model';
 import * as classes from './StatusColumn.styles';
 import { defineStatusColVars } from './StatusColumn.utils';
-import { StatusColumnQueryLoading } from './StatusColumnQuery.loading';
-import { StatusColumnQueryError } from './StatusColumnQuery.error';
+import { StatusColumnQueryLoading } from './StatusColumn.loading';
+import { ReactErrorBoundaryFallback } from '../../../../components/errors/ReactErrorBoundaryFallback';
 import { StatusColumnRaw } from './StatusColumn.raw';
 export interface StatusColumnProps {
   status: Status;
@@ -21,7 +21,7 @@ export function StatusColumn(props: StatusColumnProps) {
         {status.name}
       </P>
 
-      <ErrorBoundary FallbackComponent={StatusColumnQueryError}>
+      <ErrorBoundary FallbackComponent={ReactErrorBoundaryFallback}>
         <Suspense fallback={<StatusColumnQueryLoading />}>
           <StatusColumnRaw statusId={status.id} />
         </Suspense>
