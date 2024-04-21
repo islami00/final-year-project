@@ -1,5 +1,5 @@
 import { Operators, parseFilters } from '../../../utils/Filter';
-import { pagination } from '../../../utils/constants';
+import { paginationConsts } from '../../../utils/constants';
 import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
 import TaskModel, { TaskApi } from '../../../models/Task.model';
@@ -31,7 +31,7 @@ export async function getTasksByStatus(args: GetTasksByStatusArgs) {
 
   const tasks = await pb
     .collection<TaskApi>(collections.task)
-    .getList(page, pagination.pageSize, {
+    .getList(page, paginationConsts.pageSize, {
       filter: pb.filter(filters.template, filters.params),
     })
     .catch(forwardError(parseClientResponseError));

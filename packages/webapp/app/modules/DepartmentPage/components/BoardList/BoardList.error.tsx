@@ -1,9 +1,5 @@
-import { Center } from '@tma/design-system';
+import { ErrorLayout } from '../../../../components/ErrorLayout/ErrorLayout';
 
 export function BoardListError() {
-  return (
-    <Center textStyle="smSemiBold" w="100%" h="100%">
-      Error Loading Boards
-    </Center>
-  );
+  return <ErrorLayout>Error Loading Boards</ErrorLayout>;
 }

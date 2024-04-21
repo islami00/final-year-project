@@ -66,7 +66,7 @@ export default function BoardTaskCreateRoute() {
 
   const rawParams = useParams();
   // If this isn't defined, it's likely a dev error.
-  const params = useMemo(() => boardIdSchema.cast(rawParams), [rawParams]);
+  const params = useMemo(() => boardIdSchema.parse(rawParams), [rawParams]);
   const { statuses } = useRouteLoaderDataOrThrow<BoardIdLoaderData>(
     routeConfig.board.routeId
   );

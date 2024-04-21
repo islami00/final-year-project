@@ -63,6 +63,9 @@ importers:
       '@tabler/icons-react':
         specifier: ^3.1.0
         version: 3.2.0(react@18.3.0-canary-a870b2d54-20240314)
+      '@tanstack/react-query':
+        specifier: ^5.29.2
+        version: 5.29.2(react@18.3.0-canary-a870b2d54-20240314)
       '@tiptap/extension-highlight':
         specifier: ^2.3.0
         version: 2.3.0(@tiptap/core@2.3.0)
@@ -114,6 +117,9 @@ importers:
       react-dom:
         specifier: 18.3.0-canary-a870b2d54-20240314
         version: 18.3.0-canary-a870b2d54-20240314(react@18.3.0-canary-a870b2d54-20240314)
+      react-error-boundary:
+        specifier: ^4.0.13
+        version: 4.0.13(react@18.3.0-canary-a870b2d54-20240314)
       react-hot-toast:
         specifier: ^2.4.1
         version: 2.4.1(csstype@3.1.3)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
@@ -187,6 +193,9 @@ importers:
       '@swc/helpers':
         specifier: ~0.5.2
         version: 0.5.9
+      '@tanstack/eslint-plugin-query':
+        specifier: ^5.28.11
+        version: 5.28.11(eslint@8.48.0)(typescript@5.3.3)
       '@types/node':
         specifier: 18.16.9
         version: 18.16.9
@@ -3914,6 +3923,31 @@ packages:
 
   /@tabler/icons@3.2.0:
     resolution: {integrity: sha512-h8GQ2rtxgiSjltrVz4vcopAxTPSpUSUi5nBfJ09H3Bk4fJk6wZ/dVUjzhv/BHfDwGTkAxZBiYe/Q/T95cPeg5Q==}
+    dev: false
+
+  /@tanstack/eslint-plugin-query@5.28.11(eslint@8.48.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-bODGLeG4WCGmHVKCh3bH1KLfq7xdi1jsRjTESV6ifCw1mZ0m2fBMxAjK42KjbhJwcvNdTlYHI+YY/aZWBk4Niw==}
+    peerDependencies:
+      eslint: ^8.0.0
+    dependencies:
+      '@typescript-eslint/utils': 6.21.0(eslint@8.48.0)(typescript@5.3.3)
+      eslint: 8.48.0
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: true
+
+  /@tanstack/query-core@5.29.0:
+    resolution: {integrity: sha512-WgPTRs58hm9CMzEr5jpISe8HXa3qKQ8CxewdYZeVnA54JrPY9B1CZiwsCoLpLkf0dGRZq+LcX5OiJb0bEsOFww==}
+    dev: false
+
+  /@tanstack/react-query@5.29.2(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-nyuWILR4u7H5moLGSiifLh8kIqQDLNOHGuSz0rcp+J75fNc8aQLyr5+I2JCHU3n+nJrTTW1ssgAD8HiKD7IFBQ==}
+    peerDependencies:
+      react: 18.3.0-canary-a870b2d54-20240314
+    dependencies:
+      '@tanstack/query-core': 5.29.0
+      react: 18.3.0-canary-a870b2d54-20240314
     dev: false
 
   /@testing-library/dom@8.20.1:
@@ -10578,6 +10612,15 @@ packages:
     dependencies:
       react: 18.3.0-canary-a870b2d54-20240314
       scheduler: 0.24.0-canary-a870b2d54-20240314
+    dev: false
+
+  /react-error-boundary@4.0.13(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-b6PwbdSv8XeOSYvjt8LpgpKrZ0yGdtZokYwkwV2wlcZbxgopHX/hgPl5VgpnoVOWd868n1hktM8Qm4b+02MiLQ==}
+    peerDependencies:
+      react: 18.3.0-canary-a870b2d54-20240314
+    dependencies:
+      '@babel/runtime': 7.24.4
+      react: 18.3.0-canary-a870b2d54-20240314
     dev: false
 
   /react-hot-toast@2.4.1(csstype@3.1.3)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314):
