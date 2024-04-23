@@ -16,14 +16,14 @@ importers:
   .:
     dependencies:
       '@conform-to/dom':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.1.1
+        version: 1.1.1
       '@conform-to/react':
         specifier: ^1.1.0
         version: 1.1.0(react@18.3.0-canary-a870b2d54-20240314)
       '@conform-to/yup':
         specifier: ^1.1.0
-        version: 1.1.0(@conform-to/dom@1.1.0)(yup@1.4.0)
+        version: 1.1.0(@conform-to/dom@1.1.1)(yup@1.4.0)
       '@conform-to/zod':
         specifier: ^1.1.0
         version: 1.1.0(zod@3.22.4)
@@ -1623,6 +1623,10 @@ packages:
     resolution: {integrity: sha512-KtiGwke6qeh8xDMwebbT/EanxhVX40uZtyHr8VH2V8jBHwavy94V673F4YdlhHpXoqRcZcewie/GQ7tIi2mC/A==}
     dev: false
 
+  /@conform-to/dom@1.1.1:
+    resolution: {integrity: sha512-6IiHuHjW12cZZ6DICiewZEYW8R3Kif90RDa5GOdyifvNF5ISQvy+sXakZlVoliPR3xRYMdOq8TCuwBwBca1+DQ==}
+    dev: false
+
   /@conform-to/react@1.1.0(react@18.3.0-canary-a870b2d54-20240314):
     resolution: {integrity: sha512-zEgesgfllN29SdVZhlm3CGIufQm/gkFia7QMrKX/fH4L+iYgQ7n1LVgu+3Jxr4jXE8wW5YDbemwo1cqhE++xZg==}
     peerDependencies:
@@ -1632,13 +1636,13 @@ packages:
       react: 18.3.0-canary-a870b2d54-20240314
     dev: false
 
-  /@conform-to/yup@1.1.0(@conform-to/dom@1.1.0)(yup@1.4.0):
+  /@conform-to/yup@1.1.0(@conform-to/dom@1.1.1)(yup@1.4.0):
     resolution: {integrity: sha512-8WfHCcKd9k7solRQFTI12UWNI1CdmHowv+tdMWBUMdIREWS5NfJMGJ1bUA2GqUXICM4KK+Xh4xNhkURiso/FCw==}
     peerDependencies:
       '@conform-to/dom': 1.1.0
       yup: '>=0.32.0'
     dependencies:
-      '@conform-to/dom': 1.1.0
+      '@conform-to/dom': 1.1.1
       yup: 1.4.0
     dev: false
 

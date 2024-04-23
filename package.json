@@ -45,7 +45,7 @@
     "vite": "^5.1.6"
   },
   "dependencies": {
-    "@conform-to/dom": "^1.1.0",
+    "@conform-to/dom": "^1.1.1",
     "@conform-to/react": "^1.1.0",
     "@conform-to/yup": "^1.1.0",
     "@conform-to/zod": "^1.1.0",
