@@ -10,7 +10,7 @@ export type SearchProps = Omit<TextInputProps, 'defaultValue'>;
 export function Search(props: SearchProps) {
   const [search, setSearch] = useSearchParams();
 
-  const currentSearch = search.get('q');
+  const currentSearch = search.get(specialFields.q);
   const onReset = () => {
     setSearch((prev) => {
       const newSearch = new URLSearchParams(prev);
