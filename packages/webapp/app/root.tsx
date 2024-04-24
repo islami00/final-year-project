@@ -12,9 +12,13 @@ import {
   ScrollRestoration,
 } from '@remix-run/react';
 import { MantineProvider, ColorSchemeScript, Paper } from '@mantine/core';
-import { WatchState } from './modules/Auth/components/WatchState/WatchState';
+import { WatchAuthState } from './modules/Auth/components/WatchAuthState/WatchAuthState';
 import { appThemeOverride } from './styles/mantine/appThemeOverride';
 import fontStyleSheetUrl from '@fontsource-variable/open-sans/index.css?url';
+import NiceModal from '@ebay/nice-modal-react';
+import { AutoCloseModals } from './components/AutoCloseModals/AutoCloseModals';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './utils/queryClient';
 
 export const meta: MetaFunction = () => [
   {
@@ -41,15 +45,20 @@ export default function App() {
         <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body>
-        <MantineProvider theme={appThemeOverride} defaultColorScheme="dark">
-          <Paper w="100dvw" h="100dvh" bg="dark.8">
-            <Outlet />
-          </Paper>
-          <ScrollRestoration />
-          <Scripts />
-          <WatchState />
-          <Toaster />
-        </MantineProvider>
+        <QueryClientProvider client={queryClient}>
+          <MantineProvider theme={appThemeOverride} defaultColorScheme="dark">
+            <NiceModal.Provider>
+              <Paper w="100dvw" h="100dvh" bg="dark.8">
+                <Outlet />
+              </Paper>
+              <ScrollRestoration />
+              <Scripts />
+              <WatchAuthState />
+              <AutoCloseModals />
+              <Toaster />
+            </NiceModal.Provider>
+          </MantineProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );

@@ -1,5 +1,9 @@
 {
-  "extends": ["plugin:playwright/recommended", "../../.eslintrc.json"],
+  "extends": [
+    "plugin:playwright/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
+    "../../.eslintrc.json"
+  ],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {

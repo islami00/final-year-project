@@ -18,6 +18,7 @@ export function AssigneeItem(props: AssigneeItemProps) {
         classNames={classes.avatarClasses}
         data-selected={selected || undefined}
       />
+
       <P textStyle="smSemiBold">{each.name}</P>
     </Combobox.Option>
   );

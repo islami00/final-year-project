@@ -21,6 +21,7 @@ export async function getOrganizationsByUser(
         `${collections.organisation_users}_via_organisationId.userId ?= {:userId}`,
         { userId }
       ),
+      sort: 'created',
     });
   return OrganizationModel.fromArrayApi(record);
 }

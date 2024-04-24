@@ -8,3 +8,7 @@ export { IconTrash } from '@tabler/icons-react';
 export { IconPlus } from '@tabler/icons-react';
 export { IconFlagFilled } from '@tabler/icons-react';
 export { IconCircleFilled } from '@tabler/icons-react';
+export { IconChevronRight } from '@tabler/icons-react';
+export { IconSettings } from '@tabler/icons-react';
+export { IconChevronDown } from '@tabler/icons-react';
+export { IconSearch } from '@tabler/icons-react';

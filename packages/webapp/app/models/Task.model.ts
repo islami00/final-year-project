@@ -44,29 +44,30 @@ export interface Task {
 }
 
 export type TaskDescription = WrappedPBJSONField<JSONContent | null>;
-function normaliseDescription(v: unknown): TaskDescription {
-  const val = v as TaskApi['description'];
-  if (!val) {
-    return { data: val };
-  }
-  return val;
-}
-export const taskDescriptionSchema: ZodOf<TaskDescription> = z.object({
+
+export const taskDescriptionSchema = z.object({
   data: z.record(z.any()).nullable(),
-});
-const taskSchema = z.object({
+}) satisfies ZodOf<TaskDescription>;
+export const taskSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1),
-  dueDate: z.preprocess((v) => v || null, z.coerce.date().nullable()),
-
+  dueDate: z
+    .string()
+    .transform((v) => v || null)
+    .pipe(z.date({ coerce: true }).nullable()),
   isDueDateCompleted: z.boolean(),
   statusId: z.string().min(1),
-  priority: z.preprocess((v) => v || null, z.nativeEnum(Priority).nullable()),
+  priority: z
+    .nativeEnum(Priority)
+    .or(z.literal(''))
+    .transform((v) => v || null),
   sprintPoints: z.number(),
   columnOrder: z.number(),
-  description: z.preprocess(normaliseDescription, taskDescriptionSchema),
+  description: taskDescriptionSchema.or(
+    z.null().transform(() => ({ data: null }))
+  ),
   boardId: z.string(),
-}) satisfies ZodOf<Task>;
+}) satisfies ZodOf<Task, TaskApi>;
 
 class TaskConverter extends Converter<TaskApi, Task> {
   fromApi(from: TaskApi): Promise<Task> {

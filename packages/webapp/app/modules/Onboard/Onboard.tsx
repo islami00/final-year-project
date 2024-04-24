@@ -4,7 +4,7 @@ import {
   type SubmissionResult,
 } from '@conform-to/react';
 import { parseWithYup } from '@conform-to/yup';
-import { Button, Paper, Text, TextInput } from '@mantine/core';
+import { AppShell, Button, Paper, Text, TextInput } from '@mantine/core';
 import { Form, useActionData, useLoaderData } from '@remix-run/react';
 import * as styles from './Onboard.styles';
 import * as onboardForm from './logic/onboardForm';
@@ -25,7 +25,7 @@ export function Onboard() {
   });
 
   return (
-    <styles.Root>
+    <AppShell.Main className={styles.root}>
       <Paper bg="dark.7">
         <div className={styles.header}>
           <Text size="lg" fw="bold" c="white" ff="text">
@@ -59,6 +59,6 @@ export function Onboard() {
           </Button>
         </Form>
       </Paper>
-    </styles.Root>
+    </AppShell.Main>
   );
 }

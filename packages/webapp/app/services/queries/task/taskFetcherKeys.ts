@@ -6,6 +6,8 @@ export const taskFetcherKeys = {
   description: () => `${taskFetcherKeys.all}/description`,
   status: () => `${taskFetcherKeys.all}/status`,
   delete: () => `${taskFetcherKeys.all}/status`,
+  list: () => `${taskFetcherKeys.all}/list`,
+  listByStatus: () => `${taskFetcherKeys.list()}/listByStatus`,
   assignee: (id: string) => `${taskFetcherKeys.all}/assignee/${id}`,
   priorityFilter: (taskId: string) => `${taskFetcherKeys.priority()}/${taskId}`,
   sprintPointsFilter: (taskId: string) =>
@@ -14,4 +16,6 @@ export const taskFetcherKeys = {
     `${taskFetcherKeys.description()}/${taskId}`,
   statusFilter: (taskId: string) => `${taskFetcherKeys.status()}/${taskId}`,
   deleteFilter: (taskId: string) => `${taskFetcherKeys.delete()}/${taskId}`,
+  listByStatusFilter: (statusId: string, page: number) =>
+    `${taskFetcherKeys.listByStatus()}/${statusId}/${page}`,
 };

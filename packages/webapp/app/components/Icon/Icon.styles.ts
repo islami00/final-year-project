@@ -1,7 +1,7 @@
 import { cva, type RecipeVariant } from '@tma/design-system';
 
 export const sizeRecipe = cva({
-  base: { display: 'inline', alignSelf: 'center' },
+  base: { display: 'inline', alignSelf: 'center', flexShrink: 0 },
   variants: {
     strokeWidth: {
       font: { strokeWidth: 1 },
@@ -9,7 +9,7 @@ export const sizeRecipe = cva({
       s24: { strokeWidth: 1.5 },
     },
     size: {
-      font: { width: '1em', height: '1em' },
+      font: { width: 16, height: 16 },
       s16: { width: 16, height: 16 },
       s24: { width: 24, height: 24 },
     },

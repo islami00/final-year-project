@@ -1,4 +1,4 @@
-import { redirect } from '@remix-run/react';
+import { generatePath, redirect, type Params } from '@remix-run/react';
 import { AuthModes } from '../../modules/Auth/Auth.types';
 import { pb } from './setup';
 import { AppError, appErrorCodes } from '../../utils/AppError';
@@ -6,6 +6,7 @@ import UserModel, { User, type UserApi } from '../../models/User.model';
 import type { Organization } from '../../models/Organization.model';
 import { getOrganizationsByUser } from '../queries/organization/getOrganizationsByUser';
 import { logout } from '../queries/auth/logout';
+import { routeConfig } from '../../utils/routeConfig';
 
 export async function requireUser(): Promise<User> {
   if (!pb.authStore.isValid) {
@@ -43,4 +44,22 @@ export async function requireNewbie(userId: string) {
   if (orgs.length > 0) {
     throw redirect('/');
   }
+}
+
+export function requireCurrentOrganisation(
+  organisations: Organization[],
+  params: Params<string>
+) {
+  const currentOrganisation = organisations.find(
+    (each) => each.id === params.orgId
+  );
+  if (!currentOrganisation) {
+    const orgId = organisations[0].id;
+    throw redirect(
+      generatePath(routeConfig.org.param, {
+        orgId: orgId,
+      })
+    );
+  }
+  return currentOrganisation;
 }
