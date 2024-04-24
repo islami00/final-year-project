@@ -19,5 +19,5 @@ function Assignee(props: AssigneeProps) {
 
 export const assigneeRenderer: TaskSectionRenderers = (task) => {
   if (task.assignees.length === 0) return null;
-  return <Assignee  assignees={task.assignees} />;
+  return <Assignee assignees={task.assignees} />;
 };
