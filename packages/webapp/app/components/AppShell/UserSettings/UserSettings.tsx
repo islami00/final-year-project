@@ -8,7 +8,7 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { Button, Modal } from '@mantine/core';
 import { useFetcher } from '@remix-run/react';
 import { Flex, flex } from '@tma/design-system';
-import * as appOrgIdForm from '../../../utils/appOrgIdForm';
+import * as appOrgIdForm from '../../../routes/app.$orgId/form';
 import { Organization } from '../../../models/Organization.model';
 import { User } from '../../../models/User.model';
 import { getLastResultToReset } from '../../../modules/BoardPage/logic/getLastResultToReset';

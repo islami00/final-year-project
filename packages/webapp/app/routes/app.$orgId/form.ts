@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { ZodOf } from '../models/types';
-import type { User } from '../models/User.model';
+import { ZodOf } from '../../models/types';
+import type { User } from '../../models/User.model';
 
 export enum AppOrgIdIntent {
   CREATE_DEPARTMENT = 'appOrgId/create-department',

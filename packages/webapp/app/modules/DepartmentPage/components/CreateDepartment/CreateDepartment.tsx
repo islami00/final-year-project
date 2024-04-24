@@ -7,7 +7,7 @@ import {
 import { parseWithZod } from '@conform-to/zod';
 import { Button, TextInput } from '@mantine/core';
 import { Form, useActionData } from '@remix-run/react';
-import * as appOrgIdForm from '../../../../utils/appOrgIdForm';
+import * as appOrgIdForm from '../../../../routes/app.$orgId/form';
 import { formRoot, submitBtn } from './CreateDepartment.styles';
 import { CreateModal } from '../../../../components/modals/CreateModal/CreateModal';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';

@@ -22,7 +22,7 @@ import { postCreateDepartment } from '../../services/queries/department/postCrea
 import { patchUserById } from '../../services/queries/users/patchUserById';
 import { AppLoaderData } from './types';
 import { catchPostSubmissionError } from '../../utils/Form/catchPostSubmissionError';
-import * as appOrgIdForm from '../../utils/appOrgIdForm';
+import * as appOrgIdForm from './form';
 import { modalIds } from '../../utils/modalIds';
 import { routeConfig } from '../../utils/routeConfig';
 
