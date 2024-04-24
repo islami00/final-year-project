@@ -10,6 +10,8 @@ migrate((db) => {
   collection.createRule = "organisationId ?= @request.auth.organisation_users_via_userId.organisationId"
   collection.updateRule = "organisationId ?= @request.auth.organisation_users_via_userId.organisationId"
 
+  collection.deleteRule = "organisationId ?= @request.auth.organisation_users_via_userId.organisationId"
+
 
   return dao.saveCollection(collection)
 }, (db) => {
@@ -21,6 +23,8 @@ migrate((db) => {
 
   collection.createRule = null
   collection.updateRule = null
+
+  collection.deleteRule = null
 
   return dao.saveCollection(collection)
 })
