@@ -16,17 +16,17 @@ importers:
   .:
     dependencies:
       '@conform-to/dom':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.1.2
+        version: 1.1.2
       '@conform-to/react':
-        specifier: ^1.1.0
-        version: 1.1.0(react@18.3.0-canary-a870b2d54-20240314)
+        specifier: ^1.1.2
+        version: 1.1.2(react@18.3.0-canary-a870b2d54-20240314)
       '@conform-to/yup':
-        specifier: ^1.1.0
-        version: 1.1.0(@conform-to/dom@1.1.0)(yup@1.4.0)
+        specifier: ^1.1.2
+        version: 1.1.2(@conform-to/dom@1.1.2)(yup@1.4.0)
       '@conform-to/zod':
-        specifier: ^1.1.0
-        version: 1.1.0(zod@3.22.4)
+        specifier: ^1.1.2
+        version: 1.1.2(zod@3.22.4)
       '@ebay/nice-modal-react':
         specifier: ^1.2.13
         version: 1.2.13(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
@@ -1631,35 +1631,35 @@ packages:
     bundledDependencies:
       - is-unicode-supported
 
-  /@conform-to/dom@1.1.0:
-    resolution: {integrity: sha512-KtiGwke6qeh8xDMwebbT/EanxhVX40uZtyHr8VH2V8jBHwavy94V673F4YdlhHpXoqRcZcewie/GQ7tIi2mC/A==}
+  /@conform-to/dom@1.1.2:
+    resolution: {integrity: sha512-UFe1E++9vCU/mfGPwvXUnzWUNI16JRh5IM21iMSRFOkx9XkR1W/ozA36h8hVcCDKZiDXl6tjvzPmobIQ4usoFQ==}
     dev: false
 
-  /@conform-to/react@1.1.0(react@18.3.0-canary-a870b2d54-20240314):
-    resolution: {integrity: sha512-zEgesgfllN29SdVZhlm3CGIufQm/gkFia7QMrKX/fH4L+iYgQ7n1LVgu+3Jxr4jXE8wW5YDbemwo1cqhE++xZg==}
+  /@conform-to/react@1.1.2(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-iM5weQt80swLds3oLeErcxi9EgAn4z4RPvqQBV1Z4kUqOX8zOQZiH9w5YXyutKuHV3GF823Qq31KLhmqSEZVNg==}
     peerDependencies:
       react: 18.3.0-canary-a870b2d54-20240314
     dependencies:
-      '@conform-to/dom': 1.1.0
+      '@conform-to/dom': 1.1.2
       react: 18.3.0-canary-a870b2d54-20240314
     dev: false
 
-  /@conform-to/yup@1.1.0(@conform-to/dom@1.1.0)(yup@1.4.0):
-    resolution: {integrity: sha512-8WfHCcKd9k7solRQFTI12UWNI1CdmHowv+tdMWBUMdIREWS5NfJMGJ1bUA2GqUXICM4KK+Xh4xNhkURiso/FCw==}
+  /@conform-to/yup@1.1.2(@conform-to/dom@1.1.2)(yup@1.4.0):
+    resolution: {integrity: sha512-J96bzBRKNTSMwoGtQvvqjmVdiSnY/287FT+IHqetRpLx45B5XB6jYUq7veXYm2zY5lkqfnQjEJz4ioHHQJGZfQ==}
     peerDependencies:
-      '@conform-to/dom': 1.1.0
+      '@conform-to/dom': 1.1.2
       yup: '>=0.32.0'
     dependencies:
-      '@conform-to/dom': 1.1.0
+      '@conform-to/dom': 1.1.2
       yup: 1.4.0
     dev: false
 
-  /@conform-to/zod@1.1.0(zod@3.22.4):
-    resolution: {integrity: sha512-0ukglFJ1gknFf81j9zB/mZq68fhhSu0s2bxZIkBqPocdGBA6LvHnV7ORyE+27WUNyJ36L2sjksNXVm9SDSUexw==}
+  /@conform-to/zod@1.1.2(zod@3.22.4):
+    resolution: {integrity: sha512-0kNZHSUv+CT93hkU2XSsPx52e1JNNIo38SV3k8t9IOaW/+npueMMDrrUCl2nt2agbjtIzor8axEeZH7wfq3z2w==}
     peerDependencies:
       zod: ^3.21.0
     dependencies:
-      '@conform-to/dom': 1.1.0
+      '@conform-to/dom': 1.1.2
       zod: 3.22.4
     dev: false
 
