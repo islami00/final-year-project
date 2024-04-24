@@ -1,4 +1,4 @@
-import { useAutoCloseModals } from '../../hooks/useAutoCloseModals';
+import { useAutoCloseModals } from './useAutoCloseModals';
 
 export function AutoCloseModals() {
   useAutoCloseModals();

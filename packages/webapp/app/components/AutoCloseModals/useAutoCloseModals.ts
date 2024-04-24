@@ -10,7 +10,7 @@ import { useContext, useEffect } from 'react';
  * - Thus, auto-closing these when the route changes is valid ux.
  */
 export function useAutoCloseModals() {
-  const location = useLocation(); // react-router-dom v5 API
+  const location = useLocation();
 
   const niceModalContext = useContext(NiceModal.NiceModalContext);
 
