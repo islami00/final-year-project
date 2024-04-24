@@ -22,8 +22,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(react@18.3.0-canary-a870b2d54-20240314)
       '@conform-to/yup':
-        specifier: ^1.1.0
-        version: 1.1.0(@conform-to/dom@1.1.0)(yup@1.4.0)
+        specifier: ^1.1.1
+        version: 1.1.1(@conform-to/dom@1.1.0)(yup@1.4.0)
       '@conform-to/zod':
         specifier: ^1.1.0
         version: 1.1.0(zod@3.22.4)
@@ -1644,10 +1644,10 @@ packages:
       react: 18.3.0-canary-a870b2d54-20240314
     dev: false
 
-  /@conform-to/yup@1.1.0(@conform-to/dom@1.1.0)(yup@1.4.0):
-    resolution: {integrity: sha512-8WfHCcKd9k7solRQFTI12UWNI1CdmHowv+tdMWBUMdIREWS5NfJMGJ1bUA2GqUXICM4KK+Xh4xNhkURiso/FCw==}
+  /@conform-to/yup@1.1.1(@conform-to/dom@1.1.0)(yup@1.4.0):
+    resolution: {integrity: sha512-sIrTEPLx4fjYMOc2M+pkcC6UjsAEgKRWTxtjj5Pu11tBuguf+xTeKLaurhk1GGKT+Sgs1jy9UxDysTnZs40l4Q==}
     peerDependencies:
-      '@conform-to/dom': 1.1.0
+      '@conform-to/dom': 1.1.1
       yup: '>=0.32.0'
     dependencies:
       '@conform-to/dom': 1.1.0
