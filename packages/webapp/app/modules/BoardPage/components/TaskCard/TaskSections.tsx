@@ -12,7 +12,7 @@ export interface TaskSectionsProps {
 
 export function TaskSections(props: TaskSectionsProps) {
   const { task, children } = props;
-  const mapped = mapDefined(Object.entries(children), (entry) => {
+  const mapped = mapDefined(children, (entry) => {
     const [key, value] = entry;
     const res = value(task);
     if (!isNonNullable(res)) return undefined;

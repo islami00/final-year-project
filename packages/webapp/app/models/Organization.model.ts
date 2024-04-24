@@ -13,12 +13,12 @@ export interface OrganizationCreate {
   name: string;
   ownerId: string;
 }
-const organizationSchema: ZodOf<Organization> = z.object({
+const organizationSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
   ownerId: z.string().min(1),
   logo: z.string(),
-});
+}) satisfies ZodOf<Organization>;
 class OrganizationConverter extends Converter<OrganizationApi, Organization> {
   async fromApi(from: OrganizationApi): Promise<Organization> {
     const result = await organizationSchema.parseAsync(from);

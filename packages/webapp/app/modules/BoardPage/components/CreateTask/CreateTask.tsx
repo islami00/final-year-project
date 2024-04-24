@@ -10,6 +10,7 @@ import { Form, useActionData } from '@remix-run/react';
 import { CreateModal } from '../../../../components/modals/CreateModal/CreateModal';
 import * as createTaskForm from '../../logic/createTaskForm';
 import { formRoot, submitBtn } from './CreateTask.styles';
+import { hiddenInputs } from '../../../../utils/Form/hiddenInputs';
 
 interface CreateTaskProps {
   onClose: VoidFunction;
@@ -39,22 +40,10 @@ export function CreateTask(props: CreateTaskProps) {
           {...getInputProps(fields.title, { type: 'text' })}
           key={fields.title.key}
         />
-        <input
-          {...getInputProps(fields.boardId, {
-            type: 'hidden',
-            value: false,
-          })}
-          value={boardId}
-          key={fields.boardId.key}
-        />
-        <input
-          {...getInputProps(fields.statusId, {
-            type: 'hidden',
-            value: false,
-          })}
-          value={defaultStatusId}
-          key={fields.statusId.key}
-        />
+        {hiddenInputs([
+          { field: fields.boardId, value: boardId },
+          { field: fields.statusId, value: defaultStatusId },
+        ])}
 
         <Button size="xs" type="submit" className={submitBtn}>
           Submit

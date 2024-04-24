@@ -5,16 +5,17 @@ import {
   useForm,
 } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
+import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { Button, TextInput } from '@mantine/core';
 import { Form, useActionData } from '@remix-run/react';
+import { hiddenInputs } from '../../../../utils/Form/hiddenInputs';
+import { CreateModal } from '../../../../components/modals/CreateModal/CreateModal';
 import * as departmentIdForm from '../../logic/departmentIdForm';
+import { useIsNavigatingTo } from '../../logic/useIsNavigatingTo';
 import {
   formRoot,
   submitBtn,
 } from '../CreateDepartment/CreateDepartment.styles';
-import { CreateModal } from '../../../../components/modals/CreateModal/CreateModal';
-import NiceModal, { useModal } from '@ebay/nice-modal-react';
-import { useIsNavigatingTo } from '../../logic/useIsNavigatingTo';
 
 interface CreateBoardProps {
   deptId: string;
@@ -49,21 +50,10 @@ function CreateBoardModal(props: CreateBoardProps) {
           error={fields.name.errors?.join()}
           key={fields.name.key}
         />
-        <input
-          {...getInputProps(fields.deptId, {
-            type: 'hidden',
-            value: false,
-          })}
-          value={deptId}
-          key={fields.deptId.key}
-        />
-        <input
-          {...getInputProps(fields.intent, {
-            type: 'hidden',
-          })}
-          key={fields.intent.key}
-        />
-
+        {hiddenInputs([
+          { field: fields.deptId, value: deptId },
+          { field: fields.intent },
+        ])}
         <Button
           disabled={maybeNavigation?.state !== 'idle'}
           size="xs"
