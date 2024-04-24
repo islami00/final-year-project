@@ -25,8 +25,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(@conform-to/dom@1.1.0)(yup@1.4.0)
       '@conform-to/zod':
-        specifier: ^1.1.0
-        version: 1.1.0(zod@3.22.4)
+        specifier: ^1.1.1
+        version: 1.1.1(zod@3.22.4)
       '@ebay/nice-modal-react':
         specifier: ^1.2.13
         version: 1.2.13(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
@@ -1635,6 +1635,10 @@ packages:
     resolution: {integrity: sha512-KtiGwke6qeh8xDMwebbT/EanxhVX40uZtyHr8VH2V8jBHwavy94V673F4YdlhHpXoqRcZcewie/GQ7tIi2mC/A==}
     dev: false
 
+  /@conform-to/dom@1.1.1:
+    resolution: {integrity: sha512-6IiHuHjW12cZZ6DICiewZEYW8R3Kif90RDa5GOdyifvNF5ISQvy+sXakZlVoliPR3xRYMdOq8TCuwBwBca1+DQ==}
+    dev: false
+
   /@conform-to/react@1.1.0(react@18.3.0-canary-a870b2d54-20240314):
     resolution: {integrity: sha512-zEgesgfllN29SdVZhlm3CGIufQm/gkFia7QMrKX/fH4L+iYgQ7n1LVgu+3Jxr4jXE8wW5YDbemwo1cqhE++xZg==}
     peerDependencies:
@@ -1654,12 +1658,12 @@ packages:
       yup: 1.4.0
     dev: false
 
-  /@conform-to/zod@1.1.0(zod@3.22.4):
-    resolution: {integrity: sha512-0ukglFJ1gknFf81j9zB/mZq68fhhSu0s2bxZIkBqPocdGBA6LvHnV7ORyE+27WUNyJ36L2sjksNXVm9SDSUexw==}
+  /@conform-to/zod@1.1.1(zod@3.22.4):
+    resolution: {integrity: sha512-IvGNKmpxsdJC2oHTpQxknJqLSPpTSruL8we+9fti1AQX2XPki7dugVcaudrtTpErxzik6naOcohAAzGp/3Q80w==}
     peerDependencies:
       zod: ^3.21.0
     dependencies:
-      '@conform-to/dom': 1.1.0
+      '@conform-to/dom': 1.1.1
       zod: 3.22.4
     dev: false
 
