@@ -11,7 +11,7 @@ import { Form, useActionData } from '@remix-run/react';
 import { hiddenInputs } from '../../../../utils/Form/hiddenInputs';
 import { CreateModal } from '../../../../components/modals/CreateModal/CreateModal';
 import * as departmentIdForm from '../../logic/departmentIdForm';
-import { useIsNavigatingTo } from '../../logic/useIsNavigatingTo';
+import { useIsNavigatingTo } from '../../../../hooks/useIsNavigatingTo';
 import {
   formRoot,
   submitBtn,

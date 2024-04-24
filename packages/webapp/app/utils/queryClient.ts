@@ -1,5 +1,6 @@
 import { QueryClient } from '@tanstack/react-query';
 
+// Todo: Move this to a factory that returns the same thing for client, else a different one each time for server.
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

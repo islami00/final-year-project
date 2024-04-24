@@ -1,5 +1,5 @@
 import { useNavigation, type Navigation } from '@remix-run/react';
-import { specialFields } from '../../../utils/Form/specialFields';
+import { specialFields } from '../utils/Form/specialFields';
 
 export function useIsNavigatingTo(intent: string): Navigation | null {
   const navigation = useNavigation();

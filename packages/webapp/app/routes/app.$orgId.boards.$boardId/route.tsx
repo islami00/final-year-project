@@ -18,10 +18,9 @@ import { useMemo } from 'react';
 import { boardIdSchema } from './utils';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
-  const { params } = args;
   const user = await requireUser();
   await requireOrganizations(user.id);
-  const boardId = params.boardId as string;
+  const { boardId } = await boardIdSchema.parseAsync(args.params);
   const statuses = await getStatusByBoardId({
     boardId,
   });
