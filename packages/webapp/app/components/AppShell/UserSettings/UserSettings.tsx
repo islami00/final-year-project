@@ -1,17 +1,13 @@
-import {
-  SubmissionResult,
-  getFormProps,
-  getInputProps,
-  useForm,
-} from '@conform-to/react';
+import { SubmissionResult, getFormProps, useForm } from '@conform-to/react';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { Button, Modal } from '@mantine/core';
 import { useFetcher } from '@remix-run/react';
 import { Flex, flex } from '@tma/design-system';
-import * as appOrgIdForm from '../../../routes/app.$orgId/form';
 import { Organization } from '../../../models/Organization.model';
 import { User } from '../../../models/User.model';
 import { getLastResultToReset } from '../../../modules/BoardPage/logic/getLastResultToReset';
+import * as appOrgIdForm from '../../../routes/app.$orgId/form';
+import { hiddenInputs } from '../../../utils/Form/hiddenInputs';
 import { TMAModal } from '../../TMAModal';
 import { DashboardOrganisationSelect } from './DashboardOrganisationSelect';
 
@@ -41,15 +37,10 @@ function UserSettingsModal(props: UserSettingsModalProps) {
             field={field.dashboardOrganisation}
             organisations={organisations}
           />
-          <input
-            {...getInputProps(field.userId, { value: false, type: 'hidden' })}
-            value={user.id}
-            key={field.userId.key}
-          />
-          <input
-            {...getInputProps(field.intent, { type: 'hidden' })}
-            key={field.intent.key}
-          />
+          {hiddenInputs([
+            { field: field.userId, value: user.id },
+            { field: field.intent },
+          ])}
           <Flex justifyContent="flex-end">
             <Button type="submit" loading={fetcher.state !== 'idle'} size="xs">
               Save

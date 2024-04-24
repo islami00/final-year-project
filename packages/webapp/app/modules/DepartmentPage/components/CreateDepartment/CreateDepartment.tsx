@@ -11,6 +11,7 @@ import * as appOrgIdForm from '../../../../routes/app.$orgId/form';
 import { formRoot, submitBtn } from './CreateDepartment.styles';
 import { CreateModal } from '../../../../components/modals/CreateModal/CreateModal';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
+import { hiddenInputs } from '../../../../utils/Form/hiddenInputs';
 
 interface CreateDepartmentProps {
   organisationId: string;
@@ -40,20 +41,10 @@ function CreateDepartmentModal(props: CreateDepartmentProps) {
           {...getInputProps(fields.name, { type: 'text' })}
           key={fields.name.key}
         />
-        <input
-          {...getInputProps(fields.organisationId, {
-            type: 'hidden',
-            value: false,
-          })}
-          value={organisationId}
-          key={fields.organisationId.key}
-        />
-        <input
-          {...getInputProps(fields.intent, {
-            type: 'hidden',
-          })}
-          key={fields.intent.key}
-        />
+        {hiddenInputs([
+          { field: fields.organisationId, value: organisationId },
+          { field: fields.intent },
+        ])}
 
         <Button size="xs" type="submit" className={submitBtn}>
           Submit
