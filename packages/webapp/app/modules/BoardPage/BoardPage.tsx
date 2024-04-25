@@ -15,6 +15,10 @@ import { RemoveButton } from '../DepartmentPage/components/buttons/RemoveButton'
 import { DefaultAwaitErrorElement } from '../../components/errors/DefaultAwaitErrorElement';
 import { BoardPageLoading } from './BoardPage.loading';
 import { StatusColumn } from './components/StatusColumn/StatusColumn';
+import NiceModal from '@ebay/nice-modal-react';
+import { modalIds } from '../../utils/modalIds';
+import { DeleteBoard } from './components/DeleteBoard';
+import { BoardTitleInput } from './components/inputs/BoardTitleInput';
 
 interface BoardPageProps {
   params: BoardIdParams;
@@ -25,10 +29,11 @@ export function BoardPage(props: BoardPageProps) {
 
   const data = useLoaderData<BoardIdLoader>();
   const { statusQueries, statuses, board } = data;
+
   return (
     <ModuleLayout.Main>
       <ModuleLayout.Toolbar
-        title={<div />}
+        title={<BoardTitleInput defaultValue={board.name} id={board.id} />}
         actions={
           <>
             <ModuleAddButton
@@ -44,7 +49,9 @@ export function BoardPage(props: BoardPageProps) {
               Add a Task
             </ModuleAddButton>
             <Search placeholder="Search Tasks" />
-            <RemoveButton />
+            <RemoveButton
+              onClick={() => NiceModal.show(modalIds.deleteBoard)}
+            />
           </>
         }
       />
@@ -60,6 +67,7 @@ export function BoardPage(props: BoardPageProps) {
           </Await>
         </Suspense>
       </ModuleLayout.Content>
+      <DeleteBoard id={modalIds.deleteBoard} boardId={params.boardId} />
     </ModuleLayout.Main>
   );
 }
