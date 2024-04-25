@@ -23,6 +23,7 @@ import { parseWithZod } from '@conform-to/zod';
 import * as boardIdForm from './form';
 import { deleteBoard } from '../../services/queries/board/deleteBoard';
 import { catchPostSubmissionError } from '../../utils/Form/catchPostSubmissionError';
+import { patchBoardById } from '../../services/queries/board/patchBoardById';
 
 export async function clientAction(args: ClientActionFunctionArgs) {
   const { request } = args;
@@ -39,7 +40,9 @@ export async function clientAction(args: ClientActionFunctionArgs) {
       case boardIdForm.BoardIdFormIntent.DELETE_BOARD:
         await deleteBoard({ boardId: value.boardId });
         return redirect('../');
-
+      case boardIdForm.BoardIdFormIntent.NAME:
+        await patchBoardById({ body: { name: value.name }, id: value.id });
+        break;
       default:
         break;
     }
