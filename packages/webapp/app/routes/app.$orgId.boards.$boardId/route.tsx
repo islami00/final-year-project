@@ -3,6 +3,9 @@ import {
   defer,
   useParams,
   type ClientLoaderFunctionArgs,
+  type ClientActionFunctionArgs,
+  json,
+  redirect,
 } from '@remix-run/react';
 import { BoardPage } from '../../modules/BoardPage/BoardPage';
 import {
@@ -16,6 +19,35 @@ import { queryClient } from '../../utils/queryClient';
 import { type BoardIdLoaderData } from './types';
 import { useMemo } from 'react';
 import { boardIdSchema } from './utils';
+import { parseWithZod } from '@conform-to/zod';
+import * as boardIdForm from './form';
+import { deleteBoard } from '../../services/queries/board/deleteBoard';
+import { catchPostSubmissionError } from '../../utils/Form/catchPostSubmissionError';
+
+export async function clientAction(args: ClientActionFunctionArgs) {
+  const { request } = args;
+  const formData = await request.formData();
+  const submission = parseWithZod(formData, {
+    schema: boardIdForm.schema,
+  });
+  if (submission.status !== 'success') {
+    return json(submission.reply());
+  }
+  const { value } = submission;
+  try {
+    switch (value.intent) {
+      case boardIdForm.BoardIdFormIntent.DELETE_BOARD:
+        await deleteBoard({ boardId: value.boardId });
+        return redirect('../');
+
+      default:
+        break;
+    }
+    return json(submission.reply({ resetForm: true }));
+  } catch (error) {
+    return catchPostSubmissionError(error, submission);
+  }
+}
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const user = await requireUser();
