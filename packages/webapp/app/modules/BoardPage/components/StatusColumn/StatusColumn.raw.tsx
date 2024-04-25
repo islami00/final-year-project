@@ -6,6 +6,8 @@ import { combinePages } from '../../../../utils/combinePages';
 import { ScrollArea } from '@mantine/core';
 import * as classes from './StatusColumn.styles';
 import { TaskCard } from '../TaskCard/TaskCard';
+import { useSearchParams } from '@remix-run/react';
+import { specialFields } from '../../../../utils/Form/specialFields';
 export interface StatusColumnRawProps {
   statusId: string;
   orgId: string;
@@ -13,8 +15,10 @@ export interface StatusColumnRawProps {
 
 export function StatusColumnRaw(props: StatusColumnRawProps) {
   const { statusId, orgId } = props;
+
+  const [search] = useSearchParams();
   const query = useSuspenseInfiniteQuery(
-    taskQueries.listByStatusFilter(statusId)
+    taskQueries.listByStatusFilter({ statusId, q: search.get(specialFields.q) })
   );
 
   const container = useRef<HTMLDivElement | null>(null);

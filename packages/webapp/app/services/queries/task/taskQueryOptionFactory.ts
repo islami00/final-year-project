@@ -1,14 +1,23 @@
 import { infiniteQueryOptions } from '@tanstack/react-query';
 import { getTasksByStatus } from './getTasksByStatus';
 import { paginationConsts } from '../../../utils/constants';
+interface ListByStatusArgs {
+  statusId: string;
+  q: string | null;
+}
+
 export const taskQueries = {
   all: ['all'] as const,
   listByStatus: () => [...taskQueries.all, 'list-by-status'],
-  listByStatusFilter: (statusId: string) =>
+  listByStatusFilter: (args: ListByStatusArgs) =>
     infiniteQueryOptions({
-      queryKey: [...taskQueries.listByStatus(), statusId],
+      queryKey: [...taskQueries.listByStatus(), args],
       queryFn: ({ pageParam }) =>
-        getTasksByStatus({ statusId, page: pageParam }),
+        getTasksByStatus({
+          statusId: args.statusId,
+          page: pageParam,
+          q: args.q,
+        }),
       initialPageParam: paginationConsts.defaultPage,
       getNextPageParam: (lastPage) => {
         if (lastPage.totalPages === paginationConsts.noPages) return null;

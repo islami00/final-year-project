@@ -13,7 +13,7 @@ import { pb } from '../../pocketbase/setup';
 interface GetTasksByStatusArgs {
   statusId: string;
   page: number;
-  q?: string;
+  q?: string | null;
 }
 export async function getTasksByStatus(
   args: GetTasksByStatusArgs

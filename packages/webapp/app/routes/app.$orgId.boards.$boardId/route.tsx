@@ -24,6 +24,7 @@ import * as boardIdForm from './form';
 import { deleteBoard } from '../../services/queries/board/deleteBoard';
 import { catchPostSubmissionError } from '../../utils/Form/catchPostSubmissionError';
 import { patchBoardById } from '../../services/queries/board/patchBoardById';
+import { specialFields } from '../../utils/Form/specialFields';
 
 export async function clientAction(args: ClientActionFunctionArgs) {
   const { request } = args;
@@ -53,14 +54,24 @@ export async function clientAction(args: ClientActionFunctionArgs) {
 }
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
+  const { request } = args;
   const user = await requireUser();
   await requireOrganizations(user.id);
   const { boardId } = await boardIdSchema.parseAsync(args.params);
   const statuses = await getStatusByBoardId({
     boardId,
   });
+  const reqUrl = request.url;
+
+  const search = new URL(reqUrl).searchParams;
+
   const statusQueries = statuses.allStatuses.map((each) =>
-    queryClient.fetchInfiniteQuery(taskQueries.listByStatusFilter(each.id))
+    queryClient.fetchInfiniteQuery(
+      taskQueries.listByStatusFilter({
+        statusId: each.id,
+        q: search.get(specialFields.q),
+      })
+    )
   );
 
   const board = await getBoardById({
