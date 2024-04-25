@@ -34,7 +34,6 @@ function DeleteBoardModal(props: DeleteBoardProps) {
     navigation.state !== 'idle' &&
     navigation.formData?.get(specialFields.intent) ===
       boardIdForm.BoardIdFormIntent.DELETE_BOARD;
-  console.log(navigation.formAction);
   return (
     <ConfirmModal onClose={onClose}>
       <ConfirmButton color="red" loading={isSubmitting} onClick={handleSubmit}>
