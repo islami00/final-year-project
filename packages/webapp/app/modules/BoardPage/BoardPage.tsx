@@ -30,6 +30,7 @@ export function BoardPage(props: BoardPageProps) {
   const data = useLoaderData<BoardIdLoader>();
   const { statusQueries, statuses, board } = data;
 
+  // Add an await here for the main page's data. Use tanstack's suspense queries and nest as needed
   return (
     <ModuleLayout.Main>
       <ModuleLayout.Toolbar

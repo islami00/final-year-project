@@ -9,16 +9,18 @@ import { forwardError } from '../../../utils/forwardError';
 import { parseClientResponseError } from '../../../utils/parseClientResponseError';
 import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
+import { SavedFilter } from '../../../models/SavedFilter.model';
 
-interface GetTasksByStatusArgs {
+export interface GetTasksByStatusArgs {
   statusId: string;
   page: number;
   q?: string | null;
+  filter?: SavedFilter['content'];
 }
 export async function getTasksByStatus(
   args: GetTasksByStatusArgs
 ): Promise<ListResult<TaskWithAssignees>> {
-  const { statusId, page, q = null } = args;
+  const { statusId, page, q = null, filter = [] } = args;
 
   const filters = parseFilters([
     {
@@ -35,6 +37,7 @@ export async function getTasksByStatus(
       values: null,
       placeholder: 'q',
     },
+    ...filter,
   ]);
 
   const tasks = await pb
