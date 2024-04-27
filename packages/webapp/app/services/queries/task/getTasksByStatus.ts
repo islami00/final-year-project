@@ -18,7 +18,7 @@ interface GetTasksByStatusArgs {
 export async function getTasksByStatus(
   args: GetTasksByStatusArgs
 ): Promise<ListResult<TaskWithAssignees>> {
-  const { statusId, page, q } = args;
+  const { statusId, page, q = null } = args;
 
   const filters = parseFilters([
     {
@@ -26,11 +26,13 @@ export async function getTasksByStatus(
       field: 'statusId',
       value: statusId,
       placeholder: 'statusId',
+      values: null,
     },
     {
       operator: Operators.CONTAINS,
       field: 'title',
       value: q,
+      values: null,
       placeholder: 'q',
     },
   ]);

@@ -17,6 +17,7 @@ export interface UserApi {
   name: string;
   avatar: string;
   dashboardOrganisation: string;
+  dashboardFilter: string;
 }
 export interface User {
   username: UserApi['username'];
@@ -26,6 +27,7 @@ export interface User {
   avatar: string | null;
   /** Dashboard organisation. Defaults to the First Organisation assigned on login if not defined */
   dashboardOrganisation: string | null;
+  dashboardFilter: string | null;
 }
 
 const coerceStringToNull = (v: string) => v || null;
@@ -36,6 +38,7 @@ export const userSchema = z.object({
   name: z.string(),
   avatar: z.string().transform(coerceStringToNull),
   dashboardOrganisation: z.string().transform(coerceStringToNull),
+  dashboardFilter: z.string().transform(coerceStringToNull),
 }) satisfies ZodOf<User, UserApi>;
 
 class UserConverter extends Converter<UserApi, User> {

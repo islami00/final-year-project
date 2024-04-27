@@ -1,4 +1,4 @@
-import type { Dictionary, Falsey } from 'lodash';
+import type { Dictionary } from 'lodash';
 import { mapDefined } from './mapDefined';
 
 export enum Operators {
@@ -12,8 +12,9 @@ export enum Connectives {
 }
 export interface Filter {
   field: string;
-  operator: string;
-  value: string | string[] | Falsey;
+  operator: Operators;
+  value: string | null;
+  values: string[] | null;
   placeholder: string;
 }
 interface FlatFilter {
@@ -45,15 +46,15 @@ function flattenFilter(
   conf: ParserConfig
 ): FlatFilter | undefined {
   const { placeholder } = filter;
-  if (!conf?.allowFalsey && !filter.value) return undefined;
+  if (!conf?.allowFalsey && !filter.value && !filter.values) return undefined;
 
-  if (Array.isArray(filter.value)) {
+  if (filter.values) {
     // Todo: Determine what happens with empty arrays here.
     const base: FlatFilter = {
       template: '',
       params: {},
     };
-    const joined = filter.value.reduce((acc, each, idx) => {
+    const joined = filter.values.reduce((acc, each, idx) => {
       const suffixPlaceholder = `${[placeholder]}${idx}`;
       if (acc.template) {
         acc.template = `${acc.template} || ${filterTemplate(filter, {
@@ -71,6 +72,7 @@ function flattenFilter(
     joined.template = `(${joined.template})`;
     return joined;
   }
+
   const value = String(filter.value || '');
   return {
     template: filterTemplate(filter),
