@@ -6,14 +6,15 @@ import * as classes from './StatusColumn.styles';
 import { defineStatusColVars } from './StatusColumn.utils';
 import { StatusColumnQueryLoading } from './StatusColumn.loading';
 import { ReactErrorBoundaryFallback } from '../../../../components/errors/ReactErrorBoundaryFallback';
-import { StatusColumnRaw } from './StatusColumn.raw';
+import { StatusColumnRaw, type StatusColumnRawProps } from './StatusColumn.raw';
 export interface StatusColumnProps {
   status: Status;
   orgId: string;
+  currentFilter: StatusColumnRawProps['currentFilter'];
 }
 
 export function StatusColumn(props: StatusColumnProps) {
-  const { status, orgId } = props;
+  const { status, orgId, currentFilter } = props;
   const colorStyle = defineStatusColVars(status.color) as CSSProperties;
 
   return (
@@ -24,7 +25,11 @@ export function StatusColumn(props: StatusColumnProps) {
 
       <ErrorBoundary FallbackComponent={ReactErrorBoundaryFallback}>
         <Suspense fallback={<StatusColumnQueryLoading />}>
-          <StatusColumnRaw orgId={orgId} statusId={status.id} />
+          <StatusColumnRaw
+            currentFilter={currentFilter}
+            orgId={orgId}
+            statusId={status.id}
+          />
         </Suspense>
       </ErrorBoundary>
     </div>

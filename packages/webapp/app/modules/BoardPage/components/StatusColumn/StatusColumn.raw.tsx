@@ -8,17 +8,23 @@ import * as classes from './StatusColumn.styles';
 import { TaskCard } from '../TaskCard/TaskCard';
 import { useSearchParams } from '@remix-run/react';
 import { specialFields } from '../../../../utils/Form/specialFields';
+import { BoardIdFilterData } from '../../../../routes/app.$orgId.boards.$boardId/types';
 export interface StatusColumnRawProps {
   statusId: string;
   orgId: string;
+  currentFilter: BoardIdFilterData['currentFilter'];
 }
 
 export function StatusColumnRaw(props: StatusColumnRawProps) {
-  const { statusId, orgId } = props;
+  const { statusId, orgId, currentFilter } = props;
 
   const [search] = useSearchParams();
   const query = useSuspenseInfiniteQuery(
-    taskQueries.listByStatusFilter({ statusId, q: search.get(specialFields.q) })
+    taskQueries.listByStatusFilter({
+      statusId,
+      q: search.get(specialFields.q),
+      filter: currentFilter && currentFilter.content,
+    })
   );
 
   const container = useRef<HTMLDivElement | null>(null);

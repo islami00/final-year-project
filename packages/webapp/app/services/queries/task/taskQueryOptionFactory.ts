@@ -7,7 +7,7 @@ import { paginationConsts } from '../../../utils/constants';
 interface ListByStatusArgs {
   statusId: string;
   q: GetTasksByStatusArgs['q'];
-  filter: GetTasksByStatusArgs['filter'];
+  filter: GetTasksByStatusArgs['filter'] | false | null;
 }
 
 export const taskQueries = {
@@ -21,6 +21,7 @@ export const taskQueries = {
           statusId: args.statusId,
           page: pageParam,
           q: args.q,
+          filter: args.filter ? args.filter : undefined,
         }),
       initialPageParam: paginationConsts.defaultPage,
       getNextPageParam: (lastPage) => {

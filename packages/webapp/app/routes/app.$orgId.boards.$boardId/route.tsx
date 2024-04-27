@@ -67,14 +67,12 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
   // Filters
   const savedFilterParam = search.get(specialFields.savedFilter);
   const filterParam = search.get(specialFields.filter);
-  const savedFilterPromise = savedFilterParam
-    ? queryClient.fetchQuery(
-        savedFilterQueries.byIdCaughtFilter(savedFilterParam)
-      )
-    : null;
-  const filterPromise = filterParam
-    ? queryClient.fetchQuery(savedFilterQueries.byIdCaughtFilter(filterParam))
-    : null;
+  const savedFilterPromise = queryClient.fetchQuery(
+    savedFilterQueries.byIdCaughtFilter(savedFilterParam)
+  );
+  const filterPromise = queryClient.fetchQuery(
+    savedFilterQueries.byIdCaughtFilter(filterParam)
+  );
 
   async function filterQueries(): Promise<BoardIdFilterData> {
     const savedFilter = await savedFilterPromise;
@@ -85,13 +83,13 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
     };
   }
   async function getStatusQueries() {
-    const currentFilter = filterPromise && (await filterPromise);
+    const currentFilter = await filterPromise;
     const statusQueries = statuses.allStatuses.map((each) =>
       queryClient.fetchInfiniteQuery(
         taskQueries.listByStatusFilter({
           statusId: each.id,
           q: search.get(specialFields.q),
-          filter: currentFilter?.content,
+          filter: currentFilter && currentFilter.content,
         })
       )
     );

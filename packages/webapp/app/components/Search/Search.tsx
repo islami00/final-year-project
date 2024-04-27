@@ -5,9 +5,10 @@ import { specialFields } from '../../utils/Form/specialFields';
 import * as navbarLinkClasses from '../AppShell/NavbarLink/NavbarLink.styles';
 import { Icon } from '../Icon/Icon';
 import * as classes from './Search.styles';
+import { memo } from 'react';
 
 export type SearchProps = Omit<TextInputProps, 'defaultValue'>;
-export function Search(props: SearchProps) {
+export const Search = memo((props: SearchProps) => {
   const [search, setSearch] = useSearchParams();
 
   const currentSearch = search.get(specialFields.q);
@@ -48,4 +49,4 @@ export function Search(props: SearchProps) {
       />
     </Form>
   );
-}
+});

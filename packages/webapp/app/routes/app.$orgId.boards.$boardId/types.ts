@@ -8,9 +8,13 @@ import type { TypedDeferredData } from '@remix-run/node';
 import { SavedFilter } from '../../models/SavedFilter.model';
 
 export interface BoardIdFilterData {
-  /** Saved Filter diffed at the filter with the current filter to see if there are changes to save  */
-  savedFilter: SavedFilter | null;
-  currentFilter: SavedFilter | null;
+  /**
+   * Saved Filter diffed at the filter with the current filter to see if there are changes to save
+   * false => no filter parameter
+   * null => error fetching filter
+   *  */
+  savedFilter: SavedFilter | null | false;
+  currentFilter: SavedFilter | null | false;
 }
 export interface BoardIdLoaderData extends Record<string, unknown> {
   statuses: StatusListWithDefault;

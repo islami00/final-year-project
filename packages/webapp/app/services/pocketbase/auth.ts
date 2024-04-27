@@ -14,11 +14,12 @@ export async function requireUser(): Promise<User> {
     throw redirect(`/auth/${defaultMode}`);
   }
   if (!pb.authStore.model) {
-    // Todo: Use error codes to match these
     throw new AppError(appErrorCodes.NOT_FOUND, 'User not found');
   }
   try {
-    return UserModel.fromApi(pb.authStore.model as UserApi);
+    // Todo: Use a more permissive model for auth to ensure users don't get logged out on rollouts
+    const user = await UserModel.fromApi(pb.authStore.model as UserApi);
+    return user;
   } catch (error) {
     // If this fails, it's likely the cached model is wrong.
     await logout();
