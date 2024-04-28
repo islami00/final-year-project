@@ -17,6 +17,26 @@ export interface Filter {
   values: string[] | null;
   placeholder: string;
 }
+export enum FilterDataType {
+  TEXT = 'text',
+  SELECT = 'select',
+  NUMBER = 'number',
+  DATE = 'date',
+}
+export interface FilterMetaBase {
+  field: string;
+  label: string;
+  dataType: FilterDataType;
+  /** Should include `?` in operators */
+  isListType?: boolean;
+}
+export interface FilterMeta extends FilterMetaBase {
+  id: string;
+}
+
+export interface UIFilter extends Filter {
+  meta: FilterMeta;
+}
 interface FlatFilter {
   template: string;
   params: Dictionary<unknown>;
@@ -32,7 +52,7 @@ export function parseFilters(
   filters: Filter[],
   conf: ParserConfig = {}
 ): FlatFilter {
-  const joinable = mapDefined(filters, (v) => flattenFilter(v, conf));
+  const joinable = mapDefined(filters, (v, idx) => flattenFilter(v, conf, idx));
   const joined = joinFilters(joinable);
 
   return joined;
@@ -43,9 +63,10 @@ export function parseFilters(
  * */
 function flattenFilter(
   filter: Filter,
-  conf: ParserConfig
+  conf: ParserConfig,
+  place: number
 ): FlatFilter | undefined {
-  const { placeholder } = filter;
+  const basePlaceholder = `${filter.placeholder}${place}`;
   if (!conf?.allowFalsey && !filter.value && !filter.values) return undefined;
 
   if (filter.values) {
@@ -55,7 +76,7 @@ function flattenFilter(
       params: {},
     };
     const joined = filter.values.reduce((acc, each, idx) => {
-      const suffixPlaceholder = `${[placeholder]}${idx}`;
+      const suffixPlaceholder = `${basePlaceholder}${idx}`;
       if (acc.template) {
         acc.template = `${acc.template} || ${filterTemplate(filter, {
           placeholder: suffixPlaceholder,
@@ -75,8 +96,10 @@ function flattenFilter(
 
   const value = String(filter.value || '');
   return {
-    template: filterTemplate(filter),
-    params: { [placeholder]: value },
+    template: filterTemplate(filter, {
+      placeholder: basePlaceholder,
+    }),
+    params: { [basePlaceholder]: value },
   };
 }
 

@@ -10,6 +10,7 @@ import { ModuleAddButton } from '../DepartmentPage/components/buttons/ModuleAddB
 import { RemoveButton } from '../DepartmentPage/components/buttons/RemoveButton';
 import { BoardTitleInput } from './components/inputs/BoardTitleInput';
 import { BoardColumns } from './components/BoardColumns/BoardColumns';
+import { BoardFilter } from './components/BoardFilter/BoardFilter';
 
 interface BoardPageRawProps {
   params: BoardIdParams;
@@ -27,6 +28,7 @@ export function BoardPageRaw(props: BoardPageRawProps) {
         title={<BoardTitleInput defaultValue={board.name} id={board.id} />}
         actions={
           <>
+            <BoardFilter />
             <ModuleAddButton
               onClick={() =>
                 navigate(
