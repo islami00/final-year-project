@@ -1,7 +1,7 @@
 import BoardModel, { Board, BoardApi } from '../../../models/Board.model';
 import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
-import { Operators, parseFilters } from '../../../utils/Filter';
+import { FilterDataType, Operators, parseFilters } from '../../../utils/Filter';
 
 export interface GetDepartmentBoardsArgs {
   deptId: string;
@@ -15,16 +15,25 @@ export async function getDepartmentBoards(
 
   const queryParams = parseFilters([
     {
-      field: 'departmentId',
+      meta: {
+        field: 'departmentId',
+        label: 'deptId',
+        dataType: FilterDataType.SELECT,
+        id: '',
+      },
+
       operator: Operators.EQ,
-      placeholder: 'deptId',
       value: deptId,
       values: null,
     },
     {
-      field: 'name',
+      meta: {
+        field: 'name',
+        label: 'name',
+        dataType: FilterDataType.TEXT,
+        id: '',
+      },
       operator: Operators.CONTAINS,
-      placeholder: 'name',
       value: q,
       values: null,
     },

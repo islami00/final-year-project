@@ -9,10 +9,11 @@ interface AddFilterMenuProps {
 }
 export function AddFilterMenu(props: AddFilterMenuProps) {
   const { children, dispatch } = props;
+  const selectedRef = React.useRef(false);
   return (
     <Menu
-      // FIXME: Also closed when we select
       onClose={() => {
+        if (selectedRef.current) return;
         dispatch({ type: 'close' });
       }}
     >
@@ -23,7 +24,10 @@ export function AddFilterMenu(props: AddFilterMenuProps) {
           return (
             <Menu.Item
               key={id}
-              onClick={() => dispatch({ filter: each, type: 'select' })}
+              onClick={() => {
+                selectedRef.current = true;
+                dispatch({ filter: each, type: 'select' });
+              }}
             >
               {label}
             </Menu.Item>

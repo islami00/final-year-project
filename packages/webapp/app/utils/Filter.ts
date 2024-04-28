@@ -5,18 +5,40 @@ export enum Operators {
   EQ = '=',
   NEQ = '!=',
   CONTAINS = '~',
+  NCONTAINS = '!~',
+  GT = '>',
+  LT = '<',
+  GT_OR_EQ = '>=',
+  LT_OR_EQ = '<=',
+
+  EQ_LS = '?=',
+  NEQ_LS = '?!=',
+  CONTAINS_LS = '?~',
+  NCONTAINS_LS = '?!~',
+  GT_LS = '?>',
+  LT_LS = '?<',
+  GT_OR_EQ_LS = '?>=',
+  LT_OR_EQ_LS = '?<=',
+}
+
+/** Custom operators created to represent stuff pb doesn't support */
+export enum UIOperators {
+  ONE_OF = 'one_of',
+  NOT_ONE_OF = 'not_one_of',
 }
 export enum Connectives {
   OR = '||',
   AND = '&&',
 }
-export interface Filter {
-  field: string;
-  operator: Operators;
+
+export type OperatorOptions = Operators | UIOperators;
+
+export interface FilterBase {
+  operator: OperatorOptions;
   value: string | null;
   values: string[] | null;
-  placeholder: string;
 }
+
 export enum FilterDataType {
   TEXT = 'text',
   SELECT = 'select',
@@ -34,7 +56,7 @@ export interface FilterMeta extends FilterMetaBase {
   id: string;
 }
 
-export interface UIFilter extends Filter {
+export interface Filter extends FilterBase {
   meta: FilterMeta;
 }
 interface FlatFilter {
@@ -53,6 +75,7 @@ export function parseFilters(
   conf: ParserConfig = {}
 ): FlatFilter {
   const joinable = mapDefined(filters, (v, idx) => flattenFilter(v, conf, idx));
+
   const joined = joinFilters(joinable);
 
   return joined;
@@ -66,7 +89,6 @@ function flattenFilter(
   conf: ParserConfig,
   place: number
 ): FlatFilter | undefined {
-  const basePlaceholder = `${filter.placeholder}${place}`;
   if (!conf?.allowFalsey && !filter.value && !filter.values) return undefined;
 
   if (filter.values) {
@@ -76,18 +98,15 @@ function flattenFilter(
       params: {},
     };
     const joined = filter.values.reduce((acc, each, idx) => {
-      const suffixPlaceholder = `${basePlaceholder}${idx}`;
+      const placeholder = getPlaceholder(filter, [place, idx]);
       if (acc.template) {
-        acc.template = `${acc.template} || ${filterTemplate(filter, {
-          placeholder: suffixPlaceholder,
-        })}`;
+        const currentTemplate = filterTemplate(filter, placeholder);
+        acc.template = `${acc.template} || ${currentTemplate}`;
       } else {
-        acc.template = filterTemplate(filter, {
-          placeholder: suffixPlaceholder,
-        });
+        acc.template = filterTemplate(filter, placeholder);
       }
 
-      Object.assign(acc.params, { [suffixPlaceholder]: each });
+      Object.assign(acc.params, { [placeholder]: each });
       return acc;
     }, base);
     joined.template = `(${joined.template})`;
@@ -95,22 +114,41 @@ function flattenFilter(
   }
 
   const value = String(filter.value || '');
+
+  const placeholder = getPlaceholder(filter, [place]);
   return {
-    template: filterTemplate(filter, {
-      placeholder: basePlaceholder,
-    }),
-    params: { [basePlaceholder]: value },
+    template: filterTemplate(filter, placeholder),
+    params: { [placeholder]: value },
   };
 }
+type PlaceholderPrefixes = (string | number)[];
+/**
+ * @description Gets placeholder with given path prefixes
+ */
 
+function getPlaceholder(filter: Filter, prefixes: PlaceholderPrefixes = []) {
+  const placeholder = filter.meta.label;
+  return `${placeholder}${prefixes.join('')}`;
+}
 /**
  * @description Create a filter template from a filter, with optional overrides
  * */
-function filterTemplate(filter: Filter, overrides?: Partial<Filter>) {
-  const field = overrides?.field || filter.field;
-  const operator = overrides?.operator || filter.operator;
-  const placeholder = overrides?.placeholder || filter.placeholder;
+function filterTemplate(filter: Filter, placeholder: string) {
+  const field = filter.meta.field;
+  const operator = mapUIOperators(filter.operator);
   return `(${field} ${operator} {:${placeholder}})`;
+}
+function mapUIOperators(operator: Operators | UIOperators): Operators {
+  switch (operator) {
+    case UIOperators.NOT_ONE_OF:
+      return Operators.NEQ;
+
+    case UIOperators.ONE_OF:
+      return Operators.EQ;
+
+    default:
+      return operator;
+  }
 }
 
 /**

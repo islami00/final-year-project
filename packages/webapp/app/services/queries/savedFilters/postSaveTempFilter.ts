@@ -1,4 +1,4 @@
-import { Operators, parseFilters } from '../../../utils/Filter';
+import { FilterDataType, Operators, parseFilters } from '../../../utils/Filter';
 import SavedFilterModel, {
   SavedFilter,
   SavedFilterApi,
@@ -21,17 +21,25 @@ export async function postSaveTempFilter(
   const { body, userId } = args;
   const filter = parseFilters([
     {
-      field: 'kind',
+      meta: {
+        field: 'kind',
+        label: 'kind',
+        dataType: FilterDataType.SELECT,
+        id: '',
+      },
       operator: Operators.EQ,
       value: SavedFilterKind.TEMPORARY,
-      placeholder: 'kind',
       values: null,
     },
     {
-      field: 'createdBy',
+      meta: {
+        field: 'createdBy',
+        label: 'createdBy',
+        dataType: FilterDataType.SELECT,
+        id: '',
+      },
       operator: Operators.EQ,
       value: userId,
-      placeholder: 'createdBy',
       values: null,
     },
   ]);

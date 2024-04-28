@@ -3,7 +3,7 @@ import TaskWithAssigneesModel, {
   TaskWithAssigneeApi,
   type TaskWithAssignees,
 } from '../../../models/TaskWithAssignees.model';
-import { Operators, parseFilters } from '../../../utils/Filter';
+import { FilterDataType, Operators, parseFilters } from '../../../utils/Filter';
 import { paginationConsts } from '../../../utils/constants';
 import { forwardError } from '../../../utils/forwardError';
 import { parseClientResponseError } from '../../../utils/parseClientResponseError';
@@ -26,17 +26,25 @@ export async function getTasksByStatus(
   const filters = parseFilters([
     {
       operator: Operators.EQ,
-      field: 'statusId',
+      meta: {
+        field: 'statusId',
+        label: 'statusId',
+        dataType: FilterDataType.SELECT,
+        id: '',
+      },
       value: statusId,
-      placeholder: 'statusId',
       values: null,
     },
     {
       operator: Operators.CONTAINS,
-      field: 'title',
+      meta: {
+        field: 'title',
+        label: 'q',
+        dataType: FilterDataType.TEXT,
+        id: '',
+      },
       value: q,
       values: null,
-      placeholder: 'q',
     },
     ...filter,
   ]);

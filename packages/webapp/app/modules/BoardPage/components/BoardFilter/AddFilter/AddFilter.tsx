@@ -3,6 +3,7 @@ import { useReducer } from 'react';
 import { addFilterReducer } from './AddFilter.utils';
 import { AddFilterMenu } from '../AddFilterMenu/AddFilterMenu';
 import { Filter } from '../../../../../utils/Filter';
+import { FilterValueDialog } from '../FilterValueDialog/FilterValueDialog';
 
 export interface AddFilterProps {
   children: React.ReactElement;
@@ -15,7 +16,16 @@ export function AddFilter(props: AddFilterProps) {
 
   switch (state.stage) {
     case 1:
-      return children;
+      return (
+        <>
+          {children}
+          <FilterValueDialog
+            meta={state.filter}
+            onClose={dispatch}
+            onChange={console.log}
+          />
+        </>
+      );
     default:
       return <AddFilterMenu dispatch={dispatch}>{children}</AddFilterMenu>;
   }

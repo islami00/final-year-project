@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { type Filter } from '../utils/Filter';
-import type { ZodOf } from './types';
-import { filterSchema } from './Filter.model';
 import Converter from './Converter.model';
+import { filterSchema } from './Filter.model';
+import type { ZodOf } from './types';
 
 export enum SavedFilterKind {
   /** Used for filter-as-you-go, is replaced each time. */
@@ -20,6 +20,7 @@ export interface SavedFilterApi {
   kind: SavedFilterKind;
   content: Filter[] | null;
 }
+
 /**
  * SavedFilters. Follows same concept of being globally available like clickup
  * For now, we limit statuses to be the same name across board so we can filter by them.
