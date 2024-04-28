@@ -28,6 +28,7 @@ import { queryClient } from '../../utils/queryClient';
 import * as boardIdForm from './form';
 import { type BoardIdFilterData, type BoardIdLoaderData } from './types';
 import { boardIdSchema } from './utils';
+import { isSearchRequest } from '../../utils/Routes/isSearchRequest';
 
 export async function clientAction(args: ClientActionFunctionArgs) {
   const { request } = args;
@@ -112,12 +113,10 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
 }
 
 export function shouldRevalidate(args: ShouldRevalidateFunctionArgs) {
-  const { defaultShouldRevalidate, currentUrl, nextUrl, formMethod } = args;
+  const { defaultShouldRevalidate } = args;
 
-  const currentQ = currentUrl.searchParams.get(specialFields.q);
-  const nextQ = nextUrl.searchParams.get(specialFields.q);
   // Ignore searches
-  if (formMethod === 'GET' && currentQ !== nextQ) return false;
+  if (isSearchRequest(args)) return false;
 
   return defaultShouldRevalidate;
 }

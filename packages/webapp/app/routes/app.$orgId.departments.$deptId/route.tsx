@@ -4,23 +4,27 @@ import {
   json,
   redirect,
   useLoaderData,
+  useParams,
   type ClientActionFunctionArgs,
   type ClientLoaderFunctionArgs,
 } from '@remix-run/react';
-import { DepartmentPage } from '../modules/DepartmentPage/DepartmentPage';
-import * as departmentIdForm from '../modules/DepartmentPage/logic/departmentIdForm';
-import { getDepartmentBoards } from '../services/queries/department/getDepartmentBoards';
-import { postCreateBoard } from '../services/queries/board/postCreateBoard';
-import { deleteDepartment } from '../services/queries/department/deleteDepartment';
-import { getDepartmentById } from '../services/queries/department/getDepartmentById';
-import { patchDepartmentById } from '../services/queries/department/patchDepartmentById';
-import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
-import { routeConfig } from '../utils/routeConfig';
-import { specialFields } from '../utils/Form/specialFields';
+import { DepartmentPage } from '../../modules/DepartmentPage/DepartmentPage';
+import * as departmentIdForm from '../../modules/DepartmentPage/logic/departmentIdForm';
+import { postCreateBoard } from '../../services/queries/board/postCreateBoard';
+import { deleteDepartment } from '../../services/queries/department/deleteDepartment';
+import { getDepartmentBoards } from '../../services/queries/department/getDepartmentBoards';
+import { getDepartmentById } from '../../services/queries/department/getDepartmentById';
+import { patchDepartmentById } from '../../services/queries/department/patchDepartmentById';
+import { catchPostSubmissionError } from '../../utils/Form/catchPostSubmissionError';
+import { specialFields } from '../../utils/Form/specialFields';
+import { routeConfig } from '../../utils/routeConfig';
+import { departmentIdSchema } from './utils';
+import { useMemo } from 'react';
 
 export async function clientLoader(args: ClientLoaderFunctionArgs) {
-  const { params, request } = args;
+  const { request } = args;
   const url = new URL(request.url);
+  const params = await departmentIdSchema.parseAsync(args.params);
   const deptId = params.deptId as string;
   const boards = getDepartmentBoards({
     deptId,
@@ -73,8 +77,14 @@ export async function clientAction(args: ClientActionFunctionArgs) {
     return catchPostSubmissionError(error, submission);
   }
 }
+
 export default function DepartmentsDeptIdRoute() {
   const data = useLoaderData<typeof clientLoader>();
+  const rawParams = useParams();
+  const params = useMemo(
+    () => departmentIdSchema.parse(rawParams),
+    [rawParams]
+  );
 
-  return <DepartmentPage data={data} />;
+  return <DepartmentPage data={data} key={params.deptId} />;
 }

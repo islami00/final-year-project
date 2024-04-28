@@ -11,7 +11,7 @@ export interface GetDepartmentBoardsArgs {
 export async function getDepartmentBoards(
   args: GetDepartmentBoardsArgs
 ): Promise<Board[]> {
-  const { deptId, q } = args;
+  const { deptId, q = null } = args;
 
   const queryParams = parseFilters([
     {
@@ -19,12 +19,14 @@ export async function getDepartmentBoards(
       operator: Operators.EQ,
       placeholder: 'deptId',
       value: deptId,
+      values: null,
     },
     {
       field: 'name',
       operator: Operators.CONTAINS,
       placeholder: 'name',
       value: q,
+      values: null,
     },
   ]);
   const boards = await pb.collection<BoardApi>(collections.board).getFullList({
