@@ -16,11 +16,12 @@ export interface GetTasksByStatusArgs {
   page: number;
   q?: string | null;
   filter?: SavedFilter['content'];
+  signal?: AbortSignal;
 }
 export async function getTasksByStatus(
   args: GetTasksByStatusArgs
 ): Promise<ListResult<TaskWithAssignees>> {
-  const { statusId, page, q = null, filter = [] } = args;
+  const { statusId, page, q = null, filter = [], signal } = args;
 
   const filters = parseFilters([
     {
@@ -45,6 +46,7 @@ export async function getTasksByStatus(
     .getList(page, paginationConsts.pageSize, {
       filter: pb.filter(filters.template, filters.params),
       expand: `${collections.task_assignee}_via_taskId.assigneeId`,
+      signal,
     })
     .catch(forwardError(parseClientResponseError));
 

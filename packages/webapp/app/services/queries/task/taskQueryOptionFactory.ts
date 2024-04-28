@@ -7,21 +7,23 @@ import { paginationConsts } from '../../../utils/constants';
 interface ListByStatusArgs {
   statusId: string;
   q: GetTasksByStatusArgs['q'];
-  filter: GetTasksByStatusArgs['filter'] | false | null;
+  filter: GetTasksByStatusArgs['filter'] | undefined | null;
 }
-
 export const taskQueries = {
   all: ['task'] as const,
-  listByStatus: () => [...taskQueries.all, 'list-by-status'],
-  listByStatusFilter: (args: ListByStatusArgs) =>
+  listByStatus: () => [...taskQueries.all, 'list-by-status'] as const,
+  listByStatusFilterKey: (args: ListByStatusArgs) =>
+    [...taskQueries.listByStatus(), args] as const,
+  listByStatusFilterQuery: (args: ListByStatusArgs) =>
     infiniteQueryOptions({
-      queryKey: [...taskQueries.listByStatus(), args],
-      queryFn: ({ pageParam }) =>
+      queryKey: taskQueries.listByStatusFilterKey(args),
+      queryFn: ({ pageParam, signal }) =>
         getTasksByStatus({
           statusId: args.statusId,
           page: pageParam,
           q: args.q,
-          filter: args.filter ? args.filter : undefined,
+          filter: args.filter || undefined,
+          signal,
         }),
       initialPageParam: paginationConsts.defaultPage,
       getNextPageParam: (lastPage) => {

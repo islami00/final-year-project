@@ -1,14 +1,14 @@
+import { ScrollArea } from '@mantine/core';
+import { useSearchParams } from '@remix-run/react';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
 import { InfiniteLoader } from '../../../../components/InfiniteLoader/InfiniteLoader';
-import { taskQueries } from '../../../../services/queries/task/taskQueryOptionFactory';
-import { combinePages } from '../../../../utils/combinePages';
-import { ScrollArea } from '@mantine/core';
-import * as classes from './StatusColumn.styles';
-import { TaskCard } from '../TaskCard/TaskCard';
-import { useSearchParams } from '@remix-run/react';
-import { specialFields } from '../../../../utils/Form/specialFields';
 import { BoardIdFilterData } from '../../../../routes/app.$orgId.boards.$boardId/types';
+import { taskQueries } from '../../../../services/queries/task/taskQueryOptionFactory';
+import { specialFields } from '../../../../utils/Form/specialFields';
+import { combinePages } from '../../../../utils/combinePages';
+import { TaskCard } from '../TaskCard/TaskCard';
+import * as classes from './StatusColumn.styles';
 export interface StatusColumnRawProps {
   statusId: string;
   orgId: string;
@@ -19,11 +19,13 @@ export function StatusColumnRaw(props: StatusColumnRawProps) {
   const { statusId, orgId, currentFilter } = props;
 
   const [search] = useSearchParams();
+  const currentQ = search.get(specialFields.q);
+
   const query = useSuspenseInfiniteQuery(
-    taskQueries.listByStatusFilter({
+    taskQueries.listByStatusFilterQuery({
       statusId,
-      q: search.get(specialFields.q),
-      filter: currentFilter && currentFilter.content,
+      q: currentQ,
+      filter: currentFilter?.content,
     })
   );
 

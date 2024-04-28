@@ -1,6 +1,9 @@
 import { queryOptions } from '@tanstack/react-query';
 import { getSavedFilterById } from './getSavedFilterById';
 
+export interface EmptyFilterQuery {
+  content: null;
+}
 export const savedFilterQueries = {
   all: ['savedFilters'] as const,
   byId: () => [...savedFilterQueries.all, 'by-id'] as const,
@@ -10,7 +13,10 @@ export const savedFilterQueries = {
     queryOptions({
       queryKey: [...savedFilterQueries.byIdCaught(), id],
       queryFn: async () => {
-        if (!id) return false;
+        if (!id) {
+          const empty: EmptyFilterQuery = { content: null };
+          return empty;
+        }
         return getSavedFilterById({ id }).catch(() => null);
       },
       gcTime: Infinity,

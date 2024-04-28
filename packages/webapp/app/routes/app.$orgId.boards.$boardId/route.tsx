@@ -1,4 +1,5 @@
 import { parseWithZod } from '@conform-to/zod';
+import { noop } from '@mantine/core';
 import {
   Outlet,
   defer,
@@ -7,6 +8,7 @@ import {
   useParams,
   type ClientActionFunctionArgs,
   type ClientLoaderFunctionArgs,
+  type ShouldRevalidateFunctionArgs,
 } from '@remix-run/react';
 import { useMemo } from 'react';
 import { BoardPage } from '../../modules/BoardPage/BoardPage';
@@ -29,6 +31,7 @@ import { boardIdSchema } from './utils';
 
 export async function clientAction(args: ClientActionFunctionArgs) {
   const { request } = args;
+
   const formData = await request.formData();
   const submission = parseWithZod(formData, {
     schema: boardIdForm.schema,
@@ -86,17 +89,18 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
     const currentFilter = await filterPromise;
     const statusQueries = statuses.allStatuses.map((each) =>
       queryClient.fetchInfiniteQuery(
-        taskQueries.listByStatusFilter({
+        taskQueries.listByStatusFilterQuery({
           statusId: each.id,
           q: search.get(specialFields.q),
-          filter: currentFilter && currentFilter.content,
+          filter: currentFilter?.content,
         })
       )
     );
     const result = await Promise.all(statusQueries);
     return result;
   }
-
+  filterQueries().catch(noop);
+  getStatusQueries().catch(noop);
   const board = await getBoardById({
     id: boardId,
   });
@@ -104,13 +108,24 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
   return defer<BoardIdLoaderData>({
     statuses,
     board,
-    statusQueries: getStatusQueries(),
-    filter: filterQueries(),
   });
 }
+
+export function shouldRevalidate(args: ShouldRevalidateFunctionArgs) {
+  const { defaultShouldRevalidate, currentUrl, nextUrl, formMethod } = args;
+
+  const currentQ = currentUrl.searchParams.get(specialFields.q);
+  const nextQ = nextUrl.searchParams.get(specialFields.q);
+  // Ignore searches
+  if (formMethod === 'GET' && currentQ !== nextQ) return false;
+
+  return defaultShouldRevalidate;
+}
+
 export default function BoardRoute() {
   const rawParams = useParams();
   const params = useMemo(() => boardIdSchema.parse(rawParams), [rawParams]);
+
   return (
     <>
       <BoardPage key={params.boardId} params={params} />
