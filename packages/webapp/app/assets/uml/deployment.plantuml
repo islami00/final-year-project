@@ -2,7 +2,6 @@
 
 
 artifact clientBundle.zip
-artifact pocketbaseBin
 artifact Dockerfile
 artifact fly.toml
 
@@ -16,7 +15,6 @@ node WebEnabledDevice << device >> {
 } 
 
 clientBundle.zip   ..>  CDN : "<<deploy>>" 
-pocketbaseBin   ..>  FlyIOApplicationServer : "<<deploy>>" 
 Dockerfile   ..>  FlyIOApplicationServer : "<<deploy>>" 
 fly.toml   ..>  FlyIOApplicationServer : "<<deploy>>" 
 
