@@ -2,6 +2,7 @@ import type { Dictionary } from 'lodash';
 import { mapDefined } from './mapDefined';
 
 export enum Operators {
+  // Normal variants
   EQ = '=',
   NEQ = '!=',
   CONTAINS = '~',
@@ -11,6 +12,7 @@ export enum Operators {
   GT_OR_EQ = '>=',
   LT_OR_EQ = '<=',
 
+  // List variants
   EQ_LS = '?=',
   NEQ_LS = '?!=',
   CONTAINS_LS = '?~',
@@ -23,8 +25,12 @@ export enum Operators {
 
 /** Custom operators created to represent stuff pb doesn't support */
 export enum UIOperators {
+  // Normal variants
   ONE_OF = 'one_of',
   NOT_ONE_OF = 'not_one_of',
+  // List variants
+  ONE_OF_LS = 'one_of_ls',
+  NOT_ONE_OF_LS = 'not_one_of_ls',
 }
 export enum Connectives {
   OR = '||',
@@ -142,9 +148,13 @@ function mapUIOperators(operator: Operators | UIOperators): Operators {
   switch (operator) {
     case UIOperators.NOT_ONE_OF:
       return Operators.NEQ;
+    case UIOperators.NOT_ONE_OF_LS:
+      return Operators.NEQ_LS;
 
     case UIOperators.ONE_OF:
       return Operators.EQ;
+    case UIOperators.ONE_OF_LS:
+      return Operators.EQ_LS;
 
     default:
       return operator;

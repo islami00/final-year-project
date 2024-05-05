@@ -36,12 +36,12 @@ importers:
       '@fontsource-variable/open-sans':
         specifier: ^5.0.28
         version: 5.0.28
+      '@hookform/resolvers':
+        specifier: ^3.3.4
+        version: 3.3.4(react-hook-form@7.51.4)
       '@mantine/core':
         specifier: ^7.9.0
         version: 7.9.0(@mantine/hooks@7.9.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
-      '@mantine/form':
-        specifier: ^7.9.0
-        version: 7.9.0(react@18.3.0-canary-a870b2d54-20240314)
       '@mantine/hooks':
         specifier: ^7.9.0
         version: 7.9.0(react@18.3.0-canary-a870b2d54-20240314)
@@ -69,9 +69,6 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.34.2
         version: 5.34.2(react@18.3.0-canary-a870b2d54-20240314)
-      '@tanstack/react-query-devtools':
-        specifier: ^5.34.2
-        version: 5.34.2(@tanstack/react-query@5.34.2)(react@18.3.0-canary-a870b2d54-20240314)
       '@tiptap/extension-highlight':
         specifier: ^2.3.0
         version: 2.3.0(@tiptap/core@2.3.0)
@@ -126,6 +123,9 @@ importers:
       react-error-boundary:
         specifier: ^4.0.13
         version: 4.0.13(react@18.3.0-canary-a870b2d54-20240314)
+      react-hook-form:
+        specifier: ^7.51.4
+        version: 7.51.4(react@18.3.0-canary-a870b2d54-20240314)
       react-hot-toast:
         specifier: ^2.4.1
         version: 2.4.1(csstype@3.1.3)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
@@ -202,6 +202,9 @@ importers:
       '@tanstack/eslint-plugin-query':
         specifier: ^5.28.11
         version: 5.28.11(eslint@8.48.0)(typescript@5.3.3)
+      '@tanstack/react-query-devtools':
+        specifier: ^5.34.2
+        version: 5.34.2(@tanstack/react-query@5.34.2)(react@18.3.0-canary-a870b2d54-20240314)
       '@types/node':
         specifier: 18.16.9
         version: 18.16.9
@@ -2176,6 +2179,14 @@ packages:
     resolution: {integrity: sha512-PYfH6e+Jm8N5DRRAEOGneQx3ObnyNgAJ9WTbw7w84tSEmvk+ypo1kUslF2WGkgaygU2uN7wwAAPVnO7YYpipzg==}
     dev: false
 
+  /@hookform/resolvers@3.3.4(react-hook-form@7.51.4):
+    resolution: {integrity: sha512-o5cgpGOuJYrd+iMKvkttOclgwRW86EsWJZZRC23prf0uU2i48Htq4PuT73AVb9ionFyZrwYEITuOFGF+BydEtQ==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.51.4(react@18.3.0-canary-a870b2d54-20240314)
+    dev: false
+
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
@@ -2273,16 +2284,6 @@ packages:
       type-fest: 4.15.0
     transitivePeerDependencies:
       - '@types/react'
-    dev: false
-
-  /@mantine/form@7.9.0(react@18.3.0-canary-a870b2d54-20240314):
-    resolution: {integrity: sha512-YFAUe3T6L+bQRJW7e2bNUdGON7OH8X0juDHojXoH3AKW5eHP/qTdDrUxAqi7n4rqb9yPdnOqs3aqE6T/evb8Hw==}
-    peerDependencies:
-      react: 18.3.0-canary-a870b2d54-20240314
-    dependencies:
-      fast-deep-equal: 3.1.3
-      klona: 2.0.6
-      react: 18.3.0-canary-a870b2d54-20240314
     dev: false
 
   /@mantine/hooks@7.9.0(react@18.3.0-canary-a870b2d54-20240314):
@@ -3955,11 +3956,10 @@ packages:
 
   /@tanstack/query-core@5.34.2:
     resolution: {integrity: sha512-FM1UXldYcoMiWmVbpewV14EVpnr/ETBbdF84tmCktx29e2bXBFhGtAfyDHUD4X1FehaV5tC9GkXZUMZRQV3lcA==}
-    dev: false
 
   /@tanstack/query-devtools@5.32.1:
     resolution: {integrity: sha512-7Xq57Ctopiy/4atpb0uNY5VRuCqRS/1fi/WBCKKX6jHMa6cCgDuV/AQuiwRXcKARbq2OkVAOrW2v4xK9nTbcCA==}
-    dev: false
+    dev: true
 
   /@tanstack/react-query-devtools@5.34.2(@tanstack/react-query@5.34.2)(react@18.3.0-canary-a870b2d54-20240314):
     resolution: {integrity: sha512-rf/LxJszATG9yDzKi1GYKGO2ODJi4rqrzM5Fs6tN06Hy5jtD8pQwXgCZz052d4J/avn/fyfvS2TRPbR5dOAk/g==}
@@ -3970,7 +3970,7 @@ packages:
       '@tanstack/query-devtools': 5.32.1
       '@tanstack/react-query': 5.34.2(react@18.3.0-canary-a870b2d54-20240314)
       react: 18.3.0-canary-a870b2d54-20240314
-    dev: false
+    dev: true
 
   /@tanstack/react-query@5.34.2(react@18.3.0-canary-a870b2d54-20240314):
     resolution: {integrity: sha512-5L9W9XQ/lRcyhlVN0xrOkPZE9PJxZWw7BdJR244j3G7sxMfSreZWvxx13DJt08M5DWn9B5VstpKgqpIIQOIJKA==}
@@ -3979,7 +3979,6 @@ packages:
     dependencies:
       '@tanstack/query-core': 5.34.2
       react: 18.3.0-canary-a870b2d54-20240314
-    dev: false
 
   /@testing-library/dom@8.20.1:
     resolution: {integrity: sha512-/DiOQ5xBxgdYRC8LNk7U+RWat0S3qRLeIw3ZIkMQ9kkVlRmwD/Eg8k8CqIpD6GW7u20JIUOfMKbxtiLutpjQ4g==}
@@ -7073,6 +7072,7 @@ packages:
 
   /fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
+    dev: true
 
   /fast-glob@3.2.7:
     resolution: {integrity: sha512-rYGMRwip6lUMvYD3BTScMwT1HtAs2d71SMv66Vrxs0IekGZEjhM0pcMfjQPnknBt2zeCwQMEupiN02ZP4DiT1Q==}
@@ -8248,11 +8248,6 @@ packages:
   /kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
-
-  /klona@2.0.6:
-    resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
-    engines: {node: '>= 8'}
-    dev: false
 
   /language-subtag-registry@0.3.22:
     resolution: {integrity: sha512-tN0MCzyWnoz/4nHS6uxdlFWoUZT7ABptwKPQ52Ea7URk6vll88bWBVhodtnlfEuCcKWNGoc+uGbw1cwa9IKh/w==}
@@ -10655,6 +10650,15 @@ packages:
       react: 18.3.0-canary-a870b2d54-20240314
     dependencies:
       '@babel/runtime': 7.24.4
+      react: 18.3.0-canary-a870b2d54-20240314
+    dev: false
+
+  /react-hook-form@7.51.4(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-V14i8SEkh+V1gs6YtD0hdHYnoL4tp/HX/A45wWQN15CYr9bFRmmRdYStSO5L65lCCZRF+kYiSKhm9alqbcdiVA==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: 18.3.0-canary-a870b2d54-20240314
+    dependencies:
       react: 18.3.0-canary-a870b2d54-20240314
     dev: false
 

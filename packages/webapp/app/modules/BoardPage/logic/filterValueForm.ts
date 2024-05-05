@@ -1,12 +1,13 @@
 import { z } from 'zod';
-import { ZodOf } from '../../../../../models/types';
+import { UseFormReturn } from 'react-hook-form';
+import { ZodOf } from '../../../models/types';
 import {
   FilterDataType,
   OperatorOptions,
   Operators,
   UIOperators,
   type FilterBase,
-} from '../../../../../utils/Filter';
+} from '../../../utils/Filter';
 
 export type FilterValueForm = FilterBase;
 export interface OperatorChip {
@@ -95,12 +96,30 @@ function mapListOps(operator: OperatorOptions): OperatorOptions {
       return Operators.GT_OR_EQ_LS;
     case Operators.LT_OR_EQ:
       return Operators.LT_OR_EQ_LS;
+    case UIOperators.ONE_OF:
+      return UIOperators.ONE_OF_LS;
+    case UIOperators.NOT_ONE_OF:
+      return UIOperators.NOT_ONE_OF_LS;
     default:
       return operator;
   }
 }
-export const filterValueFormSchema = z.object({
-  operator: z.union([z.nativeEnum(Operators), z.nativeEnum(UIOperators)]),
-  value: z.string().nullable(),
-  values: z.string().array().nullable(),
-}) satisfies ZodOf<FilterValueForm>;
+
+export const filterValueFormSchema = z
+  .object({
+    operator: z.union([z.nativeEnum(Operators), z.nativeEnum(UIOperators)]),
+    value: z.string().nullable(),
+    values: z.string().array().nullable(),
+  })
+  .transform((value) => {
+    switch (value.operator) {
+      case UIOperators.NOT_ONE_OF:
+      case UIOperators.ONE_OF:
+      case UIOperators.ONE_OF_LS:
+      case UIOperators.NOT_ONE_OF_LS:
+        return { ...value, value: null };
+      default:
+        return { ...value, values: [] };
+    }
+  }) satisfies ZodOf<FilterValueForm>;
+export type FilterValueFormReturn = UseFormReturn<FilterValueForm>;
