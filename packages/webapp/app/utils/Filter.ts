@@ -97,7 +97,7 @@ function flattenFilter(
 ): FlatFilter | undefined {
   if (!conf?.allowFalsey && !filter.value && !filter.values) return undefined;
 
-  if (filter.values) {
+  if (filter.values?.length) {
     // Todo: Determine what happens with empty arrays here.
     const base: FlatFilter = {
       template: '',

@@ -116,6 +116,7 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
     statuses,
     board,
     users,
+    user,
   });
 }
 

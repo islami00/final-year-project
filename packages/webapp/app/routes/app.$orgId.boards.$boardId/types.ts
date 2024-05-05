@@ -19,6 +19,7 @@ export interface BoardIdLoaderData extends Record<string, unknown> {
   statuses: StatusListWithDefault;
   board: Board;
   users: User[];
+  user: User;
 }
 
 export type BoardIdLoader = (

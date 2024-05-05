@@ -11,14 +11,17 @@ export enum SavedFilterKind {
   NORMAL = 'normal',
 }
 export interface CreateSavedFilter {
+  id: string;
   name: string;
   content: SavedFilter['content'];
+  createdBy: string | null;
 }
 export interface SavedFilterApi {
   id: string;
   name: string;
   kind: SavedFilterKind;
   content: Filter[] | null;
+  createdBy: string;
 }
 
 /**
@@ -32,6 +35,7 @@ export interface SavedFilter {
   name: SavedFilterApi['name'];
   kind: SavedFilterApi['kind'];
   content: Filter[];
+  createdBy: string | null;
 }
 
 const savedFilterSchema = z.object({
@@ -42,6 +46,12 @@ const savedFilterSchema = z.object({
     .array(filterSchema)
     .nullable()
     .transform((value) => value || []),
+  createdBy: z.string().pipe(
+    z
+      .string()
+      .nullable()
+      .transform((v) => v || null)
+  ),
 }) satisfies ZodOf<SavedFilter, SavedFilterApi>;
 
 class SaveFilterConverter extends Converter<SavedFilterApi, SavedFilter> {

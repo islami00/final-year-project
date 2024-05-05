@@ -10,3 +10,4 @@ export const paginationConsts = {
 };
 
 export const EMPTY_ARRAY = [];
+export const PB_ID_LENGTH = 15;

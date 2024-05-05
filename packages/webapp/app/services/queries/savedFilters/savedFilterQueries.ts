@@ -4,9 +4,12 @@ import { SavedFilter } from '../../../models/SavedFilter.model';
 
 export interface EmptyFilterQuery {
   content: null;
+  id?: undefined;
 }
 
-export type SavedFilterQueryData = null | EmptyFilterQuery | SavedFilter;
+export type DefinedSavedFilterQueryData = EmptyFilterQuery | SavedFilter;
+
+export type SavedFilterQueryData = null | DefinedSavedFilterQueryData;
 export const savedFilterQueries = {
   all: ['savedFilters'] as const,
   byId: () => [...savedFilterQueries.all, 'by-id'] as const,
@@ -24,5 +27,6 @@ export const savedFilterQueries = {
       },
       gcTime: Infinity,
       staleTime: Infinity,
+      retry: false,
     }),
 };

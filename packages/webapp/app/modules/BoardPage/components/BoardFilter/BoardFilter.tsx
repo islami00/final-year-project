@@ -1,18 +1,25 @@
 import { useLoaderData, useSearchParams } from '@remix-run/react';
-import { useSuspenseQueries } from '@tanstack/react-query';
-import * as React from 'react';
+import { useQueryClient, useSuspenseQueries } from '@tanstack/react-query';
+import { nanoid } from 'nanoid';
+import SavedFilterModel, {
+  SavedFilterKind,
+} from '../../../../models/SavedFilter.model';
+import { BoardIdLoader } from '../../../../routes/app.$orgId.boards.$boardId/types';
+import { postSaveTempFilter } from '../../../../services/queries/savedFilters/postSaveTempFilter';
 import { savedFilterQueries } from '../../../../services/queries/savedFilters/savedFilterQueries';
+import { Filter } from '../../../../utils/Filter';
 import { specialFields } from '../../../../utils/Form/specialFields';
 import { AddFilter } from './AddFilter/AddFilter';
 import { BoardFilterButton } from './BoardFilterButton/BoardFilterButton';
-import { BoardIdLoader } from '../../../../routes/app.$orgId.boards.$boardId/types';
+import { PB_ID_LENGTH } from '../../../../utils/constants';
 
 export function BoardFilter() {
-  const [search] = useSearchParams();
+  const [search, setParams] = useSearchParams();
   const filter = search.get(specialFields.filter);
   const savedFilter = search.get(specialFields.savedFilter);
 
-  const { users, statuses } = useLoaderData<BoardIdLoader>();
+  const queryClient = useQueryClient();
+  const { users, statuses, user } = useLoaderData<BoardIdLoader>();
   const [filterQuery] = useSuspenseQueries({
     queries: [
       savedFilterQueries.byIdCaughtFilter(filter),
@@ -20,12 +27,36 @@ export function BoardFilter() {
     ],
   });
 
+  async function applyFilter(filterData: Filter) {
+    const id = filter || nanoid(PB_ID_LENGTH);
+    const fullFilter = await SavedFilterModel.fromApi({
+      id,
+      content: [filterData],
+      name: 'TempFilter',
+      kind: SavedFilterKind.TEMPORARY,
+      createdBy: user.id,
+    });
+    // Set client state
+    queryClient.setQueryData(
+      savedFilterQueries.byIdCaughtFilter(id).queryKey,
+      fullFilter
+    );
+    // At the same time, save and try to do a bookmark
+    setParams((prev) => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set(specialFields.filter, id);
+      return newParams;
+    });
+    postSaveTempFilter({ body: fullFilter });
+  }
+  console.log(filterQuery.data?.content);
+
   if (!filterQuery.data?.content?.length) {
     return (
       <AddFilter
         statuses={statuses.allStatuses}
         users={users}
-        onChange={console.log}
+        onChange={applyFilter}
       >
         <BoardFilterButton />
       </AddFilter>

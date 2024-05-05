@@ -15,7 +15,7 @@ export interface AddFilterProps {
 }
 
 export function AddFilter(props: AddFilterProps) {
-  const { children, users, statuses } = props;
+  const { children, users, statuses, onChange } = props;
   const [state, dispatch] = useReducer(addFilterReducer, { stage: 0 });
 
   switch (state.stage) {
@@ -26,7 +26,7 @@ export function AddFilter(props: AddFilterProps) {
           <FilterValueDialog
             meta={state.filter}
             onClose={dispatch}
-            onChange={console.log}
+            onChange={onChange}
             statuses={statuses}
             users={users}
           />

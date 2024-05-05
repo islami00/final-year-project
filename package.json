@@ -80,6 +80,7 @@
     "dayjs": "^1.11.11",
     "isbot": "^3.6.8",
     "lodash": "^4.17.21",
+    "nanoid": "^5.0.7",
     "pocketbase": "^0.21.1",
     "promise-passthrough": "^1.0.5",
     "react": "18.3.0-canary-a870b2d54-20240314",
