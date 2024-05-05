@@ -1,21 +1,17 @@
 import { Combobox } from '@mantine/core';
 import * as React from 'react';
-import { Priority } from '../../models/Task.model';
-import { P } from '../P';
-import { PriorityFlag } from './PriorityFlag';
-import { PriorityDictionary } from './PrioritySelect.utils';
+import {
+  PriorityItemContentProps,
+  PriorityItemContent,
+} from './PriorityItemContent';
 
-interface PriorityItemProps {
-  priority: Priority;
-}
+type PriorityItemProps = PriorityItemContentProps;
 export function PriorityItem(props: PriorityItemProps) {
   const { priority } = props;
-  const { color, label } = PriorityDictionary[priority];
 
   return (
     <Combobox.Option value={priority}>
-      <PriorityFlag color={color} />
-      <P textStyle="smSemiBold">{label}</P>
+      <PriorityItemContent priority={priority} />
     </Combobox.Option>
   );
 }

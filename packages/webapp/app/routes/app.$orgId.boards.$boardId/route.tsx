@@ -29,6 +29,7 @@ import * as boardIdForm from './form';
 import { type BoardIdFilterData, type BoardIdLoaderData } from './types';
 import { boardIdSchema } from './utils';
 import { isSearchRequest } from '../../utils/Routes/isSearchRequest';
+import { getOrganisationUsers } from '../../services/queries/organization/getOrganizationUsers';
 
 export async function clientAction(args: ClientActionFunctionArgs) {
   const { request } = args;
@@ -62,7 +63,7 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
   const { request } = args;
   const user = await requireUser();
   await requireOrganizations(user.id);
-  const { boardId } = await boardIdSchema.parseAsync(args.params);
+  const { boardId, orgId } = await boardIdSchema.parseAsync(args.params);
   const statuses = await getStatusByBoardId({
     boardId,
   });
@@ -93,7 +94,7 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
         taskQueries.listByStatusFilterQuery({
           statusId: each.id,
           q: search.get(specialFields.q),
-          filter: currentFilter?.content,
+          savedFilter: currentFilter,
         })
       )
     );
@@ -102,6 +103,11 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
   }
   filterQueries().catch(noop);
   getStatusQueries().catch(noop);
+
+  // Users
+  const users = await getOrganisationUsers({
+    organisationId: orgId,
+  });
   const board = await getBoardById({
     id: boardId,
   });
@@ -109,6 +115,7 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
   return defer<BoardIdLoaderData>({
     statuses,
     board,
+    users,
   });
 }
 

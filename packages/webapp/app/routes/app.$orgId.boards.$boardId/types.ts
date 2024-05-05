@@ -4,6 +4,7 @@ import { Board } from '../../models/Board.model';
 import { SavedFilter } from '../../models/SavedFilter.model';
 import type { StatusListWithDefault } from '../../models/Status.model';
 import { EmptyFilterQuery } from '../../services/queries/savedFilters/savedFilterQueries';
+import { User } from '../../models/User.model';
 
 export interface BoardIdFilterData {
   /**
@@ -17,6 +18,7 @@ export interface BoardIdFilterData {
 export interface BoardIdLoaderData extends Record<string, unknown> {
   statuses: StatusListWithDefault;
   board: Board;
+  users: User[];
 }
 
 export type BoardIdLoader = (

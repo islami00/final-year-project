@@ -12,7 +12,7 @@ export function convertChangeEvent(
       };
     case 'add':
       return {
-        assignee: value.value.id,
+        assignee: value.value.value,
         intent: taskDetailsForm.TaskDetailsIntent.ADD_ASSIGNEE,
       };
     default:

@@ -1,3 +1,6 @@
+import { AppInternalError } from '../../../../../utils/AppInternalError';
+import { Status } from '../../../../../models/Status.model';
+import { User } from '../../../../../models/User.model';
 import { FilterDataType, FilterMeta } from '../../../../../utils/Filter';
 import * as filterValueForm from '../../../logic/filterValueForm';
 import { FilterDateType } from './FilterDateType';
@@ -8,9 +11,11 @@ import { FilterTextType } from './FilterTextType';
 interface FilterValueInputProps {
   form: filterValueForm.FilterValueFormReturn;
   meta: FilterMeta;
+  users: User[];
+  statuses: Status[];
 }
 export function FilterValueInput(props: FilterValueInputProps) {
-  const { meta, form } = props;
+  const { meta, form, users, statuses } = props;
 
   switch (meta.dataType) {
     case FilterDataType.TEXT:
@@ -21,9 +26,15 @@ export function FilterValueInput(props: FilterValueInputProps) {
       return <FilterNumberType form={form} />;
 
     case FilterDataType.SELECT:
-      return <FilterSelectType form={form} meta={meta} />;
+      return (
+        <FilterSelectType
+          users={users}
+          statuses={statuses}
+          form={form}
+          meta={meta}
+        />
+      );
     default:
-      break;
+      throw new AppInternalError(`Missing input for ${meta.dataType}`);
   }
-  return <div className="input"></div>;
 }
