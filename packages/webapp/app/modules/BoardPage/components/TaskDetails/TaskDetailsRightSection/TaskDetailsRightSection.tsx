@@ -12,6 +12,8 @@ import { RightSectionButton } from '../RightSectionButton/RightSectionButton';
 import * as classes from './TaskDetailsRightSection.styles';
 import { TaskSprintPoint } from '../SprintPointSection/TaskSprintPoint';
 import { DeleteTask } from '../DeleteTask/DeleteTask';
+import { mapToAssigneeData } from '../../../../../components/AssigneeSelect/AssigneeSelect.utils';
+import { useMemo } from 'react';
 
 interface TaskDetailsRightSectionProps {
   selected: ApplyOptimisticAssigneeResult['selected'];
@@ -21,6 +23,7 @@ interface TaskDetailsRightSectionProps {
 export function TaskDetailsRightSection(props: TaskDetailsRightSectionProps) {
   const { allUsers, selected, task } = props;
 
+  const memoUsers = useMemo(() => allUsers.map(mapToAssigneeData), [allUsers]);
   return (
     <div className={classes.rightSection}>
       <SectionGroup title="Add to task">
@@ -36,7 +39,7 @@ export function TaskDetailsRightSection(props: TaskDetailsRightSectionProps) {
           )}
         />
         <TaskAssignee
-          data={allUsers}
+          data={memoUsers}
           values={selected}
           target={(_, ctx) => (
             <RightSectionButton

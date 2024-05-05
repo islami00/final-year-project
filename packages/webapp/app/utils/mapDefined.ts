@@ -1,5 +1,5 @@
 export function mapDefined<T, U>(
-  array: T[],
+  array: T[] | readonly T[],
   mapper: (value: T, idx: number) => U | undefined
 ): U[] {
   const result: U[] = [];

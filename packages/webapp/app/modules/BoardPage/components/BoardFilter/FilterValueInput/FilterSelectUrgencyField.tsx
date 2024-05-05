@@ -15,12 +15,12 @@ interface FilterSelectUrgencyFieldProps {
 export function FilterSelectUrgencyField(props: FilterSelectUrgencyFieldProps) {
   const { operator, form } = props;
   const valuesField = useController({
-    name: 'values',
+    name: 'data.values',
     control: form.control,
   });
 
   const valueField = useController({
-    name: 'value',
+    name: 'data.value',
     control: form.control,
   });
   switch (operator) {

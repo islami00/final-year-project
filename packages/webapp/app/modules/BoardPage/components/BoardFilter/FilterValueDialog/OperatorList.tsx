@@ -12,7 +12,7 @@ interface OperatorListProps {
 export function OperatorList(props: OperatorListProps) {
   const { operators, form } = props;
   const { field } = useController({
-    name: 'operator',
+    name: 'data.operator',
     control: form.control,
   });
 
@@ -21,8 +21,8 @@ export function OperatorList(props: OperatorListProps) {
       value={field.value}
       onChange={(v) => {
         field.onChange(v);
-        form.setValue('value', null, defaultSetValueConfig);
-        form.setValue('values', null, defaultSetValueConfig);
+        form.setValue('data.value', null, defaultSetValueConfig);
+        form.setValue('data.values', null, defaultSetValueConfig);
       }}
     >
       <div className={classes.operators}>

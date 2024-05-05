@@ -11,7 +11,7 @@ export function FilterNumberType(props: FilterNumberTypeProps) {
   const { form } = props;
   const control = useController({
     control: form.control,
-    name: 'value',
+    name: 'data.value',
   });
   const numberValue = control.field.value ? Number(control.field.value) : '';
   return (

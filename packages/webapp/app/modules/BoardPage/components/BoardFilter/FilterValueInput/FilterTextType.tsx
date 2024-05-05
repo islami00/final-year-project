@@ -7,5 +7,7 @@ export interface FilterTextTypeProps {
 
 export function FilterTextType(props: FilterTextTypeProps) {
   const { form } = props;
-  return <TextInput {...form.register('value')} placeholder="Enter a value" />;
+  return (
+    <TextInput {...form.register('data.value')} placeholder="Enter a value" />
+  );
 }

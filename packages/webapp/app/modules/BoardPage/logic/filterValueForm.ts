@@ -9,7 +9,9 @@ import {
   type FilterBase,
 } from '../../../utils/Filter';
 
-export type FilterValueForm = FilterBase;
+export interface FilterValueForm {
+  data: FilterBase;
+}
 export interface OperatorChip {
   operator: OperatorOptions;
   label: string;
@@ -21,9 +23,12 @@ interface DefaultDataArgs {
 export function defaultData(args: DefaultDataArgs): FilterValueForm {
   const { firstOp } = args;
   return {
-    operator: firstOp,
-    value: null,
-    values: null,
+    data: {
+      operator: firstOp,
+
+      value: null,
+      values: null,
+    },
   };
 }
 
@@ -104,14 +109,33 @@ function mapListOps(operator: OperatorOptions): OperatorOptions {
       return operator;
   }
 }
+const errMap: z.ZodErrorMap = (issue, ctx) => {
+  switch (issue.code) {
+    case z.ZodIssueCode.invalid_type:
+      return { message: 'Value cannot be empty' };
+    default:
+      break;
+  }
 
-export const filterValueFormSchema = z
-  .object({
-    operator: z.union([z.nativeEnum(Operators), z.nativeEnum(UIOperators)]),
-    value: z.string().nullable(),
-    values: z.string().array().nullable(),
-  })
-  .transform((value) => {
+  return { message: ctx.defaultError };
+};
+
+export const filterBaseSchema = z
+  .union([
+    z.object({
+      operator: z.union([z.nativeEnum(Operators), z.nativeEnum(UIOperators)]),
+      value: z.null(),
+      values: z.array(z.string(), {
+        errorMap: errMap,
+      }),
+    }),
+    z.object({
+      operator: z.union([z.nativeEnum(Operators), z.nativeEnum(UIOperators)]),
+      value: z.string({ errorMap: errMap }),
+      values: z.null(),
+    }),
+  ])
+  .transform((value): FilterValueForm['data'] => {
     switch (value.operator) {
       case UIOperators.NOT_ONE_OF:
       case UIOperators.ONE_OF:
@@ -121,5 +145,10 @@ export const filterValueFormSchema = z
       default:
         return { ...value, values: [] };
     }
-  }) satisfies ZodOf<FilterValueForm>;
+  }) satisfies ZodOf<FilterBase>;
+
+export const filterValueFormSchema = z.object({
+  data: filterBaseSchema,
+}) satisfies ZodOf<FilterValueForm>;
+
 export type FilterValueFormReturn = UseFormReturn<FilterValueForm>;

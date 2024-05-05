@@ -12,7 +12,7 @@ export interface FilterDateTypeProps {
 export function FilterDateType(props: FilterDateTypeProps) {
   const { form } = props;
   const valueControl = useController({
-    name: 'value',
+    name: 'data.value',
     control: form.control,
   });
   const dateValue = React.useMemo(
