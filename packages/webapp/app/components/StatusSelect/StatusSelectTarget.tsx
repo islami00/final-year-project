@@ -15,7 +15,7 @@ export const StatusSelectTarget = React.forwardRef<
   StatusTargetProps
 >((props, ref) => {
   const { bg, children, ...rest } = props;
-  const cssProps = defineStatusSelectVars({ bg }) as React.CSSProperties;
+  const cssProps = defineStatusSelectVars({ bg });
   return (
     <SelectButton
       {...rest}

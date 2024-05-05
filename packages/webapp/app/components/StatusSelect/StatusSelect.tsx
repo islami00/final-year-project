@@ -31,7 +31,7 @@ export function StatusSelect(props: StatusSelectProps) {
       width={SelectWidths.LG}
     >
       {data.map((status) => (
-        <StatusSelectItem key={status.id} status={status} />
+        <StatusSelectItem key={status.value} status={status} />
       ))}
     </SelectPrimitive>
   );

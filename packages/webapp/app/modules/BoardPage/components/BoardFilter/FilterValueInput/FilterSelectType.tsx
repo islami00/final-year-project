@@ -11,6 +11,11 @@ import { TaskFilterFields } from '../AddFilterMenu/AddFilterMenu.utils';
 import { FilterSelectUrgencyField } from './FilterSelectUrgencyField';
 import { User } from '../../../../../models/User.model';
 import { Status } from '../../../../../models/Status.model';
+import { StatusSelectItemContent } from '../../../../../components/StatusSelect/StatusSelectItemContent';
+import {
+  mapToStatusData,
+  StatusItemData,
+} from '../../../../../components/StatusSelect/StatusSelect.utils';
 
 export interface FilterSelectTypeProps {
   meta: FilterMeta;
@@ -20,9 +25,9 @@ export interface FilterSelectTypeProps {
 }
 
 export function FilterSelectType(props: FilterSelectTypeProps) {
-  const { meta, form, users } = props;
-  // Todo: Use users
+  const { meta, form, users, statuses } = props;
   const mappedUsers = users.map(mapToAssigneeData);
+  const mappedStatuses = statuses.map(mapToStatusData);
   const operator = useWatch({
     control: form.control,
     name: 'operator',
@@ -88,7 +93,41 @@ export function FilterSelectType(props: FilterSelectTypeProps) {
           );
       }
     }
+    case TaskFilterFields.status.field: {
+      switch (operator) {
+        case UIOperators.ONE_OF:
+        case UIOperators.NOT_ONE_OF:
+        case UIOperators.ONE_OF_LS:
+        case UIOperators.NOT_ONE_OF_LS:
+          return (
+            <MultiSelect
+              data={mappedStatuses}
+              {...commonSelectProps}
+              {...multiSelectProps}
+              renderOption={(item) => (
+                <StatusSelectItemContent
+                  status={item.option as StatusItemData}
+                />
+              )}
+            />
+          );
+        default:
+          return (
+            <Select
+              {...commonSelectProps}
+              {...selectProps}
+              data={mappedStatuses}
+              renderOption={(item) => (
+                <StatusSelectItemContent
+                  status={item.option as StatusItemData}
+                />
+              )}
+            />
+          );
+      }
+    }
     default:
+      meta.field;
       break;
   }
   return <div></div>;
