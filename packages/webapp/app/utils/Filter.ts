@@ -72,6 +72,7 @@ interface FlatFilter {
 interface ParserConfig {
   /** Don't filter out falsey */
   allowFalsey?: boolean;
+  connective?: Connectives;
 }
 /**
  * @description Convert a bunch of filters into a single arg for pb.filter()
@@ -82,7 +83,7 @@ export function parseFilters(
 ): FlatFilter {
   const joinable = mapDefined(filters, (v, idx) => flattenFilter(v, conf, idx));
 
-  const joined = joinFilters(joinable);
+  const joined = joinFilters(joinable, conf.connective);
 
   return joined;
 }
@@ -95,7 +96,9 @@ function flattenFilter(
   conf: ParserConfig,
   place: number
 ): FlatFilter | undefined {
-  if (!conf?.allowFalsey && !filter.value && !filter.values) return undefined;
+  if (!conf?.allowFalsey && !filter.value && !filter.values?.length) {
+    return undefined;
+  }
 
   if (filter.values?.length) {
     // Todo: Determine what happens with empty arrays here.

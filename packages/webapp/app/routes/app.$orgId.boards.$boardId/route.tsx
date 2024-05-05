@@ -28,7 +28,11 @@ import { queryClient } from '../../utils/queryClient';
 import * as boardIdForm from './form';
 import { type BoardIdFilterData, type BoardIdLoaderData } from './types';
 import { boardIdSchema } from './utils';
-import { isSearchRequest } from '../../utils/Routes/isSearchRequest';
+import {
+  isFilterRequest,
+  isSavedFilterRequest,
+  isSearchRequest,
+} from '../../utils/Routes/isSearchRequest';
 import { getOrganisationUsers } from '../../services/queries/organization/getOrganizationUsers';
 
 export async function clientAction(args: ClientActionFunctionArgs) {
@@ -124,7 +128,14 @@ export function shouldRevalidate(args: ShouldRevalidateFunctionArgs) {
   const { defaultShouldRevalidate } = args;
 
   // Ignore searches
-  if (isSearchRequest(args)) return false;
+  // Todo: Check if filter and saved filter works.
+  if (
+    isSearchRequest(args) ||
+    isFilterRequest(args) ||
+    isSavedFilterRequest(args)
+  ) {
+    return false;
+  }
 
   return defaultShouldRevalidate;
 }

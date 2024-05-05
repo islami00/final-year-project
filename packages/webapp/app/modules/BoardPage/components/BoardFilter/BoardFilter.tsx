@@ -47,7 +47,7 @@ export function BoardFilter() {
       newParams.set(specialFields.filter, id);
       return newParams;
     });
-    postSaveTempFilter({ body: fullFilter });
+    postSaveTempFilter({ body: fullFilter, userId: user.id });
   }
   console.log(filterQuery.data?.content);
 

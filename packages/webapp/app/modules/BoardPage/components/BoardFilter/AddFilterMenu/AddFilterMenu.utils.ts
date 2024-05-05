@@ -17,8 +17,8 @@ interface TaskFilterOptions {
 export const TaskFilterFields: TaskFilterOptions = {
   title: { field: 'title', label: 'Title', dataType: FilterDataType.TEXT },
   urgency: {
-    field: 'urgency',
-    label: 'Urgency',
+    field: 'priority',
+    label: 'Priority',
     dataType: FilterDataType.SELECT,
   },
 
@@ -31,6 +31,7 @@ export const TaskFilterFields: TaskFilterOptions = {
     field: 'task_assignee_via_taskId.assigneeId',
     label: 'Assignee',
     dataType: FilterDataType.SELECT,
+    isListType: true,
   },
   status: {
     // Eventually support more complex status filters
