@@ -42,6 +42,9 @@ importers:
       '@mantine/core':
         specifier: ^7.9.0
         version: 7.9.0(@mantine/hooks@7.9.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
+      '@mantine/dates':
+        specifier: ^7.9.0
+        version: 7.9.0(@mantine/core@7.9.0)(@mantine/hooks@7.9.0)(dayjs@1.11.11)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
       '@mantine/hooks':
         specifier: ^7.9.0
         version: 7.9.0(react@18.3.0-canary-a870b2d54-20240314)
@@ -102,6 +105,9 @@ importers:
       '@types/lodash':
         specifier: ^4.17.0
         version: 4.17.0
+      dayjs:
+        specifier: ^1.11.11
+        version: 1.11.11
       isbot:
         specifier: ^3.6.8
         version: 3.8.0
@@ -2284,6 +2290,23 @@ packages:
       type-fest: 4.15.0
     transitivePeerDependencies:
       - '@types/react'
+    dev: false
+
+  /@mantine/dates@7.9.0(@mantine/core@7.9.0)(@mantine/hooks@7.9.0)(dayjs@1.11.11)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-+OOM8w6uZfBvlqPtwGIjG0Ef3z4E5QyWVmh7AhevgRS9RBdfa1YpxfRweDTDmrY9qYnim7fyM097Rwe30q/kpA==}
+    peerDependencies:
+      '@mantine/core': ^7.9.0
+      '@mantine/hooks': 7.9.0
+      dayjs: '>=1.0.0'
+      react: 18.3.0-canary-a870b2d54-20240314
+      react-dom: 18.3.0-canary-a870b2d54-20240314
+    dependencies:
+      '@mantine/core': 7.9.0(@mantine/hooks@7.9.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
+      '@mantine/hooks': 7.9.0(react@18.3.0-canary-a870b2d54-20240314)
+      clsx: 2.1.0
+      dayjs: 1.11.11
+      react: 18.3.0-canary-a870b2d54-20240314
+      react-dom: 18.3.0-canary-a870b2d54-20240314(react@18.3.0-canary-a870b2d54-20240314)
     dev: false
 
   /@mantine/hooks@7.9.0(react@18.3.0-canary-a870b2d54-20240314):
@@ -5928,6 +5951,10 @@ packages:
       es-errors: 1.3.0
       is-data-view: 1.0.1
     dev: true
+
+  /dayjs@1.11.11:
+    resolution: {integrity: sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==}
+    dev: false
 
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}

@@ -1,5 +1,6 @@
 import pandaCssUrl from './styles/panda.css?url';
 import mantineCssUrl from '@mantine/core/styles.layer.css?url';
+import dateCssUrl from '@mantine/dates/styles.css?url';
 import mantineTiptapCssUrl from '@mantine/tiptap/styles.layer.css?url';
 import { Toaster } from 'react-hot-toast';
 import { cssBundleHref } from '@remix-run/css-bundle';
@@ -32,6 +33,7 @@ export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: pandaCssUrl },
   { rel: 'stylesheet', href: mantineCssUrl },
   { rel: 'stylesheet', href: mantineTiptapCssUrl },
+  { rel: 'stylesheet', href: dateCssUrl },
   { rel: 'preload', href: fontStyleSheetUrl, as: 'style' },
   { rel: 'stylesheet', href: fontStyleSheetUrl },
 ];

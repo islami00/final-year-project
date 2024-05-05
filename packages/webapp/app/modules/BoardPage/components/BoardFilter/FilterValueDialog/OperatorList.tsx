@@ -15,7 +15,7 @@ export function OperatorList(props: OperatorListProps) {
     control: form.control,
   });
   return (
-    <Chip.Group {...field}>
+    <Chip.Group value={field.value} onChange={field.onChange}>
       <div className={classes.operators}>
         {operators.map((each) => (
           <Chip radius="sm" value={each.operator}>

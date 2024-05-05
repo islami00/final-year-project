@@ -2,6 +2,7 @@ import { FilterTextType } from './FilterTextType';
 import { useWatch } from 'react-hook-form';
 import { FilterDataType, FilterMeta } from '../../../../../utils/Filter';
 import * as filterValueForm from '../../../logic/filterValueForm';
+import { FilterDateType } from './FilterDateType';
 
 interface FilterValueInputProps {
   form: filterValueForm.FilterValueFormReturn;
@@ -16,7 +17,9 @@ export function FilterValueInput(props: FilterValueInputProps) {
 
   switch (meta.dataType) {
     case FilterDataType.TEXT:
-      return <FilterTextType operator={operator} meta={meta} form={form} />;
+      return <FilterTextType form={form} />;
+    case FilterDataType.DATE:
+      return <FilterDateType form={form} />;
 
     default:
       break;
