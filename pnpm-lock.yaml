@@ -7,7 +7,7 @@ settings:
 overrides:
   react: 18.3.0-canary-a870b2d54-20240314
   react-dom: 18.3.0-canary-a870b2d54-20240314
-  '@mantine/core': ^7.8.0
+  '@mantine/core': ^7.9.0
   '@types/react': ^18.2.25
   '@types/react-dom': ^18.2.25
 
@@ -37,14 +37,17 @@ importers:
         specifier: ^5.0.28
         version: 5.0.28
       '@mantine/core':
-        specifier: ^7.8.0
-        version: 7.8.0(@mantine/hooks@7.8.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
+        specifier: ^7.9.0
+        version: 7.9.0(@mantine/hooks@7.9.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
+      '@mantine/form':
+        specifier: ^7.9.0
+        version: 7.9.0(react@18.3.0-canary-a870b2d54-20240314)
       '@mantine/hooks':
-        specifier: ^7.8.0
-        version: 7.8.0(react@18.3.0-canary-a870b2d54-20240314)
+        specifier: ^7.9.0
+        version: 7.9.0(react@18.3.0-canary-a870b2d54-20240314)
       '@mantine/tiptap':
-        specifier: ^7.8.0
-        version: 7.8.0(@mantine/core@7.8.0)(@mantine/hooks@7.8.0)(@tiptap/extension-link@2.3.0)(@tiptap/react@2.3.0)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
+        specifier: ^7.9.0
+        version: 7.9.0(@mantine/core@7.9.0)(@mantine/hooks@7.9.0)(@tiptap/extension-link@2.3.0)(@tiptap/react@2.3.0)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
       '@mantine/utils':
         specifier: ^6.0.21
         version: 6.0.21(react@18.3.0-canary-a870b2d54-20240314)
@@ -64,8 +67,11 @@ importers:
         specifier: ^3.1.0
         version: 3.2.0(react@18.3.0-canary-a870b2d54-20240314)
       '@tanstack/react-query':
-        specifier: ^5.29.2
-        version: 5.29.2(react@18.3.0-canary-a870b2d54-20240314)
+        specifier: ^5.34.2
+        version: 5.34.2(react@18.3.0-canary-a870b2d54-20240314)
+      '@tanstack/react-query-devtools':
+        specifier: ^5.34.2
+        version: 5.34.2(@tanstack/react-query@5.34.2)(react@18.3.0-canary-a870b2d54-20240314)
       '@tiptap/extension-highlight':
         specifier: ^2.3.0
         version: 2.3.0(@tiptap/core@2.3.0)
@@ -196,9 +202,6 @@ importers:
       '@tanstack/eslint-plugin-query':
         specifier: ^5.28.11
         version: 5.28.11(eslint@8.48.0)(typescript@5.3.3)
-      '@tanstack/react-query-devtools':
-        specifier: ^5.32.0
-        version: 5.32.0(@tanstack/react-query@5.29.2)(react@18.3.0-canary-a870b2d54-20240314)
       '@types/node':
         specifier: 18.16.9
         version: 18.16.9
@@ -251,8 +254,8 @@ importers:
   packages/design-system:
     dependencies:
       '@mantine/core':
-        specifier: ^7.8.0
-        version: 7.8.0(@mantine/hooks@7.8.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
+        specifier: ^7.9.0
+        version: 7.9.0(@mantine/hooks@7.9.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
       '@pandacss/dev':
         specifier: ~0.37.2
         version: 0.37.2(typescript@5.3.3)
@@ -260,8 +263,8 @@ importers:
   packages/webapp:
     dependencies:
       '@mantine/core':
-        specifier: ^7.8.0
-        version: 7.8.0(@mantine/hooks@7.8.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
+        specifier: ^7.9.0
+        version: 7.9.0(@mantine/hooks@7.9.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
       '@remix-run/node':
         specifier: ^2.8.1
         version: 2.8.1(typescript@5.3.3)
@@ -2252,15 +2255,15 @@ packages:
     resolution: {integrity: sha512-Lg3PnLp0QXpxwLIAuuJboLeRaIhrgJjeuh797QADg3xz8wGLugQOS5DpsE8A6i6Adgzf+bacllkKZG3J0tGfDw==}
     dev: true
 
-  /@mantine/core@7.8.0(@mantine/hooks@7.8.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314):
-    resolution: {integrity: sha512-19RKuNdJ/s8pZjy2w2rvTsl4ybi/XM6vf+Kc0WY7kpLFCvdG+/UxNi1MuJF8t2Zs0QSFeb/H5yZQNe0XPbegHw==}
+  /@mantine/core@7.9.0(@mantine/hooks@7.9.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-EhELO1uYq2s08H69h4BCcvE26mNLPaXUi6RAjApqBIynMcyJlmdluFtvGKFxjpgFZy3moeSYNrjEW//T0uTMZg==}
     peerDependencies:
-      '@mantine/hooks': 7.8.0
+      '@mantine/hooks': 7.9.0
       react: 18.3.0-canary-a870b2d54-20240314
       react-dom: 18.3.0-canary-a870b2d54-20240314
     dependencies:
       '@floating-ui/react': 0.26.12(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
-      '@mantine/hooks': 7.8.0(react@18.3.0-canary-a870b2d54-20240314)
+      '@mantine/hooks': 7.9.0(react@18.3.0-canary-a870b2d54-20240314)
       clsx: 2.1.0
       react: 18.3.0-canary-a870b2d54-20240314
       react-dom: 18.3.0-canary-a870b2d54-20240314(react@18.3.0-canary-a870b2d54-20240314)
@@ -2272,26 +2275,36 @@ packages:
       - '@types/react'
     dev: false
 
-  /@mantine/hooks@7.8.0(react@18.3.0-canary-a870b2d54-20240314):
-    resolution: {integrity: sha512-+70fkgjhVJeJ+nJqnburIM3UAsfvxat1Low9HMPobLbv64FIdB4Nzu5ct3qojNQ58r5sK01tg5UoFIJYslaVrg==}
+  /@mantine/form@7.9.0(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-YFAUe3T6L+bQRJW7e2bNUdGON7OH8X0juDHojXoH3AKW5eHP/qTdDrUxAqi7n4rqb9yPdnOqs3aqE6T/evb8Hw==}
+    peerDependencies:
+      react: 18.3.0-canary-a870b2d54-20240314
+    dependencies:
+      fast-deep-equal: 3.1.3
+      klona: 2.0.6
+      react: 18.3.0-canary-a870b2d54-20240314
+    dev: false
+
+  /@mantine/hooks@7.9.0(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-LKgyrlaIK0S/gcn/VDbhqLBZOYjvhXfVcH7rMs4MIBVD+wuRo2LvvAYe3cUfQbBCfmlpRjqvewwvsIYYsjSofQ==}
     peerDependencies:
       react: 18.3.0-canary-a870b2d54-20240314
     dependencies:
       react: 18.3.0-canary-a870b2d54-20240314
     dev: false
 
-  /@mantine/tiptap@7.8.0(@mantine/core@7.8.0)(@mantine/hooks@7.8.0)(@tiptap/extension-link@2.3.0)(@tiptap/react@2.3.0)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314):
-    resolution: {integrity: sha512-0O766+DZ8/L2VX//7GKUCfOiMyC7lJXfLmMNqQdth2JtlGoDzWDAF7hhQos0hBor+rT7ci3gPLVMv39l2U0CQw==}
+  /@mantine/tiptap@7.9.0(@mantine/core@7.9.0)(@mantine/hooks@7.9.0)(@tiptap/extension-link@2.3.0)(@tiptap/react@2.3.0)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-Q8fu0wsgIKxkMnlDTzBxwFdzSU1xEB2mdE1FPkNG9hq3VoOjFM0x35eGYlRMkZAJuYOmsFvlWwZNxWblkIjDjQ==}
     peerDependencies:
-      '@mantine/core': ^7.8.0
-      '@mantine/hooks': 7.8.0
+      '@mantine/core': ^7.9.0
+      '@mantine/hooks': 7.9.0
       '@tiptap/extension-link': '>=2.1.12'
       '@tiptap/react': '>=2.1.12'
       react: 18.3.0-canary-a870b2d54-20240314
       react-dom: 18.3.0-canary-a870b2d54-20240314
     dependencies:
-      '@mantine/core': 7.8.0(@mantine/hooks@7.8.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
-      '@mantine/hooks': 7.8.0(react@18.3.0-canary-a870b2d54-20240314)
+      '@mantine/core': 7.9.0(@mantine/hooks@7.9.0)(@types/react@18.2.78)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
+      '@mantine/hooks': 7.9.0(react@18.3.0-canary-a870b2d54-20240314)
       '@tiptap/extension-link': 2.3.0(@tiptap/core@2.3.0)(@tiptap/pm@2.3.0)
       '@tiptap/react': 2.3.0(@tiptap/core@2.3.0)(@tiptap/pm@2.3.0)(react-dom@18.3.0-canary-a870b2d54-20240314)(react@18.3.0-canary-a870b2d54-20240314)
       react: 18.3.0-canary-a870b2d54-20240314
@@ -3940,31 +3953,33 @@ packages:
       - typescript
     dev: true
 
-  /@tanstack/query-core@5.29.0:
-    resolution: {integrity: sha512-WgPTRs58hm9CMzEr5jpISe8HXa3qKQ8CxewdYZeVnA54JrPY9B1CZiwsCoLpLkf0dGRZq+LcX5OiJb0bEsOFww==}
+  /@tanstack/query-core@5.34.2:
+    resolution: {integrity: sha512-FM1UXldYcoMiWmVbpewV14EVpnr/ETBbdF84tmCktx29e2bXBFhGtAfyDHUD4X1FehaV5tC9GkXZUMZRQV3lcA==}
+    dev: false
 
-  /@tanstack/query-devtools@5.28.10:
-    resolution: {integrity: sha512-5UN629fKa5/1K/2Pd26gaU7epxRrYiT1gy+V+pW5K6hnf1DeUKK3pANSb2eHKlecjIKIhTwyF7k9XdyE2gREvQ==}
-    dev: true
+  /@tanstack/query-devtools@5.32.1:
+    resolution: {integrity: sha512-7Xq57Ctopiy/4atpb0uNY5VRuCqRS/1fi/WBCKKX6jHMa6cCgDuV/AQuiwRXcKARbq2OkVAOrW2v4xK9nTbcCA==}
+    dev: false
 
-  /@tanstack/react-query-devtools@5.32.0(@tanstack/react-query@5.29.2)(react@18.3.0-canary-a870b2d54-20240314):
-    resolution: {integrity: sha512-KWrzLoUjs9JtDSH3H2qbm5MjjykyAT8DkvP8tukw3gBG4ziu5WaWHciBjMsYSe1JB79AOxxGovzjW/Cd9+ofVw==}
+  /@tanstack/react-query-devtools@5.34.2(@tanstack/react-query@5.34.2)(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-rf/LxJszATG9yDzKi1GYKGO2ODJi4rqrzM5Fs6tN06Hy5jtD8pQwXgCZz052d4J/avn/fyfvS2TRPbR5dOAk/g==}
     peerDependencies:
-      '@tanstack/react-query': ^5.32.0
+      '@tanstack/react-query': ^5.34.2
       react: 18.3.0-canary-a870b2d54-20240314
     dependencies:
-      '@tanstack/query-devtools': 5.28.10
-      '@tanstack/react-query': 5.29.2(react@18.3.0-canary-a870b2d54-20240314)
+      '@tanstack/query-devtools': 5.32.1
+      '@tanstack/react-query': 5.34.2(react@18.3.0-canary-a870b2d54-20240314)
       react: 18.3.0-canary-a870b2d54-20240314
-    dev: true
+    dev: false
 
-  /@tanstack/react-query@5.29.2(react@18.3.0-canary-a870b2d54-20240314):
-    resolution: {integrity: sha512-nyuWILR4u7H5moLGSiifLh8kIqQDLNOHGuSz0rcp+J75fNc8aQLyr5+I2JCHU3n+nJrTTW1ssgAD8HiKD7IFBQ==}
+  /@tanstack/react-query@5.34.2(react@18.3.0-canary-a870b2d54-20240314):
+    resolution: {integrity: sha512-5L9W9XQ/lRcyhlVN0xrOkPZE9PJxZWw7BdJR244j3G7sxMfSreZWvxx13DJt08M5DWn9B5VstpKgqpIIQOIJKA==}
     peerDependencies:
       react: 18.3.0-canary-a870b2d54-20240314
     dependencies:
-      '@tanstack/query-core': 5.29.0
+      '@tanstack/query-core': 5.34.2
       react: 18.3.0-canary-a870b2d54-20240314
+    dev: false
 
   /@testing-library/dom@8.20.1:
     resolution: {integrity: sha512-/DiOQ5xBxgdYRC8LNk7U+RWat0S3qRLeIw3ZIkMQ9kkVlRmwD/Eg8k8CqIpD6GW7u20JIUOfMKbxtiLutpjQ4g==}
@@ -7058,7 +7073,6 @@ packages:
 
   /fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
-    dev: true
 
   /fast-glob@3.2.7:
     resolution: {integrity: sha512-rYGMRwip6lUMvYD3BTScMwT1HtAs2d71SMv66Vrxs0IekGZEjhM0pcMfjQPnknBt2zeCwQMEupiN02ZP4DiT1Q==}
@@ -8234,6 +8248,11 @@ packages:
   /kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
+
+  /klona@2.0.6:
+    resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
+    engines: {node: '>= 8'}
+    dev: false
 
   /language-subtag-registry@0.3.22:
     resolution: {integrity: sha512-tN0MCzyWnoz/4nHS6uxdlFWoUZT7ABptwKPQ52Ea7URk6vll88bWBVhodtnlfEuCcKWNGoc+uGbw1cwa9IKh/w==}

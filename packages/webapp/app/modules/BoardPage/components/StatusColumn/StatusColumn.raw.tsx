@@ -25,7 +25,7 @@ export function StatusColumnRaw(props: StatusColumnRawProps) {
     taskQueries.listByStatusFilterQuery({
       statusId,
       q: currentQ,
-      filter: currentFilter?.content,
+      savedFilter: currentFilter,
     })
   );
 

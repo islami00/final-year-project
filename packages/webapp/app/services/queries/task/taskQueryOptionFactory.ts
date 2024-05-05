@@ -1,13 +1,16 @@
 import { infiniteQueryOptions } from '@tanstack/react-query';
+import { paginationConsts } from '../../../utils/constants';
+import type { SavedFilterQueryData } from '../savedFilters/savedFilterQueries';
 import {
   getTasksByStatus,
   type GetTasksByStatusArgs,
 } from './getTasksByStatus';
-import { paginationConsts } from '../../../utils/constants';
+
 interface ListByStatusArgs {
   statusId: string;
   q: GetTasksByStatusArgs['q'];
-  filter: GetTasksByStatusArgs['filter'] | undefined | null;
+
+  savedFilter: SavedFilterQueryData;
 }
 export const taskQueries = {
   all: ['task'] as const,
@@ -22,7 +25,7 @@ export const taskQueries = {
           statusId: args.statusId,
           page: pageParam,
           q: args.q,
-          filter: args.filter || undefined,
+          filter: args.savedFilter?.content || undefined,
           signal,
         }),
       initialPageParam: paginationConsts.defaultPage,

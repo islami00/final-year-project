@@ -9,7 +9,7 @@ import {
 } from '../../../../../utils/Filter';
 
 export type FilterValueForm = FilterBase;
-interface OperatorChip {
+export interface OperatorChip {
   operator: OperatorOptions;
   label: string;
 }
@@ -100,7 +100,7 @@ function mapListOps(operator: OperatorOptions): OperatorOptions {
   }
 }
 export const filterValueFormSchema = z.object({
-  operator: z.nativeEnum(Operators),
+  operator: z.union([z.nativeEnum(Operators), z.nativeEnum(UIOperators)]),
   value: z.string().nullable(),
   values: z.string().array().nullable(),
 }) satisfies ZodOf<FilterValueForm>;
