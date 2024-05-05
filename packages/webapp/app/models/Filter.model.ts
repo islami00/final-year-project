@@ -4,6 +4,8 @@ import {
   type Filter,
   FilterDataType,
   type FilterMeta,
+  type OperatorOptions,
+  UIOperators,
 } from '../utils/Filter';
 import type { ZodOf } from './types';
 
@@ -13,8 +15,12 @@ const filterMetaSchema = z.object({
   label: z.string(),
   dataType: z.nativeEnum(FilterDataType),
 }) satisfies ZodOf<FilterMeta>;
+const operatorSchema = z.union([
+  z.nativeEnum(Operators),
+  z.nativeEnum(UIOperators),
+]) satisfies ZodOf<OperatorOptions>;
 export const filterSchema = z.object({
-  operator: z.nativeEnum(Operators),
+  operator: operatorSchema,
   value: z.string().nullable(),
   values: z.array(z.string()).nullable(),
   meta: filterMetaSchema,
