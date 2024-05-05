@@ -14,6 +14,14 @@ export function mapToStatusData(value: Status): StatusItemData {
     value: value.id,
   };
 }
+
+export function toFilterStatusData(value: Status): StatusItemData {
+  return {
+    color: value.color,
+    label: value.name,
+    value: value.name,
+  };
+}
 export type StatusSelectVars = '--select-button-bg';
 interface DefineStatusSelectVarsArgs {
   bg: ColorToken;

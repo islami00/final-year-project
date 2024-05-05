@@ -15,15 +15,17 @@ export const savedFilterQueries = {
   byId: () => [...savedFilterQueries.all, 'by-id'] as const,
   byIdCaught: () => [...savedFilterQueries.byId(), 'caught'] as const,
 
-  byIdCaughtFilter: (id: string | null | undefined) =>
+  byIdCaughtFilter: (idOrSlug: string | null | undefined) =>
     queryOptions({
-      queryKey: [...savedFilterQueries.byIdCaught(), id],
+      queryKey: [...savedFilterQueries.byIdCaught(), idOrSlug],
       queryFn: async (): Promise<SavedFilterQueryData> => {
-        if (!id) {
+        if (!idOrSlug) {
           const empty: EmptyFilterQuery = { content: null };
           return empty;
         }
-        return getSavedFilterById({ id }).catch(() => null);
+        return getSavedFilterById({ id: idOrSlug, slug: idOrSlug }).catch(
+          () => null
+        );
       },
       gcTime: Infinity,
       staleTime: Infinity,

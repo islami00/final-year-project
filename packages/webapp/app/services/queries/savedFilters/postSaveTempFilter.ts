@@ -56,6 +56,7 @@ export async function postSaveTempFilter(
     );
 
     // Then Update its value. This must succeed
+    // Exclude the id in this case.
     const res = await savedFiltersCollection
       .update(savedFilter.id, omit('id', body))
       .catch(forwardError(parseClientResponseError));
@@ -68,6 +69,12 @@ export async function postSaveTempFilter(
   }
 
   // Else add it
+  // Remove the one we just referenced to be safe
+  await savedFiltersCollection.delete(body.id).catch((error) => {
+    // It's fine if it's not found.
+    if (error instanceof ClientResponseError && error.status === 404) return;
+    forwardError(parseClientResponseError)(error);
+  });
   const res = await savedFiltersCollection.create(body);
   return SavedFilterModel.fromApi(res);
 }

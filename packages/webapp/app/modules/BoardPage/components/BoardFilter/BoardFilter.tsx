@@ -3,6 +3,7 @@ import { useQueryClient, useSuspenseQueries } from '@tanstack/react-query';
 import { nanoid } from 'nanoid';
 import SavedFilterModel, {
   SavedFilterKind,
+  type CreateSavedFilter,
 } from '../../../../models/SavedFilter.model';
 import { BoardIdLoader } from '../../../../routes/app.$orgId.boards.$boardId/types';
 import { postSaveTempFilter } from '../../../../services/queries/savedFilters/postSaveTempFilter';
@@ -29,13 +30,15 @@ export function BoardFilter() {
 
   async function applyFilter(filterData: Filter) {
     const id = filter || nanoid(PB_ID_LENGTH);
-    const fullFilter = await SavedFilterModel.fromApi({
+    const createFilter: CreateSavedFilter = {
       id,
+      slug: id,
       content: [filterData],
       name: 'TempFilter',
       kind: SavedFilterKind.TEMPORARY,
       createdBy: user.id,
-    });
+    };
+    const fullFilter = await SavedFilterModel.fromApi(createFilter);
     // Set client state
     queryClient.setQueryData(
       savedFilterQueries.byIdCaughtFilter(id).queryKey,
@@ -47,7 +50,7 @@ export function BoardFilter() {
       newParams.set(specialFields.filter, id);
       return newParams;
     });
-    postSaveTempFilter({ body: fullFilter, userId: user.id });
+    postSaveTempFilter({ body: createFilter, userId: user.id });
   }
   console.log(filterQuery.data?.content);
 

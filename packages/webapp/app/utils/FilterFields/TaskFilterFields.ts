@@ -1,9 +1,5 @@
 import type { Dictionary } from 'lodash';
-import {
-  FilterMetaBase,
-  FilterDataType,
-  FilterMeta,
-} from '../../../../../utils/Filter';
+import { FilterMetaBase, FilterDataType, FilterMeta } from '../Filter';
 
 interface TaskFilterOptions {
   [key: string]: unknown;
@@ -46,10 +42,10 @@ export const TaskFilterFields: TaskFilterOptions = {
   },
 };
 
-const _addFilterOptions = Object.values(
+const _taskFilterOptions = Object.values(
   TaskFilterFields as Dictionary<FilterMetaBase>
 );
-export const addFilterOptions = _addFilterOptions.map<FilterMeta>(
+export const taskFilterOptions = _taskFilterOptions.map<FilterMeta>(
   (each, idx) => ({
     ...each,
     id: `${idx}`,

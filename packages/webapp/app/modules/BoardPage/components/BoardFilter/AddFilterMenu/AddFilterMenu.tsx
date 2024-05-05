@@ -1,6 +1,6 @@
 import { Menu } from '@mantine/core';
 import * as React from 'react';
-import { addFilterOptions } from './AddFilterMenu.utils';
+import { taskFilterOptions } from '../../../../../utils/FilterFields/TaskFilterFields';
 import { type AddFilterActions } from '../AddFilter/AddFilter.types';
 
 interface AddFilterMenuProps {
@@ -19,7 +19,7 @@ export function AddFilterMenu(props: AddFilterMenuProps) {
     >
       <Menu.Target>{children}</Menu.Target>
       <Menu.Dropdown>
-        {addFilterOptions.map((each) => {
+        {taskFilterOptions.map((each) => {
           const { label, id } = each;
           return (
             <Menu.Item

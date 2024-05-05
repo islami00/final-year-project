@@ -7,14 +7,14 @@ import { AssigneeData } from '../../../../../components/AssigneeSelect/AssigneeS
 import { FilterMeta, UIOperators } from '../../../../../utils/Filter';
 import { EMPTY_ARRAY } from '../../../../../utils/constants';
 import type { FilterValueFormReturn } from '../../../logic/filterValueForm';
-import { TaskFilterFields } from '../AddFilterMenu/AddFilterMenu.utils';
+import { TaskFilterFields } from '../../../../../utils/FilterFields/TaskFilterFields';
 import { FilterSelectUrgencyField } from './FilterSelectUrgencyField';
 import { User } from '../../../../../models/User.model';
 import { Status } from '../../../../../models/Status.model';
 import { StatusSelectItemContent } from '../../../../../components/StatusSelect/StatusSelectItemContent';
 import {
-  mapToStatusData,
   StatusItemData,
+  toFilterStatusData,
 } from '../../../../../components/StatusSelect/StatusSelect.utils';
 
 export interface FilterSelectTypeProps {
@@ -27,7 +27,7 @@ export interface FilterSelectTypeProps {
 export function FilterSelectType(props: FilterSelectTypeProps) {
   const { meta, form, users, statuses } = props;
   const mappedUsers = users.map(mapToAssigneeData);
-  const mappedStatuses = statuses.map(mapToStatusData);
+  const mappedStatuses = statuses.map(toFilterStatusData);
   const operator = useWatch({
     control: form.control,
     name: 'data.operator',
