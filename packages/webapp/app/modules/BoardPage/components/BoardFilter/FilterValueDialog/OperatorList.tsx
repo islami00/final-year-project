@@ -2,6 +2,7 @@ import { Chip } from '@mantine/core';
 import * as classes from './FilterValueDialog.styles';
 import * as filterValueForm from '../../../logic/filterValueForm';
 import { useController } from 'react-hook-form';
+import { defaultSetValueConfig } from '../../../../../utils/Form/reactHookForm';
 
 interface OperatorListProps {
   form: filterValueForm.FilterValueFormReturn;
@@ -14,11 +15,19 @@ export function OperatorList(props: OperatorListProps) {
     name: 'operator',
     control: form.control,
   });
+
   return (
-    <Chip.Group value={field.value} onChange={field.onChange}>
+    <Chip.Group
+      value={field.value}
+      onChange={(v) => {
+        field.onChange(v);
+        form.setValue('value', null, defaultSetValueConfig);
+        form.setValue('values', null, defaultSetValueConfig);
+      }}
+    >
       <div className={classes.operators}>
         {operators.map((each) => (
-          <Chip radius="sm" value={each.operator}>
+          <Chip key={each.operator} radius="sm" value={each.operator}>
             {each.label}
           </Chip>
         ))}
