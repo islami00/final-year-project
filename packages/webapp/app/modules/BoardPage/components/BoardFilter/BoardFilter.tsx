@@ -13,6 +13,8 @@ import { specialFields } from '../../../../utils/Form/specialFields';
 import { AddFilter } from './AddFilter/AddFilter';
 import { BoardFilterButton } from './BoardFilterButton/BoardFilterButton';
 import { PB_ID_LENGTH } from '../../../../utils/constants';
+import { noop } from '@mantine/core';
+import { ListFiltersButton } from './ListFiltersButton/ListFiltersButton';
 
 export function BoardFilter() {
   const [search, setParams] = useSearchParams();
@@ -34,7 +36,7 @@ export function BoardFilter() {
       id,
       slug: id,
       content: [filterData],
-      name: 'TempFilter',
+      name: SavedFilterKind.TEMPORARY,
       kind: SavedFilterKind.TEMPORARY,
       createdBy: user.id,
     };
@@ -50,9 +52,8 @@ export function BoardFilter() {
       newParams.set(specialFields.filter, id);
       return newParams;
     });
-    postSaveTempFilter({ body: createFilter, userId: user.id });
+    postSaveTempFilter({ body: createFilter, userId: user.id }).catch(noop);
   }
-  console.log(filterQuery.data?.content);
 
   if (!filterQuery.data?.content?.length) {
     return (
@@ -66,5 +67,5 @@ export function BoardFilter() {
     );
   }
 
-  return null;
+  return <ListFiltersButton filters={filterQuery.data.content} />;
 }

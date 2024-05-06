@@ -1,22 +1,33 @@
-import { Button, type ElementProps } from '@mantine/core';
+import { Button, type ButtonProps, type ElementProps } from '@mantine/core';
+import { forwardRef } from 'react';
 import { Icon } from '../../../../../components/Icon/Icon';
 import * as classes from './BoardFilterButton.styles';
-import { forwardRef } from 'react';
 
+interface BoardFilterButtonProps
+  extends ButtonProps,
+    Omit<ElementProps<'button'>, 'color'> {
+  active?: boolean;
+  count?: number;
+}
 export const BoardFilterButton = forwardRef<
   HTMLButtonElement,
-  ElementProps<'button'>
->((props, ref) => (
-  <Button
-    {...props}
-    size="xs"
-    ref={ref}
-    leftSection={
-      <Icon name="IconAdjustments" size="s24" className={classes.icon} />
-    }
-    color="dark"
-    variant="filled"
-  >
-    Filter
-  </Button>
-));
+  BoardFilterButtonProps
+>((props, ref) => {
+  const { active, count, ...rest } = props;
+
+  const joined = [count, 'Filter'].join(' ');
+  return (
+    <Button
+      {...rest}
+      size="xs"
+      ref={ref}
+      leftSection={
+        <Icon name="IconAdjustments" size="s24" className={classes.icon} />
+      }
+      color={active ? 'blue' : 'dark'}
+      variant="filled"
+    >
+      {joined}
+    </Button>
+  );
+});
