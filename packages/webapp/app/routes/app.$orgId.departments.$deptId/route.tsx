@@ -2,11 +2,10 @@ import { parseWithZod } from '@conform-to/zod';
 import {
   generatePath,
   redirect,
-  unstable_defineClientLoader,
-  unstable_defineClientAction,
+  unstable_defineClientLoader as defineClientLoader,
+  unstable_defineClientAction as defineClientAction,
   useLoaderData,
   useParams,
-  type ClientActionFunctionArgs,
 } from '@remix-run/react';
 import { useMemo } from 'react';
 import { DepartmentPage } from '../../modules/DepartmentPage/DepartmentPage';
@@ -21,7 +20,7 @@ import { specialFields } from '../../utils/Form/specialFields';
 import { routeConfig } from '../../utils/routeConfig';
 import { departmentIdSchema } from './utils';
 
-export const clientLoader = unstable_defineClientLoader(async (args) => {
+export const clientLoader = defineClientLoader(async (args) => {
   const { request } = args;
   const url = new URL(request.url);
   const params = await departmentIdSchema.parseAsync(args.params);
@@ -33,52 +32,50 @@ export const clientLoader = unstable_defineClientLoader(async (args) => {
   const department = await getDepartmentById({ deptId });
   return { boards, department };
 });
-export const clientAction = unstable_defineClientAction(
-  async (args: ClientActionFunctionArgs) => {
-    const { request, params } = args;
-    const formData = await request.formData();
-    const submission = parseWithZod(formData, {
-      schema: departmentIdForm.schema,
-    });
+export const clientAction = defineClientAction(async (args) => {
+  const { request, params } = args;
+  const formData = await request.formData();
+  const submission = parseWithZod(formData, {
+    schema: departmentIdForm.schema,
+  });
 
-    // This is also called on error.
-    if (submission.status !== 'success') {
-      return submission.reply();
-    }
-    const { value } = submission;
-    const deptId = params.deptId as string;
-    const orgId = params.orgId as string;
-    try {
-      switch (value.intent) {
-        case departmentIdForm.DepartmentIdFormIntent.NAME:
-          await patchDepartmentById({
-            body: {
-              name: value.name,
-            },
-            deptId,
-          });
-          break;
-
-        case departmentIdForm.DepartmentIdFormIntent.DELETE_DEPARTMENT:
-          await deleteDepartment({ deptId });
-          return redirect('../');
-        case departmentIdForm.DepartmentIdFormIntent.CREATE_BOARD: {
-          const board = await postCreateBoard({
-            body: { departmentId: deptId, name: value.name },
-          });
-          return redirect(
-            generatePath(routeConfig.board.param, { boardId: board.id, orgId })
-          );
-        }
-        default:
-          break;
-      }
-      return submission.reply({ resetForm: true });
-    } catch (error) {
-      return catchPostSubmissionError(error, submission);
-    }
+  // This is also called on error.
+  if (submission.status !== 'success') {
+    return submission.reply();
   }
-);
+  const { value } = submission;
+  const deptId = params.deptId as string;
+  const orgId = params.orgId as string;
+  try {
+    switch (value.intent) {
+      case departmentIdForm.DepartmentIdFormIntent.NAME:
+        await patchDepartmentById({
+          body: {
+            name: value.name,
+          },
+          deptId,
+        });
+        break;
+
+      case departmentIdForm.DepartmentIdFormIntent.DELETE_DEPARTMENT:
+        await deleteDepartment({ deptId });
+        return redirect('../');
+      case departmentIdForm.DepartmentIdFormIntent.CREATE_BOARD: {
+        const board = await postCreateBoard({
+          body: { departmentId: deptId, name: value.name },
+        });
+        return redirect(
+          generatePath(routeConfig.board.param, { boardId: board.id, orgId })
+        );
+      }
+      default:
+        break;
+    }
+    return submission.reply({ resetForm: true });
+  } catch (error) {
+    return catchPostSubmissionError(error, submission);
+  }
+});
 
 export default function DepartmentsDeptIdRoute() {
   const data = useLoaderData<typeof clientLoader>();
