@@ -15,7 +15,7 @@ export async function getTaskAssignees(
     .collection<UserApi>(collections.users)
     .getFullList({
       filter: pb.filter(
-        `${collections.task_assignee}_via_assigneeId.taskId = {:taskId}`,
+        `${collections.task_assignee}_via_assigneeId.taskId ?= {:taskId}`,
         { taskId }
       ),
     })
