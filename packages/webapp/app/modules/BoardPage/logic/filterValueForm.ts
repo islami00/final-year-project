@@ -1,30 +1,27 @@
-import { z } from 'zod';
 import { UseFormReturn } from 'react-hook-form';
+import { z } from 'zod';
 import { ZodOf } from '../../../models/types';
 import {
   FilterDataType,
+  OperatorChip,
   OperatorOptions,
   Operators,
   UIOperators,
   type FilterBase,
+  type Filter,
 } from '../../../utils/Filter';
 
 export interface FilterValueForm {
   data: FilterBase;
 }
-export interface OperatorChip {
-  operator: OperatorOptions;
-  label: string;
-}
-
 interface DefaultDataArgs {
-  firstOp: OperatorOptions;
+  firstOp: OperatorChip;
 }
 export function defaultData(args: DefaultDataArgs): FilterValueForm {
   const { firstOp } = args;
   return {
     data: {
-      operator: firstOp,
+      operatorChip: firstOp,
 
       value: null,
       values: null,
@@ -120,23 +117,25 @@ const errMap: z.ZodErrorMap = (issue, ctx) => {
   return { message: ctx.defaultError };
 };
 
+const operator = z.union([z.nativeEnum(Operators), z.nativeEnum(UIOperators)]);
+const operatorChip = z.object({ operator, label: z.string() });
 export const filterBaseSchema = z
   .union([
     z.object({
-      operator: z.union([z.nativeEnum(Operators), z.nativeEnum(UIOperators)]),
+      operatorChip,
       value: z.null(),
       values: z.array(z.string(), {
         errorMap: errMap,
       }),
     }),
     z.object({
-      operator: z.union([z.nativeEnum(Operators), z.nativeEnum(UIOperators)]),
+      operatorChip,
       value: z.string({ errorMap: errMap }),
       values: z.null(),
     }),
   ])
   .transform((value): FilterValueForm['data'] => {
-    switch (value.operator) {
+    switch (value.operatorChip.operator) {
       case UIOperators.NOT_ONE_OF:
       case UIOperators.ONE_OF:
       case UIOperators.ONE_OF_LS:
@@ -152,3 +151,11 @@ export const filterValueFormSchema = z.object({
 }) satisfies ZodOf<FilterValueForm>;
 
 export type FilterValueFormReturn = UseFormReturn<FilterValueForm>;
+
+export function fmtFilter(filter: Filter) {
+  return {
+    label: filter.meta.label,
+    operator: filter.operatorChip.label,
+    value: filter.value || filter.values?.join() || 'unset',
+  };
+}

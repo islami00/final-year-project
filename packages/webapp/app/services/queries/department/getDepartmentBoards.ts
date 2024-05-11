@@ -22,7 +22,7 @@ export async function getDepartmentBoards(
         id: '',
       },
 
-      operator: Operators.EQ,
+      operatorChip: { operator: Operators.EQ, label: '' },
       value: deptId,
       values: null,
     },
@@ -33,7 +33,7 @@ export async function getDepartmentBoards(
         dataType: FilterDataType.TEXT,
         id: '',
       },
-      operator: Operators.CONTAINS,
+      operatorChip: { operator: Operators.CONTAINS, label: '' },
       value: q,
       values: null,
     },

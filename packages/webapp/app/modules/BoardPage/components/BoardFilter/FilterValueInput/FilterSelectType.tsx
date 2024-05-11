@@ -30,7 +30,7 @@ export function FilterSelectType(props: FilterSelectTypeProps) {
   const mappedStatuses = statuses.map(toFilterStatusData);
   const operator = useWatch({
     control: form.control,
-    name: 'data.operator',
+    name: 'data.operatorChip.operator',
   });
 
   const valuesField = useController({

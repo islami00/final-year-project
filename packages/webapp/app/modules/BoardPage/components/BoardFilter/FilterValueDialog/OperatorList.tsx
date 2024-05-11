@@ -3,16 +3,17 @@ import * as classes from './FilterValueDialog.styles';
 import * as filterValueForm from '../../../logic/filterValueForm';
 import { useController } from 'react-hook-form';
 import { defaultSetValueConfig } from '../../../../../utils/Form/reactHookForm';
+import { OperatorChip } from '../../../../../utils/Filter';
 
 interface OperatorListProps {
   form: filterValueForm.FilterValueFormReturn;
 
-  operators: filterValueForm.OperatorChip[];
+  operators: OperatorChip[];
 }
 export function OperatorList(props: OperatorListProps) {
   const { operators, form } = props;
   const { field } = useController({
-    name: 'data.operator',
+    name: 'data.operatorChip.operator',
     control: form.control,
   });
 

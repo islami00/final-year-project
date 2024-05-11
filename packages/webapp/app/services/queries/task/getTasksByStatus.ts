@@ -25,7 +25,7 @@ export async function getTasksByStatus(
 
   const filters = parseFilters([
     {
-      operator: Operators.EQ,
+      operatorChip: { operator: Operators.EQ, label: '' },
       meta: {
         field: 'statusId',
         label: 'statusId',
@@ -36,7 +36,7 @@ export async function getTasksByStatus(
       values: null,
     },
     {
-      operator: Operators.CONTAINS,
+      operatorChip: { operator: Operators.CONTAINS, label: '' },
       meta: {
         field: 'title',
         label: 'q',

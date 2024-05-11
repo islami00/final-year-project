@@ -33,7 +33,7 @@ export function FilterValueDialog(props: FilterValueDialogProps) {
   const defaultValuesToSet =
     defaultValues ||
     filterValueForm.defaultData({
-      firstOp: operators[0].operator,
+      firstOp: operators[0],
     });
   const form = useForm<filterValueForm.FilterValueForm>({
     defaultValues: defaultValuesToSet,

@@ -6,6 +6,7 @@ import {
   type FilterMeta,
   type OperatorOptions,
   UIOperators,
+  type OperatorChip,
 } from '../utils/Filter';
 import type { ZodOf } from './types';
 
@@ -19,8 +20,12 @@ const operatorSchema = z.union([
   z.nativeEnum(Operators),
   z.nativeEnum(UIOperators),
 ]) satisfies ZodOf<OperatorOptions>;
-export const filterSchema = z.object({
+const operatorChipSchema = z.object({
   operator: operatorSchema,
+  label: z.string(),
+}) satisfies ZodOf<OperatorChip>;
+export const filterSchema = z.object({
+  operatorChip: operatorChipSchema,
   value: z.string().nullable(),
   values: z.array(z.string()).nullable(),
   meta: filterMetaSchema,

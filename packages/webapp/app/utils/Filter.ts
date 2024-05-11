@@ -39,8 +39,13 @@ export enum Connectives {
 
 export type OperatorOptions = Operators | UIOperators;
 
-export interface FilterBase {
+export interface OperatorChip {
   operator: OperatorOptions;
+  label: string;
+}
+
+export interface FilterBase {
+  operatorChip: OperatorChip;
   value: string | null;
   values: string[] | null;
 }
@@ -144,7 +149,7 @@ function getPlaceholder(filter: Filter, prefixes: PlaceholderPrefixes = []) {
  * */
 function filterTemplate(filter: Filter, placeholder: string) {
   const field = filter.meta.field;
-  const operator = mapUIOperators(filter.operator);
+  const operator = mapUIOperators(filter.operatorChip.operator);
   return `(${field} ${operator} {:${placeholder}})`;
 }
 function mapUIOperators(operator: Operators | UIOperators): Operators {
