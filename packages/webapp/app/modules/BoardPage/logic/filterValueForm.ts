@@ -127,14 +127,16 @@ export const filterBaseSchema = z
     z.object({
       operatorChip,
       value: z.null(),
-      values: z.array(z.string(), {
-        errorMap: errMap,
-      }),
+      values: z
+        .array(z.string(), {
+          errorMap: errMap,
+        })
+        .min(1),
     }),
     z.object({
       operatorChip,
       value: z.string({ errorMap: errMap }),
-      values: z.null(),
+      values: z.null().or(z.tuple([])),
     }),
   ])
   .transform((value): FilterValueForm['data'] => {
@@ -160,6 +162,7 @@ export function fmtFilter(filter: Filter) {
   return {
     label: filter.meta.label,
     operator: filter.operatorChip.label,
+    // Todo: Format by dataType and field
     value: filter.value || filter.values?.join() || 'unset',
   };
 }

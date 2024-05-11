@@ -31,11 +31,12 @@ export function BoardFilter() {
   });
 
   async function applyFilter(filterData: Filter | Filter[]) {
-    const id = filter || nanoid(PB_ID_LENGTH);
+    const newSlug = nanoid(PB_ID_LENGTH);
+    const id = filter || newSlug;
     const normalFilter = Array.isArray(filterData) ? filterData : [filterData];
     const createFilter: CreateSavedFilter = {
       id,
-      slug: id,
+      slug: newSlug,
       content: normalFilter,
       name: SavedFilterKind.TEMPORARY,
       kind: SavedFilterKind.TEMPORARY,
@@ -44,13 +45,13 @@ export function BoardFilter() {
     const fullFilter = await SavedFilterModel.fromApi(createFilter);
     // Set client state
     queryClient.setQueryData(
-      savedFilterQueries.byIdCaughtFilter(id).queryKey,
+      savedFilterQueries.byIdCaughtFilter(newSlug).queryKey,
       fullFilter
     );
     // At the same time, save and try to do a bookmark
     setParams((prev) => {
       const newParams = new URLSearchParams(prev);
-      newParams.set(specialFields.filter, id);
+      newParams.set(specialFields.filter, newSlug);
       return newParams;
     });
     postSaveTempFilter({ body: createFilter, userId: user.id }).catch(noop);

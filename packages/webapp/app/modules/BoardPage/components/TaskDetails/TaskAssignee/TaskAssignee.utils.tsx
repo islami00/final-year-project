@@ -2,20 +2,20 @@ import { type SelectAssigneeAction } from '../../../../../components/AssigneeSel
 import * as taskDetailsForm from '../../../logic/taskDetailsForm';
 
 export function convertChangeEvent(
-  value: SelectAssigneeAction
+  action: SelectAssigneeAction
 ): taskDetailsForm.AssigneesFormData {
-  switch (value.type) {
+  switch (action.type) {
     case 'remove':
       return {
-        assignee: value.value,
+        assignee: action.value,
         intent: taskDetailsForm.TaskDetailsIntent.REMOVE_ASSIGNEE,
       };
     case 'add':
       return {
-        assignee: value.value.value,
+        assignee: action.value.value,
         intent: taskDetailsForm.TaskDetailsIntent.ADD_ASSIGNEE,
       };
     default:
-      return value;
+      return action;
   }
 }

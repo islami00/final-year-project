@@ -3,7 +3,6 @@ import { submitBtn as sBtn } from '../../../../Onboard/Onboard.styles';
 
 export const formContainer = flex({
   flexDirection: 'column',
-  gap: 'inherit',
 });
 
 export const submitBtn = sBtn;

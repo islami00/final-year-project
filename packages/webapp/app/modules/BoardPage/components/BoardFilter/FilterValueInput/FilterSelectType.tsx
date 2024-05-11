@@ -16,6 +16,7 @@ import {
   StatusItemData,
   toFilterStatusData,
 } from '../../../../../components/StatusSelect/StatusSelect.utils';
+import { AppInternalError } from '../../../../../utils/AppInternalError';
 
 export interface FilterSelectTypeProps {
   meta: FilterMeta;
@@ -46,9 +47,7 @@ export function FilterSelectType(props: FilterSelectTypeProps) {
   const commonSelectProps = {
     classNames: selectClasses,
   };
-  const selectProps = {
-    ...valueField.field,
-  };
+  const selectProps = valueField.field;
   const multiSelectProps = {
     ...valuesField.field,
     value: valuesField.field.value || EMPTY_ARRAY,
@@ -127,8 +126,7 @@ export function FilterSelectType(props: FilterSelectTypeProps) {
       }
     }
     default:
-      meta.field;
       break;
   }
-  return <div></div>;
+  throw new AppInternalError(`Missing select input for ${meta.field}`);
 }

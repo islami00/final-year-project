@@ -39,7 +39,7 @@ export function FilterValueDialog(props: FilterValueDialogProps) {
         firstOp: operators[0],
         id,
       }),
-    [defaultValues, operators[0]]
+    [defaultValues, operators[0], id]
   );
   const form = useForm<filterValueForm.FilterValueForm>({
     defaultValues: defaultValuesToSet,
@@ -54,6 +54,7 @@ export function FilterValueDialog(props: FilterValueDialogProps) {
     });
     onClose({ type: 'close' });
   }
+
   function handleError(err: FieldErrors<filterValueForm.FilterValueForm>) {
     const errMessage = err.data?.root?.message;
     toast.error(errMessage || 'Unknown error');
@@ -66,23 +67,21 @@ export function FilterValueDialog(props: FilterValueDialogProps) {
       centered
     >
       <ScrollArea.Autosize>
-        <Modal.Body>
-          <div className={classes.formContainer}>
-            <OperatorList form={form} operators={operators} />
-            <FilterValueInput
-              users={users}
-              meta={meta}
-              form={form}
-              statuses={statuses}
-            />
-            <ConfirmButton
-              color="blue"
-              className={classes.submitBtn}
-              onClick={() => form.handleSubmit(handleSubmit, handleError)()}
-            >
-              Apply
-            </ConfirmButton>
-          </div>
+        <Modal.Body className={classes.formContainer}>
+          <OperatorList form={form} operators={operators} />
+          <FilterValueInput
+            users={users}
+            meta={meta}
+            form={form}
+            statuses={statuses}
+          />
+          <ConfirmButton
+            color="blue"
+            className={classes.submitBtn}
+            onClick={() => form.handleSubmit(handleSubmit, handleError)()}
+          >
+            Apply
+          </ConfirmButton>
         </Modal.Body>
       </ScrollArea.Autosize>
     </TMAModal>

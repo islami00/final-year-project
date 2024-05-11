@@ -21,6 +21,7 @@ export function FilterChip(props: FilterChipProps) {
         onClick={() => onOpen?.(filter)}
         size="xs"
         color="dark"
+        variant="filled"
         className={classes.btn}
       >
         <styled.span truncate>

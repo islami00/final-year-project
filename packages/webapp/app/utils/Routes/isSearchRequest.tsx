@@ -8,17 +8,23 @@ export function isSearchRequest(args: ShouldRevalidateFunctionArgs) {
   const isSearchReq = formMethod === 'GET' && currentQ !== nextQ;
   return isSearchReq;
 }
+function isSameRoute(args: ShouldRevalidateFunctionArgs) {
+  const { currentUrl, nextUrl } = args;
+  return currentUrl.pathname === nextUrl.pathname;
+}
 export function isFilterRequest(args: ShouldRevalidateFunctionArgs) {
-  const { currentUrl, nextUrl, formMethod } = args;
+  const { currentUrl, nextUrl } = args;
+
   const currentVal = currentUrl.searchParams.get(specialFields.filter);
   const nextVal = nextUrl.searchParams.get(specialFields.filter);
-  const isSearchReq = formMethod === 'GET' && currentVal !== nextVal;
+
+  const isSearchReq = isSameRoute(args) && currentVal !== nextVal;
   return isSearchReq;
 }
 export function isSavedFilterRequest(args: ShouldRevalidateFunctionArgs) {
-  const { currentUrl, nextUrl, formMethod } = args;
+  const { currentUrl, nextUrl } = args;
   const currentVal = currentUrl.searchParams.get(specialFields.savedFilter);
   const nextVal = nextUrl.searchParams.get(specialFields.savedFilter);
-  const isSearchReq = formMethod === 'GET' && currentVal !== nextVal;
+  const isSearchReq = isSameRoute(args) && currentVal !== nextVal;
   return isSearchReq;
 }

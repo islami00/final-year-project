@@ -8,7 +8,7 @@ export const filterChip = sva({
     root: {
       display: 'flex',
       minW: 0,
-      '--fc-border-width': 1,
+      '--fc-border-width': 'rem(1)',
       '& .filterChip__btn:not(:only-child):first-child': {
         borderEndEndRadius: 0,
         borderStartEndRadius: 0,
