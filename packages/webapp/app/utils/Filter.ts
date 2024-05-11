@@ -69,6 +69,7 @@ export interface FilterMeta extends FilterMetaBase {
 
 export interface Filter extends FilterBase {
   meta: FilterMeta;
+  id: string;
 }
 interface FlatFilter {
   template: string;

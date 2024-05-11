@@ -29,4 +29,5 @@ export const filterSchema = z.object({
   value: z.string().nullable(),
   values: z.array(z.string()).nullable(),
   meta: filterMetaSchema,
+  id: z.string(),
 }) satisfies ZodOf<Filter>;

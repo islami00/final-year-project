@@ -32,6 +32,7 @@ export async function postSaveTempFilter(
       operatorChip: { operator: Operators.EQ, label: '' },
       value: SavedFilterKind.TEMPORARY,
       values: null,
+      id: '0',
     },
     {
       meta: {
@@ -43,6 +44,7 @@ export async function postSaveTempFilter(
       operatorChip: { operator: Operators.EQ, label: '' },
       value: userId,
       values: null,
+      id: '1',
     },
   ]);
   const savedFiltersCollection = pb.collection<SavedFilterApi>(

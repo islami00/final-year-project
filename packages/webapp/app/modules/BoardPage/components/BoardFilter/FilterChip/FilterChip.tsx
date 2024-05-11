@@ -7,15 +7,22 @@ import { filterChip } from './FilterChip.styles';
 
 export interface FilterChipProps {
   filter: Filter;
+  onOpen?: (value: Filter) => void;
+  onClear?: React.MouseEventHandler;
 }
 
 export function FilterChip(props: FilterChipProps) {
-  const { filter } = props;
+  const { filter, onOpen, onClear } = props;
   const { label, operator, value } = fmtFilter(filter);
   const classes = filterChip();
   return (
     <div className={classes.root}>
-      <Button size="xs" color="dark" className={classes.btn}>
+      <Button
+        onClick={() => onOpen?.(filter)}
+        size="xs"
+        color="dark"
+        className={classes.btn}
+      >
         <styled.span truncate>
           <styled.span color="blue.6">{label}</styled.span> {operator}{' '}
           <styled.span truncate color="blue.6">
@@ -23,7 +30,12 @@ export function FilterChip(props: FilterChipProps) {
           </styled.span>
         </styled.span>
       </Button>
-      <ActionIcon size="lg" color="dark" className={classes.btn}>
+      <ActionIcon
+        onClick={onClear}
+        size="lg"
+        color="dark"
+        className={classes.btn}
+      >
         <Icon name="IconX" />
       </ActionIcon>
     </div>

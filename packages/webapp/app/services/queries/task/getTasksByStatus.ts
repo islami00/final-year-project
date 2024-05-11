@@ -34,6 +34,7 @@ export async function getTasksByStatus(
       },
       value: statusId,
       values: null,
+      id: '0',
     },
     {
       operatorChip: { operator: Operators.CONTAINS, label: '' },
@@ -45,6 +46,7 @@ export async function getTasksByStatus(
       },
       value: q,
       values: null,
+      id: '1',
     },
     ...filter,
   ]);

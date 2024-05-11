@@ -34,6 +34,7 @@ export async function getSavedFilterById(
         operatorChip: { operator: Operators.EQ, label: '' },
         value: id || null,
         values: null,
+        id: '0',
       },
       {
         meta: {
@@ -45,6 +46,7 @@ export async function getSavedFilterById(
         operatorChip: { operator: Operators.EQ, label: '' },
         value: slug || null,
         values: null,
+        id: '1',
       },
     ],
     { connective: Connectives.OR }

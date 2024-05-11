@@ -25,6 +25,7 @@ export async function getDepartmentBoards(
       operatorChip: { operator: Operators.EQ, label: '' },
       value: deptId,
       values: null,
+      id: '0',
     },
     {
       meta: {
@@ -36,6 +37,7 @@ export async function getDepartmentBoards(
       operatorChip: { operator: Operators.CONTAINS, label: '' },
       value: q,
       values: null,
+      id: '1',
     },
   ]);
   const boards = await pb.collection<BoardApi>(collections.board).getFullList({

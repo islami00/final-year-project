@@ -13,6 +13,8 @@ import type { AddFilterActions } from '../AddFilter/AddFilter.types';
 import { FilterValueInput } from '../FilterValueInput/FilterValueInput';
 import * as classes from './FilterValueDialog.styles';
 import { OperatorList } from './OperatorList';
+import { nanoid } from 'nanoid';
+import { PB_ID_LENGTH } from '../../../../../utils/constants';
 
 export interface FilterValueDialogProps {
   meta: FilterMeta;
@@ -44,6 +46,7 @@ export function FilterValueDialog(props: FilterValueDialogProps) {
     onChange({
       meta,
       ...base.data,
+      id: nanoid(PB_ID_LENGTH),
     });
   }
   function handleError(err: FieldErrors<filterValueForm.FilterValueForm>) {
