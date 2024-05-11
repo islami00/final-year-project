@@ -1,10 +1,9 @@
-import type { TypedDeferredData } from '@remix-run/node';
 import type { ClientLoaderFunctionArgs } from '@remix-run/react';
 import { Board } from '../../models/Board.model';
 import { SavedFilter } from '../../models/SavedFilter.model';
 import type { StatusListWithDefault } from '../../models/Status.model';
-import { EmptyFilterQuery } from '../../services/queries/savedFilters/savedFilterQueries';
 import { User } from '../../models/User.model';
+import { EmptyFilterQuery } from '../../services/queries/savedFilters/savedFilterQueries';
 
 export interface BoardIdFilterData {
   /**
@@ -24,4 +23,4 @@ export interface BoardIdLoaderData extends Record<string, unknown> {
 
 export type BoardIdLoader = (
   args: ClientLoaderFunctionArgs
-) => TypedDeferredData<BoardIdLoaderData>;
+) => BoardIdLoaderData;

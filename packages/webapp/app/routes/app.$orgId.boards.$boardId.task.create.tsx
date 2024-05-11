@@ -1,7 +1,6 @@
 import { parseWithYup } from '@conform-to/yup';
 import {
   generatePath,
-  json,
   redirect,
   useNavigate,
   useParams,
@@ -28,7 +27,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
   });
 
   if (submission.status !== 'success') {
-    return json(submission.reply());
+    return submission.reply();
   }
   const { value } = submission;
 
@@ -54,7 +53,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
   } catch (error) {
     const appError = castError(error);
     toast.error(appError.message);
-    return json(submission.reply({ resetForm: false }));
+    return submission.reply({ resetForm: false });
   }
 }
 

@@ -15,7 +15,8 @@
   "dependencies": {
     "@remix-run/node": "^2.9.2",
     "@remix-run/serve": "^2.9.2",
-    "@tma/design-system": "workspace:^"
+    "@tma/design-system": "workspace:^",
+    "isbot": "^4"
   },
   "peerDependencies": {
     "@mantine/core": "^7.9.1"

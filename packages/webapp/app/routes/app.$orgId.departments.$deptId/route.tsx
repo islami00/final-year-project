@@ -1,13 +1,14 @@
 import { parseWithZod } from '@conform-to/zod';
 import {
   generatePath,
-  json,
   redirect,
+  unstable_defineClientLoader,
+  unstable_defineClientAction,
   useLoaderData,
   useParams,
   type ClientActionFunctionArgs,
-  type ClientLoaderFunctionArgs,
 } from '@remix-run/react';
+import { useMemo } from 'react';
 import { DepartmentPage } from '../../modules/DepartmentPage/DepartmentPage';
 import * as departmentIdForm from '../../modules/DepartmentPage/logic/departmentIdForm';
 import { postCreateBoard } from '../../services/queries/board/postCreateBoard';
@@ -19,9 +20,8 @@ import { catchPostSubmissionError } from '../../utils/Form/catchPostSubmissionEr
 import { specialFields } from '../../utils/Form/specialFields';
 import { routeConfig } from '../../utils/routeConfig';
 import { departmentIdSchema } from './utils';
-import { useMemo } from 'react';
 
-export async function clientLoader(args: ClientLoaderFunctionArgs) {
+export const clientLoader = unstable_defineClientLoader(async (args) => {
   const { request } = args;
   const url = new URL(request.url);
   const params = await departmentIdSchema.parseAsync(args.params);
@@ -32,51 +32,53 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
   });
   const department = await getDepartmentById({ deptId });
   return { boards, department };
-}
-export async function clientAction(args: ClientActionFunctionArgs) {
-  const { request, params } = args;
-  const formData = await request.formData();
-  const submission = parseWithZod(formData, {
-    schema: departmentIdForm.schema,
-  });
+});
+export const clientAction = unstable_defineClientAction(
+  async (args: ClientActionFunctionArgs) => {
+    const { request, params } = args;
+    const formData = await request.formData();
+    const submission = parseWithZod(formData, {
+      schema: departmentIdForm.schema,
+    });
 
-  // This is also called on error.
-  if (submission.status !== 'success') {
-    return json(submission.reply());
-  }
-  const { value } = submission;
-  const deptId = params.deptId as string;
-  const orgId = params.orgId as string;
-  try {
-    switch (value.intent) {
-      case departmentIdForm.DepartmentIdFormIntent.NAME:
-        await patchDepartmentById({
-          body: {
-            name: value.name,
-          },
-          deptId,
-        });
-        break;
-
-      case departmentIdForm.DepartmentIdFormIntent.DELETE_DEPARTMENT:
-        await deleteDepartment({ deptId });
-        return redirect('../');
-      case departmentIdForm.DepartmentIdFormIntent.CREATE_BOARD: {
-        const board = await postCreateBoard({
-          body: { departmentId: deptId, name: value.name },
-        });
-        return redirect(
-          generatePath(routeConfig.board.param, { boardId: board.id, orgId })
-        );
-      }
-      default:
-        break;
+    // This is also called on error.
+    if (submission.status !== 'success') {
+      return submission.reply();
     }
-    return json(submission.reply({ resetForm: true }));
-  } catch (error) {
-    return catchPostSubmissionError(error, submission);
+    const { value } = submission;
+    const deptId = params.deptId as string;
+    const orgId = params.orgId as string;
+    try {
+      switch (value.intent) {
+        case departmentIdForm.DepartmentIdFormIntent.NAME:
+          await patchDepartmentById({
+            body: {
+              name: value.name,
+            },
+            deptId,
+          });
+          break;
+
+        case departmentIdForm.DepartmentIdFormIntent.DELETE_DEPARTMENT:
+          await deleteDepartment({ deptId });
+          return redirect('../');
+        case departmentIdForm.DepartmentIdFormIntent.CREATE_BOARD: {
+          const board = await postCreateBoard({
+            body: { departmentId: deptId, name: value.name },
+          });
+          return redirect(
+            generatePath(routeConfig.board.param, { boardId: board.id, orgId })
+          );
+        }
+        default:
+          break;
+      }
+      return submission.reply({ resetForm: true });
+    } catch (error) {
+      return catchPostSubmissionError(error, submission);
+    }
   }
-}
+);
 
 export default function DepartmentsDeptIdRoute() {
   const data = useLoaderData<typeof clientLoader>();

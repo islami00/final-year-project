@@ -11,10 +11,12 @@ import { RemoveButton } from '../DepartmentPage/components/buttons/RemoveButton'
 import { BoardTitleInput } from './components/inputs/BoardTitleInput';
 import { BoardColumns } from './components/BoardColumns/BoardColumns';
 import { BoardFilter } from './components/BoardFilter/BoardFilter';
+import { taskQueries } from '../../services/queries/task/taskQueryOptionFactory';
 
 interface BoardPageRawProps {
   params: BoardIdParams;
 }
+const searchQueryKeys = [taskQueries.listByStatus()];
 export function BoardPageRaw(props: BoardPageRawProps) {
   const { params } = props;
 
@@ -41,7 +43,7 @@ export function BoardPageRaw(props: BoardPageRawProps) {
             >
               Add a Task
             </ModuleAddButton>
-            <Search placeholder="Search Tasks" />
+            <Search placeholder="Search Tasks" queryKeys={searchQueryKeys} />
             <RemoveButton
               onClick={() => NiceModal.show(modalIds.deleteBoard)}
             />

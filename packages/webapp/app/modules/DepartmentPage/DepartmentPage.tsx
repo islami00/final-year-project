@@ -19,6 +19,7 @@ import { ModuleAddButton } from './components/buttons/ModuleAddButton';
 import { RemoveButton } from './components/buttons/RemoveButton';
 import { DepartmentTitleInput } from './components/inputs/DepartmentTitleInput';
 import { useCurrentDepartments } from './logic/useCurrentDepartments';
+import { EMPTY_ARRAY } from '../../utils/constants';
 
 export interface DepartmentPageProps {
   data: DepartmentsDepartmentIdLoaderData;
@@ -56,7 +57,7 @@ export function DepartmentPage(props: DepartmentPageProps) {
             >
               Add a Board
             </ModuleAddButton>
-            <Search placeholder="Search Boards" />
+            <Search placeholder="Search Boards" queryKeys={EMPTY_ARRAY} />
             <RemoveButton
               onClick={() => NiceModal.show(modalIds.deleteDepartment)}
             />

@@ -1,32 +1,30 @@
 import { parseWithZod } from '@conform-to/zod';
 import {
   Await,
-  defer,
-  json,
+  generatePath,
+  redirect,
   useLoaderData,
   useNavigate,
   type ClientLoaderFunctionArgs,
-  redirect,
-  generatePath,
 } from '@remix-run/react';
+import omitBy from 'lodash/fp/omitBy';
 import * as React from 'react';
 import { TaskDetails } from '../modules/BoardPage/components/TaskDetails/TaskDetails';
 import { TaskDetailsLoading } from '../modules/BoardPage/components/TaskDetails/TaskDetails.loading';
 import * as taskDetailsForm from '../modules/BoardPage/logic/taskDetailsForm';
 import { getOrganisationUsers } from '../services/queries/organization/getOrganizationUsers';
+import { deleteTask } from '../services/queries/task/deleteTask';
 import { deleteUnAssignTaskFromUser } from '../services/queries/task/deleteUnAssignTaskFromUser';
 import { getTaskAssigneeById } from '../services/queries/task/getTaskAssigneeById';
 import { getTaskAssignees } from '../services/queries/task/getTaskAssignees';
 import { getTaskWithOrganisation } from '../services/queries/task/getTaskOrganisation';
-import { postAssignTaskToUser } from '../services/queries/task/postAssignTaskToUser';
 import {
   patchTaskById,
   type PatchTaskByIdBody,
 } from '../services/queries/task/patchTaskById';
-import omitBy from 'lodash/fp/omitBy';
-import { deleteTask } from '../services/queries/task/deleteTask';
-import { routeConfig } from '../utils/routeConfig';
+import { postAssignTaskToUser } from '../services/queries/task/postAssignTaskToUser';
 import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
+import { routeConfig } from '../utils/routeConfig';
 
 interface TaskPropertySubmission {
   priority?: taskDetailsForm.PriorityFormData['priority'];
@@ -64,7 +62,7 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
     taskAssigneesPromise,
     allUsersPromise,
   ]);
-  return defer({ taskDetails });
+  return { taskDetails };
 }
 export async function clientAction(args: ClientLoaderFunctionArgs) {
   const { request, params } = args;
@@ -78,7 +76,7 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
   });
 
   if (submission.status !== 'success') {
-    return json(submission.reply());
+    return submission.reply();
   }
   const { value } = submission;
 
@@ -93,14 +91,14 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
           body: parseTaskPropertySubmission(value),
           taskId,
         });
-        return json(submission.reply({ resetForm: true }));
+        return submission.reply({ resetForm: true });
       }
       case taskDetailsForm.TaskDetailsIntent.ADD_ASSIGNEE:
         await postAssignTaskToUser({
           taskId,
           userId: value.assignee,
         });
-        return json(submission.reply({ resetForm: true }));
+        return submission.reply({ resetForm: true });
 
       case taskDetailsForm.TaskDetailsIntent.REMOVE_ASSIGNEE: {
         const taskAssignee = await getTaskAssigneeById({
@@ -110,7 +108,7 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
         await deleteUnAssignTaskFromUser({
           taskAssigneeId: taskAssignee.id,
         });
-        return json(submission.reply({ resetForm: true }));
+        return submission.reply({ resetForm: true });
       }
 
       case taskDetailsForm.TaskDetailsIntent.DELETE_TASK:
@@ -122,7 +120,7 @@ export async function clientAction(args: ClientLoaderFunctionArgs) {
           })
         );
       default:
-        return json(submission.reply({ resetForm: true }));
+        return submission.reply({ resetForm: true });
     }
   } catch (error) {
     return catchPostSubmissionError(error, submission);

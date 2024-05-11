@@ -2,7 +2,6 @@ import { parseWithZod } from '@conform-to/zod';
 import {
   Outlet,
   generatePath,
-  json,
   redirect,
   useLoaderData,
   type ClientActionFunctionArgs,
@@ -20,13 +19,15 @@ import {
 import { getDepartmentsByOrg } from '../../services/queries/department/getDepartmentsByOrg';
 import { postCreateDepartment } from '../../services/queries/department/postCreateDepartment';
 import { patchUserById } from '../../services/queries/users/patchUserById';
-import { AppLoaderData } from './types';
 import { catchPostSubmissionError } from '../../utils/Form/catchPostSubmissionError';
-import * as appOrgIdForm from './form';
 import { modalIds } from '../../utils/modalIds';
 import { routeConfig } from '../../utils/routeConfig';
+import * as appOrgIdForm from './form';
+import { AppLoaderData } from './types';
 
-export async function clientLoader(args: ClientLoaderFunctionArgs) {
+export async function clientLoader(
+  args: ClientLoaderFunctionArgs
+): Promise<AppLoaderData> {
   const { params } = args;
   const user = await requireUser();
   const organisations = await requireOrganizations(user.id);
@@ -35,12 +36,12 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
     orgId: params.orgId as string,
   });
 
-  return json<AppLoaderData>({
+  return {
     user,
     organisations,
     currentOrganisation,
     departments,
-  });
+  };
 }
 
 export async function clientAction(args: ClientActionFunctionArgs) {
@@ -50,7 +51,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
     schema: appOrgIdForm.schema,
   });
   if (submission.status !== 'success') {
-    return json(submission.reply());
+    return submission.reply();
   }
   const { value } = submission;
 
@@ -75,7 +76,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
       default:
         break;
     }
-    return json(submission.reply({ resetForm: true }));
+    return submission.reply({ resetForm: true });
   } catch (error) {
     return catchPostSubmissionError(error, submission);
   }

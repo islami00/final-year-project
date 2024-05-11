@@ -2,14 +2,12 @@ import { AppShellRoot } from '../components/AppShell/AppShellRoot';
 
 import { parseWithYup } from '@conform-to/yup';
 import {
-  json,
   redirect,
   useLoaderData,
   type ClientActionFunctionArgs,
 } from '@remix-run/react';
 import toast from 'react-hot-toast';
 import { Onboard } from '../modules/Onboard/Onboard';
-import type { OnboardLoaderData } from '../modules/Onboard/Onboard.types';
 import * as onboardForm from '../modules/Onboard/logic/onboardForm';
 import { requireNewbie, requireUser } from '../services/pocketbase/auth';
 import { postCreateOrganisationForUser } from '../services/queries/organization/postCreateOrganisationForUser';
@@ -19,7 +17,7 @@ import { castError } from '../utils/parseClientResponseError';
 export async function clientLoader() {
   const user = await requireUser();
   await requireNewbie(user.id);
-  return json<OnboardLoaderData>({ user });
+  return { user };
 }
 
 export async function clientAction(args: ClientActionFunctionArgs) {
@@ -31,7 +29,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
   });
 
   if (submission.status !== 'success') {
-    return json(submission.reply());
+    return submission.reply();
   }
   const { value } = submission;
 
@@ -45,7 +43,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
   } catch (error) {
     const appError = castError(error);
     toast.error(appError.message);
-    return json(submission.reply({ resetForm: false }));
+    return submission.reply({ resetForm: false });
   }
 }
 export default function OnboardRoute() {

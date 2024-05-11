@@ -78,7 +78,7 @@
     "@tiptap/starter-kit": "^2.3.2",
     "@types/lodash": "^4.17.1",
     "dayjs": "^1.11.11",
-    "isbot": "^3.6.8",
+    "isbot": "^4",
     "lodash": "^4.17.21",
     "nanoid": "^5.0.7",
     "pocketbase": "^0.21.1",

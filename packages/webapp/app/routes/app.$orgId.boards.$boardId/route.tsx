@@ -2,8 +2,6 @@ import { parseWithZod } from '@conform-to/zod';
 import { noop } from '@mantine/core';
 import {
   Outlet,
-  defer,
-  json,
   redirect,
   useParams,
   type ClientActionFunctionArgs,
@@ -19,21 +17,21 @@ import {
 import { deleteBoard } from '../../services/queries/board/deleteBoard';
 import { getBoardById } from '../../services/queries/board/getBoardById';
 import { patchBoardById } from '../../services/queries/board/patchBoardById';
+import { getOrganisationUsers } from '../../services/queries/organization/getOrganizationUsers';
 import { savedFilterQueries } from '../../services/queries/savedFilters/savedFilterQueries';
 import { getStatusByBoardId } from '../../services/queries/status/getStatusByBoardId';
 import { taskQueries } from '../../services/queries/task/taskQueryOptionFactory';
 import { catchPostSubmissionError } from '../../utils/Form/catchPostSubmissionError';
 import { specialFields } from '../../utils/Form/specialFields';
-import { queryClient } from '../../utils/queryClient';
-import * as boardIdForm from './form';
-import { type BoardIdFilterData, type BoardIdLoaderData } from './types';
-import { boardIdSchema } from './utils';
 import {
   isFilterRequest,
   isSavedFilterRequest,
   isSearchRequest,
 } from '../../utils/Routes/isSearchRequest';
-import { getOrganisationUsers } from '../../services/queries/organization/getOrganizationUsers';
+import { queryClient } from '../../utils/queryClient';
+import * as boardIdForm from './form';
+import { type BoardIdFilterData } from './types';
+import { boardIdSchema } from './utils';
 
 export async function clientAction(args: ClientActionFunctionArgs) {
   const { request } = args;
@@ -43,7 +41,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
     schema: boardIdForm.schema,
   });
   if (submission.status !== 'success') {
-    return json(submission.reply());
+    return submission.reply();
   }
   const { value } = submission;
   try {
@@ -57,7 +55,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
       default:
         break;
     }
-    return json(submission.reply({ resetForm: true }));
+    return submission.reply({ resetForm: true });
   } catch (error) {
     return catchPostSubmissionError(error, submission);
   }
@@ -116,12 +114,12 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
     id: boardId,
   });
 
-  return defer<BoardIdLoaderData>({
+  return {
     statuses,
     board,
     users,
     user,
-  });
+  };
 }
 
 export function shouldRevalidate(args: ShouldRevalidateFunctionArgs) {

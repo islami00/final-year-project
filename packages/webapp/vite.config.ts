@@ -23,7 +23,10 @@ export default defineConfig({
     nxViteTsPaths(),
     remix({
       ignoredRouteFiles: ['**/.*'],
-      ssr: false
+      ssr: false,
+      future: {
+        unstable_singleFetch: true,
+      },
     }),
   ],
 
