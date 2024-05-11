@@ -13,15 +13,18 @@ interface OperatorListProps {
 export function OperatorList(props: OperatorListProps) {
   const { operators, form } = props;
   const { field } = useController({
-    name: 'data.operatorChip.operator',
+    name: 'data.operatorChip',
     control: form.control,
   });
 
   return (
     <Chip.Group
-      value={field.value}
+      value={field.value.operator}
+      multiple={false}
       onChange={(v) => {
-        field.onChange(v);
+        const operator = operators.find((each) => each.operator === v);
+        if (!operator) return;
+        field.onChange(operator);
         form.setValue('data.value', null, defaultSetValueConfig);
         form.setValue('data.values', null, defaultSetValueConfig);
       }}

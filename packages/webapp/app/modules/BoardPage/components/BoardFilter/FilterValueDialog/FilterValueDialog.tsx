@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Modal, ScrollArea } from '@mantine/core';
-import { useMemo } from 'react';
+import { nanoid } from 'nanoid';
+import { useMemo, useState } from 'react';
 import { useForm, type FieldErrors } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { TMAModal } from '../../../../../components/TMAModal/TMAModal';
@@ -8,19 +9,18 @@ import { ConfirmButton } from '../../../../../components/modals/ConfirmModal/Con
 import { Status } from '../../../../../models/Status.model';
 import { User } from '../../../../../models/User.model';
 import { Filter, FilterMeta } from '../../../../../utils/Filter';
+import { PB_ID_LENGTH } from '../../../../../utils/constants';
 import * as filterValueForm from '../../../logic/filterValueForm';
-import type { AddFilterActions } from '../AddFilter/AddFilter.types';
+import type { CloseFilterAction } from '../AddFilter/AddFilter.types';
 import { FilterValueInput } from '../FilterValueInput/FilterValueInput';
 import * as classes from './FilterValueDialog.styles';
 import { OperatorList } from './OperatorList';
-import { nanoid } from 'nanoid';
-import { PB_ID_LENGTH } from '../../../../../utils/constants';
 
 export interface FilterValueDialogProps {
   meta: FilterMeta;
   defaultValues?: filterValueForm.FilterValueForm;
   onChange: (value: Filter) => void;
-  onClose: (value: AddFilterActions) => void;
+  onClose: (value: CloseFilterAction) => void;
   users: User[];
   statuses: Status[];
 }
@@ -31,12 +31,16 @@ export function FilterValueDialog(props: FilterValueDialogProps) {
     () => filterValueForm.operatorsByType(meta.dataType, meta.isListType),
     [meta.dataType, meta.isListType]
   );
-
-  const defaultValuesToSet =
-    defaultValues ||
-    filterValueForm.defaultData({
-      firstOp: operators[0],
-    });
+  const [id] = useState(() => nanoid(PB_ID_LENGTH));
+  const defaultValuesToSet = useMemo(
+    () =>
+      defaultValues ||
+      filterValueForm.defaultData({
+        firstOp: operators[0],
+        id,
+      }),
+    [defaultValues, operators[0]]
+  );
   const form = useForm<filterValueForm.FilterValueForm>({
     defaultValues: defaultValuesToSet,
     resolver: zodResolver(filterValueForm.filterValueFormSchema),
@@ -46,8 +50,9 @@ export function FilterValueDialog(props: FilterValueDialogProps) {
     onChange({
       meta,
       ...base.data,
-      id: nanoid(PB_ID_LENGTH),
+      id: base.id,
     });
+    onClose({ type: 'close' });
   }
   function handleError(err: FieldErrors<filterValueForm.FilterValueForm>) {
     const errMessage = err.data?.root?.message;

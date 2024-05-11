@@ -5,27 +5,45 @@ import { Modal, ScrollArea } from '@mantine/core';
 import { CancelButton } from '../../../../../components/modals/ConfirmModal/CancelButton';
 import { ConfirmButton } from '../../../../../components/modals/ConfirmModal/ConfirmButton';
 import { FilterChip } from '../FilterChip/FilterChip';
+import { AddFilter } from '../AddFilter/AddFilter';
+import { Status } from '../../../../../models/Status.model';
+import { User } from '../../../../../models/User.model';
 
 export interface ListFiltersProps {
-  content: Filter[];
+  filters: Filter[];
   onClose: VoidFunction;
+  onChange: (values: Filter[] | Filter) => void;
+  statuses: Status[];
+  users: User[];
 }
 
 export function ListFilters(props: ListFiltersProps) {
-  const { onClose, content } = props;
+  const { onClose, filters, onChange, statuses, users } = props;
   return (
     <TMAModal opened onClose={onClose} title="Filters" centered>
       <Modal.Body className={classes.body}>
         <ScrollArea classNames={classes.scrollareaClasses}>
           <div className={classes.chips}>
-            {content.map((each) => (
-              <FilterChip filter={each} />
+            {filters.map((each) => (
+              <FilterChip
+                onClear={() =>
+                  onChange(filters.filter((filter) => filter.id !== each.id))
+                }
+                key={each.id}
+                filter={each}
+              />
             ))}
           </div>
         </ScrollArea>
         <div className={classes.btns}>
-          <ConfirmButton color="dark">Add Filter</ConfirmButton>
-          <CancelButton>Clear All</CancelButton>
+          <AddFilter
+            statuses={statuses}
+            users={users}
+            onChange={(filter) => onChange(filters.concat(filter))}
+          >
+            <ConfirmButton color="dark">Add Filter</ConfirmButton>
+          </AddFilter>
+          <CancelButton onClick={() => onChange([])}>Clear All</CancelButton>
         </div>
       </Modal.Body>
     </TMAModal>

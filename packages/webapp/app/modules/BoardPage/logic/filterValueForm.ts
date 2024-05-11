@@ -7,19 +7,22 @@ import {
   OperatorOptions,
   Operators,
   UIOperators,
-  type FilterBase,
   type Filter,
+  type FilterBase,
 } from '../../../utils/Filter';
 
 export interface FilterValueForm {
   data: FilterBase;
+  id: string;
 }
 interface DefaultDataArgs {
   firstOp: OperatorChip;
+  id: string;
 }
 export function defaultData(args: DefaultDataArgs): FilterValueForm {
-  const { firstOp } = args;
+  const { firstOp, id } = args;
   return {
+    id,
     data: {
       operatorChip: firstOp,
 
@@ -148,6 +151,7 @@ export const filterBaseSchema = z
 
 export const filterValueFormSchema = z.object({
   data: filterBaseSchema,
+  id: z.string(),
 }) satisfies ZodOf<FilterValueForm>;
 
 export type FilterValueFormReturn = UseFormReturn<FilterValueForm>;

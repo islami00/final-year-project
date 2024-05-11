@@ -16,10 +16,12 @@ interface BoardStage1 {
  */
 export type AddFilterFilterState = BoardStage0 | BoardStage1;
 
+export type CloseFilterAction = {
+  type: 'close';
+};
+
 export type AddFilterActions =
-  | {
-      type: 'close';
-    }
+  | CloseFilterAction
   | {
       type: 'select';
       filter: FilterMeta;

@@ -30,12 +30,13 @@ export function BoardFilter() {
     ],
   });
 
-  async function applyFilter(filterData: Filter) {
+  async function applyFilter(filterData: Filter | Filter[]) {
     const id = filter || nanoid(PB_ID_LENGTH);
+    const normalFilter = Array.isArray(filterData) ? filterData : [filterData];
     const createFilter: CreateSavedFilter = {
       id,
       slug: id,
-      content: [filterData],
+      content: normalFilter,
       name: SavedFilterKind.TEMPORARY,
       kind: SavedFilterKind.TEMPORARY,
       createdBy: user.id,
@@ -67,5 +68,12 @@ export function BoardFilter() {
     );
   }
 
-  return <ListFiltersButton filters={filterQuery.data.content} />;
+  return (
+    <ListFiltersButton
+      onChange={applyFilter}
+      filters={filterQuery.data.content}
+      statuses={statuses.allStatuses}
+      users={users}
+    />
+  );
 }
