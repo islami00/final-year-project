@@ -68,7 +68,7 @@ export function AssigneeSelect(props: AssigneeSelectProps) {
         value,
       };
     } else {
-      const foundItem = data.find((each) => each.id === value);
+      const foundItem = data.find((each) => each.value === value);
       if (!foundItem) {
         throw new AppError(appErrorCodes.NOT_FOUND);
       }
@@ -80,7 +80,7 @@ export function AssigneeSelect(props: AssigneeSelectProps) {
     onChange?.(stateToSet);
   }
 
-  const selectedUsers = data.filter((each) => values.has(each.id));
+  const selectedUsers = data.filter((each) => values.has(each.value));
 
   return (
     <Combobox

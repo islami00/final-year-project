@@ -4,6 +4,7 @@ import { StatusSelectTarget } from '../../../../../components/StatusSelect/Statu
 import { useCurrentStatus } from '../../../logic/useCurrentStatus';
 import * as taskDetailsForm from '../../../logic/taskDetailsForm';
 import { serialiseFormData } from '../../../../../utils/Form/serialiseFormData';
+import { mapToStatusData } from '../../../../../components/StatusSelect/StatusSelect.utils';
 export interface StatusSectionProps {
   taskId: string;
   statuses: Status[];
@@ -31,7 +32,7 @@ export function StatusSection(props: StatusSectionProps) {
           {statusObject.name}
         </StatusSelectTarget>
       )}
-      data={statuses}
+      data={statuses.map(mapToStatusData)}
     />
   );
 }

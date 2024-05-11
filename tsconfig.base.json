@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@tma/design-system": ["packages/design-system/src/index.ts"],
-      "@tma/design-system/*": ["packages/design-system/src/*"],
+      "@tma/design-system/preset": ["packages/design-system/src/preset.ts"],
       "@tma/webapp/*": ["packages/webapp/app/*"]
     }
   },

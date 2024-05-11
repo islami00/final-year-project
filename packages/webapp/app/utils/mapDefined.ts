@@ -1,10 +1,10 @@
 export function mapDefined<T, U>(
-  array: T[],
-  mapper: (value: T) => U | undefined
+  array: T[] | readonly T[],
+  mapper: (value: T, idx: number) => U | undefined
 ): U[] {
   const result: U[] = [];
-  for (const item of array) {
-    const mapped = mapper(item);
+  for (const [idx, item] of array.entries()) {
+    const mapped = mapper(item, idx);
     if (mapped !== undefined) {
       result.push(mapped);
     }

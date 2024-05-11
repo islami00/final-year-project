@@ -1,0 +1,25 @@
+@startuml TMADeploymentDiagram
+
+
+artifact clientBundle.zip
+artifact Dockerfile
+artifact fly.toml
+
+
+node FlyIOApplicationServer 
+note left : Migrations are automatically executed here
+
+node CDN
+node WebEnabledDevice << device >> {
+  node WebBrowser << executionEnvironment >>
+} 
+
+clientBundle.zip   ..>  CDN : "<<deploy>>" 
+Dockerfile   ..>  FlyIOApplicationServer : "<<deploy>>" 
+fly.toml   ..>  FlyIOApplicationServer : "<<deploy>>" 
+
+
+CDN -- WebBrowser : "<<protocol>> \n TCP/IP"
+WebBrowser -- FlyIOApplicationServer : "<<protocol>> \n TCP/IP"
+
+@enduml

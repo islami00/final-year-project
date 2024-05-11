@@ -8,3 +8,6 @@ export const paginationConsts = {
   maxPages: 4,
   noPages: 0,
 };
+
+export const EMPTY_ARRAY = [];
+export const PB_ID_LENGTH = 15;

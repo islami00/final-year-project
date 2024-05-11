@@ -1,5 +1,5 @@
 import { parseWithYup } from '@conform-to/yup';
-import { json, type ClientActionFunctionArgs } from '@remix-run/react';
+import { type ClientActionFunctionArgs } from '@remix-run/react';
 import { toast } from 'react-hot-toast';
 import { Auth } from '../modules/Auth/Auth';
 import * as authForm from '../modules/Auth/logic/authForm';
@@ -19,7 +19,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
   });
 
   if (submission.status !== 'success') {
-    return json(submission.reply());
+    return submission.reply();
   }
   const { value } = submission;
 
@@ -28,11 +28,11 @@ export async function clientAction(args: ClientActionFunctionArgs) {
       email: value.email,
       password: value.password,
     });
-    return json({ user });
+    return { user };
   } catch (error) {
     const appError = castError(error);
     toast.error(appError.message);
-    return json(submission.reply({ resetForm: false }));
+    return submission.reply({ resetForm: false });
   }
 }
 export default function Login() {

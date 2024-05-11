@@ -7,7 +7,6 @@ import { Icon } from '../../Icon/Icon';
 import { P } from '../../P';
 import { UserAvatar } from '../../UserAvatar';
 import { menuTarget } from '../AppShell.styles';
-import { menuClasses } from './HeaderMenu.styles';
 
 interface HeaderMenuProps {
   user: User;
@@ -18,7 +17,7 @@ export function HeaderMenu(props: HeaderMenuProps) {
   const { user, userSettingsModalId, canShowSettingsModal } = props;
 
   return (
-    <Menu classNames={menuClasses}>
+    <Menu>
       <Menu.Target>
         <UserAvatar className={menuTarget} src={user.avatar} name={user.name} />
       </Menu.Target>

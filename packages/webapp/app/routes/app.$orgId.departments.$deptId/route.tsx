@@ -1,26 +1,29 @@
 import { parseWithZod } from '@conform-to/zod';
 import {
   generatePath,
-  json,
   redirect,
+  unstable_defineClientLoader as defineClientLoader,
+  unstable_defineClientAction as defineClientAction,
   useLoaderData,
-  type ClientActionFunctionArgs,
-  type ClientLoaderFunctionArgs,
+  useParams,
 } from '@remix-run/react';
-import { DepartmentPage } from '../modules/DepartmentPage/DepartmentPage';
-import * as departmentIdForm from '../modules/DepartmentPage/logic/departmentIdForm';
-import { getDepartmentBoards } from '../services/queries/department/getDepartmentBoards';
-import { postCreateBoard } from '../services/queries/board/postCreateBoard';
-import { deleteDepartment } from '../services/queries/department/deleteDepartment';
-import { getDepartmentById } from '../services/queries/department/getDepartmentById';
-import { patchDepartmentById } from '../services/queries/department/patchDepartmentById';
-import { catchPostSubmissionError } from '../utils/Form/catchPostSubmissionError';
-import { routeConfig } from '../utils/routeConfig';
-import { specialFields } from '../utils/Form/specialFields';
+import { useMemo } from 'react';
+import { DepartmentPage } from '../../modules/DepartmentPage/DepartmentPage';
+import * as departmentIdForm from '../../modules/DepartmentPage/logic/departmentIdForm';
+import { postCreateBoard } from '../../services/queries/board/postCreateBoard';
+import { deleteDepartment } from '../../services/queries/department/deleteDepartment';
+import { getDepartmentBoards } from '../../services/queries/department/getDepartmentBoards';
+import { getDepartmentById } from '../../services/queries/department/getDepartmentById';
+import { patchDepartmentById } from '../../services/queries/department/patchDepartmentById';
+import { catchPostSubmissionError } from '../../utils/Form/catchPostSubmissionError';
+import { specialFields } from '../../utils/Form/specialFields';
+import { routeConfig } from '../../utils/routeConfig';
+import { departmentIdSchema } from './utils';
 
-export async function clientLoader(args: ClientLoaderFunctionArgs) {
-  const { params, request } = args;
+export const clientLoader = defineClientLoader(async (args) => {
+  const { request } = args;
   const url = new URL(request.url);
+  const params = await departmentIdSchema.parseAsync(args.params);
   const deptId = params.deptId as string;
   const boards = getDepartmentBoards({
     deptId,
@@ -28,8 +31,8 @@ export async function clientLoader(args: ClientLoaderFunctionArgs) {
   });
   const department = await getDepartmentById({ deptId });
   return { boards, department };
-}
-export async function clientAction(args: ClientActionFunctionArgs) {
+});
+export const clientAction = defineClientAction(async (args) => {
   const { request, params } = args;
   const formData = await request.formData();
   const submission = parseWithZod(formData, {
@@ -38,7 +41,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
 
   // This is also called on error.
   if (submission.status !== 'success') {
-    return json(submission.reply());
+    return submission.reply();
   }
   const { value } = submission;
   const deptId = params.deptId as string;
@@ -68,13 +71,19 @@ export async function clientAction(args: ClientActionFunctionArgs) {
       default:
         break;
     }
-    return json(submission.reply({ resetForm: true }));
+    return submission.reply({ resetForm: true });
   } catch (error) {
     return catchPostSubmissionError(error, submission);
   }
-}
+});
+
 export default function DepartmentsDeptIdRoute() {
   const data = useLoaderData<typeof clientLoader>();
+  const rawParams = useParams();
+  const params = useMemo(
+    () => departmentIdSchema.parse(rawParams),
+    [rawParams]
+  );
 
-  return <DepartmentPage data={data} />;
+  return <DepartmentPage data={data} key={params.deptId} />;
 }

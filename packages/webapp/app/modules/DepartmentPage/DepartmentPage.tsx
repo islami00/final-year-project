@@ -1,9 +1,12 @@
 import NiceModal from '@ebay/nice-modal-react';
 import { invariant } from '@epic-web/invariant';
-import { Await } from '@remix-run/react';
-import { Suspense } from 'react';
+import { Await, useSearchParams } from '@remix-run/react';
+import { hashKey } from '@tanstack/react-query';
+import { Suspense, useMemo } from 'react';
 import { Search } from '../../components/Search/Search';
 import * as ModuleLayout from '../../layouts/ModuleLayout';
+import { boardQueries } from '../../services/queries/board/boardQueries';
+import { specialFields } from '../../utils/Form/specialFields';
 import { modalIds } from '../../utils/modalIds';
 import { DepartmentContent } from './DepartmentPage.styles';
 import type { DepartmentsDepartmentIdLoaderData } from './DepartmentPage.types';
@@ -16,6 +19,7 @@ import { ModuleAddButton } from './components/buttons/ModuleAddButton';
 import { RemoveButton } from './components/buttons/RemoveButton';
 import { DepartmentTitleInput } from './components/inputs/DepartmentTitleInput';
 import { useCurrentDepartments } from './logic/useCurrentDepartments';
+import { EMPTY_ARRAY } from '../../utils/constants';
 
 export interface DepartmentPageProps {
   data: DepartmentsDepartmentIdLoaderData;
@@ -29,6 +33,13 @@ export function DepartmentPage(props: DepartmentPageProps) {
   });
   const currentDept = departmentName.get(oldDept.id);
   invariant(currentDept, 'Department must exist in optimistic list');
+  const [search] = useSearchParams();
+
+  const q = search.get(specialFields.q);
+  const queryKeyHash = useMemo(
+    () => hashKey(boardQueries.byDepartmentFilter({ deptId: oldDept.id, q })),
+    [oldDept.id, q]
+  );
 
   return (
     <ModuleLayout.Main>
@@ -46,7 +57,7 @@ export function DepartmentPage(props: DepartmentPageProps) {
             >
               Add a Board
             </ModuleAddButton>
-            <Search placeholder="Search Boards" />
+            <Search placeholder="Search Boards" queryKeys={EMPTY_ARRAY} />
             <RemoveButton
               onClick={() => NiceModal.show(modalIds.deleteDepartment)}
             />
@@ -54,7 +65,7 @@ export function DepartmentPage(props: DepartmentPageProps) {
         }
       />
       <DepartmentContent>
-        <Suspense fallback={<BoardListLoading />}>
+        <Suspense fallback={<BoardListLoading />} key={queryKeyHash}>
           <Await errorElement={<BoardListError />} resolve={data.boards}>
             {(rs) => (
               <BoardList boards={rs} orgId={data.department.organisationId} />

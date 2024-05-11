@@ -1,25 +1,15 @@
 import { Combobox } from '@mantine/core';
-import { P } from '../P';
-import { UserAvatar } from '../UserAvatar/UserAvatar';
-import * as classes from './AssigneeSelect.styles';
-import { AssigneeData } from './AssigneeSelect.types';
+import {
+  AssigneeItemContentProps,
+  AssigneeItemContent,
+} from './AssigneeItemContent';
 
-interface AssigneeItemProps {
-  each: AssigneeData;
-  selected: boolean;
-}
+type AssigneeItemProps = AssigneeItemContentProps;
 export function AssigneeItem(props: AssigneeItemProps) {
-  const { each, selected } = props;
+  const { each, ...rest } = props;
   return (
-    <Combobox.Option value={each.id}>
-      <UserAvatar
-        src={each.avatar}
-        name={each.name}
-        classNames={classes.avatarClasses}
-        data-selected={selected || undefined}
-      />
-
-      <P textStyle="smSemiBold">{each.name}</P>
+    <Combobox.Option value={each.value}>
+      <AssigneeItemContent {...rest} each={each} />
     </Combobox.Option>
   );
 }

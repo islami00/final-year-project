@@ -27,9 +27,9 @@ export function AssigneeDropdown(props: AssigneeDropdownProps) {
         {hasData ? (
           filtered.map((each) => (
             <AssigneeItem
-              key={each.id}
+              key={each.value}
               each={each}
-              selected={values.has(each.id)}
+              selected={values.has(each.value)}
             />
           ))
         ) : (

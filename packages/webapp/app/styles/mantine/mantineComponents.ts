@@ -15,10 +15,16 @@ import {
   type MantineSize,
   type MantineThemeComponents,
   type PartialTransformVars,
+  Menu,
+  resolveClassNames,
+  type MenuStylesNames,
+  type ClassNames,
+  type FactoryPayload,
 } from '@mantine/core';
 import { css } from '@tma/design-system';
 import { mergeClassObjects } from '../../utils/mergeClassObjects';
 import merge from 'lodash/merge';
+import { ClassNamesRecord } from './types';
 
 function getButtonSizeStyles(
   size: ButtonProps['size']
@@ -175,14 +181,33 @@ const inputDefaultProps = Input.extend({
     };
     return merge(inputSizeVars(size), colorVars, varsResult);
   },
-  classNames: (...args) => {
-    const [, props] = args;
+  classNames: (theme, props, stylesCtx) => {
     const { size, classNames } = props;
-    let _classNames;
-    if (typeof classNames === 'function') _classNames = classNames(...args);
-    else _classNames = classNames;
+    const resolved = resolveClassNames({
+      theme,
+      props,
+      stylesCtx,
+      classNames: classNames as ClassNames<FactoryPayload>,
+    });
 
-    return mergeClassObjects(_classNames, inputClassNames(size));
+    return mergeClassObjects(resolved, inputClassNames(size));
+  },
+});
+
+const menuDefaultProps = Menu.extend({
+  classNames(theme, props, stylesCtx) {
+    const { classNames } = props;
+    const resolved = resolveClassNames({
+      theme,
+      props,
+      stylesCtx: stylesCtx as ClassNamesRecord,
+      classNames,
+    });
+
+    const menuClasses: ClassNamesRecord<MenuStylesNames> = {
+      itemLabel: css({ textStyle: 'smSemiBold' }),
+    };
+    return mergeClassObjects(menuClasses, resolved);
   },
 });
 export const mantineComponents: MantineThemeComponents = {
@@ -191,4 +216,5 @@ export const mantineComponents: MantineThemeComponents = {
   Avatar: avatarDefaultProps,
   Combobox: comboboxDefaultProps,
   Input: inputDefaultProps,
+  Menu: menuDefaultProps,
 };

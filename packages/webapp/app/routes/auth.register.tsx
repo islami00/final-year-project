@@ -1,12 +1,12 @@
 import { parseWithYup } from '@conform-to/yup';
-import { ClientActionFunctionArgs, json, redirect } from '@remix-run/react';
+import { ClientActionFunctionArgs, redirect } from '@remix-run/react';
 import { toast } from 'react-hot-toast';
 import { Auth } from '../modules/Auth/Auth';
 import * as authForm from '../modules/Auth/logic/authForm';
+import { requireAnonymous } from '../services/pocketbase/auth';
 import { login } from '../services/queries/auth/login';
 import { signUp } from '../services/queries/auth/signUp';
 import { castError } from '../utils/parseClientResponseError';
-import { requireAnonymous } from '../services/pocketbase/auth';
 
 export async function clientLoader() {
   requireAnonymous();
@@ -21,7 +21,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
   });
 
   if (submission.status !== 'success') {
-    return json(submission.reply());
+    return submission.reply();
   }
   const { value } = submission;
 
@@ -40,7 +40,7 @@ export async function clientAction(args: ClientActionFunctionArgs) {
     const appError = castError(error);
     toast.error(appError.message);
     // Required to avoid resetting the form.
-    return json(submission.reply({ resetForm: false }));
+    return submission.reply({ resetForm: false });
   }
 
   return redirect('/');

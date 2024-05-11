@@ -1,7 +1,7 @@
 import BoardModel, { Board, BoardApi } from '../../../models/Board.model';
 import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
-import { Operators, parseFilters } from '../../../utils/Filter';
+import { FilterDataType, Operators, parseFilters } from '../../../utils/Filter';
 
 export interface GetDepartmentBoardsArgs {
   deptId: string;
@@ -11,20 +11,33 @@ export interface GetDepartmentBoardsArgs {
 export async function getDepartmentBoards(
   args: GetDepartmentBoardsArgs
 ): Promise<Board[]> {
-  const { deptId, q } = args;
+  const { deptId, q = null } = args;
 
   const queryParams = parseFilters([
     {
-      field: 'departmentId',
-      operator: Operators.EQ,
-      placeholder: 'deptId',
+      meta: {
+        field: 'departmentId',
+        label: 'deptId',
+        dataType: FilterDataType.SELECT,
+        id: '',
+      },
+
+      operatorChip: { operator: Operators.EQ, label: '' },
       value: deptId,
+      values: null,
+      id: '0',
     },
     {
-      field: 'name',
-      operator: Operators.CONTAINS,
-      placeholder: 'name',
+      meta: {
+        field: 'name',
+        label: 'name',
+        dataType: FilterDataType.TEXT,
+        id: '',
+      },
+      operatorChip: { operator: Operators.CONTAINS, label: '' },
       value: q,
+      values: null,
+      id: '1',
     },
   ]);
   const boards = await pb.collection<BoardApi>(collections.board).getFullList({

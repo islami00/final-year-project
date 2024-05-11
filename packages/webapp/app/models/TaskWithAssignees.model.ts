@@ -17,6 +17,7 @@ export interface TaskWithAssigneeApi extends TaskApi {
   };
 }
 
+// Todo: Shrink this to just a list of ids.
 export interface TaskWithAssignees extends Task {
   assignees: User[];
 }

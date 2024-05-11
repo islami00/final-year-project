@@ -3,7 +3,7 @@ import { nxE2EPreset } from '@nx/playwright/preset';
 
 import { workspaceRoot } from '@nx/devkit';
 import { fileURLToPath } from 'node:url';
-    
+
 const __filename = fileURLToPath(import.meta.url);
 // For CI, you may want to set BASE_URL to the deployed application.
 const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
@@ -28,7 +28,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: 'pnpm exec nx run webapp:dev',
-    url: 'http://localhost:4200',
+    url: baseURL,
     reuseExistingServer: !process.env.CI,
     cwd: workspaceRoot,
   },

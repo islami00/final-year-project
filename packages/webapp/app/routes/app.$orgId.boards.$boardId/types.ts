@@ -1,18 +1,26 @@
-import type { InfiniteData } from '@tanstack/react-query';
-import { Task } from '../../models/Task.model';
-import type { ListResult } from 'pocketbase';
-import { Board } from '../../models/Board.model';
-import type { StatusListWithDefault } from '../../models/Status.model';
 import type { ClientLoaderFunctionArgs } from '@remix-run/react';
-import type { TypedDeferredData } from '@remix-run/node';
+import { Board } from '../../models/Board.model';
+import { SavedFilter } from '../../models/SavedFilter.model';
+import type { StatusListWithDefault } from '../../models/Status.model';
+import { User } from '../../models/User.model';
+import { EmptyFilterQuery } from '../../services/queries/savedFilters/savedFilterQueries';
 
+export interface BoardIdFilterData {
+  /**
+   * Saved Filter diffed at the filter with the current filter to see if there are changes to save
+   * false => no filter parameter
+   * null => error fetching filter
+   *  */
+  savedFilter: SavedFilter | null | EmptyFilterQuery;
+  currentFilter: SavedFilter | null | EmptyFilterQuery;
+}
 export interface BoardIdLoaderData extends Record<string, unknown> {
   statuses: StatusListWithDefault;
   board: Board;
-  /** Promise of all queries being refetched. Only to throw a global error boundary */
-  statusQueries: Promise<InfiniteData<ListResult<Task>, number>[]>;
+  users: User[];
+  user: User;
 }
 
 export type BoardIdLoader = (
   args: ClientLoaderFunctionArgs
-) => TypedDeferredData<BoardIdLoaderData>;
+) => BoardIdLoaderData;
