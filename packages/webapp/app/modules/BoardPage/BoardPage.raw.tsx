@@ -33,7 +33,10 @@ export function BoardPageRaw(props: BoardPageRawProps) {
         title={<BoardTitleInput defaultValue={board.name} id={board.id} />}
         actions={
           <>
-            <BoardFilter organisationId={params.orgId} />
+            <BoardFilter
+              organisationId={params.orgId}
+              queryKeys={searchQueryKeys}
+            />
             <SavedFilters organisationId={params.orgId} />
             <ModuleAddButton
               onClick={() =>

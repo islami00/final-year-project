@@ -1,6 +1,6 @@
 import { User, type UserCreate } from '../../../models/User.model';
-import { forwardError } from '../../../utils/forwardError';
-import { parseClientResponseError } from '../../../utils/parseClientResponseError';
+import { forwardError } from '../../../utils/ErrorHandling/forwardError';
+import { parseClientResponseError } from '../../../utils/ErrorHandling/parseClientResponseError';
 import { pb } from '../../pocketbase/setup';
 
 interface ISignUpBody {

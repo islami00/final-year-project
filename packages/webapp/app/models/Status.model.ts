@@ -1,6 +1,6 @@
 import { token, type ColorToken } from '@tma/design-system';
 import { z } from 'zod';
-import { AppValidationError } from '../utils/AppValidationError';
+import { AppValidationError } from '../utils/ErrorHandling/AppValidationError';
 import Converter from './Converter.model';
 import { ZodOf } from './types';
 

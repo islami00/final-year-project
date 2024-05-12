@@ -1,4 +1,4 @@
-import { AppInternalError } from '../../../../../utils/AppInternalError';
+import { AppInternalError } from '../../../../../utils/ErrorHandling/AppInternalError';
 import { Status } from '../../../../../models/Status.model';
 import { User } from '../../../../../models/User.model';
 import { FilterDataType, FilterMeta } from '../../../../../utils/Filter';

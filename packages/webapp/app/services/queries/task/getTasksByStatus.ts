@@ -5,8 +5,8 @@ import TaskWithAssigneesModel, {
 } from '../../../models/TaskWithAssignees.model';
 import { FilterDataType, Operators, parseFilters } from '../../../utils/Filter';
 import { paginationConsts } from '../../../utils/constants';
-import { forwardError } from '../../../utils/forwardError';
-import { parseClientResponseError } from '../../../utils/parseClientResponseError';
+import { forwardError } from '../../../utils/ErrorHandling/forwardError';
+import { parseClientResponseError } from '../../../utils/ErrorHandling/parseClientResponseError';
 import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
 import { SavedFilter } from '../../../models/SavedFilter.model';

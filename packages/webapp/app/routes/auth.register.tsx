@@ -6,7 +6,7 @@ import * as authForm from '../modules/Auth/logic/authForm';
 import { requireAnonymous } from '../services/pocketbase/auth';
 import { login } from '../services/queries/auth/login';
 import { signUp } from '../services/queries/auth/signUp';
-import { castError } from '../utils/parseClientResponseError';
+import { castError } from '../utils/ErrorHandling/parseClientResponseError';
 
 export async function clientLoader() {
   requireAnonymous();

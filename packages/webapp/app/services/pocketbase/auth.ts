@@ -1,7 +1,7 @@
 import { generatePath, redirect, type Params } from '@remix-run/react';
 import { AuthModes } from '../../modules/Auth/Auth.types';
 import { pb } from './setup';
-import { AppError, appErrorCodes } from '../../utils/AppError';
+import { AppError, appErrorCodes } from '../../utils/ErrorHandling/AppError';
 import UserModel, { User, type UserApi } from '../../models/User.model';
 import type { Organization } from '../../models/Organization.model';
 import { getOrganizationsByUser } from '../queries/organization/getOrganizationsByUser';

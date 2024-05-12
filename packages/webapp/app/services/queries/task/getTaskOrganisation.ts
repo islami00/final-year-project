@@ -4,9 +4,9 @@ import TaskWithOrganisationModel, {
   TaskWithOrganisationApi,
   type TaskWithOrganisation,
 } from '../../../models/TaskWithOrganisation.model';
-import { forwardError } from '../../../utils/forwardError';
-import { parseClientResponseError } from '../../../utils/parseClientResponseError';
-import { parseZodError } from '../../../utils/parseZodError';
+import { forwardError } from '../../../utils/ErrorHandling/forwardError';
+import { parseClientResponseError } from '../../../utils/ErrorHandling/parseClientResponseError';
+import { parseZodError } from '../../../utils/ErrorHandling/parseZodError';
 
 interface GetTaskOrganisationArgs {
   taskId: string;

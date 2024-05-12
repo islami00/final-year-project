@@ -1,16 +1,13 @@
 import { ActionIcon, TextInput, type TextInputProps } from '@mantine/core';
 import { Form, useSearchParams } from '@remix-run/react';
-import {
-  matchQuery,
-  useQueryClient,
-  type QueryKey,
-} from '@tanstack/react-query';
+import { useQueryClient, type QueryKey } from '@tanstack/react-query';
 import { cx } from '@tma/design-system';
 import { memo } from 'react';
 import { specialFields } from '../../utils/Form/specialFields';
 import * as navbarLinkClasses from '../AppShell/NavbarLink/NavbarLink.styles';
 import { Icon } from '../Icon/Icon';
 import * as classes from './Search.styles';
+import { removeSearchQueries } from '../../utils/removeSearchQueries';
 
 export interface SearchProps extends Omit<TextInputProps, 'defaultValue'> {
   queryKeys: QueryKey[];
@@ -21,29 +18,14 @@ export const Search = memo((props: SearchProps) => {
   const queryClient = useQueryClient();
 
   const currentSearch = search.get(specialFields.q);
-  function removeQueries() {
-    queryClient.removeQueries({
-      predicate: (query) => {
-        const matched = queryKeys.some((queryKey) =>
-          matchQuery(
-            {
-              queryKey,
-            },
-            query
-          )
-        );
-        return matched;
-      },
-      type: 'inactive',
-    });
-  }
+
   function onReset() {
     setSearch((prev) => {
       const newSearch = new URLSearchParams(prev);
       newSearch.delete(specialFields.q);
       return newSearch;
     });
-    removeQueries();
+    removeSearchQueries(queryClient, queryKeys);
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -52,7 +34,7 @@ export const Search = memo((props: SearchProps) => {
     if (currentSearch === currentQ) {
       e.preventDefault();
     } else {
-      removeQueries();
+      removeSearchQueries(queryClient, queryKeys);
     }
   }
   return (

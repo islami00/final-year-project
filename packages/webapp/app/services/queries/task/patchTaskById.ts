@@ -1,4 +1,4 @@
-import { forwardError } from '../../../utils/forwardError';
+import { forwardError } from '../../../utils/ErrorHandling/forwardError';
 import TaskModel, {
   Priority,
   type Task,
@@ -6,7 +6,7 @@ import TaskModel, {
 } from '../../../models/Task.model';
 import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
-import { parseClientResponseError } from '../../../utils/parseClientResponseError';
+import { parseClientResponseError } from '../../../utils/ErrorHandling/parseClientResponseError';
 
 export interface PatchTaskByIdBody {
   statusId?: string;

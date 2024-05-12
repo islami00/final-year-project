@@ -1,6 +1,10 @@
 import { noop } from '@mantine/core';
 import { useLoaderData, useSearchParams } from '@remix-run/react';
-import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useQueryClient,
+  useSuspenseQuery,
+  type QueryKey,
+} from '@tanstack/react-query';
 import { nanoid } from 'nanoid';
 import SavedFilterModel, {
   SavedFilterKind,
@@ -15,12 +19,15 @@ import { PB_ID_LENGTH } from '../../../../utils/constants';
 import { AddFilter } from './AddFilter/AddFilter';
 import { BoardFilterButton } from './BoardFilterButton/BoardFilterButton';
 import { ListFiltersButton } from './ListFiltersButton/ListFiltersButton';
+import { removeSearchQueries } from '../../../../utils/removeSearchQueries';
 
 interface BoardFilterProps {
   organisationId: string;
+  /** Used to ensure each filter leads to a hard loading state */
+  queryKeys: QueryKey[];
 }
 export function BoardFilter(props: BoardFilterProps) {
-  const { organisationId } = props;
+  const { organisationId, queryKeys } = props;
   const [search, setParams] = useSearchParams();
   const filter = search.get(specialFields.filter);
 
@@ -48,6 +55,7 @@ export function BoardFilter(props: BoardFilterProps) {
       savedFilterQueries.byIdCaughtFilter(newSlug).queryKey,
       fullFilter
     );
+
     return { newSlug, createFilter };
   }
 
@@ -62,6 +70,7 @@ export function BoardFilter(props: BoardFilterProps) {
     });
     // It doesn't matter if this fails.
     postSaveTempFilter({ body: createFilter, userId: user.id }).catch(noop);
+    removeSearchQueries(queryClient, queryKeys);
   }
 
   async function clearFilters() {
@@ -77,6 +86,7 @@ export function BoardFilter(props: BoardFilterProps) {
     });
     // It doesn't matter if this fails.
     postSaveTempFilter({ body: createFilter, userId: user.id }).catch(noop);
+    removeSearchQueries(queryClient, queryKeys);
   }
 
   if (!filterQuery.data?.content?.length) {

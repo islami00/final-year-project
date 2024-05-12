@@ -14,7 +14,7 @@ import { useRouteLoaderDataOrThrow } from '../hooks/useRouteLoaderDataOrThrow';
 import { type BoardIdLoaderData } from './app.$orgId.boards.$boardId/types';
 import { getNextTaskColumnOrder } from '../services/queries/task/getNextTaskColumnOrder';
 import { postCreateTask } from '../services/queries/task/postCreateTask';
-import { castError } from '../utils/parseClientResponseError';
+import { castError } from '../utils/ErrorHandling/parseClientResponseError';
 import { routeConfig } from '../utils/routeConfig';
 import { boardIdSchema } from './app.$orgId.boards.$boardId/utils';
 

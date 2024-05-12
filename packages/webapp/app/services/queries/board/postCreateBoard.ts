@@ -5,8 +5,8 @@ import BoardModel, {
 } from '../../../models/Board.model';
 import { pb } from '../../pocketbase/setup';
 import { collections } from '../../pocketbase/collections';
-import { forwardError } from '../../../utils/forwardError';
-import { parseClientResponseError } from '../../../utils/parseClientResponseError';
+import { forwardError } from '../../../utils/ErrorHandling/forwardError';
+import { parseClientResponseError } from '../../../utils/ErrorHandling/parseClientResponseError';
 
 export interface PostCreateBoardArgs {
   body: BoardCreate;

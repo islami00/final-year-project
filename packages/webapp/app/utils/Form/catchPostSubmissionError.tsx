@@ -1,6 +1,6 @@
 import type { Submission } from '@conform-to/dom';
 import toast from 'react-hot-toast';
-import { castError } from '../parseClientResponseError';
+import { castError } from '../ErrorHandling/parseClientResponseError';
 
 export function catchPostSubmissionError(
   error: unknown,
