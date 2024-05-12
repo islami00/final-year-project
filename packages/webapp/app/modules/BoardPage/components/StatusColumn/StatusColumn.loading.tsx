@@ -1,4 +1,14 @@
+import { ScrollArea, Skeleton } from '@mantine/core';
+import * as classes from './StatusColumn.styles';
+
 export function StatusColumnQueryLoading() {
-  // Todo: Add skeleton
-  return <div>Status column loading...</div>;
+  return (
+    <ScrollArea>
+      <div className={classes.column}>
+        <Skeleton h={150} />
+        <Skeleton h={150} />
+        <Skeleton h={150} />
+      </div>
+    </ScrollArea>
+  );
 }
