@@ -1,7 +1,7 @@
 import { useLoaderData } from '@remix-run/react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { BoardIdLoader } from '../../../../routes/app.$orgId.boards.$boardId/types';
-import { type BoardIdParams } from '../../../../routes/app.$orgId.boards.$boardId/utils';
+import { type BoardIdParams } from '../../../../routes/app.$orgId.boards.$boardId/types';
 import { StatusColumn } from '../StatusColumn/StatusColumn';
 import { BoardColumnsError } from './BoardColumns.error';
 import { useCurrentFilter } from '../../logic/useCurrentFilter';

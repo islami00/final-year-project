@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ReactErrorBoundaryFallback } from '../../components/errors/ReactErrorBoundaryFallback';
 import * as ModuleLayout from '../../layouts/ModuleLayout';
-import { type BoardIdParams } from '../../routes/app.$orgId.boards.$boardId/utils';
+import { type BoardIdParams } from '../../routes/app.$orgId.boards.$boardId/types';
 import { modalIds } from '../../utils/modalIds';
 import { BoardPageLoading } from './BoardPage.loading';
 import { DeleteBoard } from './components/DeleteBoard';
