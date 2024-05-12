@@ -34,7 +34,7 @@ export function BoardPageRaw(props: BoardPageRawProps) {
         actions={
           <>
             <BoardFilter organisationId={params.orgId} />
-            <SavedFilters />
+            <SavedFilters organisationId={params.orgId} />
             <ModuleAddButton
               onClick={() =>
                 navigate(

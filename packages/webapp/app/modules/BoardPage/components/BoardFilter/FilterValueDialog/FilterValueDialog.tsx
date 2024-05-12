@@ -15,6 +15,7 @@ import type { CloseFilterAction } from '../AddFilter/AddFilter.types';
 import { FilterValueInput } from '../FilterValueInput/FilterValueInput';
 import * as classes from './FilterValueDialog.styles';
 import { OperatorList } from './OperatorList';
+import * as utilClasses from '../../../../../styles/utils.styles';
 
 export interface FilterValueDialogProps {
   meta: FilterMeta;
@@ -77,7 +78,7 @@ export function FilterValueDialog(props: FilterValueDialogProps) {
           />
           <ConfirmButton
             color="blue"
-            className={classes.submitBtn}
+            className={utilClasses.submitBtn}
             onClick={() => form.handleSubmit(handleSubmit, handleError)()}
           >
             Apply

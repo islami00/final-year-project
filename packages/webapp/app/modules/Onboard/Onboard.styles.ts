@@ -17,7 +17,3 @@ export const body = css({
 });
 
 export const root = center({});
-
-export const submitBtn = css({
-  alignSelf: 'end',
-});

@@ -9,8 +9,9 @@ import { Button, TextInput } from '@mantine/core';
 import { Form, useActionData } from '@remix-run/react';
 import { CreateModal } from '../../../../components/modals/CreateModal/CreateModal';
 import * as createTaskForm from '../../logic/createTaskForm';
-import { formRoot, submitBtn } from './CreateTask.styles';
+import { formRoot } from './CreateTask.styles';
 import { hiddenInputs } from '../../../../utils/Form/hiddenInputs';
+import * as utilClasses from '../../../../styles/utils.styles';
 
 interface CreateTaskProps {
   onClose: VoidFunction;
@@ -45,7 +46,7 @@ export function CreateTask(props: CreateTaskProps) {
           { field: fields.statusId, value: defaultStatusId },
         ])}
 
-        <Button size="xs" type="submit" className={submitBtn}>
+        <Button size="xs" type="submit" className={utilClasses.submitBtn}>
           Submit
         </Button>
       </Form>
