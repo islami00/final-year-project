@@ -16,7 +16,7 @@ export function EmptyFiltersMenu(props: EmptyFiltersMenuProps) {
       <Menu.Target>{children}</Menu.Target>
       <Menu.Dropdown>
         <Menu.Item
-          disabled={!currentFilter?.id}
+          disabled={!currentFilter?.content?.length}
           onClick={() => {
             if (!currentFilter?.id) return;
             setAction({ type: 'save-new', filter: currentFilter });

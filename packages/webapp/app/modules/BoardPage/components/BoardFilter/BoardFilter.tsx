@@ -29,8 +29,7 @@ export function BoardFilter(props: BoardFilterProps) {
   const filterQuery = useSuspenseQuery(
     savedFilterQueries.byIdCaughtFilter(filter)
   );
-
-  async function applyFilter(filterData: Filter | Filter[]) {
+  async function prepareFilterToApply(filterData: Filter | Filter[]) {
     const newSlug = nanoid(PB_ID_LENGTH);
     const normalFilter = Array.isArray(filterData) ? filterData : [filterData];
     // Prep a filter to upsert.
@@ -49,10 +48,31 @@ export function BoardFilter(props: BoardFilterProps) {
       savedFilterQueries.byIdCaughtFilter(newSlug).queryKey,
       fullFilter
     );
+    return { newSlug, createFilter };
+  }
+
+  async function applyFilter(filterData: Filter | Filter[]) {
+    const { newSlug, createFilter } = await prepareFilterToApply(filterData);
+
     // At the same time, save and try to do a bookmark
     setParams((prev) => {
       const newParams = new URLSearchParams(prev);
       newParams.set(specialFields.filter, newSlug);
+      return newParams;
+    });
+    // It doesn't matter if this fails.
+    postSaveTempFilter({ body: createFilter, userId: user.id }).catch(noop);
+  }
+
+  async function clearFilters() {
+    const { newSlug, createFilter } = await prepareFilterToApply([]);
+
+    // At the same time, save and try to do a bookmark
+    // and Clear any selected saved filters
+    setParams((prev) => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set(specialFields.filter, newSlug);
+      newParams.delete(specialFields.savedFilter);
       return newParams;
     });
     // It doesn't matter if this fails.
@@ -77,6 +97,7 @@ export function BoardFilter(props: BoardFilterProps) {
       filters={filterQuery.data.content}
       statuses={statuses.allStatuses}
       users={users}
+      onClear={clearFilters}
     />
   );
 }

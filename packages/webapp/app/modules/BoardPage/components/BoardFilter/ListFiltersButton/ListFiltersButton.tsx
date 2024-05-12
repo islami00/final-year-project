@@ -5,7 +5,10 @@ import { useDisclosure } from '@mantine/hooks';
 import { ListFilters, type ListFiltersProps } from '../ListFilters/ListFilters';
 
 export interface ListFiltersButtonProps
-  extends Pick<ListFiltersProps, 'statuses' | 'users' | 'onChange'> {
+  extends Pick<
+    ListFiltersProps,
+    'statuses' | 'users' | 'onChange' | 'onClear'
+  > {
   filters: Filter[];
 }
 
