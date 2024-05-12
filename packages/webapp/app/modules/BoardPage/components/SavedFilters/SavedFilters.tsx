@@ -1,31 +1,28 @@
-import { useLoaderData, useSearchParams } from '@remix-run/react';
+import { useSearchParams } from '@remix-run/react';
 import { useQueryClient, useSuspenseQueries } from '@tanstack/react-query';
-import { BoardIdLoader } from '../../../../routes/app.$orgId.boards.$boardId/types';
+import { useRouteLoaderDataOrThrow } from '../../../../hooks/useRouteLoaderDataOrThrow';
+import { SavedFilter } from '../../../../models/SavedFilter.model';
+import { AppLoaderData } from '../../../../routes/app.$orgId/types';
 import { savedFilterQueries } from '../../../../services/queries/savedFilters/savedFilterQueries';
 import { specialFields } from '../../../../utils/Form/specialFields';
-import { SavedFiltersButton } from './SavedFiltersButton/SavedFiltersButton';
-import { EmptyFilters } from './EmptyFilters/EmptyFilters';
-import { SavedFilter } from '../../../../models/SavedFilter.model';
+import { modalIds } from '../../../../utils/modalIds';
+import { routeConfig } from '../../../../utils/routeConfig';
+import { GlobalApplySavedFilter } from './ApplySavedFilter/ApplySavedFilter';
+import { SaveNewFilter } from './SaveNewFilter/SaveNewFilter';
+import { SavedFiltersContent } from './SavedFiltersContent';
 
-export interface SavedFiltersProps {
-  organisationId: string;
-}
-
-export function SavedFilters(props: SavedFiltersProps) {
-  const { organisationId } = props;
+export function SavedFilters() {
   const [search, setParams] = useSearchParams();
   const filter = search.get(specialFields.filter);
   const savedFilter = search.get(specialFields.savedFilter);
 
-  const queryClient = useQueryClient();
-  const { users, statuses, user } = useLoaderData<BoardIdLoader>();
   const [filterQuery, savedFilterQuery] = useSuspenseQueries({
     queries: [
       savedFilterQueries.byIdCaughtFilter(filter),
       savedFilterQueries.byIdCaughtFilter(savedFilter),
     ],
   });
-
+  const queryClient = useQueryClient();
   function applySavedFilter(savedFilterArg: SavedFilter) {
     // Set client state
     queryClient.setQueryData(
@@ -39,22 +36,24 @@ export function SavedFilters(props: SavedFiltersProps) {
       return newParams;
     });
   }
+  const { currentOrganisation } = useRouteLoaderDataOrThrow<AppLoaderData>(
+    routeConfig.org.routeId
+  );
 
-  if (savedFilterQuery.data?.id) {
-    return (
-      <SavedFiltersButton
-        activeSavedFilter={savedFilterQuery.data}
-        currentFilter={filterQuery.data}
-      />
-    );
-  }
   return (
-    <EmptyFilters
-      onApply={applySavedFilter}
-      organisationId={organisationId}
-      currentFilter={filterQuery.data}
-    >
-      <SavedFiltersButton />
-    </EmptyFilters>
+    <>
+      {filterQuery.data?.id ? (
+        <SaveNewFilter filter={filterQuery.data} id={modalIds.saveNewFilter} />
+      ) : null}
+      <GlobalApplySavedFilter
+        id={modalIds.applySavedFilter}
+        onApply={applySavedFilter}
+        organisationId={currentOrganisation.id}
+      />
+      <SavedFiltersContent
+        filterData={filterQuery.data}
+        savedFilterData={savedFilterQuery.data}
+      />
+    </>
   );
 }

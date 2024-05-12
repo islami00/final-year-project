@@ -1,5 +1,3 @@
-import { SavedFilter } from '../../../../../models/SavedFilter.model';
-
 /** Modal opened */
 export type EmptyFiltersAction =
   | {
@@ -7,6 +5,4 @@ export type EmptyFiltersAction =
     }
   | {
       type: 'save-new';
-      /** The current temporary filter. */
-      filter: SavedFilter;
     };

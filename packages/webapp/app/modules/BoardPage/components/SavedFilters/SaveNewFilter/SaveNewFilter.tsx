@@ -7,14 +7,17 @@ import { submitBtn } from '../../../../../styles/utils.styles';
 import * as saveNewFilterForm from '../../../logic/saveNewFilterForm';
 import * as classes from './SaveNewFilter.styles';
 import { useSubmitSaveNewFilter } from '../../../logic/useSubmitSaveNewFilter';
+import NiceModal, { useModal } from '@ebay/nice-modal-react';
 
 export interface SaveNewFilterProps {
-  onClose: VoidFunction;
+  /** Index for NiceModal */
+  [key: string]: unknown;
   filter: SavedFilter;
 }
 
-export function SaveNewFilter(props: SaveNewFilterProps) {
-  const { onClose, filter } = props;
+export const SaveNewFilter = NiceModal.create((props: SaveNewFilterProps) => {
+  const { filter } = props;
+  const modal = useModal();
 
   const form = useForm({
     defaultValues: saveNewFilterForm.defaultData(),
@@ -23,7 +26,7 @@ export function SaveNewFilter(props: SaveNewFilterProps) {
 
   const { handleError, handleSubmit } = useSubmitSaveNewFilter({ filter });
   return (
-    <TMAModal opened onClose={onClose} title="Save Filter" centered>
+    <TMAModal opened onClose={modal.remove} title="Save Filter" centered>
       <Modal.Body className={classes.body} component="form">
         <TextInput placeholder="Filter Name" {...form.register('name')} />
         <Button
@@ -36,4 +39,4 @@ export function SaveNewFilter(props: SaveNewFilterProps) {
       </Modal.Body>
     </TMAModal>
   );
-}
+});
