@@ -17,6 +17,11 @@ export interface ErrorCtx {
   why: string;
   cause: unknown;
 }
+export interface IAppError {
+  message: string;
+  code: number;
+  ctx: ErrorCtx | undefined;
+}
 export class AppError extends Error {
   constructor(
     public readonly code: number = appErrorCodes.UNKNOWN,
@@ -24,5 +29,13 @@ export class AppError extends Error {
     public readonly ctx?: ErrorCtx
   ) {
     super(message);
+  }
+
+  toJSON(): IAppError {
+    return {
+      code: this.code,
+      message: this.message,
+      ctx: this.ctx,
+    };
   }
 }

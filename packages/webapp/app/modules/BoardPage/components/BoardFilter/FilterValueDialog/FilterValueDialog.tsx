@@ -8,14 +8,15 @@ import { TMAModal } from '../../../../../components/TMAModal/TMAModal';
 import { ConfirmButton } from '../../../../../components/modals/ConfirmModal/ConfirmButton';
 import { Status } from '../../../../../models/Status.model';
 import { User } from '../../../../../models/User.model';
+import * as utilClasses from '../../../../../styles/utils.styles';
 import { Filter, FilterMeta } from '../../../../../utils/Filter';
+import { DEFAULT_ERROR_MESSAGE } from '../../../../../utils/Form/reactHookForm';
 import { PB_ID_LENGTH } from '../../../../../utils/constants';
 import * as filterValueForm from '../../../logic/filterValueForm';
 import type { CloseFilterAction } from '../AddFilter/AddFilter.types';
 import { FilterValueInput } from '../FilterValueInput/FilterValueInput';
 import * as classes from './FilterValueDialog.styles';
 import { OperatorList } from './OperatorList';
-import * as utilClasses from '../../../../../styles/utils.styles';
 
 export interface FilterValueDialogProps {
   meta: FilterMeta;
@@ -57,8 +58,7 @@ export function FilterValueDialog(props: FilterValueDialogProps) {
   }
 
   function handleError(err: FieldErrors<filterValueForm.FilterValueForm>) {
-    const errMessage = err.data?.root?.message;
-    toast.error(errMessage || 'Unknown error');
+    toast.error(err.data?.root?.message || DEFAULT_ERROR_MESSAGE);
   }
   return (
     <TMAModal

@@ -1,8 +1,6 @@
-import { parseWithZod } from '@conform-to/zod';
 import { noop } from '@mantine/core';
 import {
   Outlet,
-  redirect,
   useParams,
   type ClientActionFunctionArgs,
   type ClientLoaderFunctionArgs,
@@ -14,14 +12,11 @@ import {
   requireOrganizations,
   requireUser,
 } from '../../services/pocketbase/auth';
-import { deleteBoard } from '../../services/queries/board/deleteBoard';
 import { getBoardById } from '../../services/queries/board/getBoardById';
-import { patchBoardById } from '../../services/queries/board/patchBoardById';
 import { getOrganisationUsers } from '../../services/queries/organization/getOrganizationUsers';
 import { savedFilterQueries } from '../../services/queries/savedFilters/savedFilterQueries';
 import { getStatusByBoardId } from '../../services/queries/status/getStatusByBoardId';
 import { taskQueries } from '../../services/queries/task/taskQueryOptionFactory';
-import { catchPostSubmissionError } from '../../utils/Form/catchPostSubmissionError';
 import { specialFields } from '../../utils/Form/specialFields';
 import {
   isFilterRequest,
@@ -29,35 +24,19 @@ import {
   isSearchRequest,
 } from '../../utils/Routes/isSearchRequest';
 import { queryClient } from '../../utils/queryClient';
-import * as boardIdForm from './form';
 import { type BoardIdFilterData } from './types';
 import { boardIdSchema } from './utils';
+import { formDataHandler } from './formDataHandler';
+import { jsonHandler } from './jsonHandler';
 
 export async function clientAction(args: ClientActionFunctionArgs) {
   const { request } = args;
 
-  const formData = await request.formData();
-  const submission = parseWithZod(formData, {
-    schema: boardIdForm.schema,
-  });
-  if (submission.status !== 'success') {
-    return submission.reply();
-  }
-  const { value } = submission;
-  try {
-    switch (value.intent) {
-      case boardIdForm.BoardIdFormIntent.DELETE_BOARD:
-        await deleteBoard({ boardId: value.boardId });
-        return redirect('../');
-      case boardIdForm.BoardIdFormIntent.NAME:
-        await patchBoardById({ body: { name: value.name }, id: value.id });
-        break;
-      default:
-        break;
-    }
-    return submission.reply({ resetForm: true });
-  } catch (error) {
-    return catchPostSubmissionError(error, submission);
+  switch (request.headers.get('content-type')) {
+    case 'application/json':
+      return jsonHandler(args);
+    default:
+      return formDataHandler(args);
   }
 }
 

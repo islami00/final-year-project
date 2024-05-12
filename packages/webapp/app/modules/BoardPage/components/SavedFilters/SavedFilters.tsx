@@ -32,7 +32,6 @@ export function SavedFilters(props: SavedFiltersProps) {
       savedFilterQueries.byIdCaughtFilter(savedFilterArg.slug).queryKey,
       savedFilterArg
     );
-    // At the same time, save and try to do a bookmark
     setParams((prev) => {
       const newParams = new URLSearchParams(prev);
       newParams.set(specialFields.filter, savedFilterArg.slug);

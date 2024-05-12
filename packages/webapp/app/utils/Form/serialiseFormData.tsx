@@ -30,7 +30,7 @@ function serialisePrimitives(value: SupportedPrimitives): string | null {
   if (!isNonNullable(value)) return null;
 
   // Stringify anything else
-  return String(value);
+  return JSON.stringify(value);
 }
 function setFormData(
   key: string,
