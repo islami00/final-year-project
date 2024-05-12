@@ -3,6 +3,7 @@ import { BoardIdLoader } from '../../../../routes/app.$orgId.boards.$boardId/typ
 import { type SavedFilterQueryData } from '../../../../services/queries/savedFilters/savedFilterQueries';
 import { EmptyFilters } from './EmptyFilters/EmptyFilters';
 import { SavedFiltersButton } from './SavedFiltersButton/SavedFiltersButton';
+import { FilledFilters } from './FilledFilters/FilledFilters';
 
 interface SavedFiltersContentProps {
   filterData: SavedFilterQueryData;
@@ -15,10 +16,12 @@ export function SavedFiltersContent(props: SavedFiltersContentProps) {
 
   if (savedFilterData?.id) {
     return (
-      <SavedFiltersButton
-        activeSavedFilter={savedFilterData}
-        currentFilter={filterData}
-      />
+      <FilledFilters currentFilter={filterData}>
+        <SavedFiltersButton
+          activeSavedFilter={savedFilterData}
+          currentFilter={filterData}
+        />
+      </FilledFilters>
     );
   }
   return (
