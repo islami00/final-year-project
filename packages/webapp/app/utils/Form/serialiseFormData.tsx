@@ -28,9 +28,11 @@ function serialisePrimitives(value: SupportedPrimitives): string | null {
   }
 
   if (!isNonNullable(value)) return null;
-
+  if (typeof value === 'object') {
+    return JSON.stringify(value);
+  }
   // Stringify anything else
-  return JSON.stringify(value);
+  return String(value);
 }
 function setFormData(
   key: string,
