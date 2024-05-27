@@ -57,6 +57,7 @@ export async function getTasksByStatus(
       filter: pb.filter(filters.template, filters.params),
       expand: `${collections.task_assignee}_via_taskId.assigneeId`,
       signal,
+      sort: "columnOrder"
     })
     .catch(forwardError(parseClientResponseError));
 
