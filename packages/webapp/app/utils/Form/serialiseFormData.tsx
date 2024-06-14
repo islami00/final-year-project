@@ -28,7 +28,9 @@ function serialisePrimitives(value: SupportedPrimitives): string | null {
   }
 
   if (!isNonNullable(value)) return null;
-
+  if (typeof value === 'object') {
+    return JSON.stringify(value);
+  }
   // Stringify anything else
   return String(value);
 }

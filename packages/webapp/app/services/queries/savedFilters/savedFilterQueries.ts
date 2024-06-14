@@ -1,6 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
 import { getSavedFilterById } from './getSavedFilterById';
 import { SavedFilter } from '../../../models/SavedFilter.model';
+import { getSavedFilters } from './getSavedFilters';
 
 export interface EmptyFilterQuery {
   content: null;
@@ -14,6 +15,13 @@ export const savedFilterQueries = {
   all: ['savedFilters'] as const,
   byId: () => [...savedFilterQueries.all, 'by-id'] as const,
   byIdCaught: () => [...savedFilterQueries.byId(), 'caught'] as const,
+  list: () => [...savedFilterQueries.all, 'list'] as const,
+
+  listFilter: (orgId: string) =>
+    queryOptions({
+      queryKey: [...savedFilterQueries.list(), orgId] as const,
+      queryFn: async () => getSavedFilters({ organisationId: orgId }),
+    }),
 
   byIdCaughtFilter: (idOrSlug: string | null | undefined) =>
     queryOptions({

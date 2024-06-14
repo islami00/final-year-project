@@ -7,6 +7,11 @@ interface TaskFilterOptions {
   urgency: FilterMetaBase;
   sprintPoints: FilterMetaBase;
   assignee: FilterMetaBase;
+  /**
+   * For now, we limit statuses to be the same name across board so we can filter by them.
+   *  - In the future, we'll filter by statusId and use some level of inheritance
+   *  - When inherited, statuses can be aliased based on their location as well.
+   */
   status: FilterMetaBase;
   created: FilterMetaBase;
 }
@@ -30,7 +35,6 @@ export const TaskFilterFields: TaskFilterOptions = {
     isListType: true,
   },
   status: {
-    // Eventually support more complex status filters
     field: 'statusId.name',
     label: 'Status',
     dataType: FilterDataType.SELECT,

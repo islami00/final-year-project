@@ -16,7 +16,7 @@ import {
   StatusItemData,
   toFilterStatusData,
 } from '../../../../../components/StatusSelect/StatusSelect.utils';
-import { AppInternalError } from '../../../../../utils/AppInternalError';
+import { AppInternalError } from '../../../../../utils/ErrorHandling/AppInternalError';
 
 export interface FilterSelectTypeProps {
   meta: FilterMeta;

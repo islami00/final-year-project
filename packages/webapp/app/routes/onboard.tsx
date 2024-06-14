@@ -11,7 +11,7 @@ import { Onboard } from '../modules/Onboard/Onboard';
 import * as onboardForm from '../modules/Onboard/logic/onboardForm';
 import { requireNewbie, requireUser } from '../services/pocketbase/auth';
 import { postCreateOrganisationForUser } from '../services/queries/organization/postCreateOrganisationForUser';
-import { castError } from '../utils/parseClientResponseError';
+import { castError } from '../utils/ErrorHandling/parseClientResponseError';
 
 // loaders can only be called in routes.
 export async function clientLoader() {

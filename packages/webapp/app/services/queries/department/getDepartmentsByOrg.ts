@@ -2,8 +2,8 @@ import DepartmentWithBoardsModel, {
   DepartmentWithBoard,
   type DepartmentWithBoardApi,
 } from '../../../models/DepartmentWithBoards.model';
-import { forwardError } from '../../../utils/forwardError';
-import { parseClientResponseError } from '../../../utils/parseClientResponseError';
+import { forwardError } from '../../../utils/ErrorHandling/forwardError';
+import { parseClientResponseError } from '../../../utils/ErrorHandling/parseClientResponseError';
 import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
 

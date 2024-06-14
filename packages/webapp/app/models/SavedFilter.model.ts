@@ -11,12 +11,16 @@ export enum SavedFilterKind {
   NORMAL = 'normal',
 }
 export interface CreateSavedFilter {
+  /**
+   * This should be the same as the slug, only used to create.
+   * */
   id: string;
   name: string;
   kind: SavedFilterKind;
   content: SavedFilter['content'];
   createdBy: string;
   slug: string;
+  organisationId: string;
 }
 export interface SavedFilterApi {
   id: string;
@@ -29,9 +33,6 @@ export interface SavedFilterApi {
 
 /**
  * SavedFilters. Follows same concept of being globally available like clickup
- * For now, we limit statuses to be the same name across board so we can filter by them.
- *  - In the future, we'll filter by statusId and use some level of inheritance
- *  - When inherited, statuses can be aliased based on their location as well.
  * */
 export interface SavedFilter {
   id: SavedFilterApi['id'];
@@ -40,6 +41,7 @@ export interface SavedFilter {
   content: Filter[];
   createdBy: string | null;
   slug: string;
+  organisationId: string;
 }
 
 const savedFilterSchema = z.object({
@@ -57,6 +59,7 @@ const savedFilterSchema = z.object({
       .transform((v) => v || null)
   ),
   slug: z.string().min(1),
+  organisationId: z.string().min(1),
 }) satisfies ZodOf<SavedFilter, SavedFilterApi>;
 
 class SaveFilterConverter extends Converter<SavedFilterApi, SavedFilter> {

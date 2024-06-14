@@ -1,5 +1,5 @@
 import { Button, Combobox, useCombobox } from '@mantine/core';
-import { AppError, appErrorCodes } from '../../utils/AppError';
+import { AppError, appErrorCodes } from '../../utils/ErrorHandling/AppError';
 import { getTargetCtx, type TargetCtx } from '../Combobox/Combobox.utils';
 import { AssigneeDropdown } from './AssigneeDropdown';
 import * as classes from './AssigneeSelect.styles';

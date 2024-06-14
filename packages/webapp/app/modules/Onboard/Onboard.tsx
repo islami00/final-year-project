@@ -7,6 +7,7 @@ import { parseWithYup } from '@conform-to/yup';
 import { AppShell, Button, Paper, Text, TextInput } from '@mantine/core';
 import { Form, useActionData, useLoaderData } from '@remix-run/react';
 import * as styles from './Onboard.styles';
+import * as utilStyles from '../../styles/utils.styles';
 import * as onboardForm from './logic/onboardForm';
 import type { OnboardLoaderData } from './Onboard.types';
 
@@ -54,7 +55,7 @@ export function Onboard() {
             key={fields.userId.key}
           />
 
-          <Button type="submit" className={styles.submitBtn}>
+          <Button type="submit" className={utilStyles.submitBtn}>
             Submit
           </Button>
         </Form>

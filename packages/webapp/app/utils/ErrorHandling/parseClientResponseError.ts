@@ -2,6 +2,7 @@ import * as yup from 'yup';
 import { ClientResponseError } from 'pocketbase';
 import { AppError } from './AppError';
 import { AppValidationError } from './AppValidationError';
+import { ZodError } from 'zod';
 
 interface ValidationErrorObject {
   code: string;
@@ -38,6 +39,10 @@ export function parseClientResponseError(error: unknown): null {
 
 export function castError(error: unknown): AppError {
   if (error instanceof AppError) return error;
+  if (error instanceof ZodError) {
+    const firstIssue = error.issues.at(0);
+    return new AppValidationError(`Validation Error: ${firstIssue?.code}`);
+  }
 
   return new AppError();
 }

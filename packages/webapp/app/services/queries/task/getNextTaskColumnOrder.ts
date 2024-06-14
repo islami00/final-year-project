@@ -1,12 +1,12 @@
 import { ClientResponseError } from 'pocketbase';
 import { TaskApi } from '../../../models/Task.model';
-import { asyncCatch } from '../../../utils/asyncCatch';
-import { parseClientResponseError } from '../../../utils/parseClientResponseError';
+import { asyncCatch } from '../../../utils/ErrorHandling/asyncCatch';
+import { parseClientResponseError } from '../../../utils/ErrorHandling/parseClientResponseError';
 import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
 import { z } from 'zod';
-import { forwardError } from '../../../utils/forwardError';
-import { parseZodError } from '../../../utils/parseZodError';
+import { forwardError } from '../../../utils/ErrorHandling/forwardError';
+import { parseZodError } from '../../../utils/ErrorHandling/parseZodError';
 
 interface GetNextColumnOrderArgs {
   boardId: string;

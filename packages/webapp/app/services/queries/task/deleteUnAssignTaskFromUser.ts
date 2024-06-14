@@ -1,7 +1,7 @@
-import { forwardError } from '../../../utils/forwardError';
+import { forwardError } from '../../../utils/ErrorHandling/forwardError';
 import { collections } from '../../pocketbase/collections';
 import { pb } from '../../pocketbase/setup';
-import { parseClientResponseError } from '../../../utils/parseClientResponseError';
+import { parseClientResponseError } from '../../../utils/ErrorHandling/parseClientResponseError';
 
 interface DeleteUnAssignTaskFromUserArgs {
   /** This is from the result of getTaskAssignee, not userId */

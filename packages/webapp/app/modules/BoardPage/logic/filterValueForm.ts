@@ -126,6 +126,7 @@ export const filterBaseSchema = z
   .union([
     z.object({
       operatorChip,
+      // FIXME: Capture conditional logic for allowing some fields.
       value: z.null(),
       values: z
         .array(z.string(), {
@@ -162,7 +163,7 @@ export function fmtFilter(filter: Filter) {
   return {
     label: filter.meta.label,
     operator: filter.operatorChip.label,
-    // Todo: Format by dataType and field
+    // FIXME: Format by dataType and field
     value: filter.value || filter.values?.join() || 'unset',
   };
 }

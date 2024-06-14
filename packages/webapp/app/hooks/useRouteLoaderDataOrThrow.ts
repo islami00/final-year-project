@@ -1,5 +1,5 @@
 import { useRouteLoaderData } from '@remix-run/react';
-import { AppInternalError } from '../utils/AppInternalError';
+import { AppInternalError } from '../utils/ErrorHandling/AppInternalError';
 import type { SerializeFrom } from '@remix-run/node';
 
 export function useRouteLoaderDataOrThrow<T>(

@@ -13,3 +13,4 @@ export { IconSettings } from '@tabler/icons-react';
 export { IconChevronDown } from '@tabler/icons-react';
 export { IconSearch } from '@tabler/icons-react';
 export { IconAdjustments } from '@tabler/icons-react';
+export { IconDeviceFloppy } from '@tabler/icons-react';

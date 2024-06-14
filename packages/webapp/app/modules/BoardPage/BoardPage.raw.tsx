@@ -2,16 +2,19 @@ import NiceModal from '@ebay/nice-modal-react';
 import { generatePath, useLoaderData, useNavigate } from '@remix-run/react';
 import { Search } from '../../components/Search/Search';
 import * as ModuleLayout from '../../layouts/ModuleLayout';
-import { BoardIdLoader } from '../../routes/app.$orgId.boards.$boardId/types';
-import { type BoardIdParams } from '../../routes/app.$orgId.boards.$boardId/utils';
+import {
+  BoardIdLoader,
+  type BoardIdParams,
+} from '../../routes/app.$orgId.boards.$boardId/types';
+import { taskQueries } from '../../services/queries/task/taskQueryOptionFactory';
 import { modalIds } from '../../utils/modalIds';
 import { routeConfig } from '../../utils/routeConfig';
 import { ModuleAddButton } from '../DepartmentPage/components/buttons/ModuleAddButton';
 import { RemoveButton } from '../DepartmentPage/components/buttons/RemoveButton';
-import { BoardTitleInput } from './components/inputs/BoardTitleInput';
 import { BoardColumns } from './components/BoardColumns/BoardColumns';
 import { BoardFilter } from './components/BoardFilter/BoardFilter';
-import { taskQueries } from '../../services/queries/task/taskQueryOptionFactory';
+import { SavedFilters } from './components/SavedFilters/SavedFilters';
+import { BoardTitleInput } from './components/inputs/BoardTitleInput';
 
 interface BoardPageRawProps {
   params: BoardIdParams;
@@ -30,7 +33,11 @@ export function BoardPageRaw(props: BoardPageRawProps) {
         title={<BoardTitleInput defaultValue={board.name} id={board.id} />}
         actions={
           <>
-            <BoardFilter />
+            <BoardFilter
+              organisationId={params.orgId}
+              queryKeys={searchQueryKeys}
+            />
+            <SavedFilters queryKeys={searchQueryKeys} />
             <ModuleAddButton
               onClick={() =>
                 navigate(

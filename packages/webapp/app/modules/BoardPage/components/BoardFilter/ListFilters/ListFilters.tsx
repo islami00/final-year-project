@@ -13,12 +13,13 @@ export interface ListFiltersProps {
   filters: Filter[];
   onClose: VoidFunction;
   onChange: (values: Filter[] | Filter) => void;
+  onClear: VoidFunction;
   statuses: Status[];
   users: User[];
 }
 
 export function ListFilters(props: ListFiltersProps) {
-  const { onClose, filters, onChange, statuses, users } = props;
+  const { onClose, filters, onChange, statuses, users, onClear } = props;
 
   function onEdit(filter: Filter) {
     const final = filters.map((each) => {
@@ -29,9 +30,6 @@ export function ListFilters(props: ListFiltersProps) {
   }
   function onAdd(filter: Filter) {
     onChange(filters.concat(filter));
-  }
-  function onClear() {
-    onChange([]);
   }
 
   function onRemove(id: string) {

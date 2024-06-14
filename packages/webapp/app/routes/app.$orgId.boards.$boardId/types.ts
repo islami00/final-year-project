@@ -24,3 +24,7 @@ export interface BoardIdLoaderData extends Record<string, unknown> {
 export type BoardIdLoader = (
   args: ClientLoaderFunctionArgs
 ) => BoardIdLoaderData;
+export interface BoardIdParams {
+  boardId: string;
+  orgId: string;
+}
