@@ -79,7 +79,7 @@
     "dayjs": "^1.11.11",
     "isbot": "^4",
     "lodash": "^4.17.21",
-    "nanoid": "^5.0.7",
+    "nanoid": "^5.0.9",
     "pocketbase": "^0.21.1",
     "promise-passthrough": "^1.0.5",
     "react": "18.3.1",
